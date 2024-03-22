@@ -1,9 +1,14 @@
 \documentclass{article}
 
-\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage[margin=25mm]{geometry}
+\usepackage{siunitx}  % use for all units
+\usepackage{todonotes}
 
-\title{Robotic Bicycle Balance Assist Reduces Probability of Falling When
+\title{Robotic Bicycle Balance Assistance Reduces Probability of Falling When
 Subjected to Mechanical Perturbations}
+
+\author{Marten T. Haitjema \and Leila Alizadehsaravi \and Jason K. Moore}
 
 \begin{document}
 
@@ -43,12 +48,22 @@ rate of the bicycle with a MEMs rate gyroscope. The balance assist control
 algorithm is implemented on microprocessor (Teensy).
 
 \subsection{Balance Assist Control}
-We use a forward speed gain scheduled proportional roll rate positive feedback
-controller to stabilize the bicycle. Scaling the proprtional feedback gain
+We use a forward speed \(v\) gain scheduled proportional roll rate positive
+feedback controller to stabilize the bicycle. The commanded steer torque
+\(T_\delta\) from the steer motor follows
+\begin{align}
+  T_\delta = -k(4.7\si{\meter\per\second} - v)\dot{\phi}
+\end{align}
+where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
+open loop bicycle rigid rider dynamics. We use \(k=8\) as the low gain value
+and \(k=10\) as a high gain value. Scaling the proprtional feedback gain
 linearly with respect to speed stabilizes the normally unstable weave mode of
 the bicycle from speeds of X~\si{\kilo\meter\per\hour} to
 X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
-%
+
+\todo[inline]{Show open loop bicycle rigid rider eigenvalue vs speed and then
+the closed loop versions with the 8 and 10 gain settings. Three plots.}
+
 \begin{figure}
   \label{fig:eigenvalues}
 \end{figure}
@@ -56,7 +71,7 @@ X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
 \subsection{Perturbations}
 %
 We apply longitudinal forces to the ends of each handlebar using an adapted
-Bump'Em system~\cite{todo} making use of four motors working in tandem. The
+Bump'Em system~\cite{Tan2020} making use of four motors working in tandem. The
 four motors are programmed to apply a light force at all times to keep the
 ropes taught and to track a commanded force profile using a PID controller
 running on a microprocessor (Arduino XXX, Italy). We measure the force applied
@@ -66,8 +81,8 @@ pulsive torque to the front assembly (handlebars, forks, wheel) at magnitudes
 varying from X to X. The four motors are arranged at the four corners of a 1
 meter wide treadmill (make, Company, City) that can reach speeds of
 18~\si{\kilo\meter\per\hour}. The general design is described in detail in the
-Van Velde's MSc thesis~\cite{vanvelde2022}. Our modifications to that described
-in the thesis include simplifying the controller with a inexpensive
+Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our modifications to that
+described in the thesis include simplifying the controller with a inexpensive
 microcontoller and the use of a simple safety harness.
 
 \subsection{Protocol}
@@ -91,18 +106,85 @@ perturbations.
 
 \subsection{Subjects}
 %
-We recruited X healthy young adults to participate in the experiments. X
-subjects performed the experiments at 6~\si{\kilo\meter\per\hour} and X
-subjects performed the experiments at 10~\si{\kilo\meter\per\hour}. The
-10~\si{\kilo\meter\per\hour} experiments occured X weeks before the
+We recruited 26 able-bodied young adults (20-36 years old) to participate in
+the experiments. The subjects all were confident in their cycling skills and
+had cycled at least once in the last month. Eleven subjects performed the
+experiments at 6~\si{\kilo\meter\per\hour} and fifteen subjects performed the
+experiments at 10~\si{\kilo\meter\per\hour}. All subjects consented to the
+experiment and could decline to continue at any time.  The study was approved
+by Delft University of Technology's Human Research Ethics Council (#XXX).
+
+\subsection{Two Experiments}
+%
+The 10~\si{\kilo\meter\per\hour} experiments occured X weeks before the
 6~\si{\kilo\meter\per\hour}.
 
 \subsection{Measurements}
+%
+We measure the time histories of the Bump'Em delivered perturbation forces and
+the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
+%
+\begin{table}
+  \caption{Raw measurements}
+  \begin{tabular}{llll}
+    Measure & Variable & Units & Sensor \\
+    Perturbation Order Number & \(j\) & integer & NA\\
+    Perturbation Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear & \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & Load cell\\
+    Steer Angle & \(\delta\) & \si{\degree} & encoder \\
+    Roll Angle & \(\phi\) &  \si{\degree} & Kalman estimate \\
+    Roll Angular Rate & \(\dot{\phi}\) &  \si{\degree\per\second} & rate gyroscope \\
+    Balance Assist Gain & \(k\) & TODO & NA \\
+    Bicycle Speed & \(v\) & Meters per second & wheel encoder \\
+  \end{tabular}
+\end{table}
+
+Based on the findings in \cite{Haitjema2023}, we calculate several variables.
+We use the angular impulse \(L\) due to the perturbation forces over a
+0.3~\si{\second} duration to characterize the magnitude of delivered
+pertrubation. The duration is selected based on the duration of the commanded
+force.
+
+\begin{align}
+  F_r = & F_{rf} - F_{rr} \\
+  F_l = & F_{lf} - F_{lr} \\
+  L = & \int_{0\si{\second}}^{0.3\si{\second}} l/2(F_r + F_l) dt
+\end{align}
+
+We characterize the skill of the rider by calculating the standard deviation of
+the steer angle \(\sigma_\delta\) over the 90~\si{\second} period they were
+asked to maintain their position at the center of the treadmill. At the
+intiation of each perturbation we log the steer and roll angles to characterize
+the configuration of the bicycle when perturbed. The gain setting on the
+balance assist controller indicates if the assistance is off \(k=0\) or on at
+two different levels: low \(k=8\) or high \(k\=10\). A recovery from the
+perturbation is successful if the person neither put their foot down onto the
+treadmill surface or either wheel of the bicycle exits the width of the
+treadmill belt. We record this as a binary variable \(f\).
+
+\begin{table}
+  \begin{tabular}{lll}
+    \(L\) & \si{\newton\meter\second} & angular impulse of the applied
+    perturbation torque \\
+    \(j\) & integer & order number of perturbation \\
+    \(\sigma_\delta\) & standard deviation of steer angle during Phase X \\
+    \(k\) & TODO & gain of balance assist control \\
+    \(\delta_0\) & \si{\degree} & steer angle at start of perturbation \\
+    \(\phi_0\) & \si{\degree} & roll angle at start of perturbation \\
+    \(v\) & \si{\meter\per\second} & forward speed (6 or 10) \\
+    \(f\) & boolean & outcome of perturbation: did not fall, did fall \\
+  \end{tabular}
+\end{table}
+
+\subsection{Statistics}
+
 
 \section{Results}
 
 \section{Discussion}
 
 \section{Conclusion}
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
