@@ -16,7 +16,7 @@ Subjected to Mechanical Perturbations}
 
 \abstract{
   Bicycles are unstable at low speeds. We add a controlled steering motor to a
-  consumer bicycle that stablizes the bicycle at low speeds and apply varying
+  consumer bicycle that stabilizes the bicycle at low speeds and apply varying
   magnitude external handlebar perturbations to the bicycle while ridden on a
   treadmill. The probability of not recovering from a handlebar perturbation
   decreases when the balance assist is activated.
@@ -30,10 +30,10 @@ km/h or so) bicycles are no longer self stable and become more difficult to
 control for the rider. Low speed crashes may be reduced if the bicycle was self
 stable. Since at least the 1980s it known that applying a steering torque
 proportional to the roll rate can stabilize a single track vehicle at very low
-speeds. If the robotic control of steering can stablize a bicycle, it may
+speeds. If the robotic control of steering can stabilize a bicycle, it may
 reduce the control required by the rider to successfully manage balancing
 tasks. We have developed such a balance assisting bicycle and desire to
-evaluate whether it helps the rider in situations they are likley to fall.
+evaluate whether it helps the rider in situations they are likely to fall.
 
 \section{Methods}
 %
@@ -52,11 +52,11 @@ We use a forward speed \(v\) gain scheduled proportional roll rate positive
 feedback controller to stabilize the bicycle. The commanded steer torque
 \(T_\delta\) from the steer motor follows
 \begin{align}
-  T_\delta = -k(4.7\si{\meter\per\second} - v)\dot{\phi}
+  T_\delta = k(4.7\si{\meter\per\second} - v)\dot{\phi}
 \end{align}
 where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
 open loop bicycle rigid rider dynamics. We use \(k=8\) as the low gain value
-and \(k=10\) as a high gain value. Scaling the proprtional feedback gain
+and \(k=10\) as a high gain value. Scaling the proportional feedback gain
 linearly with respect to speed stabilizes the normally unstable weave mode of
 the bicycle from speeds of X~\si{\kilo\meter\per\hour} to
 X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
@@ -83,12 +83,28 @@ meter wide treadmill (make, Company, City) that can reach speeds of
 18~\si{\kilo\meter\per\hour}. The general design is described in detail in the
 Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our modifications to that
 described in the thesis include simplifying the controller with a inexpensive
-microcontoller and the use of a simple safety harness.
+microcontroller and the use of a simple safety harness.
+
+\subsection{Subjects}
+%
+We recruited 26 able-bodied young adults (20-36 years old) to participate in
+the experiments. The subjects all were confident in their cycling skills and
+had cycled at least once in the last month. Eleven subjects performed the
+experiments at 1.7~\si{\meter\per\second} (6~\si{\kilo\meter\per\hour}) and
+fifteen subjects performed the experiments at 2.8~\si{\meter\per\second}
+(10~\si{\kilo\meter\per\hour}). All subjects consented to the experiment and
+could decline to continue at any time.  The study was approved by Delft
+University of Technology's Human Research Ethics Council (\#XXX).
+
+\subsection{Two Experiments}
+%
+The 10~\si{\kilo\meter\per\hour} experiments occurred X weeks before the
+6~\si{\kilo\meter\per\hour}.
 
 \subsection{Protocol}
 %
 Subjects wore a helmet and fall safety harness attached to the ceiling. We
-allowed them practive riding on the treadmill until they said they were
+allowed them practice riding on the treadmill until they indicated they were
 comfortable enough to apply perturbations. For most this was less than a
 10~\si{\minute} warm up. We then ask the rider to ride for 90~\si{\second}
 attempting to maintain the location of their front wheel on the center line of
@@ -104,20 +120,28 @@ rest and then perform another 20 perturbations. We randomize whether the
 balance assist system is on or off during the first or second set of
 perturbations.
 
-\subsection{Subjects}
-%
-We recruited 26 able-bodied young adults (20-36 years old) to participate in
-the experiments. The subjects all were confident in their cycling skills and
-had cycled at least once in the last month. Eleven subjects performed the
-experiments at 6~\si{\kilo\meter\per\hour} and fifteen subjects performed the
-experiments at 10~\si{\kilo\meter\per\hour}. All subjects consented to the
-experiment and could decline to continue at any time.  The study was approved
-by Delft University of Technology's Human Research Ethics Council (#XXX).
+Following the initial threshold determination, we choose perturbation forces
+according to a random and adaptive staircase procedure applying
+perturbations above and below the initial perturbation threshold, while
+allowing small progression of the perturbation threshold to accommodate
+learning effects. The goal of this adaptive staircase procedure is to have
+participants fall for approximately 50\% of the time. The procedure
+consists of twenty perturbations per condition. Participants undergo two
+conditions: twenty perturbations with the balance-assist turned on and twenty
+perturbations with the balance-assist turned off (in randomized order).
 
-\subsection{Two Experiments}
-%
-The 10~\si{\kilo\meter\per\hour} experiments occured X weeks before the
-6~\si{\kilo\meter\per\hour}.
+Five possible perturbation forces are determined based on the initial
+perturbation threshold estimate: the initial estimate itself, two perturbations
+lower than the initial estimate and two perturbations higher than the initial
+estimate.  The five possible perturbations are separated by 10 N steps. For
+example, if the initial estimate of the perturbation threshold of a participant
+is 80 N, the five possible perturbations are 60, 70, 80, 90 and 100 N. Which
+one of these five perturbations is chosen is determined at random. If the
+perturbation results in a fall, the estimate of the perturbation threshold is
+decreased with 10 N, and vice versa if the perturbation did not result in a
+fall. Five new possible perturbation forces are determined around the updated
+perturbation threshold, and a new perturbation is selected at random. This
+process iterates until twenty perturbations are applied.
 
 \subsection{Measurements}
 %
@@ -141,7 +165,7 @@ the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
 Based on the findings in \cite{Haitjema2023}, we calculate several variables.
 We use the angular impulse \(L\) due to the perturbation forces over a
 0.3~\si{\second} duration to characterize the magnitude of delivered
-pertrubation. The duration is selected based on the duration of the commanded
+perturbation. The duration is selected based on the duration of the commanded
 force.
 
 \begin{align}
@@ -153,19 +177,27 @@ force.
 We characterize the skill of the rider by calculating the standard deviation of
 the steer angle \(\sigma_\delta\) over the 90~\si{\second} period they were
 asked to maintain their position at the center of the treadmill. At the
-intiation of each perturbation we log the steer and roll angles to characterize
+initiation of each perturbation we log the steer and roll angles to characterize
 the configuration of the bicycle when perturbed. The gain setting on the
 balance assist controller indicates if the assistance is off \(k=0\) or on at
-two different levels: low \(k=8\) or high \(k\=10\). A recovery from the
+two different levels: low \(k=8\) or high \(k=10\). A recovery from the
 perturbation is successful if the person neither put their foot down onto the
 treadmill surface or either wheel of the bicycle exits the width of the
 treadmill belt. We record this as a binary variable \(f\).
+
+\subsection{Statistics}
+%
+Our primary hypothesis is that the balance assistance controller will reduce
+the probability of falling when perturbed externally at the handlebar. We have
+a single binary outcome variable \(f\) that is dependent on several possible
+explanatory independent variables including the binary balance assistance on or
+off.
 
 \begin{table}
   \begin{tabular}{lll}
     \(L\) & \si{\newton\meter\second} & angular impulse of the applied
     perturbation torque \\
-    \(j\) & integer & order number of perturbation \\
+    \(c\) & integer & order number of perturbation \\
     \(\sigma_\delta\) & standard deviation of steer angle during Phase X \\
     \(k\) & TODO & gain of balance assist control \\
     \(\delta_0\) & \si{\degree} & steer angle at start of perturbation \\
@@ -175,8 +207,34 @@ treadmill belt. We record this as a binary variable \(f\).
   \end{tabular}
 \end{table}
 
-\subsection{Statistics}
+We evaluate this hypothesis using a multivariate logistic regression model.
 
+\begin{align}
+  f_{ij} | p_{ij} \sim \textrm{Bern}(p_{ij})
+\end{align}
+
+\(f_{ij}\) is the binary outcome of perturbation \(j\) of participant \(i\)
+which follows a Bernoulli distriction given the probability \(p_{ij}\) that a
+fall occurs. The log-odds of the probabiliy is then a linear function of our
+independent variables.
+
+\begin{align}
+  \log\left(\frac{p_{ij}}{1 - p_{ij}}\right) = \Beta + \sum^K_{k=0} \alpha_k x^k_{ij}
+\end{align}
+
+\todo[inline]{we already use k for gain}
+
+All of variables are scaled such they they have a mean of zero and a standard
+deviation of one. We use cluster-mean centering with the clusters being an
+individual subject.
+
+We divide the analysis into two separate model evalautions, one for the
+6~\si{\kilo\meter\per\hour} \(k=10\) trials and one for the
+10~\si{\kilo\meter\per\hour} \(k=8\) trials and we evaluate our hypothesis for
+each set of data.
+
+\todo[inline]{Marten writes "The skill variable is not included, because it was
+not collected correctly for all participants." This needs to be addressed.}
 
 \section{Results}
 
@@ -185,6 +243,8 @@ treadmill belt. We record this as a binary variable \(f\).
 \section{Conclusion}
 
 \bibliographystyle{plain}
+% NOTE : this file is automatically generated from Zotero, do not edit
+% manually!
 \bibliography{references}
 
 \end{document}
