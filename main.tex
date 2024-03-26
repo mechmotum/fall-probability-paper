@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage[margin=25mm]{geometry}
 \usepackage{siunitx}  % use for all units
+\usepackage{subcaption}
 \usepackage{todonotes}
 
 \title{Robotic Bicycle Balance Assistance Reduces Probability of Falling When
@@ -15,11 +16,11 @@ Subjected to Mechanical Perturbations}
 \maketitle
 
 \abstract{
-  Bicycles are unstable at low speeds. We add a controlled steering motor to a
-  consumer bicycle that stabilizes the bicycle at low speeds and apply varying
-  magnitude external handlebar perturbations to the bicycle while ridden on a
-  treadmill. The probability of not recovering from a handlebar perturbation
-  decreases when the balance assist is activated.
+  Uncontrolled bicycles are unstable at low speeds. We add a controlled
+  steering motor to a consumer bicycle that stabilizes the bicycle at low
+  speeds and apply varying magnitude external handlebar perturbations to the
+  bicycle while ridden on a treadmill. The probability of not recovering from a
+  handlebar perturbation decreases when the balance assist is activated.
 }
 
 \section{Introduction}
@@ -40,17 +41,18 @@ evaluate whether it helps the rider in situations they are likely to fall.
 \subsection{Bicycle}
 %
 We modified a standard electric bicycle (Gazelle XXX, Dieren, The Netherlands)
-with a custom motor in the head tube cable of applying up to
+with a custom motor in the head tube capable of applying up to
 7~\si{\newton\meter} of torque between the head tube and steer tube. A custom
-motor controller converts the commanded amperage to applied torque. We measure
-the speed of the rear wheel with an encoder (Magura XXX) and measure the roll
-rate of the bicycle with a MEMs rate gyroscope. The balance assist control
-algorithm is implemented on microprocessor (Teensy).
+motor controller converts the commanded torque to applied torque. We measure
+the speed of the rear wheel with an encoder (Magura XXX) and measure the body
+fixed roll rate of the bicycle with a MEMs rate gyroscope. The balance assist
+control algorithm is implemented on microprocessor (Teensy) and data from all
+sensors is logged with a CAN bus.
 
 \subsection{Balance Assist Control}
 We use a forward speed \(v\) gain scheduled proportional roll rate positive
 feedback controller to stabilize the bicycle. The commanded steer torque
-\(T_\delta\) from the steer motor follows
+\(T_\delta\) from the steer motor follows the control law
 \begin{align}
   T_\delta = k(4.7\si{\meter\per\second} - v)\dot{\phi}
 \end{align}
@@ -65,25 +67,41 @@ X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
 the closed loop versions with the 8 and 10 gain settings. Three plots.}
 
 \begin{figure}
+  \centering
+  \subcaptionbox{Uncontrolled root locus of eigenvalue components plotted versus speed.}{
+    \includegraphics[width=70mm]{example-image-a}
+  }
+  \subcaptionbox{Controlled root locus of eigenvalue components plotted versus speed.}{
+    \includegraphics[width=70mm]{example-image-b}
+  }
   \label{fig:eigenvalues}
 \end{figure}
 
 \subsection{Perturbations}
 %
-We apply longitudinal forces to the ends of each handlebar using an adapted
-Bump'Em system~\cite{Tan2020} making use of four motors working in tandem. The
-four motors are programmed to apply a light force at all times to keep the
-ropes taught and to track a commanded force profile using a PID controller
-running on a microprocessor (Arduino XXX, Italy). We measure the force applied
-by each motor at the handlebar via four inline load cells with a max load of
-XX~\si{\newton}. The commanded force profiles are designed to apply an external
-pulsive torque to the front assembly (handlebars, forks, wheel) at magnitudes
-varying from X to X. The four motors are arranged at the four corners of a 1
-meter wide treadmill (make, Company, City) that can reach speeds of
-18~\si{\kilo\meter\per\hour}. The general design is described in detail in the
-Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our modifications to that
-described in the thesis include simplifying the controller with a inexpensive
-microcontroller and the use of a simple safety harness.
+We apply external longitudinal forces to the ends of each handlebar using an
+adapted Bump'Em system~\cite{Tan2020} which is designed with four motors
+working in tandem. The four motors are programmed to apply a light force at all
+times to keep the ropes taught and to track a commanded force profile using a
+PID controller running on a microprocessor (Arduino XXX, Italy). We measure the
+force applied by each motor at the handlebar via four inline load cells with a
+max load of XX~\si{\newton}. The commanded force profiles are designed to apply
+an external pulsive torque to the front assembly (handlebars, forks, wheel) at
+magnitudes varying from X to X. The four motors are arranged at the four
+corners of a 1~\si{\meter} wide treadmill (make, Company, City) that can reach
+speeds of 18~\si{\kilo\meter\per\hour}. The general design is described in
+detail in the Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our
+modifications to that described in the thesis include simplifying the
+controller with a inexpensive microcontroller and the use of a simpler safety
+harness.
+
+\begin{figure}
+  \centering
+  % TODO : scale these pngs to a reasonable size for an A4 sheet
+  \subcaptionbox{}{\includegraphics[width=70mm]{figures/participant-in-set-up.png}}
+  \subcaptionbox{Diagram of perturbation system.}{\includegraphics[width=70mm]{figures/setup-diagram.png}
+}
+\end{figure}
 
 \subsection{Subjects}
 %
@@ -219,7 +237,7 @@ fall occurs. The log-odds of the probabiliy is then a linear function of our
 independent variables.
 
 \begin{align}
-  \log\left(\frac{p_{ij}}{1 - p_{ij}}\right) = \Beta + \sum^K_{k=0} \alpha_k x^k_{ij}
+  \log \left(\frac{p_{ij}}{1-p_{ij}} \right) = \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
 \end{align}
 
 \todo[inline]{we already use k for gain}
@@ -237,6 +255,93 @@ each set of data.
 not collected correctly for all participants." This needs to be addressed.}
 
 \section{Results}
+
+The coefficient estimates for a single-level logistic regression at a speed of 6
+\unit{\kilo\meter\per\hour} and gain $k=-10$ are shown in table \ref{table:freq-coefs-6}. The
+associated multiplicative change in odds are shown in table \ref{table:freq-change-in-odds-6}.
+
+\begin{table}
+  \centering
+  \caption{Coefficient estimates at 6 \unit{\kilo\meter\per\hour} and gain
+  $k=-10$ based on frequentist single-level logistic regression.}
+  \label{table:freq-coefs-6}
+  \begin{tabular}{lllll}
+    \textbf{Variable}                             & \textbf{Estimate} & \textbf{Standard error} & \textbf{p-value} & \\ \cline{1-4}
+    Intercept                                     & -0.29             & 0.17                    & 0.09             & \\
+    Angular impulse                               & 1.69              & 0.27                    & 0.00             & \\
+    Perturbation order                            & -0.77             & 0.22                    & 0.00             & \\
+    Balance-assist on                             & -0.64             & 0.27                    & 0.02             & \\
+    Roll angle                                    & -0.25             & 0.21                    & 0.24             & \\
+    Steer angle                                   & -0.14             & 0.21                    & 0.51             & \\
+    Balance-assist on $\times$ roll angle         & 0.52              & 0.34                    & 0.12             & \\
+    Balance-assist on $\times$ steer angle        & -0.41             & 0.34                    & 0.22             & \\
+    Balance-assist on $\times$ angular impulse    & 0.41              & 0.41                    & 0.32             & \\
+    Balance-assist on $\times$ perturbation order & -0.53             & 0.34                    & 0.12             & \\
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \centering
+  \caption{Multiplicative change in odds of predictor variables at 6
+  \unit{\kilo\meter\per\hour} and gain $k=-10$ based on frequentist
+         single-level logistic regression.}
+  \label{table:freq-change-in-odds-6}
+  \begin{tabular}{lllll}
+      \textbf{Variable}                             & \textbf{Multiplicative change in odds} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{p-value} \\ \hline
+      Intercept                                     & 0.75                                   & 0.53           & 1.05            & 0.09             \\
+      Angular impulse                               & 5.40                                   & 3.18           & 9.16            & 0.00             \\
+      Perturbation order                            & 0.46                                   & 0.30           & 0.72            & 0.00             \\
+      Balance-assist on                             & 0.53                                   & 0.31           & 0.89            & 0.02             \\
+      Roll angle                                    & 0.78                                   & 0.51           & 1.18            & 0.24             \\
+      Steer angle                                   & 0.87                                   & 0.58           & 1.32            & 0.51             \\
+      Balance-assist on $\times$ roll angle         & 1.68                                   & 0.86           & 3.29            & 0.12             \\
+      Balance-assist on $\times$ steer angle        & 0.66                                   & 0.34           & 1.28            & 0.22             \\
+      Balance-assist on $\times$ angular impulse    & 1.51                                   & 0.67           & 3.38            & 0.32             \\
+      Balance-assist on $\times$ perturbation order & 0.59                                   & 0.30           & 1.15            & 0.12             \\
+  \end{tabular}
+\end{table}
+
+The coefficients estimates of a single-level logistic regression are shown in table
+\ref{table:freq-coefs}. The associated multiplicative changes in odds are shown in table
+\ref{table:freq-change-in-odds}.
+
+\begin{table}
+  \centering
+  \caption{Coefficient estimates at 10 \unit{\kilo\meter\per\hour} based on frequentist single-level logistic
+      regression.} \label{table:freq-coefs}
+  \begin{tabular}{lllll}
+      \textbf{Variable}                             & \textbf{Estimate} & \textbf{Standard error} & \textbf{p-value} & \\ \cline{1-4}
+      Intercept                                     & -0.24             & 0.16                    & 0.13             & \\
+      Angular impulse                               & 2.39              & 0.29                    & 0.00             & \\
+      Perturbation order                            & -1.16             & 0.21                    & 0.00             & \\
+      Balance-assist on                             & -0.44             & 0.24                    & 0.07             & \\
+      Roll angle                                    & 0.27              & 0.22                    & 0.22             & \\
+      Steer angle                                   & -0.37             & 0.24                    & 0.12             & \\
+      Balance-assist on $\times$ roll angle         & -0.61             & 0.34                    & 0.08             & \\
+      Balance-assist on $\times$ steer angle        & 0.56              & 0.35                    & 0.11             & \\
+      Balance-assist on $\times$ angular impulse    & 0.46              & 0.44                    & 0.29             & \\
+      Balance-assist on $\times$ perturbation order & -0.37             & 0.32                    & 0.25             & \\
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \centering
+  \caption{Multiplicative change in odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
+      frequentist single-level logistic regression.} \label{table:freq-change-in-odds}
+  \begin{tabular}{lllll}
+    \textbf{Variable}                             & \textbf{Multiplicative change in odds} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{p-value} \\ \hline
+    Intercept                                     & 0.78                                   & 0.57           & 1.07            & 0.12             \\
+    Angular impulse                               & 10.92                                  & 6.23           & 19.13           & 0.00             \\
+    Perturbation order                            & 0.31                                   & 0.21           & 0.48            & 0.00             \\
+    Balance-assist on                             & 0.64                                   & 0.40           & 1.03            & 0.07             \\
+    Roll angle                                    & 1.31                                   & 0.85           & 2.04            & 0.22             \\
+    Steer angle                                   & 0.69                                   & 0.43           & 1.10            & 0.12             \\
+    Balance-assist on $\times$ roll angle         & 0.54                                   & 0.28           & 1.07            & 0.08             \\
+    Balance-assist on $\times$ steer angle        & 1.76                                   & 0.88           & 3.50            & 0.11             \\
+    Balance-assist on $\times$ angular impulse    & 1.59                                   & 0.68           & 3.74            & 0.29             \\
+    Balance-assist on $\times$ perturbation order & 0.69                                   & 0.37           & 1.30            & 0.25             \\
+  \end{tabular}
+\end{table}
 
 \section{Discussion}
 
