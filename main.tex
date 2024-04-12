@@ -29,49 +29,55 @@ When Subjected to Mechanical Perturbations}
 
 \section{Introduction}
 %
-Single actor bicycle crashes are associated with a large number of unreported
-and reported injuries. At low speeds (less than 15 km/h or so) bicycles
-themselves are not self-stable and become more difficult to control for the
-rider. Low speed crashes may be reduced if the bicycle was self stable at these
-speeds. Since at least the 1980s it known that applying a steering torque
-proportional to the roll rate can stabilize a single track vehicle at very low
-speeds. If the robotic control of steering can stabilize a bicycle, it may
-reduce the control required by the rider to successfully manage balancing
-tasks. We have developed such a balance assisting bicycle and desire to
-evaluate whether it helps the rider in situations they are likely to fall.
+Single actor bicycle crashes are associated with a suprisingly large number of
+reported injuries~\citep{Wegman2024}. At low speeds, from start up to typical
+cruising speeds, bicycles themselves are not self-stable and are challenging to
+control for the rider. Low speed crashes may be reduced if the bicycle was
+self-stable at these speeds. Bicycles can be mechanically modified to lower the
+speeds at which it is self-stable~\citep{Astrom2005} but since at least the
+1980s it is known that applying a steering torque proportional to the roll rate
+can stabilize a single track vehicle at very low speeds. If the robotic control
+of steering can stabilize a bicycle, it may reduce the control required by the
+rider to successfully manage balancing tasks. We have developed such a balance
+assisting bicycle and hypothesize that it helps the rider in situations they
+are likely to fall.
 
 Automatic roll stabilization of single track vehicles began in earnest after
 predictive motorcycle models were developed and refined throughout the 1970s.
-\Citet{vanZytveld1975} seems to be the first to attempt to robotically
-stabilize a small motorbike with a controlled inverted pendulum that mimicked
-rider lean, but was not successful in demonstrating what his control model
-predicted. In his control model, he recognized that feedback of the vehicle
-roll angle and angular rate was essential to stabilize the vehicle. It was not
-until the mid 1980s that someone successfully demonstrated an automatically
-balanced motorcycle~\cite{Ruijs1986a} and they did so with a steer motor. Ruijs
-and Pacejka clearly showed that steer torque driven by roll angle feedback
-stabilizes the capsize mode, roll angular rate feedback stabilizes the weave
-mode, and steer angular rate feedback stabilizes the wobble mode. They also
-show how the gains need to change with respect to vehicle speed. Roll motion
+\Citet{vanZytveld1975} seems to be the first
+\todo{Check if a Japanese researcher was first}
+to attempt to robotically stabilize a small motorbike with a controlled
+inverted pendulum that mimicked rider lean, but he was not successful in
+demonstrating what his control model predicted. In his model, he recognized
+that feedback of the vehicle roll angle and angular rate was essential to
+stabilize the vehicle. It was not until the mid 1980s that someone successfully
+demonstrated an automatically balanced motorcycle~\citep{Ruijs1986a} and they
+did so with a steering motor. Ruijs and Pacejka clearly showed that steer
+torque driven by roll angle feedback stabilizes the capsize mode, roll angular
+rate feedback stabilizes the weave mode, and steer angular rate feedback
+stabilizes the wobble mode. They also show how the gains need to change with
+respect to vehicle speed for favorable control at all speeds. This roll motion
 feedback is the simplest controller that can stabilize a single track vehicle
-above a minimum speed when you are not concerned with wobble destablization.
-But Ruijs and Pacejka's work was not particularly concerned with low speed
-stability and their vehicle was fully automatic, no human rider was involved.
-Many more automatically balanced single track vehicles have been demonstrated
-over the last 40 years, but none have demonstrated that increasing low speed
-stability reduces falling when ridden.  Most of these robotic bicycles and
+above a minimum speed when not concerned with wobble instabilities,
+which are not prominent in bicycles. Ruijs and Pacejka's work was not
+particularly concerned with low speed stability and their vehicle was fully
+automatic, no human rider was involved.  Many more automatically balanced
+single track vehicles have been demonstrated over the last 40 years, but none
+have demonstrated that increasing low speed stability can assist in balancing
+and possibly reduce single actor falls. Most of these robotic bicycles and
 motorcycles designers did not intend for a human rider to also control the
 stabilized vehicle. Nevertheless an automatically stabilized bicycle can be
 controlled by a human rider if the motor controlled steer torque and the rider
 applied steer torque act on the steer in parallel. The effect of this automatic
-control gives the ability to change the dynamics, to a degree, of the human
-controlled plant.
+control gives the ability to change the dynamics, up to some limits, of the
+human controlled plant.
 
 The linear Carvallo-Whipple bicycle model~\cite{Carvallo1899,Whipple1899} is
 the simplest bicycle model that exhibits non-minimum phase behavior and
-self-stablity. It is ideal for showing the effects of a roll motion feedback
-driven steer motor on the dynamics. The linear model can be described by the
-fourth order state space equations:
+self-stablity. Interestingly, Whipple showed that roll motion feedback
+stabilizes the system back in 1899 and the model is ideal for showing the
+effect of a roll motion feedback driven steer motor on the dynamics. The linear
+model can be described by the fourth order state space equations:
 
 \begin{align}
   \dot{\vec{x}} = \mathbf{A} \vec{x} +
@@ -86,9 +92,10 @@ fourth order state space equations:
 The states are the roll angle \(\phi\) and steer angle \(\delta\) along with
 their derivatives and the inputs are roll torque \(T_\phi\) and steer torque
 \(T_\delta\). The state \(\mathbf{A}\) and input \(\mathbf{B}\) matrices are
-populated with expressions that are functions of 27 geometric and inertial
-parameters of the nonholonomic mulitbody system made up of four rigid bodies:
-two wheels, front frame, and rear frame.
+functions of the equilbirum forward speed \(v\) and  are otherwise populated
+with expressions that are functions of the geometric and inertial parameters of
+the nonholonomic mulitbody system made up of four rigid bodies: two wheels,
+front frame, and rear frame.
 
 If the steer torque is the sum of the (h)uman applied torque and the (m)otor
 applied torque \(T_\delta = T_\delta^\textrm{h} + T_\delta^\textrm{m}\),
@@ -97,51 +104,59 @@ applied torque \(T_\delta = T_\delta^\textrm{h} + T_\delta^\textrm{m}\),
 the human controlled plant takes the form:
 
 \begin{align}
-  \dot{\vec{x}} = \left(\mathbf{A} - \left[0 \quad k_{\dot{\phi}} \quad 0 \quad 0\right] \mathbf{B}_\delta\right) \vec{x} + \mathbf{B} \begin{bmatrix} T_{\phi} \\ T_\delta^\textrm{h} \end{bmatrix}
+  \dot{\vec{x}} = \left(\mathbf{A} -
+  \mathbf{B}_\delta
+  \left[0 \quad k_{\dot{\phi}} \quad 0 \quad 0\right]
+\right)
+  \vec{x} + \mathbf{B} \begin{bmatrix} T_{\phi} \\ T_\delta^\textrm{h} \end{bmatrix}
 \end{align}
 
 The state matrix \(\mathbf{A}\) and input matrix \(\mathbf{B}\) are both
 functions of the equilibrium speed \(v\) and \(k_{\dot{\phi}}\) can be selected
-such that the eigenvalues of \(\left[\mathbf{A} - \left[0 \quad k_{\dot{\phi}}
-\quad 0 \quad 0\right] \mathbf{B}_\delta\right]\) have negative real parts for
+such that the eigenvalues of \(\left(\mathbf{A} - \mathbf{B}_\delta\left[0 \quad k_{\dot{\phi}}
+\quad 0 \quad 0\right] \right)\) have negative real parts for
 \(v_{weave} < v < v_{capsize}\). With gain scheduling with respect to \(v\),
-the speed range where the bicycle is stable can be maximized within the limits
-of any physical acutator magnitude and bandwidth limits. \citet{Schwab2008}
+the speed range where the bicycle is stable can be maximized within
+any physical acutator magnitude and bandwidth limits. \citet{Schwab2008}
 elaborates on some of the possibilities in scheduling the gains for such a
 controller.
 
+\todo[inline]{I'm not consistent with the arrow being a vector for $B_\delta$}
+
 In this paper, we test whether a gain scheduled steer motor controlled bicycle
-that is riderless stable at a low speed range is beneficial in preventing
-whether the rider will fall. To do this, we apply varying magintidue mechanical
-perturbations to the handlebars while the rider is balancing the bicycle on a
-treadmill and then assess the riders' probability of falling with the balance
-assist system on versus off.
+that is stable at a low speed range when riderless assists in balancing by
+investigating whether it is beneficial in preventing the rider from falling.
+To do this, we apply varying magnitude mechanical perturbations to the
+handlebars while the rider is balancing the bicycle on a treadmill and then
+assess the rider's probability of falling with the balance assist steer motor
+system on and off.
 
 \section{Methods}
 %
 \subsection{Bicycle}
 %
 We modified a standard electric bicycle (Gazelle XXX, Dieren, The Netherlands)
-with a custom motor in the head tube capable of applying up to
+with a custom motor in the steering assembly capable of applying up to
 7~\si{\newton\meter} of torque between the head tube and steer tube. A custom
 motor controller converts the commanded torque to applied torque. We measure
 the speed of the rear wheel with an encoder (Magura XXX) and measure the body
-fixed roll rate of the bicycle with a MEMs rate gyroscope. The balance assist
-control algorithm is implemented on microprocessor (Teensy) and data from all
-sensors is logged with a CAN bus.
+fixed roll rate of the bicycle with a MEMs rate gyroscope (Company, Location).
+The balance assist control algorithm is implemented on a microprocessor
+(Teensy, Company, Location) and data from all sensors is logged with a CAN bus
+(Company, Location) at approximately X Hz.
 
 \subsection{Balance Assist Control}
-We use a forward speed \(v\) gain scheduled proportional roll rate positive
-feedback controller to stabilize the bicycle. The commanded steer torque
-\(T_\delta\) from the steer motor follows the control law
+We use a forward speed \(v\) gain scheduled proportional roll rate feedback
+controller to stabilize the bicycle. The commanded steer torque
+\(T^\textrm{m}_\delta\) from the steer motor follows the control law
 \begin{align}
-  T_\delta = k(4.7\si{\meter\per\second} - v)\dot{\phi}
+  T^\textrm{m}_\delta = k(v_{weave} - v)\dot{\phi}
 \end{align}
 where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
-open loop bicycle rigid rider dynamics. We use \(k=8\) as the low gain value
-and \(k=10\) as a high gain value. Scaling the proportional feedback gain
-linearly with respect to speed stabilizes the normally unstable weave mode of
-the bicycle from speeds of X~\si{\kilo\meter\per\hour} to
+open loop bicycle rigid-rider dynamics. We use \(k=8\) and \(k=10\) as gain
+values during the experiments. Scaling the proportional feedback gain linearly
+with respect to speed stabilizes the normally unstable weave mode of the
+bicycle from speeds of X~\si{\kilo\meter\per\hour} to
 X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
 
 \todo[inline]{Show open loop bicycle rigid rider eigenvalue vs speed and then
@@ -165,14 +180,14 @@ adapted Bump'Em system~\cite{Tan2020} which is designed with four motors
 working in tandem. The four motors are programmed to apply a light force at all
 times to keep the ropes taught and to track a commanded force profile using a
 PID controller running on a microprocessor (Arduino XXX, Italy). We measure the
-force applied by each motor at the handlebar via four inline load cells with a
-max load of XX~\si{\newton}. The commanded force profiles are designed to apply
-an external pulsive torque to the front assembly (handlebars, forks, wheel) at
-magnitudes varying from X to X. The four motors are arranged at the four
-corners of a 1~\si{\meter} wide treadmill (make, Company, City) that can reach
-speeds of 18~\si{\kilo\meter\per\hour}. The general design is described in
-detail in the Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our
-modifications to that described in the thesis include simplifying the
+force applied by each motor at the handlebar via four inline load cells, each
+with a max load of XX~\si{\newton}. The commanded force profiles are designed
+to apply an external pulsive torque to the front assembly (handlebars, forks,
+wheel) at magnitudes varying from X to X. The four motors are arranged at the
+four corners of a 1~\si{\meter} wide treadmill (make, Company, City) that can
+reach speeds of 18~\si{\kilo\meter\per\hour}. The general design is described
+in detail in the Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our
+modifications relative to that described in the thesis include simplifying the
 controller with a inexpensive microcontroller and the use of a simpler safety
 harness.
 
@@ -192,23 +207,24 @@ had cycled at least once in the last month. Eleven subjects performed the
 experiments at 1.7~\si{\meter\per\second} (6~\si{\kilo\meter\per\hour}) and
 fifteen subjects performed the experiments at 2.8~\si{\meter\per\second}
 (10~\si{\kilo\meter\per\hour}). All subjects consented to the experiment and
-could decline to continue at any time.  The study was approved by Delft
+could decline to continue at any time. The study was approved by Delft
 University of Technology's Human Research Ethics Council (\#XXX).
-
-\subsection{Two Experiments}
-%
-The 10~\si{\kilo\meter\per\hour} experiments occurred X weeks before the
-6~\si{\kilo\meter\per\hour}.
 
 \subsection{Protocol}
 %
+The subjects were divided into two groups, where the first group performed the
+protocol at a belt speed of 10~\si{\kph} with the controller gain as $k=8$ and
+the second group performed the protocol at a belt speed of 6~\si{\kph}. The
+10~\si{\kph} group's experiments occured X weeks before the
+6~\si{\kilo\meter\per\hour} group.
+
 Subjects wore a helmet and fall safety harness attached to the ceiling. We
 allowed them practice riding on the treadmill until they indicated they were
-comfortable enough to apply perturbations. For most this was less than a
-10~\si{\minute} warm up. We then ask the rider to ride for 90~\si{\second}
+comfortable enough to have perturbations applied. For most, this was less than a
+10~\si{\minute} warm up. We then asked the rider to ride for 90~\si{\second},
 attempting to maintain the location of their front wheel on the center line of
 the treadmill. We define a "fall" on the treadmill by two criteria: the rider
-removes their foot from the pedal and places it on the ground and the bicycle
+removes their foot from the pedal and places it on the ground or the bicycle
 wheel exceeds the width of the treadmill. We then applied perturbations in
 random directions (clockwise or counter clockwise) increasing the magnitude by
 X~\si{\newton\meter} each time. We log the magnitude that causes the first fall
