@@ -20,64 +20,66 @@ When Subjected to Mechanical Perturbations}
 \maketitle
 
 \abstract{
-  Uncontrolled bicycles are unstable at low speeds. We add a controlled
-  steering motor to a consumer bicycle that stabilizes the bicycle at low
-  speeds and apply varying magnitude external handlebar perturbations to the
-  bicycle while ridden on a treadmill. The probability of not recovering from a
-  handlebar perturbation decreases when the balance assist is activated.
+  Uncontrolled bicycles are generally unstable at low speeds. We add a
+  controlled steering motor to a consumer bicycle that stabilizes the bicycle
+  at low speeds. To test the motor's assistance during falls, we apply varying
+  magnitude external handlebar perturbations to the bicycle while ridden on a
+  treadmill with the balance assist system activated and deactivated.  The
+  probability of not recovering from a handlebar perturbation decreases when
+  the balance assist is activated at a speed of 6~\si{\kph}.
 }
 
 \section{Introduction}
 %
-Single actor bicycle crashes are associated with a suprisingly large number of
+Single-actor bicycle crashes are associated with a suprisingly large number of
 reported injuries~\citep{Wegman2024}. At low speeds, from start up to typical
-cruising speeds, bicycles themselves are not self-stable and are challenging to
-control for the rider. Low speed crashes may be reduced if the bicycle was
-self-stable at these speeds. Bicycles can be mechanically modified to lower the
-speeds at which it is self-stable~\citep{Astrom2005} but since at least the
-1980s it is known that applying a steering torque proportional to the roll rate
-can stabilize a single track vehicle at very low speeds. If the robotic control
-of steering can stabilize a bicycle, it may reduce the control required by the
-rider to successfully manage balancing tasks. We have developed such a balance
-assisting bicycle and hypothesize that it helps the rider in situations they
-are likely to fall.
+cruising speeds, bicycles themselves are not self-stable and can be challenging
+for the rider to balance. Low speed crashes may be reduced if the bicycle was
+self-stable at these speeds, possibly relieving the rider of a necessary
+control activity. Bicycles can be mechanically modified to lower the speeds at
+which they are self-stable~\citep{Astrom2005} but since at least the 1980s it
+is known that applying a steering torque proportional to the roll rate can
+stabilize a single track vehicle at very low speeds. If the robotic control of
+steering that implements this can stabilize a bicycle, it may reduce the
+control required by the rider to successfully manage balancing tasks. We have
+developed such a balance assisting bicycle and hypothesize that it helps the
+rider in situations they are likely to fall.
 
 Automatic roll stabilization of single track vehicles began in earnest after
-predictive motorcycle models were developed and refined throughout the 1970s.
-\Citet{vanZytveld1975} seems to be the first
-\todo{Check if a Japanese researcher was first}
-to attempt to robotically stabilize a small motorbike with a controlled
-inverted pendulum that mimicked rider lean, but he was not successful in
-demonstrating what his control model predicted. In his model, he recognized
-that feedback of the vehicle roll angle and angular rate was essential to
-stabilize the vehicle. It was not until the mid 1980s that someone successfully
-demonstrated an automatically balanced motorcycle~\citep{Ruijs1986a} and they
-did so with a steering motor. Ruijs and Pacejka clearly showed that steer
-torque driven by roll angle feedback stabilizes the capsize mode, roll angular
-rate feedback stabilizes the weave mode, and steer angular rate feedback
-stabilizes the wobble mode. They also show how the gains need to change with
-respect to vehicle speed for favorable control at all speeds. This roll motion
-feedback is the simplest controller that can stabilize a single track vehicle
-above a minimum speed when not concerned with wobble instabilities,
-which are not prominent in bicycles. Ruijs and Pacejka's work was not
-particularly concerned with low speed stability and their vehicle was fully
-automatic, no human rider was involved.  Many more automatically balanced
-single track vehicles have been demonstrated over the last 40 years, but none
-have demonstrated that increasing low speed stability can assist in balancing
-and possibly reduce single actor falls. Most of these robotic bicycles and
-motorcycles designers did not intend for a human rider to also control the
-stabilized vehicle. Nevertheless an automatically stabilized bicycle can be
-controlled by a human rider if the motor controlled steer torque and the rider
-applied steer torque act on the steer in parallel. The effect of this automatic
-control gives the ability to change the dynamics, up to some limits, of the
-human controlled plant.
+predictive motorcycle models were developed and refined in throughout the
+1970s. \Citet{vanZytveld1975} seems to be the first \todo{Check if a Japanese
+researcher was first} to attempt to robotically stabilize a small motorbike
+with a controlled inverted pendulum that mimicked rider lean, but he was not
+successful in demonstrating what his theoretic control model predicted. In his
+model, he recognized that feedback of the vehicle roll angle and angular rate
+was essential to stabilize the vehicle. It was not until the mid 1980s that
+someone successfully demonstrated an automatically balanced
+motorcycle~\citep{Ruijs1986a} and they did so with a steering motor. Ruijs and
+Pacejka clearly showed that steer torque driven by roll angle feedback
+stabilizes the capsize mode, roll angular rate feedback stabilizes the weave
+mode, and steer angular rate feedback stabilizes the wobble mode. They also
+propose how the gains need to change with respect to vehicle speed for
+favorable control at all speeds. This roll motion feedback is the simplest
+controller that can stabilize a single track vehicle above a minimum speed when
+not concerned with wobble instabilities, which are not prominent in bicycles at
+low speeds. Ruijs and Pacejka's work was not particularly concerned with low
+speed stability and their vehicle was fully automatic, no human rider was
+involved.  Many more automatically balanced single track vehicles have been
+demonstrated over the last 40 years, but none have demonstrated that increasing
+low speed stability can assist in balancing and possibly reduce single actor
+falls. Most of these robotic bicycles and motorcycles designers did not intend
+for a human rider to also control the stabilized vehicle. Nevertheless, an
+automatically stabilized bicycle can be controlled by a human rider if the
+motor controlled steer torque and the rider applied steer torque act on the
+steer in parallel. The effect of this automatic control gives the ability to
+change the dynamics, up to some limits, of the human controlled plant.
 
 The linear Carvallo-Whipple bicycle model~\cite{Carvallo1899,Whipple1899} is
 the simplest bicycle model that exhibits non-minimum phase behavior and
-self-stablity. Interestingly, Whipple showed that roll motion feedback
-stabilizes the system back in 1899 and the model is ideal for showing the
-effect of a roll motion feedback driven steer motor on the dynamics. The linear
-model can be described by the fourth order state space equations:
+self-stablity. Whipple showed that roll motion feedback can stabilize the
+system. The model is ideal for showing the effect of a roll motion feedback
+driven steer motor on the dynamics. The linear model can be described by the
+fourth order state space equations:
 
 \begin{align}
   \dot{\vec{x}} = \mathbf{A} \vec{x} +
