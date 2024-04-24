@@ -4,6 +4,9 @@
 - Use natbib for variations on citations
 - subcaption is available for subfigures
 - Use siunitx for units (note the kph custom definition)
+- Jason has a zotero folder with the references and auto generates the bib
+  file from it. TOOD: Make a shared zotero folder so anyone can generate it.
+  Don't edit the bib file manually (until possibly the very end of writing).
 
 Uses this action to build the PDF: https://github.com/marketplace/actions/github-action-for-latex
 
