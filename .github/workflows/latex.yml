@@ -2,6 +2,7 @@ name: Build LaTeX document
 on: [push]
 jobs:
   build_latex:
+    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
@@ -15,3 +16,11 @@ jobs:
         with:
           name: PDF
           path: main.pdf
+      - name: Setup deploy folder
+        run: |
+          mkdir ghpages
+          mv main.pdf ghpages/main.pdf
+      - name: Push PDF to ghpages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ghpages
