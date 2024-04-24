@@ -6,3 +6,7 @@
 - Use siunitx for units (note the kph custom definition)
 
 Uses this action to build the PDF: https://github.com/marketplace/actions/github-action-for-latex
+
+View the latest PDF:
+
+https://github.com/mechmotum/fall-probability-paper/blob/gh-pages/main.pdf
