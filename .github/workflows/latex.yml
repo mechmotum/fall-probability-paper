@@ -1,5 +1,10 @@
 name: Build LaTeX document
-on: [push]
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
 jobs:
   build_latex:
     concurrency: ci-${{ github.ref }}
