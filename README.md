@@ -4,3 +4,5 @@
 - Use natbib for variations on citations
 - subcaption is available for subfigures
 - Use siunitx for units (note the kph custom definition)
+
+Uses this action to build the PDF: https://github.com/marketplace/actions/github-action-for-latex
