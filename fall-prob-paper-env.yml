@@ -1,0 +1,5 @@
+name: fall-prob-paper
+channels:
+  - conda-forge
+dependencies:
+  - bicycleparameters ==1.1.1
