@@ -16,6 +16,7 @@ SCRIPT_PATH = os.path.realpath(__file__)
 SRC_DIR = os.path.dirname(SCRIPT_PATH)
 ROOT_DIR = os.path.realpath(os.path.join(SRC_DIR, '..'))
 FIG_DIR = os.path.join(ROOT_DIR, 'figures')
+KPH2MPS = 1000.0/3600.0
 
 if not os.path.exists(FIG_DIR):
     os.mkdir(FIG_DIR)
@@ -49,15 +50,11 @@ fig.set_size_inches((3.0, 3.0/golden_ratio))
 speeds = np.linspace(0.0, 10.0, num=1001)
 evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds))
 weave_idx = np.argmin(np.abs(evals_[:, -1].real))
-#weave_speed = speeds[weave_idx]
-#capsize_idx = np.argmin(np.abs(evals_[:, 0].real))
-#capsize_speed = speeds[capsize_idx]
 weave_speed, capsize_speed = stable_ranges(speeds, evals_)[0]
 print('Uncontrolled weave speed: {:1.2f} [m/s]'.format(weave_speed))
 print('Uncontrolled capsize speed: {:1.2f} [m/s]'.format(capsize_speed))
-kph2mps = 1000.0/3600.0
-ax.axvline(6.0*kph2mps, ymin=-10.0, ymax=10.0)
-ax.axvline(10.0*kph2mps, ymin=-10.0, ymax=10.0)
+ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
+ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0)
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, colors=['k']*4)
 ax.fill_between(speeds, -10, 10,
                 where=(speeds > weave_speed) & (speeds < capsize_speed),
@@ -74,7 +71,7 @@ fig.set_size_inches((3.0, 3.0/golden_ratio))
 # TODO : This finds the uncontrolled weave speed for the controller design, but
 # the actual bike uses a specific value based on the benchmark bike values
 # (probably).
-kphidots = -8.0*(weave_speed - speeds)
+kphidots = -10.0*(weave_speed - speeds)
 kphidots[weave_idx:] = 0.0
 evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds, kphidot=kphidots))
 weave_speed, capsize_speed = stable_ranges(speeds, evals_)[0]
@@ -82,12 +79,8 @@ print('Controlled (gain=-8.0) weave speed: {:1.2f} [m/s]'.format(weave_speed))
 print('Controlled (gain=-8.0) capsize speed: {:1.2f} [m/s]'.format(capsize_speed))
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                  colors=['k']*4)
-#kphidots = -10.0*(weave_speed - speeds)
-#kphidots[weave_idx:] = 0.0
-#ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
-                                 #colors=['C1']*4)
-ax.axvline(6.0*kph2mps, ymin=-10.0, ymax=10.0)
-ax.axvline(10.0*kph2mps, ymin=-10.0, ymax=10.0)
+ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
+ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0)
 ax.fill_between(speeds, -10, 10,
                 where=(speeds > weave_speed) & (speeds < capsize_speed),
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
@@ -100,9 +93,10 @@ fig.savefig(os.path.join(FIG_DIR,
 
 # FIGURE : Plot the roll rate gains versus speed.
 fig, ax = plt.subplots()
-fig.set_size_inches((5.0, 5.0/golden_ratio))
+fig.set_size_inches((3.0, 3.0/golden_ratio))
 ax.plot(speeds, kphidots)
 ax.set_ylabel(r'$k_\dot{\phi}$')
+fig.tight_layout()
 fig.savefig(os.path.join(FIG_DIR, 'gains-vs-speed.png'), dpi=300)
 
 
@@ -122,7 +116,11 @@ def controller(t, x):
 times = np.linspace(0.0, 10.0, num=1001)
 x0 = np.deg2rad([5.0, -5.0, 0.0, 0.0])
 axes = model.plot_simulation(times, x0, input_func=controller, v=speeds[idx])
-axes[0].set_title('Speed = {:1.2f}'.format(speeds[idx]))
+axes[0].set_title(r'$v$ = {:1.2f} [m/s]'.format(speeds[idx]))
+axes[0].set_ylabel('Torque\n[Nm]')
+axes[1].set_ylabel('Angle\n[deg]')
+axes[2].set_ylabel('Angular Rate\n[deg/s]')
 fig = axes[0].figure
-fig.set_size_inches((5.0, 5.0/golden_ratio))
+fig.set_size_inches((6.0, 6.0/golden_ratio))
+fig.tight_layout()
 fig.savefig(os.path.join(FIG_DIR, 'pd-simulation.png'), dpi=300)

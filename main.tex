@@ -161,9 +161,6 @@ with respect to speed stabilizes the normally unstable weave mode of the
 bicycle from speeds of X~\si{\kilo\meter\per\hour} to
 X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
 
-\todo[inline]{Show open loop bicycle rigid rider eigenvalue vs speed and then
-the closed loop versions with the 8 and 10 gain settings. Three plots.}
-
 \begin{figure}
   \centering
   \subcaptionbox{}{
@@ -172,8 +169,10 @@ the closed loop versions with the 8 and 10 gain settings. Three plots.}
   \subcaptionbox{}{
     \includegraphics[width=3in]{figures/balance-assist-controllers-eig-vs-speeds.png}
   }
-  \caption{Uncontrolled and controlled root locus of eigenvalue components
-    plotted versus speed.}
+  \caption{Uncontrolled (a) and controlled (b) root locus of eigenvalue
+    components (real: solid, imaginary: dashed) plotted versus speed. Vertical
+    blue lines indicate the two speeds we perform experiments at. Green shaded
+    region is the linear stable range.}
   \label{fig:eigenvalues}
 \end{figure}
 
