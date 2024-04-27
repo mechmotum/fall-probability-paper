@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.constants import golden_ratio
 
-from data import bike_with_rider as bike_par
-#from data import bike_without_rider as bike_par
+#from data import bike_with_rider as bike_par
+from data import bike_without_rider as bike_par
 #from data import rigid_bike_without_rider as bike_par
 from model import SteerControlModel
 
@@ -29,26 +29,71 @@ fig.set_size_inches((5.0, 5.0/golden_ratio))
 parameter_set.plot_all(ax=ax)
 fig.savefig(os.path.join(FIG_DIR, 'bicycle-geometry-mass.png'), dpi=300)
 
-# FIGURE : Compare eigenvalues vs speed for uncontrolled and two controllers.
+
+def stable_ranges(speeds, evals):
+    where_stable = np.all(evals.real < 0.0, axis=1)
+    number_ranges = np.count_nonzero(np.diff(where_stable)) - 1
+    stable_speeds = speeds[where_stable]
+    if number_ranges == 1:
+        ranges = ((stable_speeds[0], stable_speeds[-1]),)
+    else:
+        # TODO
+        #idxs = np.argmax(np.abs(np.diff(where_stable)))
+        ranges = ((stable_speeds[0], stable_speeds[-1]),)
+    return ranges
+
+
+# FIGURE : Compare eigenvalues vs speed for uncontrolled.
 fig, ax = plt.subplots()
-fig.set_size_inches((6.0, 6.0/golden_ratio))
+fig.set_size_inches((3.0, 3.0/golden_ratio))
 speeds = np.linspace(0.0, 10.0, num=1001)
+evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds))
+weave_idx = np.argmin(np.abs(evals_[:, -1].real))
+#weave_speed = speeds[weave_idx]
+#capsize_idx = np.argmin(np.abs(evals_[:, 0].real))
+#capsize_speed = speeds[capsize_idx]
+weave_speed, capsize_speed = stable_ranges(speeds, evals_)[0]
+print('Uncontrolled weave speed: {:1.2f} [m/s]'.format(weave_speed))
+print('Uncontrolled capsize speed: {:1.2f} [m/s]'.format(capsize_speed))
+kph2mps = 1000.0/3600.0
+ax.axvline(6.0*kph2mps, ymin=-10.0, ymax=10.0)
+ax.axvline(10.0*kph2mps, ymin=-10.0, ymax=10.0)
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, colors=['k']*4)
+ax.fill_between(speeds, -10, 10,
+                where=(speeds > weave_speed) & (speeds < capsize_speed),
+                color='green', alpha=0.5, transform=ax.get_xaxis_transform())
+ax.set_ylim((-10, 10))
+ax.set_ylabel('')
+fig.tight_layout()
+fig.savefig(os.path.join(FIG_DIR,
+                         'uncontrolled-eig-vs-speeds.png'),
+            dpi=300)
+
+fig, ax = plt.subplots()
+fig.set_size_inches((3.0, 3.0/golden_ratio))
 # TODO : This finds the uncontrolled weave speed for the controller design, but
 # the actual bike uses a specific value based on the benchmark bike values
 # (probably).
-evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds))
-idx = np.argmin(np.abs(evals_[:, -1].real))
-weave_speed = speeds[idx]
-print('Uncontrolled weave speed: {:1.2f} [m/s]'.format(weave_speed))
 kphidots = -8.0*(weave_speed - speeds)
-kphidots[idx:] = 0.0
+kphidots[weave_idx:] = 0.0
+evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds, kphidot=kphidots))
+weave_speed, capsize_speed = stable_ranges(speeds, evals_)[0]
+print('Controlled (gain=-8.0) weave speed: {:1.2f} [m/s]'.format(weave_speed))
+print('Controlled (gain=-8.0) capsize speed: {:1.2f} [m/s]'.format(capsize_speed))
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
-                                 colors=['C0']*4)
-kphidots = -10.0*(weave_speed - speeds)
-kphidots[idx:] = 0.0
-ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
-                                 colors=['C1']*4)
+                                 colors=['k']*4)
+#kphidots = -10.0*(weave_speed - speeds)
+#kphidots[weave_idx:] = 0.0
+#ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
+                                 #colors=['C1']*4)
+ax.axvline(6.0*kph2mps, ymin=-10.0, ymax=10.0)
+ax.axvline(10.0*kph2mps, ymin=-10.0, ymax=10.0)
+ax.fill_between(speeds, -10, 10,
+                where=(speeds > weave_speed) & (speeds < capsize_speed),
+                color='green', alpha=0.5, transform=ax.get_xaxis_transform())
+ax.set_ylim((-10, 10))
+ax.set_ylabel('')
+fig.tight_layout()
 fig.savefig(os.path.join(FIG_DIR,
                          'balance-assist-controllers-eig-vs-speeds.png'),
             dpi=300)
