@@ -10,6 +10,15 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: "3.12"
+          activate-environment: fall-prob-paper
+          environment-file: fall-prob-paper-env.yml
+          miniforge-version: latest
+        shell: bash -el {0}
+        run: python src/control.py
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
