@@ -17,6 +17,7 @@ jobs:
           activate-environment: fall-prob-paper
           environment-file: fall-prob-paper-env.yml
           miniforge-version: latest
+      - name: Create figures
         shell: bash -el {0}
         run: python src/control.py
       - name: Compile LaTeX document
