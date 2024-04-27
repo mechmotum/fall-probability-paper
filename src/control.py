@@ -31,17 +31,13 @@ parameter_set.plot_all(ax=ax)
 fig.savefig(os.path.join(FIG_DIR, 'bicycle-geometry-mass.png'), dpi=300)
 
 
-def stable_ranges(speeds, evals):
+def stable_ranges(evals):
+    # TODO : This should return the indice after a rise and before a fall. It
+    # now always returns the indices after a rise or fall.
     where_stable = np.all(evals.real < 0.0, axis=1)
-    number_ranges = np.count_nonzero(np.diff(where_stable)) - 1
-    stable_speeds = speeds[where_stable]
-    if number_ranges == 1:
-        ranges = ((stable_speeds[0], stable_speeds[-1]),)
-    else:
-        # TODO
-        #idxs = np.argmax(np.abs(np.diff(where_stable)))
-        ranges = ((stable_speeds[0], stable_speeds[-1]),)
-    return ranges
+    padded = np.hstack(([False], where_stable, [False]))
+    start_stop_idxs = np.flatnonzero(np.diff(padded))
+    return start_stop_idxs.reshape(-1, 2)
 
 
 # FIGURE : Compare eigenvalues vs speed for uncontrolled.
@@ -49,15 +45,16 @@ fig, ax = plt.subplots()
 fig.set_size_inches((3.0, 3.0/golden_ratio))
 speeds = np.linspace(0.0, 10.0, num=1001)
 evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds))
-weave_idx = np.argmin(np.abs(evals_[:, -1].real))
-weave_speed, capsize_speed = stable_ranges(speeds, evals_)[0]
+weave_idx, capsize_idx = stable_ranges(evals_)[0]
+weave_speed = speeds[weave_idx]
+capsize_speed = speeds[capsize_idx]
 print('Uncontrolled weave speed: {:1.2f} [m/s]'.format(weave_speed))
 print('Uncontrolled capsize speed: {:1.2f} [m/s]'.format(capsize_speed))
 ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
 ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0)
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, colors=['k']*4)
 ax.fill_between(speeds, -10, 10,
-                where=(speeds > weave_speed) & (speeds < capsize_speed),
+                where=np.all(evals_ < 0.0, axis=1),
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
 ax.set_ylim((-10, 10))
 ax.set_ylabel('')
@@ -74,15 +71,17 @@ fig.set_size_inches((3.0, 3.0/golden_ratio))
 kphidots = -10.0*(weave_speed - speeds)
 kphidots[weave_idx:] = 0.0
 evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds, kphidot=kphidots))
-weave_speed, capsize_speed = stable_ranges(speeds, evals_)[0]
-print('Controlled (gain=-8.0) weave speed: {:1.2f} [m/s]'.format(weave_speed))
-print('Controlled (gain=-8.0) capsize speed: {:1.2f} [m/s]'.format(capsize_speed))
+for ranges in stable_ranges(evals_):
+    weave_speed = speeds[ranges[0]]
+    capsize_speed = speeds[ranges[1]]
+    print('Controlled (gain=-10.0) lower speed: {:1.2f} [m/s]'.format(weave_speed))
+    print('Controlled (gain=-10.0) upped speed: {:1.2f} [m/s]'.format(capsize_speed))
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                  colors=['k']*4)
 ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
 ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0)
 ax.fill_between(speeds, -10, 10,
-                where=(speeds > weave_speed) & (speeds < capsize_speed),
+                where=np.all(evals_ < 0.0, axis=1),
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
 ax.set_ylim((-10, 10))
 ax.set_ylabel('')
