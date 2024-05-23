@@ -37,34 +37,34 @@ cruising speeds, bicycles themselves are not self-stable and can be challenging
 for the rider to balance. Low speed crashes may be reduced if the bicycle was
 self-stable at these speeds, possibly relieving the rider of a necessary
 control activity. Bicycles can be mechanically modified to lower the speeds at
-which they are self-stable~\citep{Astrom2005} but since at least the 1980s it
-is known that applying a steering torque proportional to the roll rate can
-stabilize a single track vehicle at very low speeds. If the robotic control of
-steering that implements this can stabilize a bicycle, it may reduce the
-control required by the rider to successfully manage balancing tasks. We have
-developed such a balance assisting bicycle and hypothesize that it helps the
-rider in situations they are likely to fall.
+which they are self-stable~\citep{Astrom2005} but since the 1980s it has been
+known that applying a motor acutated steering torque proportional to the roll
+rate can stabilize a single track vehicle at very low speeds. If this automatic
+control of steering can stabilize a bicycle, it may reduce the control required
+by the rider to successfully manage balancing tasks. We have developed such a
+balance assisting bicycle and hypothesize that it helps the rider in situations
+they are likely to fall.
 
 Automatic roll stabilization of single track vehicles began in earnest after
 predictive motorcycle models were developed and refined in throughout the
 1970s. \Citet{vanZytveld1975} seems to be the first \todo{Check if a Japanese
 researcher was first} to attempt to robotically stabilize a small motorbike
 with a controlled inverted pendulum that mimicked rider lean, but he was not
-successful in demonstrating what his theoretic control model predicted. In his
+successful in demonstrating what his theoretic control model correctly predicted. In his
 model, he recognized that feedback of the vehicle roll angle and angular rate
 was essential to stabilize the vehicle. It was not until the mid 1980s that
-someone successfully demonstrated an automatically balanced
-motorcycle~\citep{Ruijs1986a} and they did so with a steering motor. Ruijs and
+Ruijs and Pacjecka successfully demonstrated an automatically balanced
+motorcycle~\citep{Ruijs1986} and they did so with a steering motor. Ruijs and
 Pacejka clearly showed that steer torque driven by roll angle feedback
 stabilizes the capsize mode, roll angular rate feedback stabilizes the weave
 mode, and steer angular rate feedback stabilizes the wobble mode. They also
-propose how the gains need to change with respect to vehicle speed for
+propose how the gains must change with respect to vehicle speed for
 favorable control at all speeds. This roll motion feedback is the simplest
 controller that can stabilize a single track vehicle above a minimum speed when
 not concerned with wobble instabilities, which are not prominent in bicycles at
 low speeds. Ruijs and Pacejka's work was not particularly concerned with low
 speed stability and their vehicle was fully automatic, no human rider was
-involved.  Many more automatically balanced single track vehicles have been
+involved. Many more automatically balanced single track vehicles have been
 demonstrated over the last 40 years, but none have demonstrated that increasing
 low speed stability can assist in balancing and possibly reduce single actor
 falls. Most of these robotic bicycles and motorcycles designers did not intend
@@ -72,17 +72,19 @@ for a human rider to also control the stabilized vehicle. Nevertheless, an
 automatically stabilized bicycle can be controlled by a human rider if the
 motor controlled steer torque and the rider applied steer torque act on the
 steer in parallel. The effect of this automatic control gives the ability to
-change the dynamics, up to some limits, of the human controlled plant.
+change the dynamics, up to some limits, of the human controlled plant.In our
+prior study, we demonstrate reduced motion during
+distractions~\cite{Alizadehsaravi2023} due to the balance assist but
+researchers with a similar vehicle recently showed rider disatisfction with the
+stabilization~\cite{Hanakam2023}.
 
-\todo[inline]{We should cite Leila's first paper and also the Pforzhiem work
-(if there is something to cite).}
-
-The linear Carvallo-Whipple bicycle model~\cite{Carvallo1899,Whipple1899} is
+The linear Carvallo-Whipple bicycle model~\citep{Carvallo1899,Whipple1899} is
 the simplest bicycle model that exhibits non-minimum phase behavior and
-self-stablity. Whipple showed that roll motion feedback can stabilize the
-system. The model is ideal for showing the effect of a roll motion feedback
-driven steer motor on the dynamics. The linear model can be described by the
-fourth order state space equations:
+self-stablity. Whipple even showed that roll motion feedback can stabilize the
+system, remarkably in the early years of developments automatic control. The
+bicycle model is ideal for showing the effect of a roll motion feedback driven
+steer motor on the dynamics. The linear model can be described by the fourth
+order state space equations:
 
 \begin{align}
   \dot{\vec{x}} = \mathbf{A} \vec{x} +
@@ -124,7 +126,7 @@ such that the eigenvalues of \(\left(\mathbf{A} - \mathbf{B}_\delta\left[0 \quad
 the speed range where the bicycle is stable can be maximized within
 any physical acutator magnitude and bandwidth limits. \citet{Schwab2008}
 elaborates on some of the possibilities in scheduling the gains for such a
-controller.
+controller on this model.
 
 \todo[inline]{I'm not consistent with the arrow being a vector for $B_\delta$}
 
@@ -140,15 +142,15 @@ system on and off.
 %
 \subsection{Bicycle}
 %
-We modified a standard electric bicycle (Gazelle XXX, Dieren, The Netherlands)
-with a custom motor in the steering assembly capable of applying up to
-7~\si{\newton\meter} of torque between the head tube and steer tube. A custom
-motor controller converts the commanded torque to applied torque. We measure
-the speed of the rear wheel with an encoder (Magura XXX) and measure the body
-fixed roll rate of the bicycle with a MEMs rate gyroscope (Company, Location).
-The balance assist control algorithm is implemented on a microprocessor
-(Teensy, Company, Location) and data from all sensors is logged with a CAN bus
-(Company, Location) at approximately X Hz.
+We modified a standard electric bicycle (Gazelle Grenoble C7, Dieren, The
+Netherlands) with a custom motor in the steering assembly capable of applying
+up to 7~\si{\newton\meter} of torque between the head tube and steer tube. A
+custom motor controller converts the commanded torque to applied torque. We
+measure the speed of the rear wheel with an encoder (Magura XXX) and measure
+the body fixed roll rate of the bicycle with a MEMs rate gyroscope (Company,
+Location).  The balance assist control algorithm is implemented on a
+microprocessor (Teensy, Company, Location) and data from all sensors is logged
+with a CAN bus (Company, Location) at approximately X Hz.
 
 \subsection{Balance Assist Control}
 We use a forward speed \(v\) gain scheduled proportional roll rate feedback
@@ -179,6 +181,8 @@ X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
   \label{fig:eigenvalues}
 \end{figure}
 
+\todo[inline]{Decide on what physical parameters to use.}
+
 \subsection{Perturbations}
 %
 We apply external longitudinal forces to the ends of each handlebar using an
@@ -192,7 +196,7 @@ to apply an external pulsive torque to the front assembly (handlebars, forks,
 wheel) at magnitudes varying from X to X. The four motors are arranged at the
 four corners of a 1~\si{\meter} wide treadmill (make, Company, City) that can
 reach speeds of 18~\si{\kilo\meter\per\hour}. The general design is described
-in detail in the Van De Velde's MSc thesis~\cite{vandeVelde2022}. Our
+in detail in the Van De Velde's MSc thesis~\cite{vandeVelde2022a}. Our
 modifications relative to that described in the thesis include simplifying the
 controller with a inexpensive microcontroller and the use of a simpler safety
 harness.
@@ -304,7 +308,7 @@ the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
   \end{tabular}
 \end{table}
 
-Based on the findings in \cite{Haitjema2023}, we calculate several variables.
+Based on the findings in \cite{Haitjema2023a}, we calculate several variables.
 We use the angular impulse \(L\) due to the perturbation forces over a
 0.3~\si{\second} duration to characterize the magnitude of delivered
 perturbation. The duration is selected based on the duration of the commanded
