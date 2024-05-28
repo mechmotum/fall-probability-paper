@@ -3,3 +3,5 @@ channels:
   - conda-forge
 dependencies:
   - bicycleparameters ==1.1.1
+  - pandas ==2.2.2
+  - pyarrow ==16.1.0
