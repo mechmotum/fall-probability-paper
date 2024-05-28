@@ -1,9 +1,11 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 from bisect import bisect_left
 
-EXAMPLE_DATA = os.path.join("data", "example_data.parquet")
+EXAMPLE_DATA_OFF = os.path.join("data", "example_data_balance_assist_off.parquet")
+EXAMPLE_DATA_ON = os.path.join("data", "example_data_balance_assist_on.parquet")
 TRACKING_FORCE = 3
 DESIRED_FORCES = ["desforce13", "desforce24"]
 ALL_FORCES = ["force1", "force2", "force3", "force4"] + DESIRED_FORCES
@@ -15,11 +17,17 @@ HANLDEBAR_LENGTH = 0.82
 
 def main():
     """Load example time series data from ./data and generate figures."""
-    data = pd.read_parquet(EXAMPLE_DATA)
-    perturbation_dfs = get_perturbations(
-        data, DESIRED_FORCES, DURATION_BEFORE, DURATION_AFTER
+    data_on = pd.read_parquet(EXAMPLE_DATA_ON)
+    perturbation_dfs_on = get_perturbations(
+        data_on, DESIRED_FORCES, DURATION_BEFORE, DURATION_AFTER
     )
+    data_off = pd.read_parquet(EXAMPLE_DATA_OFF)
+    perturbation_dfs_off = get_perturbations(
+        data_off, DESIRED_FORCES, DURATION_BEFORE, DURATION_AFTER
+    )
+    perturbation_dfs = perturbation_dfs_on + perturbation_dfs_off
     generate_force_torque_plots(perturbation_dfs, DIRECTORY, ALL_FORCES)
+    generate_roll_steer_plots(perturbation_dfs, DIRECTORY)
 
 
 def get_perturbations(
@@ -66,7 +74,10 @@ def get_perturbations(
         )
 
         for var in data.columns.values:
-            if ("steer" or "roll" or "gyro") in var:
+            if var == "seconds_since_start":
+                continue
+
+            if "steer" in var or "roll" in var or "gyro" in var:
                 pert_data[var + "_orginal"] = data[var][context_start:context_stop]
                 if data["desforce24"][start] > TRACKING_FORCE:
                     pert_data[var] = -data[var][context_start:context_stop]
@@ -126,7 +137,7 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
                 "Desired motor 2 and 4",
             ]
         )
-        axs[1].set_xlabel("Time [s]")
+        axs[1].set_xlabel("Time relative to start of perturbation [s]")
         axs[1].set_ylabel("Torque [Nm]")
         axs[1].legend()
         axs[1].grid()
@@ -136,6 +147,69 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
         fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
         print(f"Saved plot with name {filename}")
         plt.close()
+
+
+def generate_roll_steer_plots(perturbation_dfs, directory):
+    """Plots all the perturbations in one plot.
+
+    Parameters
+    ----------
+    data : List[pd.DataFrame]
+        List of dataframes that should be plotted.
+    directory : str
+        Name of the directory in which to store the generated images.
+    """
+    if not os.path.isdir(directory):
+        os.mkdir(directory)
+
+    fig, axs = plt.subplots(2, 1, sharex=True)
+    fig.set_size_inches(10, 6)
+
+    for df in perturbation_dfs:
+        if "motor_current" in df.columns:
+            color = "lightsteelblue"
+        else:
+            color = "lightcoral"
+
+        if pd.Series.max(abs(df["roll_angle"])) < 500:
+            df.plot(
+                x="seconds_since_start",
+                y="roll_angle",
+                color=color,
+                ax=axs[0],
+                alpha=0.5,
+            )
+            df.plot(
+                x="seconds_since_start",
+                y="steer_rate",
+                color=color,
+                ax=axs[1],
+                alpha=0.5,
+                legend=False,
+            )
+
+    legend_elements = [
+        Line2D([0], [0], color="lightsteelblue", lw=4, label="Balance-assist ON"),
+        Line2D([0], [0], color="lightcoral", lw=4, label="Balance-assist OFF"),
+    ]
+    axs[0].legend(handles=legend_elements)
+
+    for i in [0, 1]:
+        axs[i].axvline(x=0, color="k")
+        axs[i].axvline(x=0.3, color="k")
+        axs[i].grid()
+
+    axs[0].set_ylabel("Roll angle [deg]")
+    axs[1].set_ylabel("Steer rate [deg/s]")
+    axs[1].set_xlabel("Time relative to start of perturbation [s]")
+    fig.suptitle(
+        "Roll angle and steer rate for all perturbations applied to one participant."
+    )
+
+    filename = os.path.join(directory, "roll_steer_overlay")
+    fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
+    print(f"Saved plot with name {filename}")
+    plt.close()
 
 
 def calculate_torque_on_handlebars(data):
