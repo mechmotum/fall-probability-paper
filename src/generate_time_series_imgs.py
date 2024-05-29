@@ -11,7 +11,7 @@ DESIRED_FORCES = ["desforce13", "desforce24"]
 ALL_FORCES = ["force1", "force2", "force3", "force4"] + DESIRED_FORCES
 DURATION_BEFORE = 0.3
 DURATION_AFTER = 2.0
-DIRECTORY = "imgs"
+DIRECTORY = "figures"
 HANLDEBAR_LENGTH = 0.82
 
 
