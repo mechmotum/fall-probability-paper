@@ -5,6 +5,7 @@ main.pdf: main.tex references.bib figures/*.png
 	pdflatex main.tex
 figures: src/*.py
 	python src/control.py
+	python src/generate_time_series_imgs.py
 clearpdf:
 	rm paper.pdf
 clean:
