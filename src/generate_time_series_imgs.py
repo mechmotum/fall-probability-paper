@@ -109,7 +109,7 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
 
     for i, df in enumerate(perturbation_dfs):
         fig, axs = plt.subplots(2, 1, sharex=True, layout='constrained')
-        fig.set_size_inches(150/25.4, 100/25.4)
+        fig.set_size_inches(140/25.4, 80/25.4)
 
         df.plot(x="seconds_since_start", y=force_column_names, ax=axs[0],
                 grid=True)

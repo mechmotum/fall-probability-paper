@@ -41,8 +41,8 @@ def stable_ranges(evals):
 
 
 # FIGURE : Compare eigenvalues vs speed for uncontrolled.
-fig, ax = plt.subplots()
-fig.set_size_inches((3.0, 3.0/golden_ratio))
+fig, ax = plt.subplots(layout='compressed')
+fig.set_size_inches((70/25.4, 70/25.4/golden_ratio))
 speeds = np.linspace(0.0, 10.0, num=1001)
 evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds))
 weave_idx, capsize_idx = stable_ranges(evals_)[0]
@@ -58,13 +58,12 @@ ax.fill_between(speeds, -10, 10,
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
 ax.set_ylim((-10, 10))
 ax.set_ylabel('')
-fig.tight_layout()
 fig.savefig(os.path.join(FIG_DIR,
                          'uncontrolled-eig-vs-speeds.png'),
             dpi=300)
 
-fig, ax = plt.subplots()
-fig.set_size_inches((3.0, 3.0/golden_ratio))
+fig, ax = plt.subplots(layout='compressed')
+fig.set_size_inches((70/25.4, 70/25.4/golden_ratio))
 # TODO : This finds the uncontrolled weave speed for the controller design, but
 # the actual bike uses a specific value based on the benchmark bike values
 # (probably).
@@ -74,8 +73,10 @@ evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds, kphidot=kphidots))
 for ranges in stable_ranges(evals_):
     weave_speed = speeds[ranges[0]]
     capsize_speed = speeds[ranges[1]]
-    print('Controlled (gain=-10.0) lower speed: {:1.2f} [m/s]'.format(weave_speed))
-    print('Controlled (gain=-10.0) upped speed: {:1.2f} [m/s]'.format(capsize_speed))
+    msg = 'Controlled (gain=-10.0) lower speed: {:1.2f} [m/s]'
+    print(msg.format(weave_speed))
+    msg = 'Controlled (gain=-10.0) upped speed: {:1.2f} [m/s]'
+    print(msg.format(capsize_speed))
 ax = model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                  colors=['k']*4)
 ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
@@ -85,7 +86,6 @@ ax.fill_between(speeds, -10, 10,
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
 ax.set_ylim((-10, 10))
 ax.set_ylabel('')
-fig.tight_layout()
 fig.savefig(os.path.join(FIG_DIR,
                          'balance-assist-controllers-eig-vs-speeds.png'),
             dpi=300)
