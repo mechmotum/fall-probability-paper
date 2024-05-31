@@ -19,7 +19,9 @@ jobs:
           miniforge-version: latest
       - name: Create figures
         shell: bash -el {0}
-        run: python src/control.py
+        run: |
+          python src/control.py
+          python src/generate_time_series_imgs.py
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
