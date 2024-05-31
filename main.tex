@@ -37,7 +37,7 @@ cruising speeds, bicycles themselves are not self-stable and can be challenging
 for the rider to balance. Low speed crashes may be reduced if the bicycle was
 self-stable at these speeds by  relieving the rider of a necessary control
 activity. Bicycles can be mechanically modified to lower the speeds at which
-they are self-stable~\citep{Astrom2005} but since the 1980s, it has been known
+they are self-stable~\citep{Astrom2005} and since the 1980s it has been known
 that applying a motor acutated steering torque proportional to the roll rate
 can stabilize a single track vehicle at very low speeds. If this automatic
 control of steering can stabilize a bicycle, it may reduce the control required
@@ -121,11 +121,11 @@ the human controlled plant takes the form:
 
 The state matrix \(\mathbf{A}\) and input matrix \(\mathbf{B}\) are both
 functions of the equilibrium speed \(v\) and \(k_{\dot{\phi}}\) can be selected
-such that the eigenvalues of \(\left(\mathbf{A} - \mathbf{B}_\delta\left[0 \quad k_{\dot{\phi}}
-\quad 0 \quad 0\right] \right)\) have negative real parts for
-\(v_{weave} < v < v_{capsize}\). With gain scheduling with respect to \(v\),
-the speed range where the bicycle is stable can be maximized within
-any physical acutator magnitude and bandwidth limits. \citet{Schwab2008}
+such that the eigenvalues of \(\left(\mathbf{A} - \mathbf{B}_\delta\left[0
+\quad k_{\dot{\phi}} \quad 0 \quad 0\right] \right)\) have negative real parts
+for \(v_{weave} < v < v_{capsize}\). With gain scheduling with respect to
+\(v\), the speed range where the bicycle is stable can be maximized within any
+physical acutator magnitude and bandwidth limits.  \citet{Schwab2008}
 elaborates on some of the possibilities in scheduling the gains for such a
 controller on this model.
 
@@ -143,16 +143,16 @@ system on and off.
 %
 \subsection{Bicycle}
 %
-We modified a standard electric bicycle (Gazelle Grenoble C7, Dieren, The
-Netherlands) with a custom motor in the steering assembly capable of applying
-up to 7~\si{\newton\meter} of torque between the head tube and steer tube,
-Figure~\ref{fig:balance-assist-bicycle}. A custom motor controller converts the
-commanded torque to applied torque. We measure the speed of the rear wheel with
-an encoder (Magura XXX) and measure the body fixed roll rate of the bicycle
-with a MEMs rate gyroscope (Company, Location). The balance assist control
-algorithm is implemented on a microprocessor (Teensy, Company, Location) and
-data from all sensors is logged with a CAN bus (Company, Location) at
-approximately X Hz.
+We modified a standard electric bicycle (Gazelle Grenoble C7\todo{Double check
+this is the right model}, Dieren, The Netherlands) with a custom motor in the
+steering assembly capable of applying up to 7~\si{\newton\meter} of torque
+between the head tube and steer tube, Figure~\ref{fig:balance-assist-bicycle}.
+A custom motor controller converts the commanded torque to applied torque. We
+measure the speed of the rear wheel with an encoder (Magura XXX) and measure
+the body fixed roll rate of the bicycle with a MEMs rate gyroscope (Company,
+Location). The balance assist control algorithm is implemented on a
+microprocessor (Teensy, Company, Location) and data from all sensors is logged
+with a CAN bus (Company, Location) at approximately X Hz.
 %
 \begin{figure}
   \centering
@@ -311,7 +311,7 @@ process iterates until twenty perturbations are applied.
 %
 We measure the time histories of the Bump'Em delivered perturbation forces and
 the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
-Figure~\ref{fig:perturbation} shows an example perturbation force measurement
+Figure~\ref{fig:perturbation_0} shows an example perturbation force measurement
 compared to our Bump'Em controller command.
 %
 \begin{figure}
