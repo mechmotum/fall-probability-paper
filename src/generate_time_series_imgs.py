@@ -26,7 +26,7 @@ def main():
         data_off, DESIRED_FORCES, DURATION_BEFORE, DURATION_AFTER
     )
     perturbation_dfs = perturbation_dfs_on + perturbation_dfs_off
-    generate_force_torque_plots(perturbation_dfs, DIRECTORY, ALL_FORCES)
+    generate_force_torque_plots(perturbation_dfs[:1], DIRECTORY, ALL_FORCES)
     generate_roll_steer_plots(perturbation_dfs, DIRECTORY)
 
 
