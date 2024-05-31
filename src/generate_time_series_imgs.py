@@ -108,10 +108,11 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
         os.mkdir(directory)
 
     for i, df in enumerate(perturbation_dfs):
-        fig, axs = plt.subplots(2, 1, sharex=True)
-        fig.set_size_inches(10, 6)
+        fig, axs = plt.subplots(2, 1, sharex=True, layout='constrained')
+        fig.set_size_inches(150/25.4, 100/25.4)
 
-        df.plot(x="seconds_since_start", y=force_column_names, ax=axs[0], grid=True)
+        df.plot(x="seconds_since_start", y=force_column_names, ax=axs[0],
+                grid=True)
 
         actual_torque, desired_torque = calculate_torque_on_handlebars(df)
         axs[1].plot(
@@ -135,13 +136,13 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
                 "Motor 4",
                 "Desired motor 1 and 3",
                 "Desired motor 2 and 4",
-            ]
+            ],
+            fontsize='x-small'
         )
         axs[1].set_xlabel("Time relative to start of perturbation [s]")
         axs[1].set_ylabel("Torque [Nm]")
-        axs[1].legend()
+        axs[1].legend(fontsize='x-small')
         axs[1].grid()
-        axs[1].legend()
 
         filename = os.path.join(directory, "perturbation_" + str(i))
         fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
