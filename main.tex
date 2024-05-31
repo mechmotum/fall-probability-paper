@@ -50,13 +50,14 @@ remarkably realized and showed that roll motion feedback can stabilize the a
 bicycle. Much later, automatic roll stabilization of single track vehicles
 began in earnest after predictive motorcycle models were developed and refined
 in throughout the 1970s. \Citet{vanZytveld1975} was influenced by Whipple's
-work and seems to be the first \todo{Check if a Japanese researcher was first}
-to attempt to robotically stabilize a small motorbike with a controlled
-inverted pendulum that mimicked rider lean, but he was not successful in
-demonstrating what his theoretic control model correctly predicted. In his
-model, he recognized that feedback of the vehicle roll angle and angular rate
-was essential to stabilize the vehicle. It was not until the mid 1980s that
-Ruijs and Pacjecka successfully demonstrated an automatically balanced
+work and seems to be the first to attempt to robotically stabilize a small
+motorbike with a controlled inverted pendulum that mimicked rider lean, but he
+was not successful in demonstrating what his theoretic control model correctly
+predicted. In his model, he recognized that feedback of the vehicle roll angle
+and angular rate was essential to stabilize the vehicle. It was not until the
+early 1980s that \cite{Nagai1983} sucessfully demonstrated balancing a robotic
+bicycle on a treadmill with both steering control and a laterally moving mass.
+Ruijs and Pacjecka followed this by demonstrating an automatically balanced
 motorcycle~\citep{Ruijs1986} and they did so with a steering motor. Ruijs and
 Pacejka clearly showed that steer torque driven by roll angle feedback
 stabilizes the capsize mode, roll angular rate feedback stabilizes the weave
@@ -144,13 +145,22 @@ system on and off.
 %
 We modified a standard electric bicycle (Gazelle Grenoble C7, Dieren, The
 Netherlands) with a custom motor in the steering assembly capable of applying
-up to 7~\si{\newton\meter} of torque between the head tube and steer tube. A
-custom motor controller converts the commanded torque to applied torque. We
-measure the speed of the rear wheel with an encoder (Magura XXX) and measure
-the body fixed roll rate of the bicycle with a MEMs rate gyroscope (Company,
-Location).  The balance assist control algorithm is implemented on a
-microprocessor (Teensy, Company, Location) and data from all sensors is logged
-with a CAN bus (Company, Location) at approximately X Hz.
+up to 7~\si{\newton\meter} of torque between the head tube and steer tube,
+Figure~\ref{fig:balance-assist-bicycle}. A custom motor controller converts the
+commanded torque to applied torque. We measure the speed of the rear wheel with
+an encoder (Magura XXX) and measure the body fixed roll rate of the bicycle
+with a MEMs rate gyroscope (Company, Location). The balance assist control
+algorithm is implemented on a microprocessor (Teensy, Company, Location) and
+data from all sensors is logged with a CAN bus (Company, Location) at
+approximately X Hz.
+%
+\begin{figure}
+  \centering
+  \includegraphics[width=100mm]{figures/balance-assist-bicycle.jpg}
+  \caption{Balance assist bicycle prototype with steer motor and data
+    aquisition and control electronics mounted in the rear rack.}
+  \label{fig:balance-assist-bicycle}
+\end{figure}
 
 \subsection{Balance Assist Control}
 We use a forward speed \(v\) gain scheduled proportional roll rate feedback
@@ -187,41 +197,44 @@ X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
 %
 We apply external longitudinal forces to the ends of each handlebar using an
 adapted Bump'Em system~\cite{Tan2020} which is designed with four motors
-working in tandem. The four motors are programmed to apply a light force at all
-times to keep the ropes taught and to track a commanded force profile using a
-PID controller running on a microprocessor (Arduino XXX, Italy). We measure the
-force applied by each motor at the handlebar via four inline load cells, each
-with a max load of XX~\si{\newton}. The commanded force profiles are designed
-to apply an external pulsive torque to the front assembly (handlebars, forks,
-wheel) at magnitudes varying from X to X. The four motors are arranged at the
-four corners of a 1~\si{\meter} wide treadmill (make, Company, City) that can
-reach speeds of 18~\si{\kilo\meter\per\hour}. The general design is described
-in detail in the Van De Velde's MSc thesis~\cite{vandeVelde2022a}. Our
-modifications relative to that described in the thesis include simplifying the
-controller with a inexpensive microcontroller and the use of a simpler safety
-harness.
-
+working in tandem, Figure~\ref{fig:setup-diagram}. The four motors are
+programmed to apply a light force at all times to keep the ropes taught and to
+track a commanded force profile using a PID controller running on a
+microprocessor (Arduino XXX, Italy). We measure the force applied by each motor
+at the handlebar via four inline load cells, each with a max load of
+XX~\si{\newton}. The commanded force profiles are designed to apply an external
+pulsive torque to the front assembly (handlebars, forks, wheel) at magnitudes
+varying from X to X. The four motors are arranged at the four corners of a
+1~\si{\meter} wide treadmill (make, Company, City) that can reach speeds of
+18~\si{\kilo\meter\per\hour}. The general design is described in detail in the
+Van De Velde's MSc thesis~\citep{vandeVelde2022a} and the physical arrangment
+is shown in Figure~\ref{fig:participant-in-set-up}. Our modifications relative
+to that described in the thesis include simplifying the controller with a
+inexpensive microcontroller and the use of a simpler safety harness.
+%
 \begin{figure}
   \centering
   % TODO : scale these pngs to a reasonable size for an A4 sheet
-  \subcaptionbox{}{\includegraphics[width=70mm]{figures/participant-in-set-up.png}}
-  \subcaptionbox{Diagram of perturbation system.}{\includegraphics[width=70mm]{figures/setup-diagram.png}
+  \subcaptionbox{
+    A participant on the bicycle in the safety harness with the Bump'Em motor
+    lines attached to the ends of the handlebars.
+    \label{fig:participant-in-set-up}
+  }{
+    \includegraphics[width=70mm]{figures/participant-in-set-up.png}
+  }
+  \subcaptionbox{
+    Top view diagram of bicycle handlebar perturbation system.
+    \label{fig:setup-diagram}
+  }{
+    \includegraphics[width=70mm]{figures/setup-diagram.png
+  }
 }
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{figures/perturbation_0.png}
-  \caption{Force nd torque plts of a pterubation of 80N per rope in the
-  counterclockwise direction (from Marten's thesis, pg 26)}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \subcaptionbox{Start}{\includegraphics[width=60mm]{figures/start.png}}
-  \subcaptionbox{During}{\includegraphics[width=60mm]{figures/during.png}}
-  \subcaptionbox{After}{\includegraphics[width=60mm]{figures/after.png}}
-  \subcaptionbox{Recovery}{\includegraphics[width=60mm]{figures/recovery.png}}
-  \caption{Thesis Fig 5.1 on pg 37}
+  \includegraphics[width=150mm]{figures/perturbation_0.png}
+  \caption{Motor force and resulting  steer torque perturbation based on an 80N
+  counterclockwise applied force.}
 \end{figure}
 
 \subsection{Subjects}
@@ -235,30 +248,45 @@ fifteen subjects performed the experiments at 2.8~\si{\meter\per\second}
 could decline to continue at any time. The study was approved by Delft
 University of Technology's Human Research Ethics Council (\#XXX).
 
+\todo[inline]{Include the average age, mass, height and standard deviation if
+we recorded those.}
+
 \subsection{Protocol}
 %
-The subjects were divided into two groups. Tthe first group performed the
-protocol at a belt speed of 10~\si{\kph} with the controller gain as $k=8$ and
-the second group performed the protocol at a belt speed of 6~\si{\kph}. The
-10~\si{\kph} group's experiments occured X weeks before the
-6~\si{\kilo\meter\per\hour} group.
+The subjects were divided into two groups. The first group performed the
+protocol at a belt speed of 2.8~\si{\meter\per\second}
+(10~\si{\kilo\meter\per\hour}) with the controller gain at $k=8$ and the second
+group performed the protocol at a belt speed of 1.7~\si{\meter\per\second}
+(6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occured X
+weeks before the 6~\si{\kilo\meter\per\hour} group.
 
-Subjects wore a helmet and fall safety harness attached to the ceiling. We
-allowed them practice riding on the treadmill until they indicated they were
-comfortable enough to have perturbations applied. For most, this was less than a
-10~\si{\minute} warm up. We then asked the rider to ride for 90~\si{\second},
-attempting to maintain the location of their front wheel on the center line of
-the treadmill. We define a ``fall'' on the treadmill by two criteria: the rider
-removes their foot from the pedal and places it on the ground or the bicycle
-wheel exceeds the width of the treadmill. We then applied perturbations in
-random directions (clockwise or counter clockwise) increasing the magnitude by
-X~\si{\newton\meter} each time. We log the magnitude that causes the first fall
-to characterize that subject's nominal fall threshold. Following this we apply
-20 perturbations of random magnitudes to the cyclist while they ride at a
-constant speed and record which perturbations cause a fall. We let the cyclist
-rest and then perform another 20 perturbations. We randomize whether the
-balance assist system is on or off during the first or second set of
-perturbations.
+Subjects wore a helmet and fall safety harness attached to the ceiling
+Figure~\ref{fig:participant-in-set-up}. We allowed them to practice riding on
+the treadmill until they indicated they were comfortable enough to have
+perturbations applied. For most, this was less than a 10~\si{\minute} warm up.
+We then asked the rider to ride for 90~\si{\second}, attempting to maintain the
+location of their front wheel on the center line of the treadmill. We define a
+``fall'' on the treadmill by two criteria: the rider removes their foot from
+the pedal and places it on the ground or the bicycle wheel exceeds the width of
+the treadmill. Figure~\ref{fig:fall} shows an example fall. We then applied
+perturbations in random directions (clockwise or counter clockwise) increasing
+the magnitude by X~\si{\newton\meter} each time.  We log the magnitude that
+causes the first fall to characterize that subject's nominal fall threshold.
+Following this we apply 20 perturbations of random magnitudes to the cyclist
+while they ride at a constant speed and record which perturbations cause a
+fall. We let the cyclist rest and then perform another 20 perturbations. We
+randomize whether the balance assist system is on or off during the first or
+second set of perturbations.
+%
+\begin{figure}
+  \centering
+  \subcaptionbox{Start}{\includegraphics[width=60mm]{figures/start.png}}
+  \subcaptionbox{During}{\includegraphics[width=60mm]{figures/during.png}}
+  \subcaptionbox{After}{\includegraphics[width=60mm]{figures/after.png}}
+  \subcaptionbox{Recovery}{\includegraphics[width=60mm]{figures/recovery.png}}
+  \caption{Thesis Fig 5.1 on pg 37}
+  \label{fig:fall}
+\end{figure}
 
 Following the initial threshold determination, we choose perturbation forces
 according to a random and adaptive staircase procedure applying
