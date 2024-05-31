@@ -1,9 +1,9 @@
-main.pdf: main.tex references.bib figures/*.png
+main.pdf: main.tex references.bib figures/balance-assist-controllers-eig-vs-speeds.png
 	pdflatex main.tex
 	bibtex main.aux
 	pdflatex main.tex
 	pdflatex main.tex
-figures: src/*.py
+figures/balance-assist-controllers-eig-vs-speeds.png: src/control.py src/generate_time_series_imgs.py
 	python src/control.py
 	python src/generate_time_series_imgs.py
 clearpdf:
