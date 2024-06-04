@@ -179,10 +179,10 @@ X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
 \begin{figure}
   \centering
   \subcaptionbox{}{
-    \includegraphics[width=70mm]{figures/uncontrolled-eig-vs-speeds.png}
+    \includegraphics[width=100mm]{figures/uncontrolled-eig-vs-speeds.png}
   }
   \subcaptionbox{}{
-    \includegraphics[width=70mm]{figures/balance-assist-controllers-eig-vs-speeds.png}
+    \includegraphics[width=100mm]{figures/balance-assist-controllers-eig-vs-speeds.png}
   }
   \caption{Uncontrolled (a) and controlled (b) root locus of eigenvalue
     components (real: solid, imaginary: dashed) plotted versus speed. Vertical
@@ -219,17 +219,19 @@ Figure~\ref{fig:perturbation_0} shows an example perturbation.
   \subcaptionbox{
     A participant on the bicycle in the safety harness with the Bump'Em motor
     lines attached to the ends of the handlebars.
-    \label{fig:participant-in-set-up}
+    % TODO : This label causes a compile error. I think this is where it is
+    % supposed to go.
+    %\label{fig:participant-in-set-up}
   }{
     \includegraphics[width=75mm]{figures/participant-in-set-up.png}
   }
   \subcaptionbox{
     Top view diagram of bicycle handlebar perturbation system.
-    \label{fig:setup-diagram}
+    %\label{fig:setup-diagram}
   }{
-    \includegraphics[width=65mm]{figures/setup-diagram.png
+    \includegraphics[width=65mm]{figures/setup-diagram.png}
   }
-}
+  \label{fig:experimental-setup}
 \end{figure}
 
 \subsection{Subjects}
@@ -322,52 +324,49 @@ compared to our Bump'Em controller command.
   \label{fig:perturbation_0}
 \end{figure}
 
-%
-\begin{table}
-  \caption{Raw measurements}
-  \begin{tabular}{llll}
-    \toprule
-    Measure & Variable & Units & Sensor \\
-    \midrule
-    Perturbation Order Number & \(j\) & integer & NA\\
-    Perturbation Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear & \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & Load cell\\
-    Steer Angle & \(\delta\) & \si{\degree} & encoder \\
-    Roll Angle & \(\phi\) &  \si{\degree} & Kalman estimate \\
-    Roll Angular Rate & \(\dot{\phi}\) &  \si{\degree\per\second} & rate gyroscope \\
-    Balance Assist Gain & \(k\) & TODO & NA \\
-    Bicycle Speed & \(v\) & Meters per second & wheel encoder \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-Based on the findings in \cite{Haitjema2023a}, we calculate several variables.
-We use the angular impulse \(L\) due to the perturbation forces over a
-0.3~\si{\second} duration to characterize the magnitude of delivered
-perturbation. The duration is selected based on the duration of the commanded
-force.
+Based on findings from measuring riders without balance
+assist~\cite{Haitjema2023a}, we calculate several variables that we hypothesize
+may influence fall probability. We use the angular impulse \(L\) of the
+perturbation forces over a 0.3~\si{\second} duration to characterize the
+magnitude of delivered perturbation. The duration is selected based on the
+duration of the commanded force and is calculated as follows:
 
 \begin{align}
   F_r = & F_{rf} - F_{rr} \\
   F_l = & F_{lf} - F_{lr} \\
   L = & \int_{0\si{\second}}^{0.3\si{\second}} l/2(F_r + F_l) dt
+  \textrm{.}
 \end{align}
 
-We characterize the skill of the rider by calculating the standard deviation of
-the steer angle \(\sigma_\delta\) over the 90~\si{\second} period they were
-asked to maintain their position at the center of the treadmill. At the
-initiation of each perturbation we log the steer and roll angles to characterize
-the configuration of the bicycle when perturbed. The gain setting on the
-balance assist controller indicates if the assistance is off \(k=0\) or on at
-two different levels: low \(k=8\) or high \(k=10\). A recovery from the
+At the initiation of each perturbation we log the steer and roll angles to
+characterize the configuration of the bicycle when perturbed. The gain setting
+on the balance assist controller indicates if the assistance is off \(k=0\) or
+on at two different levels: low \(k=8\) or high \(k=10\). A recovery from the
 perturbation is successful if the person neither put their foot down onto the
 treadmill surface or either wheel of the bicycle exits the width of the
-treadmill belt. We record this as a binary variable \(f\).
-
-\begin{figure}
+treadmill belt. We record this as a binary variable \(f\). All measured
+variables are reported in Table~\ref{tab:raw}.
+%
+\begin{table}
   \centering
-  \includegraphics[width=\columnwidth]{figures/data-processing.png}
-  \caption{Thesis Fig 3.13 on pg 27}
-\end{figure}
+  \caption{Raw measurements taken during each trial. ``Fall outcome'' and
+    ``Perturbation order number'' are recorded per perturbation instance.}
+  \begin{tabular}{llll}
+    \toprule
+    Measure & Variable & Units & Sensor \\
+    \midrule
+    Balance Assist Gain & \(k\) & TODO & NA \\
+    Bicycle Speed & \(v\) & \si{\meters\per\second} & wheel encoder \\
+    Fall outcome & \(f\) & boolean & NA \\
+    Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear & \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & load cell\\
+    Perturbation Order Number & \(j\) & integer & NA\\
+    Roll Angle & \(\phi\) &  \si{\degree} & Kalman estimate~\cite{Gabriel2023} \\
+    Roll Angular Rate & \(\dot{\phi}\) &  \si{\degree\per\second} & rate gyroscope \\
+    Steer Angle & \(\delta\) & \si{\degree} & steer tube encoder \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:raw}
+\end{table}
 
 \subsection{Statistics}
 %
@@ -378,7 +377,10 @@ explanatory independent variables including the binary balance assistance (on
 or off).
 
 \begin{table}
+  \small
   \begin{tabular}{lll}
+    \toprule
+    \midrule
     \(L\) & \si{\newton\meter\second} & angular impulse of the applied
     perturbation torque \\
     \(c\) & integer & order number of perturbation \\
@@ -388,6 +390,7 @@ or off).
     \(\phi_0\) & \si{\degree} & roll angle at start of perturbation \\
     \(v\) & \si{\meter\per\second} & forward speed (6 or 10) \\
     \(f\) & boolean & outcome of perturbation: did not fall, did fall \\
+    \bottomrule
   \end{tabular}
 \end{table}
 
@@ -543,6 +546,7 @@ Table~\ref{table:freq-change-in-odds}.
 \end{table}
 
 \begin{figure}
+  \centering
   \includegraphics{example-image-a}
   \caption{Box plot or distrubtion plot showing graphical view of stats
   tables.}

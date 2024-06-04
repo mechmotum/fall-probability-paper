@@ -42,7 +42,7 @@ def stable_ranges(evals):
 
 # FIGURE : Compare eigenvalues vs speed for uncontrolled.
 fig, ax = plt.subplots(layout='compressed')
-fig.set_size_inches((70/25.4, 70/25.4/golden_ratio))
+fig.set_size_inches((100/25.4, 100/25.4/golden_ratio))
 speeds = np.linspace(0.0, 10.0, num=1001)
 evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds))
 weave_idx, capsize_idx = stable_ranges(evals_)[0]
@@ -57,13 +57,14 @@ ax.fill_between(speeds, -10, 10,
                 where=np.all(evals_ < 0.0, axis=1),
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
 ax.set_ylim((-10, 10))
-ax.set_ylabel('')
+ax.set_ylabel('Eigenvalue Components [1/s]')
+ax.set_xlabel('Speed [m/s]')
 fig.savefig(os.path.join(FIG_DIR,
                          'uncontrolled-eig-vs-speeds.png'),
             dpi=300)
 
 fig, ax = plt.subplots(layout='compressed')
-fig.set_size_inches((70/25.4, 70/25.4/golden_ratio))
+fig.set_size_inches((100/25.4, 100/25.4/golden_ratio))
 # TODO : This finds the uncontrolled weave speed for the controller design, but
 # the actual bike uses a specific value based on the benchmark bike values
 # (probably).
@@ -85,7 +86,8 @@ ax.fill_between(speeds, -10, 10,
                 where=np.all(evals_ < 0.0, axis=1),
                 color='green', alpha=0.5, transform=ax.get_xaxis_transform())
 ax.set_ylim((-10, 10))
-ax.set_ylabel('')
+ax.set_ylabel('Eigenvalue Components [1/s]')
+ax.set_xlabel('Speed [m/s]')
 fig.savefig(os.path.join(FIG_DIR,
                          'balance-assist-controllers-eig-vs-speeds.png'),
             dpi=300)
