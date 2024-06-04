@@ -46,7 +46,7 @@ by the rider to successfully manage balancing tasks. We have developed such a
 balance assisting bicycle and hypothesize that it helps the rider in situations
 they are likely to fall.
 
-In the early years of developments automatic control, \citep{Whipple1899}
+In the early years of developments in automatic control, \citep{Whipple1899}
 remarkably realized and showed that roll motion feedback can stabilize the a
 bicycle. Much later, automatic roll stabilization of single track vehicles
 began in earnest after predictive motorcycle models were developed and refined
@@ -63,10 +63,10 @@ motorcycle~\citep{Ruijs1986} and they did so with a steering motor. Ruijs and
 Pacejka clearly showed that steer torque driven by roll angle feedback
 stabilizes the capsize mode, roll angular rate feedback stabilizes the weave
 mode, and steer angular rate feedback stabilizes the wobble mode. They also
-propose how the gains must change with respect to vehicle speed for favorable
+proposed how the gains must change with respect to vehicle speed for favorable
 control at all speeds. This roll motion feedback is the simplest controller
 that can stabilize a single track vehicle above a minimum speed when one is not
-concerned with wobble instabilities, which are not prominent in bicycles at low
+concerned with wobble instabilities, somethign not prominent in bicycles at low
 speeds. Ruijs and Pacejka's work was not particularly concerned with low speed
 stability and their vehicle was fully automatic, no human rider was involved.
 Many more automatically balanced single track vehicles have been demonstrated
@@ -77,10 +77,11 @@ rider to also control the stabilized vehicle. Nevertheless, an automatically
 stabilized bicycle can be controlled by a human rider if the motor controlled
 steer torque and the rider applied steer torque act on the steer in parallel.
 The effect of this automatic control gives the ability to change the dynamics,
-up to some limits, of the human controlled plant. In our prior study, we
-demonstrate reduced motion during distractions~\cite{Alizadehsaravi2023} due to
-the balance assist but conversely researchers with a similar vehicle recently
-showed rider disatisfction with the stabilization~\cite{Hanakam2023}.
+up to some limits, of the human controlled plant. In our prior
+study~\citep{Alizadehsaravi2023}, we demonstrate reduced motion during
+distractions due to the balance assist but contrarily researchers with a
+similar vehicle recently showed rider disatisfction with the
+stabilization~\cite{Hanakam2023}.
 
 The linear Carvallo-Whipple bicycle model~\citep{Carvallo1899,Whipple1899} is
 the simplest bicycle model that exhibits non-minimum phase behavior and
@@ -96,8 +97,9 @@ described by the fourth order state space equations:
   \vec{x} = \begin{bmatrix} \phi \\ \dot{\phi} \\ \delta \\ \dot{\delta} \end{bmatrix}
   \textrm{ and }
   \vec{u} = \begin{bmatrix} T_{\phi} \\ T_{\delta} \end{bmatrix}
+  \textrm{.}
 \end{align}
-
+%
 The states are the roll angle \(\phi\) and steer angle \(\delta\) along with
 their derivatives and the inputs are roll torque \(T_\phi\) and steer torque
 \(T_\delta\). The state \(\mathbf{A}\) and input \(\mathbf{B}\) matrices are
@@ -445,18 +447,16 @@ perturbations or having the balance assist on, decrease the probability to
 fall.  The associated multiplicative change in odds are shown in
 Table~\ref{table:freq-change-in-odds-6}.
 
-\todo{Combine tables 3 and 4 into one}
-
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates at
-    6~\unit{\kilo\meter\per\hour} and gain $k=10$. Multiplicative change in odds of predictor variables at 6
-  \unit{\kilo\meter\per\hour} and gain $k=10$ based on frequentist
-         single-level logistic regression.}
+    6~\unit{\kilo\meter\per\hour} and gain $k=10$. Multiplicative change in
+    odds of predictor variables at 6 \unit{\kilo\meter\per\hour} and gain
+    $k=10$ based on frequentist single-level logistic regression.}
   \label{table:freq-coefs-6}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & Estimate & Standard error & p-value & MCIO & 2.5\% & 97.5\% \\
+    Variable & Estimate & Standard error & \(p\)-value & MCiO & 2.5\% & 97.5\% \\
     \midrule
     Intercept & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
     Angular impulse & 1.69 & 0.27 & 0.00 & 5.40 & 3.18 & 9.16 \\
@@ -480,51 +480,27 @@ probability to fall and enduring more perturbations decreases the probability
 to fall. The associated multiplicative change in odds are shown in
 Table~\ref{table:freq-change-in-odds}.
 
-\todo{Combine tables 4 and 5 into one}
-
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates at
-    10~\unit{\kilo\meter\per\hour} and gain $k=8$.}
+    10~\unit{\kilo\meter\per\hour} and gain $k=8$.  Multiplicative change in
+    odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
+    frequentist single-level logistic regression.}
   \label{table:freq-coefs}
-  \begin{tabular}{lrrr}
+  \begin{tabular}{lrrrrrr}
     \toprule
-    Variable                                      & Estimate          & Standard error          & p-value \\
+    Variable & Estimate & Standard error & \(p\)-value & MCiO & 2.5\% & 97.5\% \\
     \midrule
-    Intercept                                     & -0.24             & 0.16                    & 0.13    \\
-    Angular impulse                               & 2.39              & 0.29                    & 0.00    \\
-    Perturbation order                            & -1.16             & 0.21                    & 0.00    \\
-    Balance-assist on                             & -0.44             & 0.24                    & 0.07    \\
-    Roll angle                                    & 0.27              & 0.22                    & 0.22    \\
-    Steer angle                                   & -0.37             & 0.24                    & 0.12    \\
-    Balance-assist on $\times$ roll angle         & -0.61             & 0.34                    & 0.08    \\
-    Balance-assist on $\times$ steer angle        & 0.56              & 0.35                    & 0.11    \\
-    Balance-assist on $\times$ angular impulse    & 0.46              & 0.44                    & 0.29    \\
-    Balance-assist on $\times$ perturbation order & -0.37             & 0.32                    & 0.25    \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}
-  \centering
-  \caption{Multiplicative change in odds of predictor variables at 10
-    \unit{\kilo\meter\per\hour} based on frequentist single-level logistic
-    regression.}
-  \label{table:freq-change-in-odds}
-  \begin{tabular}{lllll}
-    \toprule
-    Variable & Multiplicative change in odds & 2.5\% & 97.5\% & p-value \\ \hline
-    \midrule
-    Intercept & 0.78 & 0.57 & 1.07 & 0.12 \\
-    Angular impulse & 10.92 & 6.23 & 19.13 & 0.00 \\
-    Perturbation order & 0.31 & 0.21 & 0.48 & 0.00 \\
-    Balance-assist on & 0.64 & 0.40 & 1.03 & 0.07 \\
-    Roll angle & 1.31 & 0.85 & 2.04 & 0.22 \\
-    Steer angle & 0.69 & 0.43 & 1.10 & 0.12 \\
-    Balance-assist on $\times$ roll angle & 0.54 & 0.28 & 1.07 & 0.08 \\
-    Balance-assist on $\times$ steer angle & 1.76 & 0.88 & 3.50 & 0.11 \\
-    Balance-assist on $\times$ angular impulse & 1.59 & 0.68 & 3.74 & 0.29 \\
-    Balance-assist on $\times$ perturbation order & 0.69 & 0.37 & 1.30 & 0.25 \\
+    Intercept                                     & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
+    Angular impulse                               & 2.39  & 0.29 & 0.00 & 10.92 & 6.23 & 19.13 \\
+    Perturbation order                            & -1.16 & 0.21 & 0.00 & 0.31 & 0.21 & 0.48 \\
+    Balance-assist on                             & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
+    Roll angle                                    & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
+    Steer angle                                   & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
+    Balance-assist on $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
+    Balance-assist on $\times$ steer angle        & 0.56  & 0.35 & 0.11 & 1.76 & 0.88 & 3.50 \\
+    Balance-assist on $\times$ angular impulse    & 0.46  & 0.44 & 0.29 & 1.59 & 0.68 & 3.74 \\
+    Balance-assist on $\times$ perturbation order & -0.37 & 0.32 & 0.25 & 0.69 & 0.37 & 1.30 \\
     \bottomrule
   \end{tabular}
 \end{table}
