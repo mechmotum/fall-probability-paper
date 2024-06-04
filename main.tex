@@ -216,16 +216,18 @@ to that described in the thesis include simplifying the controller with a
 inexpensive microcontroller and the use of a simpler safety harness.
 Figure~\ref{fig:perturbation_0} shows an example perturbation.
 %
+% NOTE : I get a compile error with the \protect calls here, not sure why.
 \begin{figure}
   \centering
-  % TODO : scale these pngs to a reasonable size for an A4 sheet
   \subcaptionbox{A participant on the bicycle in the safety harness with the
     Bump'Em motor lines attached to the ends of the
-    handlebars.\label{fig:participant-in-set-up}}
+    handlebars.\protect\label{fig:participant-in-set-up}}
     {\includegraphics[width=75mm]{figures/participant-in-set-up.png}}
   \subcaptionbox{Top view diagram of bicycle handlebar perturbation
-    system.\label{fig:setup-diagram}}
+    system.\protect\label{fig:setup-diagram}}
     {\includegraphics[width=65mm]{figures/setup-diagram.png}}
+  \caption{Diagrams showing the Bump'Em system arranged to apply handlebar
+    perturbations.}
   \label{fig:experimental-setup}
 \end{figure}
 
