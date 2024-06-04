@@ -9,6 +9,7 @@
 \usepackage{todonotes}
 
 \def\kph{\kilo\meter\per\hour}
+\def\mps{\meter\per\second}
 
 \title{Bicycle Balance Assistance Reduces Probability of Falling at Low Speeds
 When Subjected to Mechanical Perturbations}
@@ -377,34 +378,35 @@ explanatory independent variables including the binary balance assistance (on
 or off).
 
 \begin{table}
-  \small
+  \centering
+  \caption{Statisitcal model variables.}
   \begin{tabular}{lll}
     \toprule
+    Variable & Units & Description \\
     \midrule
-    \(L\) & \si{\newton\meter\second} & angular impulse of the applied
-    perturbation torque \\
+    \(L\) & \si{\newton\meter\second} & angular impulse of perturbation torque \\
     \(c\) & integer & order number of perturbation \\
-    \(\sigma_\delta\) & standard deviation of steer angle during Phase X \\
     \(k\) & TODO & gain of balance assist control \\
     \(\delta_0\) & \si{\degree} & steer angle at start of perturbation \\
     \(\phi_0\) & \si{\degree} & roll angle at start of perturbation \\
-    \(v\) & \si{\meter\per\second} & forward speed (6 or 10) \\
+    \(v\) & \si{\meter\per\second} & forward speed (1.7 or 2.8) \\
     \(f\) & boolean & outcome of perturbation: did not fall, did fall \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-We evaluate this hypothesis using a multivariate logistic regression model.
+We evaluate this hypothesis using a multivariate logistic regression model in
+the form
 
 \begin{align}
-  f_{ij} | p_{ij} \sim \textrm{Bern}(p_{ij})
+  f_{ij} | p_{ij} \sim \textrm{Bern}(p_{ij}) \textrm{.}
 \end{align}
 
-\(f_{ij}\) is the binary outcome of perturbation \(j\) of participant \(i\)
-which follows a Bernoulli distribution given the probability \(p_{ij}\) that a
-fall occurs. The log-odds of the probabiliy is then a linear function of our
-independent variables with \(\beta\) as the intercept and \(\alpha_k\) as the
-linear coefficients.
+Fall outcome \(f_{ij}\) is the binary outcome of perturbation \(j\) of
+participant \(i\) which follows a Bernoulli distribution given the probability
+\(p_{ij}\) that a fall occurs. The log-odds of the probabiliy is then a linear
+function of our independent variables with \(\beta\) as the intercept and
+\(\alpha_k\) as the linear coefficients.
 
 \begin{align}
   \log \left(\frac{p_{ij}}{1-p_{ij}} \right) = \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
@@ -412,25 +414,20 @@ linear coefficients.
 
 \todo[inline]{we already use k for gain}
 
-We scalle all independent variables such they they have a mean of zero and a
+We scale all independent variables such they they have a mean of zero and a
 standard deviation of one. We use cluster-mean centering, as recommended by
 \cite{Enders2007}, with the clusters being an individual subject because we are
 interested in the association between the state of the balance-assist system
 and the outcome of the perturbation.
 
-Cluster-mean centering shows there to be no variation between participants,
-i.e. that rider skill (the only participant differentiating factor) is not a
-predictor. We expected there to be a variation between participants in how well
-they are able to resist the perturbation. However, this was not true. This
-allowed us to use a simpler single-level logistic regression model, instead of
-a multilevel model. This left use with angular impulse, perturbation order,
-balance assist state, and roll \& steer angles at the time of perturbation. We
-also include interaction effects between the balance assist state and the other
-four variables.
-
-\todo[inline]{Marten writes ``The skill variable is not included, because it
-was not collected correctly for all participants.'' This needs to be addressed.
-What about skill being tied to participant clusters?}
+Cluster-mean centering shows there to be no variation between participants. We
+expected there to be a variation between participants in how well they are able
+to resist the perturbation. However, this was not true. This allowed us to
+stick with a simple single-level logistic regression model, instead of a
+multilevel model. This left use with angular impulse, perturbation order,
+balance assist state, and roll \& steer angles at the time of perturbation as
+independen tvariables.. We also include interaction effects between the balance
+assist state and the other four variables.
 
 We divide the analysis into two separate model evalautions, one for the
 6~\si{\kilo\meter\per\hour} \(k=10\) trials and one for the
@@ -440,58 +437,38 @@ each set of data.
 \section{Results}
 
 The coefficient estimates for a single-level logistic regression at
-6~\unit{\kilo\meter\per\hour} with gain $k=10$ are shown in Table
-\ref{table:freq-coefs-6}. The angular impulse, perturbation order, and balance
-assist state are all statistically significant predictors. Larger angular
-impulse increases the probability to fall and enduring more perturbations or
-having the balance assist on, decrease the probability to fall.  The associated
-multiplicative change in odds are shown in
+6~\unit{\kilo\meter\per\hour} with gain $k=10$ are shown in
+Table~\ref{table:freq-coefs-6}. The angular impulse, perturbation order, and
+balance assist state are all statistically significant predictors. Larger
+angular impulse increases the probability to fall and enduring more
+perturbations or having the balance assist on, decrease the probability to
+fall.  The associated multiplicative change in odds are shown in
 Table~\ref{table:freq-change-in-odds-6}.
+
+\todo{Combine tables 3 and 4 into one}
 
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates at
-    6~\unit{\kilo\meter\per\hour} and gain $k=10$.}
-  \label{table:freq-coefs-6}
-  \begin{tabular}{lrrr}
-    \toprule
-    Variable                                      & Estimate          & Standard error          & p-value          \\
-    \midrule
-    Intercept                                     & -0.29             & 0.17                    & 0.09             \\
-    Angular impulse                               & 1.69              & 0.27                    & 0.00             \\
-    Perturbation order                            & -0.77             & 0.22                    & 0.00             \\
-    Balance assist state                          & -0.64             & 0.27                    & 0.02             \\
-    Roll angle                                    & -0.25             & 0.21                    & 0.24             \\
-    Steer angle                                   & -0.14             & 0.21                    & 0.51             \\
-    Balance-assist on $\times$ roll angle         & 0.52              & 0.34                    & 0.12             \\
-    Balance-assist on $\times$ steer angle        & -0.41             & 0.34                    & 0.22             \\
-    Balance-assist on $\times$ angular impulse    & 0.41              & 0.41                    & 0.32             \\
-    Balance-assist on $\times$ perturbation order & -0.53             & 0.34                    & 0.12             \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\todo[inline]{Combine the columns of the multiplicative change in odds into the
-coefficient table}
-
-\begin{table}
-  \centering
-  \caption{Multiplicative change in odds of predictor variables at 6
+    6~\unit{\kilo\meter\per\hour} and gain $k=10$. Multiplicative change in odds of predictor variables at 6
   \unit{\kilo\meter\per\hour} and gain $k=10$ based on frequentist
          single-level logistic regression.}
-  \label{table:freq-change-in-odds-6}
-  \begin{tabular}{lllll}
-      \textbf{Variable}                             & \textbf{Multiplicative change in odds} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{p-value} \\ \hline
-      Intercept                                     & 0.75                                   & 0.53           & 1.05            & 0.09             \\
-      Angular impulse                               & 5.40                                   & 3.18           & 9.16            & 0.00             \\
-      Perturbation order                            & 0.46                                   & 0.30           & 0.72            & 0.00             \\
-      Balance-assist on                             & 0.53                                   & 0.31           & 0.89            & 0.02             \\
-      Roll angle                                    & 0.78                                   & 0.51           & 1.18            & 0.24             \\
-      Steer angle                                   & 0.87                                   & 0.58           & 1.32            & 0.51             \\
-      Balance-assist on $\times$ roll angle         & 1.68                                   & 0.86           & 3.29            & 0.12             \\
-      Balance-assist on $\times$ steer angle        & 0.66                                   & 0.34           & 1.28            & 0.22             \\
-      Balance-assist on $\times$ angular impulse    & 1.51                                   & 0.67           & 3.38            & 0.32             \\
-      Balance-assist on $\times$ perturbation order & 0.59                                   & 0.30           & 1.15            & 0.12             \\
+  \label{table:freq-coefs-6}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    Variable & Estimate & Standard error & p-value & MCIO & 2.5\% & 97.5\% \\
+    \midrule
+    Intercept & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
+    Angular impulse & 1.69 & 0.27 & 0.00 & 5.40 & 3.18 & 9.16 \\
+    Perturbation order & -0.77 & 0.22 & 0.00 & 0.46 & 0.30 & 0.72 \\
+    Balance assist state & -0.64 & 0.27 & 0.02 & 0.53 & 0.31 & 0.89 \\
+    Roll angle & -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
+    Steer angle & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
+    Balance-assist on $\times$ roll angle & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
+    Balance-assist on $\times$ steer angle & -0.41 & 0.34 & 0.22 & 0.66 & 0.34 & 1.28 \\
+    Balance-assist on $\times$ angular impulse & 0.41 & 0.41 & 0.32 & 1.51 & 0.67 & 3.38 \\
+    Balance-assist on $\times$ perturbation order & -0.53 & 0.34 & 0.12 & 0.59 & 0.30 & 1.15 \\
+    \bottomrule
   \end{tabular}
 \end{table}
 
@@ -502,6 +479,8 @@ statistically significant predictors. Larger angular impulse increases the
 probability to fall and enduring more perturbations decreases the probability
 to fall. The associated multiplicative change in odds are shown in
 Table~\ref{table:freq-change-in-odds}.
+
+\todo{Combine tables 4 and 5 into one}
 
 \begin{table}
   \centering
@@ -528,20 +507,25 @@ Table~\ref{table:freq-change-in-odds}.
 
 \begin{table}
   \centering
-  \caption{Multiplicative change in odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
-      frequentist single-level logistic regression.} \label{table:freq-change-in-odds}
+  \caption{Multiplicative change in odds of predictor variables at 10
+    \unit{\kilo\meter\per\hour} based on frequentist single-level logistic
+    regression.}
+  \label{table:freq-change-in-odds}
   \begin{tabular}{lllll}
-    \textbf{Variable}                             & \textbf{Multiplicative change in odds} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{p-value} \\ \hline
-    Intercept                                     & 0.78                                   & 0.57           & 1.07            & 0.12             \\
-    Angular impulse                               & 10.92                                  & 6.23           & 19.13           & 0.00             \\
-    Perturbation order                            & 0.31                                   & 0.21           & 0.48            & 0.00             \\
-    Balance-assist on                             & 0.64                                   & 0.40           & 1.03            & 0.07             \\
-    Roll angle                                    & 1.31                                   & 0.85           & 2.04            & 0.22             \\
-    Steer angle                                   & 0.69                                   & 0.43           & 1.10            & 0.12             \\
-    Balance-assist on $\times$ roll angle         & 0.54                                   & 0.28           & 1.07            & 0.08             \\
-    Balance-assist on $\times$ steer angle        & 1.76                                   & 0.88           & 3.50            & 0.11             \\
-    Balance-assist on $\times$ angular impulse    & 1.59                                   & 0.68           & 3.74            & 0.29             \\
-    Balance-assist on $\times$ perturbation order & 0.69                                   & 0.37           & 1.30            & 0.25             \\
+    \toprule
+    Variable & Multiplicative change in odds & 2.5\% & 97.5\% & p-value \\ \hline
+    \midrule
+    Intercept & 0.78 & 0.57 & 1.07 & 0.12 \\
+    Angular impulse & 10.92 & 6.23 & 19.13 & 0.00 \\
+    Perturbation order & 0.31 & 0.21 & 0.48 & 0.00 \\
+    Balance-assist on & 0.64 & 0.40 & 1.03 & 0.07 \\
+    Roll angle & 1.31 & 0.85 & 2.04 & 0.22 \\
+    Steer angle & 0.69 & 0.43 & 1.10 & 0.12 \\
+    Balance-assist on $\times$ roll angle & 0.54 & 0.28 & 1.07 & 0.08 \\
+    Balance-assist on $\times$ steer angle & 1.76 & 0.88 & 3.50 & 0.11 \\
+    Balance-assist on $\times$ angular impulse & 1.59 & 0.68 & 3.74 & 0.29 \\
+    Balance-assist on $\times$ perturbation order & 0.69 & 0.37 & 1.30 & 0.25 \\
+    \bottomrule
   \end{tabular}
 \end{table}
 
@@ -557,9 +541,9 @@ Table~\ref{table:freq-change-in-odds}.
 \subsection{Balance-assist}
 
 Turning the balance-assist system on significantly \((p<0.05)\) reduces the
-odds that a fall occurs while cycling at a speed of 6~\si{\kph} but at
-10~\si{\kph} that is not the case \((p=0.07)\). If all other factors remain the
-same at 6~\si{\kph}, the balance-assist system halves the odds that a
+odds that a fall occurs while cycling at a speed of 1.7~\si{\mps} but at
+2.8~\si{\mps} that is not the case \((p=0.07)\). If all other factors remain
+the same at 1.7~\si{\mps}, the balance-assist system halves the odds that a
 perturbation results in a fall. How much this changes the probability that a
 fall occurs depends on the values of the other predictor variables: if the odds
 that a perturbation results in a fall are a 1000:1, turning on the
@@ -573,11 +557,10 @@ probability for different magnitudes of angular impulse.
 
 \begin{figure}
   \centering
-  \subcaptionbox{6~\si{\kph}}{
-  \includegraphics[width=70mm]{example-image-a}
-    %\includegraphics[width=\textwidth]{figures/predicted_fall_probability-6.png}
+  \subcaptionbox{1.7~\si{\mps}}{
+    \includegraphics[width=70mm]{example-image-a}
   }
-  \subcaptionbox{10~\si{\kph}}{
+  \subcaptionbox{2.8~\si{\mps}}{
     \includegraphics[width=70mm]{example-image-b}
   }
   \caption{Comparison of predicted fall probability for balance-assist on or
