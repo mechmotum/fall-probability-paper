@@ -49,8 +49,9 @@ they are likely to fall, Figure~\ref{fig:balance-assist-bicycle}.
 \begin{figure}
   \centering
   \includegraphics[width=70mm]{figures/balance-assist-bicycle.jpg}
-  \caption{Balance assist bicycle prototype with steer motor and data
-    acquisition and control electronics mounted in the rear rack.}
+  \caption{Balance assist bicycle prototype with electric motor in the steering
+    column and data acquisition and control electronics mounted in the rear
+    rack.}
   \label{fig:balance-assist-bicycle}
 \end{figure}
 
@@ -118,13 +119,13 @@ front frame, and rear frame.
 
 If the steer torque is the sum of the (h)uman applied torque and the (m)otor
 applied torque \(T_\delta = T_\delta^\textrm{h} + T_\delta^\textrm{m}\),
-\(\mathbf{B} = \begin{bmatrix} \mathbf{B}_\phi \quad \mathbf{B}_\delta
+\(\mathbf{B} = \begin{bmatrix} \vec{B}_\phi \quad \vec{B}_\delta
 \end{bmatrix}\), and \(T_\delta^\textrm{m} = -k_{\dot{\phi}} \dot{\phi}\) then
 the human controlled plant takes the form:
 
 \begin{align}
   \dot{\vec{x}} = \left(\mathbf{A} -
-  \mathbf{B}_\delta
+  \vec{B}_\delta
   \left[0 \quad k_{\dot{\phi}} \quad 0 \quad 0\right]
 \right)
   \vec{x} + \mathbf{B} \begin{bmatrix} T_{\phi} \\ T_\delta^\textrm{h} \end{bmatrix}
@@ -132,23 +133,21 @@ the human controlled plant takes the form:
 
 The state matrix \(\mathbf{A}\) and input matrix \(\mathbf{B}\) are both
 functions of the equilibrium speed \(v\) and \(k_{\dot{\phi}}\) can be selected
-such that the eigenvalues of \(\left(\mathbf{A} - \mathbf{B}_\delta\left[0
-\quad k_{\dot{\phi}} \quad 0 \quad 0\right] \right)\) have negative real parts
-for \(v_{weave} < v < v_{capsize}\). With gain scheduling with respect to
-\(v\), the speed range where the bicycle is stable can be maximized within any
-physical actuator magnitude and bandwidth limits.  \citet{Schwab2008}
-elaborates on some of the possibilities in scheduling the gains for such a
-controller on this model.
-
-\todo[inline]{I'm not consistent with the arrow being a vector for $B_\delta$}
+such that the eigenvalues of \(\left(\mathbf{A} - \vec{B}_\delta\left[0 \quad
+k_{\dot{\phi}} \quad 0 \quad 0\right] \right)\) have negative real parts for
+\(v_{min} < v < v_{capsize}\). With gain scheduling with respect to \(v\), the
+speed range where the bicycle is stable can be maximized within any physical
+actuator magnitude and bandwidth limits. \citet{Schwab2008} elaborates on some
+of the possibilities in scheduling the gains for such a controller and shows
+that a linear scheduling with respect to speed can give satisfactory stability.
 
 In this paper, we test whether a gain scheduled steer motor controlled bicycle
-that is stable at a low speed range when riderless assists in balancing by
-investigating whether it is beneficial in preventing the rider from falling.
-To do this, we apply varying magnitude mechanical perturbations to the
-handlebars while the rider is balancing the bicycle on a treadmill and then
-assess the rider's probability of falling with the balance assist steer motor
-system on and off.
+that is stable in a large low speed range (when riderless) assists the rider in
+balancing by investigating whether it is beneficial in preventing falling.  To
+do this, we apply varying magnitude mechanical perturbations to the handlebars
+while the rider is balancing the bicycle on a treadmill and then assess the
+rider's probability of falling with the balance assist steer motor system on
+and off.
 
 \todo{Talk about the types of real life perturbations an how our perturbation
 mimics it.}
