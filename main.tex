@@ -32,22 +32,30 @@ When Subjected to Mechanical Perturbations}
 
 \section{Introduction}
 %
-Single-actor bicycle crashes are associated with a suprisingly large number of
+Single-actor bicycle crashes are associated with a surprisingly large number of
 reported injuries~\citep{Wegman2024}. At low speeds, from start up to typical
 cruising speeds, bicycles themselves are not self-stable and can be challenging
 for the rider to balance. Low speed crashes may be reduced if the bicycle was
 self-stable at these speeds by  relieving the rider of a necessary control
 activity. Bicycles can be mechanically modified to lower the speeds at which
 they are self-stable~\citep{Astrom2005} and since the 1980s it has been known
-that applying a motor acutated steering torque proportional to the roll rate
+that applying a motor actuated steering torque proportional to the roll rate
 can stabilize a single track vehicle at very low speeds. If this automatic
 control of steering can stabilize a bicycle, it may reduce the control required
 by the rider to successfully manage balancing tasks. We have developed such a
 balance assisting bicycle and hypothesize that it helps the rider in situations
-they are likely to fall.
+they are likely to fall, Figure~\ref{fig:balance-assist-bicycle}.
+%
+\begin{figure}
+  \centering
+  \includegraphics[width=70mm]{figures/balance-assist-bicycle.jpg}
+  \caption{Balance assist bicycle prototype with steer motor and data
+    acquisition and control electronics mounted in the rear rack.}
+  \label{fig:balance-assist-bicycle}
+\end{figure}
 
 In the early years of developments in automatic control, \citep{Whipple1899}
-remarkably realized and showed that roll motion feedback can stabilize the a
+remarkably realized and showed that roll motion feedback can stabilize a
 bicycle. Much later, automatic roll stabilization of single track vehicles
 began in earnest after predictive motorcycle models were developed and refined
 in throughout the 1970s. \Citet{vanZytveld1975} was influenced by Whipple's
@@ -56,7 +64,7 @@ motorbike with a controlled inverted pendulum that mimicked rider lean, but he
 was not successful in demonstrating what his theoretic control model correctly
 predicted. In his model, he recognized that feedback of the vehicle roll angle
 and angular rate was essential to stabilize the vehicle. It was not until the
-early 1980s that \cite{Nagai1983} sucessfully demonstrated balancing a robotic
+early 1980s that \cite{Nagai1983} successfully demonstrated balancing a robotic
 bicycle on a treadmill with both steering control and a laterally moving mass.
 Ruijs and Pacjecka followed this by demonstrating an automatically balanced
 motorcycle~\citep{Ruijs1986} and they did so with a steering motor. Ruijs and
@@ -66,7 +74,7 @@ mode, and steer angular rate feedback stabilizes the wobble mode. They also
 proposed how the gains must change with respect to vehicle speed for favorable
 control at all speeds. This roll motion feedback is the simplest controller
 that can stabilize a single track vehicle above a minimum speed when one is not
-concerned with wobble instabilities, somethign not prominent in bicycles at low
+concerned with wobble instabilities, something not prominent in bicycles at low
 speeds. Ruijs and Pacejka's work was not particularly concerned with low speed
 stability and their vehicle was fully automatic, no human rider was involved.
 Many more automatically balanced single track vehicles have been demonstrated
@@ -80,12 +88,12 @@ The effect of this automatic control gives the ability to change the dynamics,
 up to some limits, of the human controlled plant. In our prior
 study~\citep{Alizadehsaravi2023}, we demonstrate reduced motion during
 distractions due to the balance assist but contrarily researchers with a
-similar vehicle recently showed rider disatisfction with the
+similar vehicle recently showed rider dissatisfaction with the
 stabilization~\cite{Hanakam2023}.
 
 The linear Carvallo-Whipple bicycle model~\citep{Carvallo1899,Whipple1899} is
 the simplest bicycle model that exhibits non-minimum phase behavior and
-self-stablity. The bicycle model is ideal for showing the effect of a roll
+self-stability. The bicycle model is ideal for showing the effect of a roll
 motion feedback driven steer motor on the dynamics. The linear model can be
 described by the fourth order state space equations:
 
@@ -103,9 +111,9 @@ described by the fourth order state space equations:
 The states are the roll angle \(\phi\) and steer angle \(\delta\) along with
 their derivatives and the inputs are roll torque \(T_\phi\) and steer torque
 \(T_\delta\). The state \(\mathbf{A}\) and input \(\mathbf{B}\) matrices are
-functions of the equilbirum forward speed \(v\) and  are otherwise populated
+functions of the equilibrium forward speed \(v\) and  are otherwise populated
 with expressions that are functions of the geometric and inertial parameters of
-the nonholonomic mulitbody system made up of four rigid bodies: two wheels,
+the nonholonomic multibody system made up of four rigid bodies: two wheels,
 front frame, and rear frame.
 
 If the steer torque is the sum of the (h)uman applied torque and the (m)otor
@@ -128,7 +136,7 @@ such that the eigenvalues of \(\left(\mathbf{A} - \mathbf{B}_\delta\left[0
 \quad k_{\dot{\phi}} \quad 0 \quad 0\right] \right)\) have negative real parts
 for \(v_{weave} < v < v_{capsize}\). With gain scheduling with respect to
 \(v\), the speed range where the bicycle is stable can be maximized within any
-physical acutator magnitude and bandwidth limits.  \citet{Schwab2008}
+physical actuator magnitude and bandwidth limits.  \citet{Schwab2008}
 elaborates on some of the possibilities in scheduling the gains for such a
 controller on this model.
 
@@ -141,6 +149,9 @@ To do this, we apply varying magnitude mechanical perturbations to the
 handlebars while the rider is balancing the bicycle on a treadmill and then
 assess the rider's probability of falling with the balance assist steer motor
 system on and off.
+
+\todo{Talk about the types of real life perturbations an how our perturbation
+mimics it.}
 
 \section{Methods}
 %
@@ -156,14 +167,6 @@ the body fixed roll rate of the bicycle with a MEMs rate gyroscope (Company,
 Location). The balance assist control algorithm is implemented on a
 microprocessor (Teensy, Company, Location) and data from all sensors is logged
 with a CAN bus (Company, Location) at approximately X Hz.
-%
-\begin{figure}
-  \centering
-  \includegraphics[width=100mm]{figures/balance-assist-bicycle.jpg}
-  \caption{Balance assist bicycle prototype with steer motor and data
-    aquisition and control electronics mounted in the rear rack.}
-  \label{fig:balance-assist-bicycle}
-\end{figure}
 
 \subsection{Balance Assist Control}
 We use a forward speed \(v\) gain scheduled proportional roll rate feedback
@@ -210,7 +213,7 @@ pulsive torque to the front assembly (handlebars, forks, wheel) at magnitudes
 varying from X to X. The four motors are arranged at the four corners of a
 1~\si{\meter} wide treadmill (make, Company, City) that can reach speeds of
 18~\si{\kilo\meter\per\hour}. The general design is described in detail in the
-Van De Velde's MSc thesis~\citep{vandeVelde2022a} and the physical arrangment
+Van De Velde's MSc thesis~\citep{vandeVelde2022a} and the physical arrangement
 is shown in Figure~\ref{fig:participant-in-set-up}. Our modifications relative
 to that described in the thesis include simplifying the controller with a
 inexpensive microcontroller and the use of a simpler safety harness.
@@ -251,7 +254,7 @@ The subjects were divided into two groups. The first group performed the
 protocol at a belt speed of 2.8~\si{\meter\per\second}
 (10~\si{\kilo\meter\per\hour}) with the controller gain at $k=8$ and the second
 group performed the protocol at a belt speed of 1.7~\si{\meter\per\second}
-(6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occured X
+(6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occurred X
 weeks before the 6~\si{\kilo\meter\per\hour} group.
 
 Subjects wore a helmet and fall safety harness attached to the ceiling
@@ -264,7 +267,7 @@ location of their front wheel on the center line of the treadmill. We define a
 the pedal and places it on the ground or the bicycle wheel exceeds the width of
 the treadmill. We then applied perturbations in random directions (clockwise or
 counter clockwise) increasing the magnitude by X~\si{\newton\meter} each time.
-Figure~\ref{fig:perturbation-sequence} shows an example reult of a
+Figure~\ref{fig:perturbation-sequence} shows an example result of a
 perturbation.  We log the magnitude that causes the first fall to characterize
 that subject's nominal fall threshold.  Following this we apply 20
 perturbations of random magnitudes to the cyclist while they ride at a constant
@@ -329,9 +332,11 @@ magnitude of delivered perturbation. The duration is selected based on the
 duration of the commanded force and is calculated as follows:
 
 \begin{align}
-  F_r = & F_{rf} - F_{rr} \\
-  F_l = & F_{lf} - F_{lr} \\
-  L = & \int_{0\si{\second}}^{0.3\si{\second}} l/2(F_r + F_l) dt
+  L =
+  \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}(F_r + F_l) dt
+  =
+  \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}\left[(F_{rf} - F_{rr}) + (F_{lf}
+  - F_{lr})\right] dt
   \textrm{.}
 \end{align}
 
@@ -369,13 +374,15 @@ variables are reported in Table~\ref{tab:raw}.
 %
 We test the hypothesis that the balance assistance controller will reduce the
 probability of falling when perturbed externally at the handlebar. We have a
-single binary outcome variable \(f\) that is dependent on several possible
-explanatory independent variables including the binary balance assistance (on
-or off).
-
+single binary fall outcome variable \(f\) that is dependent on several possible
+explanatory independent variables, one of which is the binary balance
+assistance (on or off). See Table~\ref{tab:stat-model-variables} for all of the
+variables.
+%
 \begin{table}
   \centering
-  \caption{Statisitcal model variables.}
+  \caption{Statistical model variables.}
+  \label{tab:stat-model-variables}
   \begin{tabular}{lll}
     \toprule
     Variable & Units & Description \\
@@ -391,41 +398,43 @@ or off).
   \end{tabular}
 \end{table}
 
-We evaluate this hypothesis using a multivariate logistic regression model in
-the form
-
+We evaluate this hypothesis using a multivariate logistic regression model that
+takes the general form
+%
 \begin{align}
   f_{ij} | p_{ij} \sim \textrm{Bern}(p_{ij}) \textrm{.}
 \end{align}
-
-Fall outcome \(f_{ij}\) is the binary outcome of perturbation \(j\) of
+%
+Fall outcome \(f_{ij}\) is the binary outcome of perturbation \(j\) on
 participant \(i\) which follows a Bernoulli distribution given the probability
-\(p_{ij}\) that a fall occurs. The log-odds of the probabiliy is then a linear
+\(p_{ij}\) that a fall occurs. The log-odds of the probability is then a linear
 function of our independent variables with \(\beta\) as the intercept and
-\(\alpha_k\) as the linear coefficients.
-
+\(\alpha_k\) as the linear coefficients to the independent variables
+\(x_{ij}^k\), i.e. all variables in Table~\ref{tab:statmodel-variables} except
+\(f\).
+%
 \begin{align}
   \log \left(\frac{p_{ij}}{1-p_{ij}} \right) = \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
 \end{align}
 
 \todo[inline]{we already use k for gain}
 
-We scale all independent variables such they they have a mean of zero and a
-standard deviation of one. We use cluster-mean centering, as recommended by
-\cite{Enders2007}, with the clusters being an individual subject because we are
+Before fitting the model, we scale each \(x_{ij}^k\) such they they have a mean
+of zero and a standard deviation of one by cluster-mean centering, as
+recommended by \cite{Enders2007}, with clusters being an individual subject.
+The clusters are all data from an individual subject because we are only
 interested in the association between the state of the balance-assist system
-and the outcome of the perturbation.
+and the outcome of the perturbation. We expected there to be a variation
+between participants in how well they are able to resist the perturbation.
+However, this was not true.  Cluster-mean centering shows there to be no
+variation between participants. This allowed us to stick with a simple
+single-level logistic regression model, instead of a multilevel model. This
+left us with angular impulse, perturbation order, balance assist state, and
+roll \& steer angles at the time of perturbation as independent variables. We
+also include interaction effects between the balance assist state and the other
+four variables.
 
-Cluster-mean centering shows there to be no variation between participants. We
-expected there to be a variation between participants in how well they are able
-to resist the perturbation. However, this was not true. This allowed us to
-stick with a simple single-level logistic regression model, instead of a
-multilevel model. This left use with angular impulse, perturbation order,
-balance assist state, and roll \& steer angles at the time of perturbation as
-independen tvariables.. We also include interaction effects between the balance
-assist state and the other four variables.
-
-We divide the analysis into two separate model evalautions, one for the
+We divide the analysis into two separate model evaluations, one for the
 6~\si{\kilo\meter\per\hour} \(k=10\) trials and one for the
 10~\si{\kilo\meter\per\hour} \(k=8\) trials and we evaluate our hypothesis for
 each set of data.
@@ -502,7 +511,7 @@ Table~\ref{table:freq-coefs}.
 \begin{figure}
   \centering
   \includegraphics{example-image-a}
-  \caption{Box plot or distrubtion plot showing graphical view of stats
+  \caption{Box plot or distribution plot showing graphical view of stats
   tables.}
 \end{figure}
 
@@ -549,10 +558,10 @@ at higher speeds, the same perturbation causes larger lateral deviations. At
 10~\si{\kph} almost all falls were due to the bicycle exiting the maximum width
 of the treadmill. If the same experiment was performed on an infinite plane,
 the riders may have recovered from the perturbation. At 6~\si{\kph} the riders
-could often recover in the alloted treadmill width. Our results are very much
+could often recover in the allotted treadmill width. Our results are very much
 dependent on the two modes of falling with use: exit the treadmill width or
 foot is placed on the belt. Cycle paths are a similar width as the treadmill,
-so ride's are often limited in width when recoverying from a fall.
+so ride's are often limited in width when recovering from a fall.
 
 \todo[inline]{Could show an impulse response in lateral deviation for different
 speeds.}
