@@ -45,6 +45,8 @@ control of steering can stabilize a bicycle, it may reduce the control required
 by the rider to successfully manage balancing tasks. We have developed such a
 balance assisting bicycle and hypothesize that it helps the rider in situations
 they are likely to fall, Figure~\ref{fig:balance-assist-bicycle}.
+\todo{Talk about the types of real life perturbations an how our perturbation
+mimics it.}
 %
 \begin{figure}
   \centering
@@ -56,13 +58,14 @@ they are likely to fall, Figure~\ref{fig:balance-assist-bicycle}.
 \end{figure}
 
 In the early years of developments in automatic control, \citep{Whipple1899}
-remarkably realized and showed that roll motion feedback can stabilize a
-bicycle. Much later, automatic roll stabilization of single track vehicles
-began in earnest after predictive motorcycle models were developed and refined
-in throughout the 1970s. \Citet{vanZytveld1975} was influenced by Whipple's
-work and seems to be the first to attempt to robotically stabilize a small
-motorbike with a controlled inverted pendulum that mimicked rider lean, but he
-was not successful in demonstrating what his theoretic control model correctly
+not only derived the correct equations of motion of the bicycle but realized
+and showed that roll motion feedback can stabilize a bicycle. Much later,
+automatic roll stabilization of single track vehicles began in earnest after
+predictive motorcycle models were developed and refined in throughout the
+1970s. \Citet{vanZytveld1975} was influenced by Whipple's work and seems to be
+the first to attempt to robotically stabilize a small motorbike with a
+controlled inverted pendulum that mimicked rider lean, but he was not
+successful in demonstrating what his theoretic control model correctly
 predicted. In his model, he recognized that feedback of the vehicle roll angle
 and angular rate was essential to stabilize the vehicle. It was not until the
 early 1980s that \cite{Nagai1983} successfully demonstrated balancing a robotic
@@ -97,7 +100,7 @@ the simplest bicycle model that exhibits non-minimum phase behavior and
 self-stability. The bicycle model is ideal for showing the effect of a roll
 motion feedback driven steer motor on the dynamics. The linear model can be
 described by the fourth order state space equations:
-
+%
 \begin{align}
   \dot{\vec{x}} = \mathbf{A} \vec{x} +
   \mathbf{B}
@@ -135,22 +138,22 @@ The state matrix \(\mathbf{A}\) and input matrix \(\mathbf{B}\) are both
 functions of the equilibrium speed \(v\) and \(k_{\dot{\phi}}\) can be selected
 such that the eigenvalues of \(\left(\mathbf{A} - \vec{B}_\delta\left[0 \quad
 k_{\dot{\phi}} \quad 0 \quad 0\right] \right)\) have negative real parts for
-\(v_{min} < v < v_{capsize}\). With gain scheduling with respect to \(v\), the
-speed range where the bicycle is stable can be maximized within any physical
-actuator magnitude and bandwidth limits. \citet{Schwab2008} elaborates on some
-of the possibilities in scheduling the gains for such a controller and shows
-that a linear scheduling with respect to speed can give satisfactory stability.
+\(v_{min} < v < v_\textrm{capsize}\) where \(v_{min}\) is the lowest stable
+speed given \(k_{\dot{\phi}}\) and \(v_\textrm{capsize}\) is the speed at which
+the uncontrolled bicycle's capsize mode goes unstable. With gain scheduling
+with respect to \(v\), the speed range where the bicycle is stable can be
+maximized within any physical actuator magnitude and bandwidth limits.
+\citet{Schwab2008} elaborates on some of the possibilities in scheduling the
+gains for such a controller and shows that a linear scheduling with respect to
+speed can give satisfactory stability.
 
-In this paper, we test whether a gain scheduled steer motor controlled bicycle
-that is stable in a large low speed range (when riderless) assists the rider in
-balancing by investigating whether it is beneficial in preventing falling.  To
-do this, we apply varying magnitude mechanical perturbations to the handlebars
-while the rider is balancing the bicycle on a treadmill and then assess the
-rider's probability of falling with the balance assist steer motor system on
-and off.
-
-\todo{Talk about the types of real life perturbations an how our perturbation
-mimics it.}
+In this paper, we test whether a linearly gain scheduled steer motor controlled
+bicycle that is stable in a large low speed range (when riderless) assists the
+rider in balancing by investigating whether it is beneficial in preventing
+falling.  To do this, we apply varying magnitude mechanical perturbations to
+the handlebars while the rider is balancing the bicycle on a treadmill and then
+assess the rider's probability of falling with the balance assist steer motor
+system on and off.
 
 \section{Methods}
 %
@@ -159,21 +162,25 @@ mimics it.}
 We modified a standard electric bicycle (Gazelle Grenoble C7\todo{Double check
 this is the right model}, Dieren, The Netherlands) with a custom motor in the
 steering assembly capable of applying up to 7~\si{\newton\meter} of torque
-between the head tube and steer tube, Figure~\ref{fig:balance-assist-bicycle}.
-A custom motor controller converts the commanded torque to applied torque. We
-measure the speed of the rear wheel with an encoder (Magura XXX) and measure
-the body fixed roll rate of the bicycle with a MEMs rate gyroscope (Company,
-Location). The balance assist control algorithm is implemented on a
-microprocessor (Teensy, Company, Location) and data from all sensors is logged
-with a CAN bus (Company, Location) at approximately X Hz.
+between the head tube and steer tube, see
+Figure~\ref{fig:balance-assist-bicycle}.  A custom motor controller converts
+the commanded torque to applied torque. We measure the speed of the rear wheel
+with an encoder (Magura XXX) and measure the body fixed roll rate of the
+bicycle with a MEMs rate gyroscope (Company, Location). The balance assist
+control algorithm is implemented on a microprocessor (Teensy, Company,
+Location) and data from all sensors is logged with a CAN bus (Company,
+Location) at approximately X Hz.
 
 \subsection{Balance Assist Control}
+%
 We use a forward speed \(v\) gain scheduled proportional roll rate feedback
 controller to stabilize the bicycle. The commanded steer torque
 \(T^\textrm{m}_\delta\) from the steer motor follows the control law
+%
 \begin{align}
   T^\textrm{m}_\delta = k(v_{weave} - v)\dot{\phi}
 \end{align}
+%
 where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
 open loop bicycle rigid-rider dynamics. We use \(k=8\) and \(k=10\) as gain
 values during the experiments. Scaling the proportional feedback gain linearly
@@ -233,7 +240,7 @@ Figure~\ref{fig:perturbation_0} shows an example perturbation.
   \label{fig:experimental-setup}
 \end{figure}
 
-\subsection{Subjects}
+\subsection{Protocol}
 %
 We recruited 26 able-bodied young adults (20-36 years old) to participate in
 the experiments. The subjects all were confident in their cycling skills and
@@ -247,8 +254,6 @@ University of Technology's Human Research Ethics Council (\#XXX).
 \todo[inline]{Include the average age, mass, height and standard deviation if
 we recorded those.}
 
-\subsection{Protocol}
-%
 The subjects were divided into two groups. The first group performed the
 protocol at a belt speed of 2.8~\si{\meter\per\second}
 (10~\si{\kilo\meter\per\hour}) with the controller gain at $k=8$ and the second
@@ -300,13 +305,14 @@ perturbation threshold estimate: the initial estimate itself, two perturbations
 lower than the initial estimate and two perturbations higher than the initial
 estimate.  The five possible perturbations are separated by 10 N steps. For
 example, if the initial estimate of the perturbation threshold of a participant
-is 80 N, the five possible perturbations are 60, 70, 80, 90 and 100 N. Which
-one of these five perturbations is chosen is determined at random. If the
-perturbation results in a fall, the estimate of the perturbation threshold is
-decreased with 10 N, and vice versa if the perturbation did not result in a
-fall. Five new possible perturbation forces are determined around the updated
-perturbation threshold, and a new perturbation is selected at random. This
-process iterates until twenty perturbations are applied.
+is 80~\si{\newton}, the five possible perturbations are 60, 70, 80, 90 and
+100~\si{\newton}. Which one of these five perturbations is chosen is
+determined at random. If the perturbation results in a fall, the estimate of
+the perturbation threshold is decreased with 10~\si{\newton}, and vice versa
+if the perturbation did not result in a fall. Five new possible perturbation
+forces are determined around the updated perturbation threshold, and a new
+perturbation is selected at random. This process iterates until twenty
+perturbations are applied.
 
 \subsection{Measurements}
 %
@@ -361,7 +367,7 @@ variables are reported in Table~\ref{tab:raw}.
     Fall outcome & \(f\) & boolean & NA \\
     Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear & \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & load cell\\
     Perturbation Order Number & \(j\) & integer & NA\\
-    Roll Angle & \(\phi\) &  \si{\degree} & Kalman estimate~\cite{Gabriel2023} \\
+    Roll Angle & \(\phi\) &  \si{\degree} & Kalman estimate~\citep{Gabriel2023} \\
     Roll Angular Rate & \(\dot{\phi}\) &  \si{\degree\per\second} & rate gyroscope \\
     Steer Angle & \(\delta\) & \si{\degree} & steer tube encoder \\
     \bottomrule
@@ -409,7 +415,7 @@ participant \(i\) which follows a Bernoulli distribution given the probability
 \(p_{ij}\) that a fall occurs. The log-odds of the probability is then a linear
 function of our independent variables with \(\beta\) as the intercept and
 \(\alpha_k\) as the linear coefficients to the independent variables
-\(x_{ij}^k\), i.e. all variables in Table~\ref{tab:statmodel-variables} except
+\(x_{ij}^k\), i.e. all variables in Table~\ref{tab:stat-model-variables} except
 \(f\).
 %
 \begin{align}
