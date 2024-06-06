@@ -178,7 +178,7 @@ controller to stabilize the bicycle. The commanded steer torque
 \(T^\textrm{m}_\delta\) from the steer motor follows the control law
 %
 \begin{align}
-  T^\textrm{m}_\delta = k(v_{weave} - v)\dot{\phi}
+  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = k(v_{weave} - v)\dot{\phi}
 \end{align}
 %
 where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
@@ -318,14 +318,15 @@ perturbations are applied.
 %
 We measure the time histories of the Bump'Em delivered perturbation forces and
 the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
-Figure~\ref{fig:perturbation_0} shows an example perturbation force measurement
-compared to our Bump'Em controller command.
+Figure~\ref{fig:perturbation_0}\todo{Maybe remove the top plot of individual
+forces and add plots of roll angle, roll rate, steer rate.} shows an example
+perturbation force measurement compared to our Bump'Em controller command.
 %
 \begin{figure}
   \centering
   \includegraphics[width=140mm]{figures/perturbation_0.png}
   \caption{Motor force and resulting  steer torque perturbation based on an 80N
-  counterclockwise applied force.}
+    counterclockwise applied force.}
   \label{fig:perturbation_0}
 \end{figure}
 
