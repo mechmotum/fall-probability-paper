@@ -60,11 +60,11 @@ mimics it.}
 In the early years of developments in automatic control, \citep{Whipple1899}
 not only derived the correct equations of motion of the bicycle but realized
 and showed that roll motion feedback can stabilize a bicycle. Much later,
-automatic roll stabilization of single track vehicles began in earnest after
-predictive motorcycle models were developed and refined in throughout the
-1970s. \Citet{vanZytveld1975} was influenced by Whipple's work and seems to be
-the first to attempt to robotically stabilize a small motorbike with a
-controlled inverted pendulum that mimicked rider lean, but he was not
+attempts at automatic roll stabilization of single track vehicles began in
+earnest after predictive motorcycle models were developed and refined in
+throughout the 1970s. \Citet{vanZytveld1975} was influenced by Whipple's work
+and seems to be the first to attempt to robotically stabilize a small motorbike
+with a controlled inverted pendulum that mimicked rider lean, but he was not
 successful in demonstrating what his theoretic control model correctly
 predicted. In his model, he recognized that feedback of the vehicle roll angle
 and angular rate was essential to stabilize the vehicle. It was not until the
@@ -178,11 +178,11 @@ controller to stabilize the bicycle. The commanded steer torque
 \(T^\textrm{m}_\delta\) from the steer motor follows the control law
 %
 \begin{align}
-  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = k(v_{weave} - v)\dot{\phi}
+  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = g(v_{weave} - v)\dot{\phi}
 \end{align}
 %
 where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
-open loop bicycle rigid-rider dynamics. We use \(k=8\) and \(k=10\) as gain
+open loop bicycle rigid-rider dynamics. We use \(g=8\) and \(g=10\) as gain
 values during the experiments. Scaling the proportional feedback gain linearly
 with respect to speed stabilizes the normally unstable weave mode of the
 bicycle from speeds of X~\si{\kilo\meter\per\hour} to
@@ -256,7 +256,7 @@ we recorded those.}
 
 The subjects were divided into two groups. The first group performed the
 protocol at a belt speed of 2.8~\si{\meter\per\second}
-(10~\si{\kilo\meter\per\hour}) with the controller gain at $k=8$ and the second
+(10~\si{\kilo\meter\per\hour}) with the controller gain at $g=8$ and the second
 group performed the protocol at a belt speed of 1.7~\si{\meter\per\second}
 (6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occurred X
 weeks before the 6~\si{\kilo\meter\per\hour} group.
@@ -348,8 +348,8 @@ duration of the commanded force and is calculated as follows:
 
 At the initiation of each perturbation we log the steer and roll angles to
 characterize the configuration of the bicycle when perturbed. The gain setting
-on the balance assist controller indicates if the assistance is off \(k=0\) or
-on at two different levels: low \(k=8\) or high \(k=10\). A recovery from the
+on the balance assist controller indicates if the assistance is off \(g=0\) or
+on at two different levels: low \(g=8\) or high \(g=10\). A recovery from the
 perturbation is successful if the person neither put their foot down onto the
 treadmill surface or either wheel of the bicycle exits the width of the
 treadmill belt. We record this as a binary variable \(f\). All measured
@@ -420,10 +420,9 @@ function of our independent variables with \(\beta\) as the intercept and
 \(f\).
 %
 \begin{align}
-  \log \left(\frac{p_{ij}}{1-p_{ij}} \right) = \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
+  \log \left(\frac{p_{ij}}{1-p_{ij}} \right) =
+  \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
 \end{align}
-
-\todo[inline]{we already use k for gain}
 
 Before fitting the model, we scale each \(x_{ij}^k\) such they they have a mean
 of zero and a standard deviation of one by cluster-mean centering, as
@@ -432,7 +431,7 @@ The clusters are all data from an individual subject because we are only
 interested in the association between the state of the balance-assist system
 and the outcome of the perturbation. We expected there to be a variation
 between participants in how well they are able to resist the perturbation.
-However, this was not true.  Cluster-mean centering shows there to be no
+However, this was not true. Cluster-mean centering shows there to be no
 variation between participants. This allowed us to stick with a simple
 single-level logistic regression model, instead of a multilevel model. This
 left us with angular impulse, perturbation order, balance assist state, and
@@ -441,14 +440,14 @@ also include interaction effects between the balance assist state and the other
 four variables.
 
 We divide the analysis into two separate model evaluations, one for the
-6~\si{\kilo\meter\per\hour} \(k=10\) trials and one for the
-10~\si{\kilo\meter\per\hour} \(k=8\) trials and we evaluate our hypothesis for
+6~\si{\kph} \(g=10\) trials and one for the
+10~\si{\kph} \(g=8\) trials and we evaluate our hypothesis for
 each set of data.
 
 \section{Results}
-
+%
 The coefficient estimates for a single-level logistic regression at
-6~\unit{\kilo\meter\per\hour} with gain $k=10$ are shown in
+6~\unit{\kph} with gain $g=10$ are shown in
 Table~\ref{table:freq-coefs-6}. The angular impulse, perturbation order, and
 balance assist state are all statistically significant predictors. Larger
 angular impulse increases the probability to fall and enduring more
@@ -459,9 +458,9 @@ Table~\ref{table:freq-coefs-6}.
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates at
-    6~\unit{\kilo\meter\per\hour} and gain $k=10$. Multiplicative change in
+    6~\unit{\kilo\meter\per\hour} and gain $g=10$. Multiplicative change in
     odds of predictor variables at 6 \unit{\kilo\meter\per\hour} and gain
-    $k=10$ based on frequentist single-level logistic regression.}
+    $g=10$ based on frequentist single-level logistic regression.}
   \label{table:freq-coefs-6}
   \begin{tabular}{lrrrrrr}
     \toprule
@@ -482,7 +481,7 @@ Table~\ref{table:freq-coefs-6}.
 \end{table}
 
 The coefficient estimates for a single-level logistic regression at
-10~\si{\kilo\meter\per\hour} with gain $k=8$ are shown in Table
+10~\si{\kilo\meter\per\hour} with gain $g=8$ are shown in Table
 \ref{table:freq-coefs}. The angular impulse and perturbation order are
 statistically significant predictors. Larger angular impulse increases the
 probability to fall and enduring more perturbations decreases the probability
@@ -492,7 +491,7 @@ Table~\ref{table:freq-coefs}.
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates at
-    10~\unit{\kilo\meter\per\hour} and gain $k=8$.  Multiplicative change in
+    10~\unit{\kilo\meter\per\hour} and gain $g=8$.  Multiplicative change in
     odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
     frequentist single-level logistic regression.}
   \label{table:freq-coefs}
