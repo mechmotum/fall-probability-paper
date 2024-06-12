@@ -22,7 +22,7 @@ jobs:
         run: |
           python src/control.py
           python src/generate_time_series_imgs.py
-          R < src/statistics.r
+          Rscript < src/statistics.r
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
