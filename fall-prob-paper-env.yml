@@ -1,7 +1,16 @@
 name: fall-prob-paper
 channels:
   - conda-forge
+  - r
 dependencies:
   - bicycleparameters ==1.1.1
   - pandas ==2.2.2
   - pyarrow ==16.1.0
+  - r-base ==4.1.3
+  - r-lme4 ==1.1_35.3
+  - r-readxl ==1.4.3
+  - r-tidyverse ==2.0.0
+  - r-effects ==4.2_2
+  - r-jtools ==2.2.1
+  - r-ggeffects ==1.2.2
+  - r-ggplot2 ==3.4.2
