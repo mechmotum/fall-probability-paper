@@ -454,7 +454,7 @@ angular impulse increases the probability to fall and enduring more
 perturbations or having the balance assist on, decrease the probability to
 fall.  The associated multiplicative change in odds are shown in
 Table~\ref{table:freq-coefs-6}.
-
+%
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates at
@@ -521,14 +521,21 @@ Table~\ref{table:freq-coefs}.
 \end{figure}
 
 \section{Discussion}
-
-\subsection{Balance-assist}
-
+%
 Turning the balance-assist system on significantly \((p<0.05)\) reduces the
-odds that a fall occurs while cycling at a speed of 1.7~\si{\mps} but at
-2.8~\si{\mps} that is not the case \((p=0.07)\). If all other factors remain
-the same at 1.7~\si{\mps}, the balance-assist system halves the odds that a
-perturbation results in a fall. How much this changes the probability that a
+odds that a fall occurs while cycling at a speed of 6~\si{\kph}.
+Figure~\ref{fig:probability-6kph} visualizes the probability of falling as a
+function of the angular impulse while keeping all other explantory factors at
+their mean values. This figure is derived from the result that the
+balance-assist system halves the odds that a perturbation results in a fall.
+This figure shows that for relatively large impulses the probability to fall is
+unity for both states of balance assist on and off. And for relatively small
+impulses the probability to fall is zero for both states. But for impulses in
+the magnitude region around the mean fall threshold, the probability of falling
+is significantly lowered.
+
+but at
+10~\si{\kph} that is not the case \((p=0.07)\).  How much this changes the probability that a
 fall occurs depends on the values of the other predictor variables: if the odds
 that a perturbation results in a fall are a 1000:1, turning on the
 balance-assist system reduces the odds to 500:1. However, the probability that
@@ -541,11 +548,11 @@ probability for different magnitudes of angular impulse.
 
 \begin{figure}
   \centering
-  \subcaptionbox{1.7~\si{\mps}}{
-    \includegraphics[width=70mm]{example-image-a}
+  \subcaptionbox{1.7~\si{\mps}\label{fig:probability-6kph}}{
+    \includegraphics[width=120mm]{figures/predicted_fall_probability_6kmh.png}
   }
   \subcaptionbox{2.8~\si{\mps}}{
-    \includegraphics[width=70mm]{example-image-b}
+    \includegraphics[width=120mm]{figures/predicted_fall_probability_10kmh.png}
   }
   \caption{Comparison of predicted fall probability for balance-assist on or
     off All other predictor variables are fixed at zero, except for the
