@@ -166,14 +166,14 @@ between the head tube and steer tube, see
 Figure~\ref{fig:balance-assist-bicycle}.  A custom motor controller converts
 the commanded torque to applied torque. We measure the speed of the rear wheel
 with an encoder (Magura XXX) and measure the body fixed roll rate of the
-bicycle with a MEMs rate gyroscope (CRS 03-02s, Silicon Sensing, United Kingdom).
-\todo{Do you mean the gyro inside the bicycle or the external? Currently filled in the 
-data of the external one. Not sure what make and model is inside the bicycle}
-The balance assist control algorithm is implemented on a microprocessor (Teensy, PJRC,
-USA) and data from all sensors is logged with a CAN bus (CanEdge2, CSS Electronics,
-Denmark) at approximately 100 Hz. \todo{Sample rate is not the same for each
-sensor: wheel speed, imu = 1ms, steer torque command is updated every 10ms, 
-can log is written every 10ms}
+bicycle with a MEMs rate gyroscope (CRS 03-02s, Silicon Sensing, United
+Kingdom).  \todo{Do you mean the gyro inside the bicycle or the external?
+Currently filled in the data of the external one. Not sure what make and model
+is inside the bicycle} The balance assist control algorithm is implemented on a
+microprocessor (Teensy, PJRC, USA) and data from all sensors is logged with a
+CAN bus (CanEdge2, CSS Electronics, Denmark) at approximately 100 Hz.
+\todo{Sample rate is not the same for each sensor: wheel speed, imu = 1ms,
+steer torque command is updated every 10ms, can log is written every 10ms}
 
 \subsection{Balance Assist Control}
 %
@@ -216,19 +216,19 @@ adapted Bump'Em system~\cite{Tan2020} which is designed with four motors
 working in tandem, Figure~\ref{fig:setup-diagram}. The four motors are
 programmed to apply a light force at all times to keep the ropes taught and to
 track a commanded force profile using a PID controller running on a
-microprocessor (Arduino Mega 2560, Italy). We measure the force applied by each 
+microprocessor (Arduino Mega 2560, Italy). We measure the force applied by each
 motor at the handlebar via four inline load cells, each with a max load of
 250~\si{\newton}. One load cell was damaged during pilot experiments, and is
-replaced by a load cell with a max load of 500~\si{\newton}. The commanded 
-force profiles are designed to apply an external pulsive torque to the front 
-assembly (handlebars, forks, wheel) at magnitudes varying from 20 to 200. The four
-motors are arranged at the four corners of a 1~\si{\meter} wide treadmill 
+replaced by a load cell with a max load of 500~\si{\newton}. The commanded
+force profiles are designed to apply an external pulsive torque to the front
+assembly (handlebars, forks, wheel) at magnitudes varying from 20 to 200. The
+four motors are arranged at the four corners of a 1~\si{\meter} wide treadmill
 (EC-90 Flat, Maxon Group, Switzerland) that can reach speeds of 18~\si{\kilo\meter\per\hour}.
-The general design is described in detail in the Van De Velde's MSc 
-hesis~\citep{vandeVelde2022a} and the physical arrangement  is shown in 
-Figure~\ref{fig:participant-in-set-up}. Our modifications relative to that 
-described in the thesis include simplifying the controller with a inexpensive 
-microcontroller and the use of a simpler safety harness. 
+The general design is described in detail in the Van De Velde's MSc
+hesis~\citep{vandeVelde2022a} and the physical arrangement  is shown in
+Figure~\ref{fig:participant-in-set-up}. Our modifications relative to that
+described in the thesis include simplifying the controller with a inexpensive
+microcontroller and the use of a simpler safety harness.
 Figure~\ref{fig:perturbation_0} shows an example perturbation.
 %
 % NOTE : I get a compile error with the \protect calls here, not sure why.
@@ -255,7 +255,7 @@ experiments at 1.7~\si{\meter\per\second} (6~\si{\kilo\meter\per\hour}) and
 fifteen subjects performed the experiments at 2.8~\si{\meter\per\second}
 (10~\si{\kilo\meter\per\hour}). All subjects consented to the experiment and
 could decline to continue at any time. The study was approved by Delft
-University of Technology's Human Research Ethics Council (\#XXX).
+University of Technology's Human Research Ethics Council (\#3897).
 
 \todo[inline]{Include the average age, mass, height and standard deviation if
 we recorded those.}
@@ -333,7 +333,7 @@ perturbation force measurement compared to our Bump'Em controller command.
 %
 \begin{figure}
   \centering
-  \includegraphics[width=140mm]{figures/perturbation_0.png}
+  \includegraphics[width=140mm]{figures/torque_angle_perturbation_10.png}
   \caption{Motor force and resulting  steer torque perturbation based on an 80N
     counterclockwise applied force.}
   \label{fig:perturbation_0}
@@ -431,6 +431,7 @@ function of our independent variables with \(\beta\) as the intercept and
 \begin{align}
   \log \left(\frac{p_{ij}}{1-p_{ij}} \right) =
   \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
+  \label{eq:log-regress}
 \end{align}
 
 Before fitting the model, we scale each \(x_{ij}^k\) such they they have a mean
@@ -502,7 +503,8 @@ Table~\ref{table:freq-coefs}.
   \caption{Logistic regression coefficient estimates at
     10~\unit{\kilo\meter\per\hour} and gain $g=8$.  Multiplicative change in
     odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
-    frequentist single-level logistic regression.}
+    frequentist single-level logistic regression. and 5\% confidence intervals
+  of MCiO.}
   \label{table:freq-coefs}
   \begin{tabular}{lrrrrrr}
     \toprule
@@ -522,38 +524,27 @@ Table~\ref{table:freq-coefs}.
   \end{tabular}
 \end{table}
 
-\begin{figure}
-  \centering
-  \includegraphics{example-image-a}
-  \caption{Box plot or distribution plot showing graphical view of stats
-  tables.}
-\end{figure}
-
-\section{Discussion}
-%
+\todo{Revisit if we want box plots to visualize the tables.}
 Turning the balance-assist system on significantly \((p<0.05)\) reduces the
-odds that a fall occurs while cycling at a speed of 6~\si{\kph}.
-Figure~\ref{fig:probability-6kph} visualizes the probability of falling as a
-function of the angular impulse while keeping all other explantory factors at
-their mean values. This figure is derived from the result that the
-balance-assist system halves the odds that a perturbation results in a fall.
-This figure shows that for relatively large impulses the probability to fall is
-unity for both states of balance assist on and off. And for relatively small
-impulses the probability to fall is zero for both states. But for impulses in
-the magnitude region around the mean fall threshold, the probability of falling
-is significantly lowered.
+odds that a pertubation results in a fall occurs while cycling at a speed of
+6~\si{\kph}.  Figure~\ref{fig:probability-6kph} visualizes the probability of
+falling as a function of the mean and centered angular impulse per participant
+while keeping all other explantory factors at their centered mean values. This
+figure is derived by setting all explanatory variables to there mean and
+calculating the probality from Eq~\ref{eq:log-regress} for only change in
+angular impulse given the estimates in Table~\ref{tab:freq-coeffs-6} which
+indicate that the balance-assist system halves (0.53) the odds that a
+perturbation results in a fall. This figure shows that for relatively large
+impulses the probability to fall is unity for both states of balance assist on
+and off. And for relatively small impulses the probability to fall is zero for
+both states. But for impulses in the magnitude region (-1 to 0.5 STD) around
+the mean-centered fall threshold, the probability of falling is significantly
+lowered. The skewedness of the probaility curves arrives from the interaction
+effects\todo[inline]{check this and think about it}.
 
-but at
-10~\si{\kph} that is not the case \((p=0.07)\).  How much this changes the probability that a
-fall occurs depends on the values of the other predictor variables: if the odds
-that a perturbation results in a fall are a 1000:1, turning on the
-balance-assist system reduces the odds to 500:1. However, the probability that
-a fall occurs is only reduced from $0.999$ to $0.998$. On the other hand, if
-the odds that a fall will occur are smaller, halving the odds has a larger
-influence on the fall probability. For example, if the odds that a fall occurs
-is two, halving it to one reduces the probability from $0.66$ to $0.50$. Figure
-\ref{fig:probability} shows how the balance-assist system changes the fall
-probability for different magnitudes of angular impulse.
+\todo{Discuss the 10 kph finding}
+
+but at 10~\si{\kph} that is not the case \((p=0.07)\).
 
 \begin{figure}
   \centering
@@ -565,9 +556,31 @@ probability for different magnitudes of angular impulse.
   }
   \caption{Comparison of predicted fall probability for balance-assist on or
     off All other predictor variables are fixed at zero, except for the
-    interaction effect between the balance-assist and the angular impulse.}
+    interaction effect between the balance-assist and the angular impulse. The
+    x axis is standard deviation around the mean (all perturbations), centered
+    per participant.}
   \label{fig:probability}
 \end{figure}
+
+\section{Discussion}
+%
+
+It is important to understand the relationship between probability and odds to
+relate Figure~\ref{fig:probability} and Table~\ref{tab:freq-coeffs-6}.  How
+much the probability that a fall changes depends on the values of all predictor
+variables and we visualize only one view into the results here. If the odds
+that a perturbation results in a fall are a 1000:1, turning on the
+balance-assist system reduces the odds to 500:1. However, the probability that
+a fall occurs is only reduced from $0.999$ to $0.998$. On the other hand, if
+the odds that a fall will occur are smaller, halving the odds has a larger
+influence on the fall probability.For example, if the odds that a fall occurs
+is two, halving it to one reduces the probability from $0.66$ to $0.50$. This
+clearly shown in the behavior in Figure~\ref{fig:probablity} with the behavior
+at high standard deviations.
+
+\todo{Consider making a specific value of calcualting the probabilty for a set
+of inputs to the regression model.}
+
 
 Angular impulse magnitude has the largest significant effect for predicting
 fall probability. An increase in angular impulse increases the fall probability
@@ -605,6 +618,10 @@ None of the interaction effects are statistically significant. That means that
 whether the balance-assist system is on or off does not significantly change
 the effect that the roll angle, steer angle, angular impulse, and perturbation
 order have on the probability that a fall will occur.
+
+Difficult to layer this onto the fall statistics, because we don't have the
+details of how people fall. If such data existed we could make estimates on the
+number of falls reduced if everyone road such a bike.
 
 \section{Conclusion}
 
