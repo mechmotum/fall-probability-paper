@@ -13,6 +13,7 @@ DURATION_BEFORE = 0.3
 DURATION_AFTER = 2.0
 DIRECTORY = "figures"
 HANLDEBAR_LENGTH = 0.82
+BALANCE_ASSIST_MOTOR_CONSTANT = 5
 
 
 def main():
@@ -26,6 +27,7 @@ def main():
         data_off, DESIRED_FORCES, DURATION_BEFORE, DURATION_AFTER
     )
     perturbation_dfs = perturbation_dfs_on + perturbation_dfs_off
+    generate_torque_angle_plots(perturbation_dfs, DIRECTORY)
     generate_force_torque_plots(perturbation_dfs[:1], DIRECTORY, ALL_FORCES)
     generate_roll_steer_plots(perturbation_dfs, DIRECTORY)
 
@@ -78,7 +80,7 @@ def get_perturbations(
                 continue
 
             if "steer" in var or "roll" in var or "gyro" in var:
-                pert_data[var + "_orginal"] = data[var][context_start:context_stop]
+                pert_data[var + "_original"] = data[var][context_start:context_stop]
                 if data["desforce24"][start] > TRACKING_FORCE:
                     pert_data[var] = -data[var][context_start:context_stop]
                 else:
@@ -89,6 +91,84 @@ def get_perturbations(
         perturbation_dfs.append(pert_data)
 
     return perturbation_dfs
+
+
+def generate_torque_angle_plots(perturbations_dfs, directory):
+    """Generates a plot showing the torque on the handlebars and the roll angle and rate,
+    steer angle and desired torque of the balance-assist controller.
+
+    Parameters
+    ----------
+    perturbation_dfs : List[pandas.DataFrame]
+        A list of dataframes that contain the data to be plotted.
+    directory : str
+        Name of the directory in which to store the generated images.
+    """
+    if not os.path.isdir(directory):
+        os.mkdir(directory)
+
+    for i, df in enumerate(perturbations_dfs):
+        # print(df.columns.values)
+        if "motor_current" in df.columns.values:
+            fig, axs = plt.subplots(5, 1, sharex=True, layout="constrained")
+            df["motor_torque"] = df["motor_current"] / BALANCE_ASSIST_MOTOR_CONSTANT
+        else:
+            fig, axs = plt.subplots(4, 1, sharex=True, layout="constrained")
+
+        fig.set_size_inches(140 / 25.4, 160 / 25.4)
+
+        actual_torque, desired_torque = calculate_torque_on_handlebars(df)
+        axs[0].plot(
+            df["seconds_since_start"],
+            desired_torque,
+            label="Desired net torque on handlebars",
+        )
+        axs[0].plot(
+            df["seconds_since_start"],
+            actual_torque,
+            label="Measured net torque on handlebars",
+        )
+        axs[0].set_ylabel("Bump'em torque" "\n" r"[Nm]")
+        axs[0].legend()
+
+        df.plot(
+            x="seconds_since_start",
+            y="roll_angle",
+            ax=axs[1],
+            ylabel="Roll angle" "\n" r"[deg]",
+            legend=False,
+        )
+        df.plot(
+            x="seconds_since_start",
+            y="roll_rate",
+            ax=axs[2],
+            ylabel=r"Roll rate" "\n" r"[deg/s]",
+            legend=False,
+        )
+        df.plot(
+            x="seconds_since_start",
+            y="steer_angle",
+            ax=axs[3],
+            ylabel=r"Steer angle" "\n" r"[deg]",
+            legend=False,
+        )
+        if "motor_current" in df.columns.values:
+            df.plot(
+                x="seconds_since_start",
+                y="motor_torque",
+                ax=axs[4],
+                xlabel="Time since start of perturbation [s]",
+                ylabel=r"Desired controller" "\n" r" torque [Nm]",
+                legend=False,
+            )
+
+        for ax in axs:
+            ax.grid()
+
+        filename = os.path.join(directory, "torque_angle_perturbation_" + str(i))
+        fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
+        print(f"Saved plot with name {filename}")
+        plt.close()
 
 
 def generate_force_torque_plots(perturbation_dfs, directory, force_column_names):
@@ -108,11 +188,10 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
         os.mkdir(directory)
 
     for i, df in enumerate(perturbation_dfs):
-        fig, axs = plt.subplots(2, 1, sharex=True, layout='constrained')
-        fig.set_size_inches(140/25.4, 80/25.4)
+        fig, axs = plt.subplots(2, 1, sharex=True, layout="constrained")
+        fig.set_size_inches(140 / 25.4, 80 / 25.4)
 
-        df.plot(x="seconds_since_start", y=force_column_names, ax=axs[0],
-                grid=True)
+        df.plot(x="seconds_since_start", y=force_column_names, ax=axs[0], grid=True)
 
         actual_torque, desired_torque = calculate_torque_on_handlebars(df)
         axs[1].plot(
@@ -137,11 +216,11 @@ def generate_force_torque_plots(perturbation_dfs, directory, force_column_names)
                 "Desired motor 1 and 3",
                 "Desired motor 2 and 4",
             ],
-            fontsize='x-small'
+            fontsize="x-small",
         )
         axs[1].set_xlabel("Time relative to start of perturbation [s]")
         axs[1].set_ylabel("Torque [Nm]")
-        axs[1].legend(fontsize='x-small')
+        axs[1].legend(fontsize="x-small")
         axs[1].grid()
 
         filename = os.path.join(directory, "perturbation_" + str(i))
