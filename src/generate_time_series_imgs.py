@@ -129,7 +129,9 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             label="Measured net torque on handlebars",
         )
         axs[0].set_ylabel("Bump'em torque" "\n" r"[Nm]")
-        axs[0].legend()
+        axs[0].legend(
+            fontsize="x-small",
+        )
 
         df.plot(
             x="seconds_since_start",
