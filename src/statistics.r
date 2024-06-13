@@ -49,10 +49,10 @@ for (i in 1:2) {
   )
 
   if (i == 1) {
-    fig_title <- "Predicted fall probability at 6 km/h with gain k=-10"
+    fig_title <- "Predicted fall probability at 6 km/h with gain g=-10"
     file_name <- "./figures/predicted_fall_probability_6kmh.png"
   } else {
-    fig_title <- "Predicted fall probability at 10 km/h with gain k=-8"
+    fig_title <- "Predicted fall probability at 10 km/h with gain g=-8"
     file_name <- "./figures/predicted_fall_probability_10kmh.png"
   }
 
