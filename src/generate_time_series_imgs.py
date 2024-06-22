@@ -110,10 +110,10 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
     for i, df in enumerate(perturbations_dfs):
         # print(df.columns.values)
         if "motor_current" in df.columns.values:
-            fig, axs = plt.subplots(5, 1, sharex=True, layout="constrained")
+            fig, axs = plt.subplots(4, 1, sharex=True, layout="constrained")
             df["motor_torque"] = df["motor_current"] / BALANCE_ASSIST_MOTOR_CONSTANT
         else:
-            fig, axs = plt.subplots(4, 1, sharex=True, layout="constrained")
+            fig, axs = plt.subplots(3, 1, sharex=True, layout="constrained")
 
         fig.set_size_inches(140 / 25.4, 160 / 25.4)
 
@@ -129,17 +129,23 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             label="Measured net torque on handlebars",
         )
         axs[0].set_ylabel("Bump'em torque" "\n" r"[Nm]")
-        axs[0].legend(
-            fontsize="x-small",
-        )
+        axs[0].legend(fontsize="x-small")
 
         df.plot(
             x="seconds_since_start",
             y="roll_angle",
             ax=axs[1],
-            ylabel="Roll angle" "\n" r"[deg]",
-            legend=False,
+            ylabel="Angle [deg]",
+            label="Roll angle",
         )
+        df.plot(
+            x="seconds_since_start",
+            y="steer_angle",
+            ax=axs[1],
+            label="Steer angle",
+        )
+        axs[1].legend(fontsize="x-small")
+
         df.plot(
             x="seconds_since_start",
             y="roll_rate",
@@ -147,18 +153,11 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             ylabel=r"Roll rate" "\n" r"[deg/s]",
             legend=False,
         )
-        df.plot(
-            x="seconds_since_start",
-            y="steer_angle",
-            ax=axs[3],
-            ylabel=r"Steer angle" "\n" r"[deg]",
-            legend=False,
-        )
         if "motor_current" in df.columns.values:
             df.plot(
                 x="seconds_since_start",
                 y="motor_torque",
-                ax=axs[4],
+                ax=axs[3],
                 xlabel="Time since start of perturbation [s]",
                 ylabel=r"Desired controller" "\n" r" torque [Nm]",
                 legend=False,
