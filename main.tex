@@ -458,12 +458,12 @@ each set of data.
 %
 The coefficient estimates for a single-level logistic regression at
 6~\unit{\kph} with gain $g=10$ are shown in
-Table~\ref{table:freq-coefs-6}. The angular impulse, perturbation order, and
+Table~\ref{tab:freq-coefs-6}. The angular impulse, perturbation order, and
 balance assist state are all statistically significant predictors. Larger
 angular impulse increases the probability to fall and enduring more
 perturbations or having the balance assist on, decrease the probability to
 fall.  The associated multiplicative change in odds are shown in
-Table~\ref{table:freq-coefs-6}.
+Table~\ref{tab:freq-coefs-6}.
 %
 \begin{table}
   \centering
@@ -471,7 +471,7 @@ Table~\ref{table:freq-coefs-6}.
     6~\unit{\kilo\meter\per\hour} and gain $g=10$. Multiplicative change in
     odds of predictor variables at 6 \unit{\kilo\meter\per\hour} and gain
     $g=10$ based on frequentist single-level logistic regression.}
-  \label{table:freq-coefs-6}
+  \label{tab:freq-coefs-6}
   \begin{tabular}{lrrrrrr}
     \toprule
     Variable & Estimate & Standard error & \(p\)-value & MCiO & 2.5\% & 97.5\% \\
@@ -492,11 +492,10 @@ Table~\ref{table:freq-coefs-6}.
 
 The coefficient estimates for a single-level logistic regression at
 10~\si{\kilo\meter\per\hour} with gain $g=8$ are shown in Table
-\ref{table:freq-coefs}. The angular impulse and perturbation order are
+\ref{tab:freq-coefs-10}. The angular impulse and perturbation order are
 statistically significant predictors. Larger angular impulse increases the
 probability to fall and enduring more perturbations decreases the probability
-to fall. The associated multiplicative change in odds are shown in
-Table~\ref{table:freq-coefs}.
+to fall.
 
 \begin{table}
   \centering
@@ -505,7 +504,7 @@ Table~\ref{table:freq-coefs}.
     odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
     frequentist single-level logistic regression. and 5\% confidence intervals
   of MCiO.}
-  \label{table:freq-coefs}
+  \label{tab:freq-coefs-10}
   \begin{tabular}{lrrrrrr}
     \toprule
     Variable & Estimate & Standard error & \(p\)-value & MCiO & 2.5\% & 97.5\% \\
@@ -564,14 +563,19 @@ but at 10~\si{\kph} that is not the case \((p=0.07)\).
 
 \section{Discussion}
 %
+Starting with Figure~\ref{fig:probability} and Table~\ref{tab:freq-coeffs-6}.
 
-It is important to understand the relationship between probability and odds to
-relate Figure~\ref{fig:probability} and Table~\ref{tab:freq-coeffs-6}.  How
-much the probability that a fall changes depends on the values of all predictor
-variables and we visualize only one view into the results here. If the odds
-that a perturbation results in a fall are a 1000:1, turning on the
-balance-assist system reduces the odds to 500:1. However, the probability that
-a fall occurs is only reduced from $0.999$ to $0.998$. On the other hand, if
+To interpret the results in Tables~\ref{tab:freq-coeffs-6} and
+\ref{tab:freq-coeffs-10}
+it is important to understand the relationship between probability and odds.
+The probability that a fall occurs depends on the values of all the indepedent
+variables and but we can visualize one view into the results in
+Figure~\ref{fig:probability}. The estimate in Table~\ref{tab-freq-coeffs-6}
+shows that if the odds that the balance assist system halves the odds that a
+perturbation results in a fall. For example, if the odds are a 1000:1,
+turning on the balance-assist system reduces the odds to 500:1. However, the
+probability that
+a fall occurs is only reduced from $0.999$ to $0.998$. If
 the odds that a fall will occur are smaller, halving the odds has a larger
 influence on the fall probability.For example, if the odds that a fall occurs
 is two, halving it to one reduces the probability from $0.66$ to $0.50$. This
