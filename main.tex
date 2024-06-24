@@ -219,10 +219,11 @@ programmed to apply a light force at all times to keep the ropes taught and to
 track a commanded force profile using a PID controller running on a
 microprocessor (Arduino Mega 2560, Italy). We measure the force applied by each
 motor at the handlebar via four inline load cells, each with a max load of
-250~\si{\newton}. One load cell was damaged during pilot experiments, and is
+250~\si{\newton}. The left rear load cell  was damaged during pilot experiments, and is
 replaced by a load cell with a max load of 500~\si{\newton}. The commanded
 force profiles are designed to apply an external pulsive torque to the front
-assembly (handlebars, forks, wheel) at magnitudes varying from 20 to 200. The
+assembly (handlebars, forks, wheel) at magnitudes varying from 20 to 200~\si{\Newton} per motor. 
+This results in a torque between 16 and 160~\si{\Newton\meter}. The
 four motors are arranged at the four corners of a 1~\si{\meter} wide treadmill
 (EC-90 Flat, Maxon Group, Switzerland) that can reach speeds of 18~\si{\kilo\meter\per\hour}.
 The general design is described in detail in the Van De Velde's MSc
@@ -280,14 +281,24 @@ We define a
 the pedal and places it on the ground or the bicycle wheel exceeds the width of
 the treadmill. We then applied perturbations in random directions (clockwise or
 counter clockwise), starting at 20~\si{\newton} and increasing the magnitude by 
-20~\si{\newton\meter} until the participants falls.
+30~\si{\newton\meter} until the participants falls.
 Figure~\ref{fig:perturbation-sequence} shows an example result of a
 perturbation.  We log the magnitude that causes the first fall to characterize
 that subject's nominal fall threshold. Following this we apply 20
-perturbations of random magnitudes to the cyclist while they ride at a constant
+perturbations of varying magnitudes to the cyclist while they ride at a constant
 speed and record which perturbations cause a fall. We let the cyclist rest and
 then perform another 20 perturbations. We randomize whether the balance assist
 system is on or off during the first or second set of perturbations.
+
+The magnitude of the perturbation is determined using an adaptive staircase procedure. 
+\todo{Cite to correct paper from thesis}
+The adaptive staircase takes the nominal fall threshold as input and randomly chooses 
+one of five possible forces that are centred around the nominal fall threshold with 
+10~\si{\Newton} intervals. If the perturbation results in a fall, the nominal fall 
+threshold is decreased with 10~\si{\Newton}. If the perturbation does not results in a 
+fall, the nominal fall threshold is increased with 10~\si{\Newton}. This adaptive
+staircase procedure ensures that approximately 50\% of the perturbations applied to the
+rider result in a fall. 
 %
 \begin{figure}
   \centering
