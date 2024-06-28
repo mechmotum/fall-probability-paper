@@ -177,6 +177,8 @@ Currently filled in the data of the external one. Not sure what make and model
 is inside the bicycle} The balance assist control algorithm is implemented on a
 microprocessor (Teensy, PJRC, USA) and data from all sensors is logged with a
 CAN bus (CanEdge2, CSS Electronics, Denmark) at approximately 100 Hz.
+\todo{Sample rate is not the same for each sensor: wheel speed, imu = 1ms,
+steer torque command is updated every 10ms, can log is written every 10ms}
 
 \subsection{Balance Assist Control}
 %
@@ -278,7 +280,7 @@ the treadmill until they indicated they were comfortable enough to have
 perturbations applied. For most, this was less than a 10~\si{\minute} warm up.
 We then asked the rider to ride for 90~\si{\second}, attempting to maintain the
 location of their front wheel on the center line of the treadmill. \todo{The
-results from this are not included because the balance-assist was turned on
+  results from this are not included because the balance-assist was turned on
 for some participants} We define a ``fall'' on the treadmill by two criteria:
 the rider removes their foot from the pedal and places it on the ground or the
 bicycle wheel exceeds the width of the treadmill. We then applied perturbations
@@ -410,10 +412,10 @@ variables.
     \midrule
     \(L\) & \si{\newton\meter\second} & angular impulse of perturbation torque \\
     \(c\) & integer & order number of perturbation \\
+    \(k\) & TODO & gain of balance assist control \\
     \(\delta_0\) & \si{\degree} & steer angle at start of perturbation \\
     \(\phi_0\) & \si{\degree} & roll angle at start of perturbation \\
     \(v\) & \si{\meter\per\second} & forward speed (1.7 or 2.8) \\
-    \(b\) & boolean & balance assist control on or off \\
     \(f\) & boolean & outcome of perturbation: did not fall, did fall \\
     \bottomrule
   \end{tabular}
@@ -532,7 +534,7 @@ to fall.
 \todo{Revisit if we want box plots to visualize the tables.}
 Turning the balance-assist system on significantly \((p<0.05)\) reduces the
 odds that a pertubation results in a fall occurs while cycling at a speed of
-6~\si{\kph}. Figure~\ref{fig:probability-6kph} visualizes the probability of
+6~\si{\kph}.  Figure~\ref{fig:probability-6kph} visualizes the probability of
 falling as a function of the mean and centered angular impulse per participant
 while keeping all other explantory factors at their centered mean values. This
 figure is derived by setting all explanatory variables to there mean and
@@ -573,7 +575,7 @@ The probability that a fall occurs depends on the values of all the independent
 variables in Table~\ref{tab:stat-model-variables}, but we can visualize the
 effect of one or two variables (e.g. Figure~\ref{fig:probability}) to gain
 some insight.
-To interpret the results in Tables~\ref{tab:freq-coeffs-6} and
+But to interpret the results in Tables~\ref{tab:freq-coeffs-6} and
 \ref{tab:freq-coeffs-10} it is important to understand the relationship between
 probability and odds.
 The estimate in Table~\ref{tab-freq-coeffs-6} shows that the balance assist
@@ -599,6 +601,47 @@ perturbations will make you fall regardless of the balance assist's help.
 
 \todo{Consider making a specific value of calcualting the probabilty for a set
 of inputs to the regression model.}
+
+To illustrate the effect of the balance-assist system on fall probability, we will
+give an example of how the data collected during the experiments is used to predict
+fall probability. We use \ref{eq:log-regress} and the coefficients in 
+\ref{tab:freq-coefs-6}. For simplicities sake, the interaction effects are not included.
+Let's assume that the mean angular impulse $\bar{L}$ of all the perturbations applied to 
+a participant is 100~\si{\newton}, and the standard deviation $\sigma^{L}=15$. The centred
+and scaled angular impulse can be calculated by substracting $\bar{L}$ from the applied
+angular impulse $L$, and dividing this by $\sigma^{L}$. The same applies for the 
+perturbation order $c$, initial roll angle $\phi_0$ and initial steer angle $\delta_0$.
+If we take the coefficients estimated for cycling at 6~\si{\kilo\meter\per\hour}, the
+log-odds of falling can be calculated as follows.
+
+\begin{align}
+	\log \left( \frac{p_{ij}}{1-p_{ij}} \right) & = \beta + \sum_{k}^{k=0}\alpha_k 
+	\frac{x_{ij}^{k}-\bar{x_{ij}^{k}}} {\sigma^{x^{k}}} 
+	& = -0.29 + 1.69\cdot\frac{110~\si{\newton} - 115\si{\newton}}{15\si{\newton}} 
+	-0.77\cdot\frac{10-20}{11.54} 
+	-0.25\cdot\frac{-6\si{\degree}-2\si{\degree}}{10\si{\degree}} 
+	-0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}}
+	-0.64\cdot s
+	& = 1.42 -0.64 \cdot s
+\end{align}
+
+The state of the balance-assist $s$ is a binary variable. If the balance-assist is turned on, 
+the log-odds that a fall occurs are decreased by 0.64. The odds and probability can be calculated:
+
+\begin{align}
+	\frac{p_{ij}}{1-p_{ij}} = e^{1.42-0.64s} = e^{1.42}\cdot e^{-0.64s} = 4.14 \cdot 0.53s
+\end{align}
+
+\begin{align}
+	p_{ij}^{s=0} = \frac{4.14}{1 + 4.14} = 0.81
+\end{align}
+
+\begin{align}
+	p_{ij}^{s=1} = \frac{4.14\cdot0.53}{1 + 4.14\cdot{0.53}]} = 0.69
+\end{align}
+
+Turning on the balance-assist system reduces the probability that the perturbation results in a 
+fall from 0.81 to 0.69.
 
 Angular impulse magnitude has the largest significant effect for predicting
 fall probability, Tables~\ref{tab:freq-coeffs-6} and \ref{tab:freq-coeffs-10}.
