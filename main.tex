@@ -333,9 +333,8 @@ perturbations are applied.
 %
 We measure the time histories of the Bump'Em delivered perturbation forces and
 the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
-Figure~\ref{fig:perturbation_0}\todo{Maybe remove the top plot of individual
-forces and add plots of roll angle, roll rate, steer rate.} shows an example
-perturbation force measurement compared to our Bump'Em controller command.
+Figure~\ref{fig:perturbation_0} shows an example perturbation force
+measurement compared to our Bump'Em controller command.
 %
 \begin{figure}
   \centering
@@ -480,7 +479,7 @@ Table~\ref{tab:freq-coefs-6}.
   \label{tab:freq-coefs-6}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & Estimate & Standard error & \(p\)-value & MCiO & 2.5\% & 97.5\% \\
+    Variable & \(\alpha_k\) & SE & \(p\)-value & $e^{\alpha_k}$ & 2.5\% & 97.5\% \\
     \midrule
     Intercept & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
     Angular impulse & 1.69 & 0.27 & 0.00 & 5.40 & 3.18 & 9.16 \\
@@ -513,7 +512,7 @@ to fall.
   \label{tab:freq-coefs-10}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & Estimate & Standard error & \(p\)-value & MCiO & 2.5\% & 97.5\% \\
+    Variable & \(\alpha_k\) & SE & \(p\)-value & $e^{\alpha_k}$ & 2.5\% & 97.5\% \\
     \midrule
     Intercept                                     & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
     Angular impulse                               & 2.39  & 0.29 & 0.00 & 10.92 & 6.23 & 19.13 \\
@@ -529,7 +528,6 @@ to fall.
   \end{tabular}
 \end{table}
 
-\todo{Revisit if we want box plots to visualize the tables.}
 Turning the balance-assist system on significantly \((p<0.05)\) reduces the
 odds that a pertubation results in a fall occurs while cycling at a speed of
 6~\si{\kph}. Figure~\ref{fig:probability-6kph} visualizes the probability of
