@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.constants import golden_ratio
 
-#from data import bike_with_rider as bike_par
-from data import bike_without_rider as bike_par
+from data import bike_with_rider as bike_par
+#from data import bike_without_rider as bike_par
 #from data import rigid_bike_without_rider as bike_par
 from model import SteerControlModel
 
