@@ -37,7 +37,8 @@ bike_with_rider = {
     'kphidot': 0.0,
 }
 
-# Batavus Browser without rider
+# NOTE : This is the Balanceassistv1, see:
+# https://github.com/moorepants/BicycleParameters/pull/110
 bike_without_rider = {
     'IBxx': 1.1198252298472995,
     'IBxz': 0.04678005457419021,
@@ -74,8 +75,7 @@ bike_without_rider = {
     'kphidot': 0.0,
 }
 
-# The "Rigid" bike (Davis Instrumented bicycle), weighs more than Batavus
-# browser.
+# The "Rigid" bike (Davis Instrumented bicycle):
 rigid_bike_without_rider = {
     'IBxx': 2.63751918806,
     'IBxz': 0.65355108991,
