@@ -115,34 +115,41 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
         else:
             fig, axs = plt.subplots(3, 1, sharex=True, layout="constrained")
 
-        fig.set_size_inches(140 / 25.4, 160 / 25.4)
+        fig.set_size_inches(140/25.4, 100/25.4)
 
         actual_torque, desired_torque = calculate_torque_on_handlebars(df)
         axs[0].plot(
             df["seconds_since_start"],
             desired_torque,
-            label="Desired net torque on handlebars",
+            label="Commanded",
+            color='black',
+            linestyle='-'
         )
         axs[0].plot(
             df["seconds_since_start"],
             actual_torque,
-            label="Measured net torque on handlebars",
+            label="Measured",
+            color='black',
+            linestyle='--',
         )
-        axs[0].set_ylabel("Bump'em torque" "\n" r"[Nm]")
+        axs[0].set_ylabel("Bump'Em\nHandlebar Torque\n[Nm]")
         axs[0].legend(fontsize="x-small")
 
         df.plot(
             x="seconds_since_start",
             y="roll_angle",
             ax=axs[1],
-            ylabel="Angle [deg]",
-            label="Roll angle",
+            ylabel="Angle\n[deg]",
+            label="Roll",
+            color='black',
         )
         df.plot(
             x="seconds_since_start",
             y="steer_angle",
             ax=axs[1],
-            label="Steer angle",
+            label="Steer",
+            color='black',
+            linestyle='--',
         )
         axs[1].legend(fontsize="x-small")
 
@@ -150,8 +157,9 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             x="seconds_since_start",
             y="roll_rate",
             ax=axs[2],
-            ylabel=r"Roll rate" "\n" r"[deg/s]",
+            ylabel="Roll Rate\n[deg/s]",
             legend=False,
+            color='black',
         )
         if "motor_current" in df.columns.values:
             df.plot(
@@ -159,14 +167,16 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 y="motor_torque",
                 ax=axs[3],
                 xlabel="Time since start of perturbation [s]",
-                ylabel=r"Desired controller" "\n" r" torque [Nm]",
+                ylabel="Commanded\nMotor Torque\n[Nm]",
                 legend=False,
+                color='black',
             )
 
         for ax in axs:
             ax.grid()
 
-        filename = os.path.join(directory, "torque_angle_perturbation_" + str(i))
+        filename = os.path.join(directory,
+                                "torque_angle_perturbation_" + str(i))
         fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
         print(f"Saved plot with name {filename}")
         plt.close()
