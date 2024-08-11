@@ -50,7 +50,7 @@ mimics it.}
 %
 \begin{figure}
   \centering
-  \includegraphics[width=70mm]{figures/balance-assist-bicycle.jpg}
+  \includegraphics[width=80mm]{figures/balance-assist-bicycle.jpg}
   \caption{Balance assist bicycle prototype with electric motor in the steering
     column and data acquisition and control electronics mounted in the rear
     rack.}
@@ -125,7 +125,7 @@ applied torque \(T_\delta = T_\delta^\textrm{h} + T_\delta^\textrm{m}\),
 \(\mathbf{B} = \begin{bmatrix} \vec{B}_\phi \quad \vec{B}_\delta
 \end{bmatrix}\), and \(T_\delta^\textrm{m} = -k_{\dot{\phi}} \dot{\phi}\) then
 the human controlled plant takes the form:
-
+%
 \begin{align}
   \dot{\vec{x}} = \left(\mathbf{A} -
   \vec{B}_\delta
@@ -158,76 +158,79 @@ probability of falling with the balance assist steer motor system on and off.
 %
 \subsection{Bicycle}
 %
-We modified a standard electric bicycle (Gazelle Grenoble C7\todo{Double check
-this is the right model}, Dieren, The Netherlands) with a custom motor in the
-steering assembly capable of applying up to 7~\si{\newton\meter} of torque
-between the head tube and steer tube, see
-Figure~\ref{fig:balance-assist-bicycle}.  A custom motor controller converts
-the commanded torque to applied torque. We measure the speed of the rear wheel
-with an encoder (Magura XXX) and measure the body fixed roll rate of the
-bicycle with a MEMs rate gyroscope (CRS 03-02s, Silicon Sensing, United
-Kingdom).  \todo{Do you mean the gyro inside the bicycle or the external?
-Currently filled in the data of the external one. Not sure what make and model
-is inside the bicycle} The balance assist control algorithm is implemented on a
-microprocessor (Teensy, PJRC, USA) and data from all sensors is logged with a
-CAN bus (CanEdge2, CSS Electronics, Denmark) at approximately 100 Hz.
-\todo{Sample rate is not the same for each sensor: wheel speed, imu = 1ms,
-steer torque command is updated every 10ms, can log is written every 10ms}
+We modified an electric bicycle (Grenoble Arroyo\todo{Double check this is the
+right model}, Royal Dutch Gazelle, Dieren, The Netherlands) with a custom motor
+in the steering assembly capable of applying up to 7~\si{\newton\meter} of
+torque between the head tube and steer tube, see
+Figure~\ref{fig:balance-assist-bicycle}. A custom motor controller converts the
+commanded torque to applied torque. We measure the speed of the rear wheel with
+an encoder (Magura XXX) and measure the body fixed roll rate of the bicycle
+with a MEMs rate gyroscope (\todo{check bike for this}). The balance assist
+control algorithm is implemented on a microprocessor (Teensy, PJRC, USA) and
+data from all sensors is logged with a CAN bus (CanEdge2, CSS Electronics,
+Denmark) at at least 100 Hz. \todo{Sample rate is not the same for each sensor:
+wheel speed, imu = 1ms, steer torque command is updated every 10ms, can log is
+written every 10ms}
 
 \subsection{Balance Assist Control}
 %
 We use a forward speed \(v\) gain scheduled proportional roll rate feedback
-controller to stabilize the bicycle. The commanded steer torque
-\(T^\textrm{m}_\delta\) from the steer motor follows the control law
+controller to stabilize the bicycle. In the speed range tested, the commanded
+steer torque \(T^\textrm{m}_\delta\) from the steer motor follows the control
+law
 %
 \begin{align}
-  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = g(v_{weave} - v)\dot{\phi}
+  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = g(v_{stable} - v)\dot{\phi}
 \end{align}
 %
-where 4.7~\si{\meter\per\second} is the weave critical speed predicted from the
-open loop bicycle rigid-rider dynamics. We use \(g=8\) and \(g=10\) as gain
-values during the experiments. Scaling the proportional feedback gain linearly
-with respect to speed stabilizes the normally unstable weave mode of the
-bicycle from speeds of X~\si{\kilo\meter\per\hour} to
-X~\si{\kilo\meter\per\hour} as shown in Figure~\ref{fig:eigenvalues}.
-
+where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
+average stable speed predicted from the open loop bicycle rigid-rider dynamics.
+We use \(g=8\) and \(g=10\) as gain values during the experiments. Scaling the
+proportional feedback gain linearly with respect to speed stabilizes the
+normally unstable weave mode of the bicycle down to
+2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
+4.6~\si{\kilo\meter\per\hour} for the ridden bicycle  as shown in
+Figure~\ref{fig:eigenvalues}~\todo{Add the experimental weave mode
+identificatio to this figure and consider lowering the gain on the model to
+make the model match the experimental values.}.
+%
 \begin{figure}
   \centering
-    \includegraphics[width=160mm]{figures/balance-assist-eig-vs-speeds.png}
-  \caption{Uncontrolled (a) and controlled (b) root locus of eigenvalue
-    components (real: solid, imaginary: dashed) plotted versus speed. Vertical
-    blue lines indicate the two speeds we perform experiments at. Green shaded
-    region is the linear stable range.}
+  \includegraphics[width=160mm]{figures/balance-assist-eig-vs-speeds.png}
+  \caption{Uncontrolled (upper row) and controlled (lower row) root locus of
+    eigenvalue components (real: solid, imaginary: dashed) plotted versus speed
+    for the bicycle without the inertia effect of a rigid rider (left) and with
+    a rigid rider (right). Vertical blue lines indicate the two speeds we
+    perform experiments at. Grey shaded region is the linear stable speed
+    range. Geometric and inertial parameters for these plots were estimated
+    with the methods presented in \cite{Moore2012} and software packages
+    BicycleParameters 1.1.1~\citep{Moore2024} and Yeadon 1.5.0~\citep{Dembia2015}.}
   \label{fig:eigenvalues}
 \end{figure}
-
-\todo[inline]{Decide on what physical parameters to use.}
 
 \subsection{Perturbations}
 %
 We apply external longitudinal forces to the ends of each handlebar using an
 adapted Bump'Em system~\cite{Tan2020} which is designed with four motors
-working in tandem, Figure~\ref{fig:setup-diagram}. The four motors are
+working in cooperation, Figure~\ref{fig:setup-diagram}. The four motors are
 programmed to apply a light force at all times to keep the ropes taught and to
 track a commanded force profile using a PID controller running on a
-microprocessor (Arduino Mega 2560, Italy). We measure the force applied by each
-motor at the handlebar via four inline load cells, each with a max load of
-250~\si{\newton}. The left rear load cell  was damaged during pilot
-experiments, and is replaced by a load cell with a max load of
-500~\si{\newton}. The commanded force profiles are designed to apply an
-external pulsive torque to the front assembly (handlebars, forks, wheel) at
-magnitudes varying from 20 to 200~\si{\newton} per motor.  This results in a
-torque between 16 and 160~\si{\newton\meter}. The four motors are arranged at
-the four corners of a 1~\si{\meter} wide treadmill (EC-90 Flat, Maxon Group,
-Switzerland) that can reach speeds of 18~\si{\kilo\meter\per\hour}.  The
-general design is described in detail in the Van De Velde's MSc
-hesis~\citep{vandeVelde2022a} and the physical arrangement  is shown in
-Figure~\ref{fig:participant-in-set-up}. Our modifications relative to that
-described in the thesis include simplifying the controller with a inexpensive
-microcontroller and the use of a simpler safety harness.
-Figure~\ref{fig:perturbation_0} shows an example perturbation.
+microprocessor (Arduino Mega 2560, COMPANYXXX, Italy). We measure the force
+applied by each motor at the handlebar via four inline 250~\si{\newton} load
+cells. The left rear load cell was damaged during pilot experiments, and is
+replaced by a load cell with a max load of 500~\si{\newton}. The commanded
+force profiles are designed to apply an external pulsive torque to the front
+assembly (handlebars, forks, wheel) at magnitudes varying from 16 to
+160~\si{\newton\meter}. The four motors are arranged at the four corners of a
+1~\si{\meter} wide treadmill (EC-90 Flat, Maxon Group, Switzerland) that can
+reach speeds of 18~\si{\kilo\meter\per\hour}. The general design of this system
+is described in detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and
+the physical arrangement is shown in Figure~\ref{fig:participant-in-set-up}.
+Our modifications relative to Van De Velde include simplifying the controller
+with a inexpensive microcontroller and the use of a simpler non-active safety
+harness.
 %
-% NOTE : I get a compile error with the \protect calls here, not sure why.
+% NOTE : I get a compile error without the \protect calls here, not sure why.
 \begin{figure}
   \centering
   \subcaptionbox{A participant on the bicycle in the safety harness with the
@@ -260,72 +263,64 @@ The subjects were divided into two groups. The first group performed the
 protocol at a belt speed of 2.8~\si{\meter\per\second}
 (10~\si{\kilo\meter\per\hour}) with the controller gain at $g=8$ and the second
 group performed the protocol at a belt speed of 1.7~\si{\meter\per\second}
-(6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occurred 2
-weeks before the 6~\si{\kilo\meter\per\hour} group.
+(6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occurred
+two weeks before the 6~\si{\kilo\meter\per\hour} group.
 
 Subjects wore a helmet and fall safety harness attached to the ceiling
 Figure~\ref{fig:participant-in-set-up}. We allowed them to practice riding on
 the treadmill until they indicated they were comfortable enough to have
 perturbations applied. For most, this was less than a 10~\si{\minute} warm up.
-We then asked the rider to ride for 90~\si{\second}, attempting to maintain the
-location of their front wheel on the center line of the treadmill. \todo{The
-  results from this are not included because the balance-assist was turned on
-for some participants} We define a ``fall'' on the treadmill by two criteria:
-the rider removes their foot from the pedal and places it on the ground or the
-bicycle wheel exceeds the width of the treadmill. We then applied perturbations
-in random directions (clockwise or counter clockwise), starting at
-20~\si{\newton} and increasing the magnitude by 30~\si{\newton\meter} until the
-participants falls.  Figure~\ref{fig:perturbation-sequence} shows an example
-result of a perturbation.  We log the magnitude that causes the first fall to
-characterize that subject's nominal fall threshold. Following this we apply 20
-perturbations of varying magnitudes to the cyclist while they ride at a
-constant speed and record which perturbations cause a fall. We let the cyclist
-rest and then perform another 20 perturbations. We randomize whether the
-balance assist system is on or off during the first or second set of
-perturbations.
-
+We then asked the rider to ride for 90~\si{\second}, while attempting to
+maintain the location of their front wheel on the center line of the treadmill.
+We define a ``fall'' on the treadmill by two criteria: 1) the rider removes
+their foot from the pedal and places it on the ground or 2) the bicycle wheel
+exceeds the width of the treadmill belt. We then applied perturbations in
+random directions (clockwise or counter-clockwise), starting at 20~\si{\newton}
+and increasing the magnitude by 30~\si{\newton\meter} until the participants
+fell. Figure~\ref{fig:perturbation-sequence} shows an example resulting motion
+from a perturbation. We log the magnitude that causes the first fall to
+characterize that subject's nominal fall threshold.
 %
 \begin{figure}
   \centering
-  \subcaptionbox{Start}{\includegraphics[width=40mm]{figures/start.png}}
-  \subcaptionbox{During}{\includegraphics[width=40mm]{figures/during.png}}
-  \subcaptionbox{After}{\includegraphics[width=40mm]{figures/after.png}}
-  \subcaptionbox{Recovery}{\includegraphics[width=40mm]{figures/recovery.png}}
+  \subcaptionbox{Before perturbation}{\includegraphics[width=60mm]{figures/start.png}}
+  \subcaptionbox{During perturbation}{\includegraphics[width=60mm]{figures/during.png}}
+  \subcaptionbox{After perturbation}{\includegraphics[width=60mm]{figures/after.png}}
+  \subcaptionbox{Recovery from perturbation}{\includegraphics[width=60mm]{figures/recovery.png}}
   \caption{Video frames depicting the application of a perturbation and the
   rider's response and recovery.}
   \label{fig:perturbation-sequence}
 \end{figure}
 
 Following the initial threshold determination, we choose perturbation forces
-according to a random and adaptive staircase procedure applying perturbations
-above and below the initial perturbation threshold, while allowing small
-progression of the perturbation threshold to accommodate learning effects. The
-goal of this adaptive staircase procedure is to have participants fall for
-approximately 50\% of the time. The procedure consists of twenty perturbations
-per condition. Participants undergo two conditions: twenty perturbations with
-the balance-assist turned on and twenty perturbations with the balance-assist
-turned off.
-
-Five possible perturbation forces are determined based on the initial
-perturbation threshold estimate: the initial estimate itself, two perturbations
-lower than the initial estimate and two perturbations higher than the initial
-estimate.  The five possible perturbations are separated by 10 N steps. For
-example, if the initial estimate of the perturbation threshold of a participant
-is 80~\si{\newton}, the five possible perturbations are 60, 70, 80, 90 and
-100~\si{\newton}. Which one of these five perturbations is chosen is
+according to a random and adaptive staircase procedure~\cite{TODO} applying
+perturbations above and below the initial perturbation threshold, while
+allowing small progression of the perturbation threshold to accommodate
+learning effects. Five possible perturbation forces are determined based on the
+initial perturbation threshold estimate: the initial estimate itself, two
+perturbations lower than the initial estimate and two perturbations higher than
+the initial estimate.  The five possible perturbations are separated by 10 N
+steps. For example, if the initial estimate of the perturbation threshold of a
+participant is 80~\si{\newton}, the five possible perturbations are 60, 70, 80,
+90 and 100~\si{\newton}. Which one of these five perturbations is chosen is
 determined at random. If the perturbation results in a fall, the estimate of
-the perturbation threshold is decreased with 10~\si{\newton}, and vice versa
-if the perturbation did not result in a fall. Five new possible perturbation
+the perturbation threshold is decreased with 10~\si{\newton}, and vice versa if
+the perturbation did not result in a fall. Five new possible perturbation
 forces are determined around the updated perturbation threshold, and a new
 perturbation is selected at random. This process iterates until twenty
-perturbations are applied.
+perturbations are applied. The goal of this adaptive staircase procedure is to
+have participants fall for approximately 50\% of the time. We apply 20
+perturbations in this manner while the subject rides at a constant speed and
+record which perturbations cause a fall. We let the cyclist rest and then
+perform another 20 perturbations. We randomize whether the balance assist
+system is on or off during the first or second set of perturbations.
 
 \subsection{Measurements}
 %
 We measure the time histories of the Bump'Em delivered perturbation forces and
 the bicycle's steer angle, roll angle, roll angular rate, and forward speed.
-Figure~\ref{fig:perturbation_0} shows an example perturbation force
-measurement compared to our Bump'Em controller command.
+Figure~\ref{fig:perturbation_0} shows an example perturbation force measurement
+compared to our Bump'Em controller command.
 %
 \begin{figure}
   \centering
@@ -341,7 +336,7 @@ may influence fall probability. We use the angular impulse \(L\) of the
 perturbation forces over a 0.3~\si{\second} duration to characterize the
 magnitude of delivered perturbation. The duration is selected based on the
 duration of the commanded force and is calculated as follows:
-
+%
 \begin{align}
   L =
   \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}(F_r + F_l) dt
