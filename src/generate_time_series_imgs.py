@@ -171,6 +171,8 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 legend=False,
                 color='black',
             )
+            axs[3].axhline(7.0, color='black', linestyle='--')
+            axs[3].axhline(-7.0, color='black', linestyle='--')
 
         for ax in axs:
             ax.grid()
