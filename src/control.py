@@ -78,10 +78,7 @@ def plot_eig(ax, model, kphidots=0.0):
     ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
     ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0)
     model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
-                                colors=['k']*4)
-    ax.fill_between(speeds, -10, 10, where=np.all(evals_.real < 0.0, axis=1),
-                    color='gray', alpha=0.4,
-                    transform=ax.get_xaxis_transform())
+                                hide_zeros=True, colors=['k']*4)
     ax.set_ylim((-10, 10))
     return ax
 
