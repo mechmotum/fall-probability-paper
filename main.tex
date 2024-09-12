@@ -32,21 +32,20 @@ When Subjected to Mechanical Perturbations}
 
 \section{Introduction}
 %
-Single-actor bicycle crashes are associated with a surprisingly large number of
-reported injuries~\citep{Wegman2024}. At low speeds, from start up to typical
-cruising speeds, bicycles themselves are not self-stable and can be challenging
-for the rider to balance. Low speed crashes may be reduced if the bicycle was
-self-stable at these speeds by relieving the rider of a necessary control
-activity. Bicycles can be mechanically modified to lower the speeds at which
-they are self-stable~\citep{Astrom2005} and since the 1980s it has been known
-that applying a motor actuated steering torque proportional to the roll rate
-can stabilize a single track vehicle at very low speeds. If this automatic
-control of steering can stabilize a bicycle, it may reduce the control required
-by the rider to successfully manage balancing tasks. We have developed such a
-balance assisting bicycle and hypothesize that it helps the rider in situations
-in which they are likely to fall, Figure~\ref{fig:balance-assist-bicycle}.
-\todo{Talk about the types of real life perturbations an how our perturbation
-mimics it.}
+Single-actor bicycle crashes are associated with a surprisingly large
+percentage of reported serious injuries~\citep{Wegman2024}. At low speeds, from
+start up to typical cruising speeds, bicycles themselves are not self-stable
+and can be challenging for the rider to balance. Low speed crashes may be
+reduced if the bicycle was self-stable at these speeds by relieving the rider
+of some of the necessary control activity. Bicycles can be mechanically
+modified to lower the speeds at which they are self-stable~\citep{Astrom2005}
+and since the 1980s it has been known that applying a motor actuated steering
+torque proportional to the roll rate can stabilize a single-track vehicle at
+lower speeds than without the control. If automatic control of steering can
+stabilize a bicycle, it may reduce the control required from the rider to
+successfully manage balancing tasks. We have developed such a balance assisting
+bicycle, Figure~\ref{fig:balance-assist-bicycle}, and hypothesize that it helps
+the rider in situations in which they are likely to fall.
 %
 \begin{figure}
   \centering
@@ -57,6 +56,25 @@ mimics it.}
   \label{fig:balance-assist-bicycle}
 \end{figure}
 
+Riders fall when their control authority is not able to maintain a stable
+vehicle state. There are many real world scenarios that can put the vehicle
+into an uncontrollable state. External forces applied to the vehicle or rider
+are one such scenario type and examples include wind gusts, handlebars
+colliding with a neighbor's, a bag swinging from the handlebar, or simply
+hitting a bump in the road. To assess our balance assisting bicycle, we subject
+the rider to perturbations at the handledbar, which can easily cause a rider to
+fall, especially when the rider is not so attentive or has one or more hands
+removed from the handlebar.
+
+In this paper, we test whether a linearly gain scheduled steer motor controlled
+bicycle, that is stable in a large low speed range, is beneficial in helping to
+prevent the rider from falling. We test this by applying varying magnitude
+mechanical perturbations to the handlebars while the rider is cycling on a
+treadmill. We assess the difference in the rider's probability of falling with
+the balance assist steer motor system on and off.
+
+\subsection{Background}
+%
 In the early years of developments in automatic control, \citep{Whipple1899}
 not only derived the correct equations of motion of the bicycle but realized
 and showed that roll motion feedback can stabilize a bicycle. Much later,
@@ -146,13 +164,6 @@ maximized within any physical actuator magnitude and bandwidth limits.
 \citet{Schwab2008} elaborates on some of the possibilities in scheduling the
 gains for such a controller and shows that a linear scheduling with respect to
 speed can give satisfactory stability.
-
-In this paper, we test whether a linearly gain scheduled steer motor controlled
-bicycle, that is stable in a large low speed range when riderless, is
-beneficial in helping to prevent the rider from falling. We test this by
-applying varying magnitude mechanical perturbations to the handlebars while the
-rider is cycling on a treadmill. We assess the difference in the rider's
-probability of falling with the balance assist steer motor system on and off.
 
 \section{Methods}
 %
