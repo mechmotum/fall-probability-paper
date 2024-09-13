@@ -107,6 +107,7 @@ fig_four.savefig(os.path.join(FIG_DIR, 'balance-assist-eig-vs-speeds.png'),
 
 # FIGURE : Simulate an initial value problem at a low speed under control.
 idx = np.argmin(np.abs(speeds - 6.0*KPH2MPS))  # 6 km/h
+print('kphidot @ 6 km/h:', kphidots[idx])
 
 
 def controller(t, x):

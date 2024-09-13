@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -171,6 +172,8 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 legend=False,
                 color='black',
             )
+            com_torque = -30.35*np.deg2rad(df['roll_rate'])
+            axs[3].plot(df['seconds_since_start'], com_torque, color='blue')
             axs[3].axhline(7.0, color='black', linestyle='--')
             axs[3].axhline(-7.0, color='black', linestyle='--')
 
