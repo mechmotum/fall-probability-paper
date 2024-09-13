@@ -1,7 +1,6 @@
 name: fall-prob-paper
 channels:
   - conda-forge
-  - r
 dependencies:
   - bicycleparameters ==1.1.1
   - pandas ==2.2.2
