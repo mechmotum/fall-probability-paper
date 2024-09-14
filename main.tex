@@ -203,9 +203,10 @@ proportional feedback gain linearly with respect to speed stabilizes the
 normally unstable weave mode of the bicycle down to
 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
 4.6~\si{\kilo\meter\per\hour} for the ridden bicycle  as shown in
-Figure~\ref{fig:eigenvalues}~\todo{Could add the experimental weave mode
-identification to this figure and consider lowering the gain on the model to
-make the model match the experimental values.}.
+Figure~\ref{fig:eigenvalues}.
+\todo[inline]{Could add the experimental weave mode identification to this
+figure and consider lowering the gain on the model to make the model match the
+experimental values.}
 %
 \begin{figure}
   \centering
@@ -223,21 +224,21 @@ make the model match the experimental values.}.
 
 \subsection{Perturbations}
 %
-We apply external longitudinal forces to the ends of each handlebar using an
-adapted Bump'Em system~\cite{Tan2020} which is designed with four motors
-working in cooperation, Figure~\ref{fig:setup-diagram}. The four motors are
-programmed to apply a light force at all times to keep the ropes taught and to
-track a commanded force profile using a PID controller running on a
-microprocessor (Arduino Mega 2560, Arduino, Italy). We measure the force
-applied by each motor at the handlebar via four inline 250~\si{\newton} load
-cells. The left rear load cell was damaged during pilot experiments, and is
-replaced by a load cell with a max load of 500~\si{\newton}. The commanded
-force profiles are designed to apply an external pulsive torque to the front
-assembly (handlebars, forks, wheel) at magnitudes varying from 16 to
-160~\si{\newton\meter}. The four motors are arranged at the four corners of a
-1~\si{\meter} wide treadmill (EC-90 Flat, Maxon Group, Switzerland) that can
-reach speeds of 18~\si{\kilo\meter\per\hour}. The general design of this system
-is described in detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and
+We apply longitudinal forces to the ends of each handlebar from Earth fixed
+posts using an adapted Bump'Em system~\citep{Tan2020} which we arrange with
+four motors working in cooperation, Figure~\ref{fig:setup-diagram}. The four
+motors are programmed to apply a light force at all times to keep the ropes
+taught and to track a commanded force profile using a PID controller running on
+a microprocessor (Arduino Mega 2560, Arduino, Italy). We measure the force
+applied by each motor at the handlebar via four inline 250~\si{\newton} S-style
+load cells except the left rear load cell that has a max load of
+500~\si{\newton}. The commanded force profiles are designed to apply an
+external pulsive torque to the front assembly (handlebars, forks, wheel) at
+magnitudes varying from \SIrange{16}{160}{\newton\meter}. The four motors
+(EC-90 Flat, Maxon Group, Switzerland) are arranged at the four corners of a
+1~\si{\meter} wide treadmill that can reach speeds of
+18~\si{\kilo\meter\per\hour}. The general base design of this system is
+described in detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and
 the physical arrangement is shown in Figure~\ref{fig:participant-in-set-up}.
 Our modifications relative to Van De Velde include simplifying the controller
 with a inexpensive microcontroller and the use of a simpler non-active safety
@@ -261,11 +262,11 @@ harness.
 \subsection{Protocol}
 %
 We recruited 26 able-bodied young adults (20-36 years old) to participate in
-the experiments. The subjects all were confident in their cycling skills and
+the experiments. The subjects were all confident in their cycling skills and
 had cycled at least once in the last month. Eleven subjects performed the
-experiments at 1.7~\si{\meter\per\second} (6~\si{\kilo\meter\per\hour}) and
-fifteen subjects performed the experiments at 2.8~\si{\meter\per\second}
-(10~\si{\kilo\meter\per\hour}). All subjects consented to the experiment and
+experiments at 6~\si{\kilo\meter\per\hour} (1.7~\si{\meter\per\second}) and
+fifteen subjects performed the experiments at 10~\si{\kilo\meter\per\hour}
+(2.8~\si{\meter\per\second}). All subjects consented to the experiment and
 could decline to continue at any time. The study was approved by Delft
 University of Technology's Human Research Ethics Council (\#3897).
 
@@ -273,11 +274,11 @@ University of Technology's Human Research Ethics Council (\#3897).
 we recorded those.}
 
 The subjects were divided into two groups. The first group performed the
-protocol at a belt speed of 2.8~\si{\meter\per\second}
-(10~\si{\kilo\meter\per\hour}) with the controller gain at $g=8$ and the second
-group performed the protocol at a belt speed of 1.7~\si{\meter\per\second}
-(6~\si{\kilo\meter\per\hour}). The 10~\si{\kph} group's experiments occurred
-two weeks before the 6~\si{\kilo\meter\per\hour} group.
+protocol at a belt speed of 10~\si{\kilo\meter\per\hour} with the controller
+gain set to $g=8$ and the second group performed the protocol at a belt speed
+of 6~\si{\kilo\meter\per\hour} with the controller gain set to $g=10$. The
+10~\si{\kph} group's experiments occurred two weeks before the
+6~\si{\kilo\meter\per\hour} group.
 
 Subjects wore a helmet and fall safety harness attached to the ceiling
 Figure~\ref{fig:participant-in-set-up}. We allowed them to practice riding on
@@ -289,10 +290,10 @@ We define a ``fall'' on the treadmill by two criteria: 1) the rider removes
 their foot from the pedal and places it on the ground or 2) the bicycle wheel
 exceeds the width of the treadmill belt. We then applied perturbations in
 random directions (clockwise or counter-clockwise), starting at 20~\si{\newton}
-and increasing the magnitude by 30~\si{\newton\meter} until the participants
+and increasing the magnitude by 30~\si{\newton} until the participants
 fell. Figure~\ref{fig:perturbation-sequence} shows an example resulting motion
 from a perturbation. We log the magnitude that causes the first fall to
-characterize that subject's nominal fall threshold.
+characterize that subject's \emph{nominal fall threshold}.
 %
 \begin{figure}
   \centering
@@ -306,27 +307,26 @@ characterize that subject's nominal fall threshold.
 \end{figure}
 
 Following the initial threshold determination, we choose perturbation forces
-according to a random and adaptive staircase procedure~\cite{TODO} applying
-perturbations above and below the initial perturbation threshold, while
-allowing small progression of the perturbation threshold to accommodate
-learning effects. Five possible perturbation forces are determined based on the
-initial perturbation threshold estimate: the initial estimate itself, two
-perturbations lower than the initial estimate and two perturbations higher than
-the initial estimate.  The five possible perturbations are separated by 10 N
-steps. For example, if the initial estimate of the perturbation threshold of a
-participant is 80~\si{\newton}, the five possible perturbations are 60, 70, 80,
-90 and 100~\si{\newton}. Which one of these five perturbations is chosen is
-determined at random. If the perturbation results in a fall, the estimate of
-the perturbation threshold is decreased with 10~\si{\newton}, and vice versa if
-the perturbation did not result in a fall. Five new possible perturbation
-forces are determined around the updated perturbation threshold, and a new
+according to a random and adaptive staircase procedure applying perturbations
+above and below the initial perturbation threshold, while allowing small
+progression of the perturbation threshold to accommodate learning effects. Five
+possible perturbation forces are determined based on the initial perturbation
+threshold estimate: the initial estimate itself, two perturbations lower than
+the initial estimate, and two perturbations higher than the initial estimate.
+The five possible perturbations are separated by 10~\si{\newton} steps. For
+example, if the initial estimate of the perturbation threshold of a participant
+is 80~\si{\newton}, the five possible perturbations are 60, 70, 80, 90 and
+100~\si{\newton}. Which one of these five perturbations is chosen is determined
+at random. If the perturbation results in a fall, the estimate of the
+perturbation threshold is decreased by 10~\si{\newton}, and vice versa if the
+perturbation did not result in a fall. Five new possible perturbation forces
+are determined around the updated perturbation threshold, and a new
 perturbation is selected at random. This process iterates until twenty
 perturbations are applied. The goal of this adaptive staircase procedure is to
-have participants fall for approximately 50\% of the time. We apply 20
-perturbations in this manner while the subject rides at a constant speed and
-record which perturbations cause a fall. We let the cyclist rest and then
-perform another 20 perturbations. We randomize whether the balance assist
-system is on or off during the first or second set of perturbations.
+have participants fall for approximately 50\% of the time. After the first set
+of 20 perturbations, we let the cyclist rest and then perform another 20
+perturbations. We randomize whether the balance assist system is on or off
+during the first or second set of perturbations for each participant.
 
 \subsection{Measurements}
 %
@@ -357,16 +357,22 @@ duration of the commanded force and is calculated as follows:
   \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}\left[(F_{rf} - F_{rr}) + (F_{lf}
   - F_{lr})\right] dt
   \textrm{.}
+  \label{eq:angular-impulse}
 \end{align}
 
-At the initiation of each perturbation we log the steer and roll angles to
-characterize the configuration of the bicycle when perturbed. The gain setting
-on the balance assist controller indicates if the assistance is off \(g=0\) or
-on at two different levels: low \(g=8\) or high \(g=10\). A recovery from the
-perturbation is successful if the person neither put their foot down onto the
-treadmill surface or either wheel of the bicycle exits the width of the
-treadmill belt. We record this as a binary variable \(f\). All measured
-variables are reported in Table~\ref{tab:raw}.
+where \(F_r\) and \(F_l\)  is the total force applied on the right and left
+handlebar ends, respectively which are the sum of the rear and front load cell
+readings \(F_{rr}\) and \(F_{rf}\), for example. The handlebar length is given
+as \(l\) in Equation \ref{eq:angular-impulse}.
+
+At the initiation of each perturbation we log the instananeous steer and roll
+angles to characterize the configuration of the bicycle when perturbed. The
+gain setting on the balance assist controller indicates if the assistance is
+off \(g=0\) or on at two different levels: low \(g=8\) or high \(g=10\). A
+recovery from the perturbation is successful if the person neither places their
+foot down onto the treadmill surface or their wheel of the bicycle exits the
+width of the treadmill belt. We record this as a binary variable \(f\) for
+"fall". All measured variables are reported in Table~\ref{tab:raw}.
 %
 \begin{table}
   \centering
@@ -376,13 +382,13 @@ variables are reported in Table~\ref{tab:raw}.
     \toprule
     Measure & Variable & Units & Sensor \\
     \midrule
-    Balance Assist Gain & \(k\) & TODO & NA \\
+    Balance Assist Gain & \(g\) & \si{\newton\second\squared} & NA \\
     Bicycle Speed & \(v\) & \si{\meter\per\second} & wheel encoder \\
     Fall outcome & \(f\) & boolean & NA \\
     Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear & \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & load cell\\
     Perturbation Order Number & \(j\) & integer & NA\\
-    Roll Angle & \(\phi\) &  \si{\degree} & Kalman estimate~\citep{Gabriel2023} \\
-    Roll Angular Rate & \(\dot{\phi}\) &  \si{\degree\per\second} & rate gyroscope \\
+    Roll Angle & \(\phi\) & \si{\degree} & BN0086 Kalman estimate \\
+    Roll Angular Rate & \(\dot{\phi}\) & \si{\degree\per\second} & rate gyroscope \\
     Steer Angle & \(\delta\) & \si{\degree} & steer tube encoder \\
     \bottomrule
   \end{tabular}
@@ -408,7 +414,7 @@ variables.
     \midrule
     \(L\) & \si{\newton\meter\second} & angular impulse of perturbation torque \\
     \(c\) & integer & order number of perturbation \\
-    \(k\) & TODO & gain of balance assist control \\
+    \(g\) & \si{\newton\second\squared} & gain of balance assist control \\
     \(\delta_0\) & \si{\degree} & steer angle at start of perturbation \\
     \(\phi_0\) & \si{\degree} & roll angle at start of perturbation \\
     \(v\) & \si{\meter\per\second} & forward speed (1.7 or 2.8) \\
@@ -534,7 +540,7 @@ falling as a function of the mean and centered angular impulse per participant
 while keeping all other explantory factors at their centered mean values. This
 figure is derived by setting all explanatory variables to there mean and
 calculating the probality from Eq~\ref{eq:log-regress} for only change in
-angular impulse given the estimates in Table~\ref{tab:freq-coeffs-6} which
+angular impulse given the estimates in Table~\ref{tab:freq-coefs-6} which
 indicate that the balance-assist system halves (0.53) the odds that a
 perturbation results in a fall. This figure shows that for relatively large
 impulses the probability to fall is unity for both states of balance assist on
@@ -570,10 +576,10 @@ The probability that a fall occurs depends on the values of all the independent
 variables in Table~\ref{tab:stat-model-variables}, but we can visualize the
 effect of one or two variables (e.g. Figure~\ref{fig:probability}) to gain
 some insight.
-But to interpret the results in Tables~\ref{tab:freq-coeffs-6} and
-\ref{tab:freq-coeffs-10} it is important to understand the relationship between
+But to interpret the results in Tables~\ref{tab:freq-coefs-6} and
+\ref{tab:freq-coefs-10} it is important to understand the relationship between
 probability and odds.
-The estimate in Table~\ref{tab-freq-coeffs-6} shows that the balance assist
+The estimate in Table~\ref{tab:freq-coefs-6} shows that the balance assist
 system halves the odds that a perturbation results in a fall
 (MCiO=0.53)~\todo{Make a variable for MCiO}.
 This means if the odds are a 1000:1, turning on the balance-assist system
@@ -584,7 +590,7 @@ If the odds that a fall will occur are smaller, halving the odds has a larger
 influence on the fall probability.
 For example, if the odds that a fall occurs is two, halving it to one reduces
 the probability from $0.66$ to $0.50$.
-This can be seen in Figure~\ref{fig:probablity} which shows the fall
+This can be seen in Figure~\ref{fig:probability} which shows the fall
 probability as a function of the magnitude of the normalized angular impulse
 for both speeds.
 The difference in probability between the balance-assist on/off case becomes
@@ -639,7 +645,7 @@ Turning on the balance-assist system reduces the probability that the perturbati
 fall from 0.81 to 0.69.
 
 Angular impulse magnitude has the largest significant effect for predicting
-fall probability, Tables~\ref{tab:freq-coeffs-6} and \ref{tab:freq-coeffs-10}.
+fall probability, Tables~\ref{tab:freq-coefs-6} and \ref{tab:freq-coefs-10}.
 An increase in angular impulse increases the fall probability both at 6 and
 10~\si{\kph}. At 10~\si{\kph}, the multiplicative change in odds is
 approximately twice as big as at 6~\si{\kph}. Thus, angular impulse is a more
