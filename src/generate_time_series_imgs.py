@@ -109,82 +109,83 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
         os.mkdir(directory)
 
     for i, df in enumerate(perturbations_dfs):
-        # print(df.columns.values)
-        if "motor_current" in df.columns.values:
-            fig, axs = plt.subplots(4, 1, sharex=True, layout="constrained")
-            df["motor_torque"] = df["motor_current"] / BALANCE_ASSIST_MOTOR_CONSTANT
-        else:
-            fig, axs = plt.subplots(3, 1, sharex=True, layout="constrained")
+        if i == 10:  # only plot the figure we will use
+            # print(df.columns.values)
+            if "motor_current" in df.columns.values:
+                fig, axs = plt.subplots(4, 1, sharex=True, layout="constrained")
+                df["motor_torque"] = df["motor_current"] / BALANCE_ASSIST_MOTOR_CONSTANT
+            else:
+                fig, axs = plt.subplots(3, 1, sharex=True, layout="constrained")
 
-        fig.set_size_inches(140/25.4, 100/25.4)
+            fig.set_size_inches(140/25.4, 100/25.4)
 
-        actual_torque, desired_torque = calculate_torque_on_handlebars(df)
-        axs[0].plot(
-            df["seconds_since_start"],
-            desired_torque,
-            label="Commanded",
-            color='black',
-            linestyle='-'
-        )
-        axs[0].plot(
-            df["seconds_since_start"],
-            actual_torque,
-            label="Measured",
-            color='black',
-            linestyle='--',
-        )
-        axs[0].set_ylabel("Bump'Em\nHandlebar Torque\n[Nm]")
-        axs[0].legend(fontsize="x-small")
+            actual_torque, desired_torque = calculate_torque_on_handlebars(df)
+            axs[0].plot(
+                df["seconds_since_start"],
+                desired_torque,
+                label="Commanded",
+                color='black',
+                linestyle='-'
+            )
+            axs[0].plot(
+                df["seconds_since_start"],
+                actual_torque,
+                label="Measured",
+                color='black',
+                linestyle='--',
+            )
+            axs[0].set_ylabel("Bump'Em\nHandlebar Torque\n[Nm]")
+            axs[0].legend(fontsize="x-small")
 
-        df.plot(
-            x="seconds_since_start",
-            y="roll_angle",
-            ax=axs[1],
-            ylabel="Angle\n[deg]",
-            label="Roll",
-            color='black',
-        )
-        df.plot(
-            x="seconds_since_start",
-            y="steer_angle",
-            ax=axs[1],
-            label="Steer",
-            color='black',
-            linestyle='--',
-        )
-        axs[1].legend(fontsize="x-small")
-
-        df.plot(
-            x="seconds_since_start",
-            y="roll_rate",
-            ax=axs[2],
-            ylabel="Roll Rate\n[deg/s]",
-            legend=False,
-            color='black',
-        )
-        if "motor_current" in df.columns.values:
             df.plot(
                 x="seconds_since_start",
-                y="motor_torque",
-                ax=axs[3],
-                xlabel="Time since start of perturbation [s]",
-                ylabel="Commanded\nMotor Torque\n[Nm]",
+                y="roll_angle",
+                ax=axs[1],
+                ylabel="Angle\n[deg]",
+                label="Roll",
+                color='black',
+            )
+            df.plot(
+                x="seconds_since_start",
+                y="steer_angle",
+                ax=axs[1],
+                label="Steer",
+                color='black',
+                linestyle='--',
+            )
+            axs[1].legend(fontsize="x-small")
+
+            df.plot(
+                x="seconds_since_start",
+                y="roll_rate",
+                ax=axs[2],
+                ylabel="Roll Rate\n[deg/s]",
                 legend=False,
                 color='black',
             )
-            com_torque = -30.35*np.deg2rad(df['roll_rate'])
-            axs[3].plot(df['seconds_since_start'], com_torque, color='blue')
-            axs[3].axhline(7.0, color='black', linestyle='--')
-            axs[3].axhline(-7.0, color='black', linestyle='--')
+            if "motor_current" in df.columns.values:
+                df.plot(
+                    x="seconds_since_start",
+                    y="motor_torque",
+                    ax=axs[3],
+                    xlabel="Time since start of perturbation [s]",
+                    ylabel="Commanded\nMotor Torque\n[Nm]",
+                    legend=False,
+                    color='black',
+                )
+                com_torque = -30.35*np.deg2rad(df['roll_rate'])
+                axs[3].plot(df['seconds_since_start'], com_torque, color='blue')
+                axs[3].axhline(7.0, color='black', linestyle='--')
+                axs[3].axhline(-7.0, color='black', linestyle='--')
 
-        for ax in axs:
-            ax.grid()
+            for ax in axs:
+                ax.grid()
 
-        filename = os.path.join(directory,
-                                "torque_angle_perturbation_" + str(i))
-        fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
-        print(f"Saved plot with name {filename}")
-        plt.close()
+            filename = os.path.join(directory,
+                                    "torque_angle_perturbation_" + str(i))
+            fig.savefig(fname=filename, dpi=300, bbox_inches="tight")
+            print(f"Saved plot with name {filename}")
+            plt.close()
 
 
 def generate_force_torque_plots(perturbation_dfs, directory, force_column_names):
