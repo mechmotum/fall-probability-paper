@@ -9,7 +9,7 @@ figures/balance-assist-eig-vs-speeds.png: src/control.py src/generate_time_serie
 clearpdf:
 	rm paper.pdf
 clean:
-	(rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *.out)
+	(rm -rf *.bcf *.fdb_latexmk *synctex.gz *.run.xml *.fls *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *.out)
 	rm figures/balance-assist-eig-vs-speeds.png
 	rm figures/bicycle-with-geometry-mass.png
 	rm figures/gains-vs-speed.png
