@@ -377,7 +377,8 @@ width of the treadmill belt. We record this as a binary variable \(f\) for
 \begin{table}
   \centering
   \caption{Raw measurements taken during each trial. ``Fall outcome'' and
-    ``Perturbation order number'' are recorded per perturbation instance.}
+    ``Perturbation order number'' are recorded per perturbation instance. The
+    remaining measures are time varying.}
   \begin{tabular}{llll}
     \toprule
     Measure & Variable & Units & Sensor \\
@@ -385,10 +386,11 @@ width of the treadmill belt. We record this as a binary variable \(f\) for
     Balance Assist Gain & \(g\) & \si{\newton\second\squared} & NA \\
     Bicycle Speed & \(v\) & \si{\meter\per\second} & wheel encoder \\
     Fall outcome & \(f\) & boolean & NA \\
-    Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear & \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & load cell\\
+    Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear &
+    \(F_{lf},F_{rf},F_{lr},F_{rr}\) & \si{\newton} & inline load cell\\
     Perturbation Order Number & \(j\) & integer & NA\\
     Roll Angle & \(\phi\) & \si{\degree} & BN0086 Kalman estimate \\
-    Roll Angular Rate & \(\dot{\phi}\) & \si{\degree\per\second} & rate gyroscope \\
+    Roll Angular Rate & \(\dot{\phi}\) & \si{\degree\per\second} & BN0086 rate gyroscope \\
     Steer Angle & \(\delta\) & \si{\degree} & steer tube encoder \\
     \bottomrule
   \end{tabular}
@@ -397,28 +399,27 @@ width of the treadmill belt. We record this as a binary variable \(f\) for
 
 \subsection{Statistics}
 %
-We test the hypothesis that the balance assistance controller will reduce the
+We test our hypothesis that the balance assistance controller will reduce the
 probability of falling when perturbed externally at the handlebar. We have a
 single binary fall outcome variable \(f\) that is dependent on several possible
 explanatory independent variables, one of which is the binary balance
-assistance (on or off). See Table~\ref{tab:stat-model-variables} for all of the
-variables.
+assistance (on or off). See Table~\ref{tab:stat-model-variables} for the
+statistical model variables.
 %
 \begin{table}
   \centering
-  \caption{Statistical model variables.}
+  \caption{Independent and dependent variables used in the statistical model.}
   \label{tab:stat-model-variables}
-  \begin{tabular}{lll}
+  \begin{tabular}{llll}
     \toprule
-    Variable & Units & Description \\
+    Variable & Causality & Units & Description \\
     \midrule
-    \(L\) & \si{\newton\meter\second} & angular impulse of perturbation torque \\
-    \(c\) & integer & order number of perturbation \\
-    \(g\) & \si{\newton\second\squared} & gain of balance assist control \\
-    \(\delta_0\) & \si{\degree} & steer angle at start of perturbation \\
-    \(\phi_0\) & \si{\degree} & roll angle at start of perturbation \\
-    \(v\) & \si{\meter\per\second} & forward speed (1.7 or 2.8) \\
-    \(f\) & boolean & outcome of perturbation: did not fall, did fall \\
+    \(L\) & ind. & \si{\newton\meter\second} & angular impulse of perturbation torque \\
+    \(\delta_0\) & ind. & \si{\degree} & steer angle at start of perturbation \\
+    \(\phi_0\) & ind. & \si{\degree} & roll angle at start of perturbation \\
+    \(f\) & dep. & boolean & outcome: did not fall 0 or did fall 1 \\
+    \(c\) & ind. & boolean & balance assist: off 0 or on 1 \\
+    \(j\) & ind. & integer & order number of perturbation \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -433,8 +434,8 @@ takes the general form
 Fall outcome \(f_{ij}\) is the binary outcome of perturbation \(j\) on
 participant \(i\) which follows a Bernoulli distribution given the probability
 \(p_{ij}\) that a fall occurs. The log-odds of the probability is then a linear
-function of our independent variables with \(\beta\) as the intercept and
-\(\alpha_k\) as the linear coefficients to the independent variables
+function of our independent variables with \(\beta\) being the intercept and
+\(\alpha_k\) the linear coefficients to the \(K\) independent variables
 \(x_{ij}^k\), i.e. all variables in Table~\ref{tab:stat-model-variables} except
 \(f\).
 %
@@ -444,25 +445,23 @@ function of our independent variables with \(\beta\) as the intercept and
   \label{eq:log-regress}
 \end{align}
 
-Before fitting the model, we scale each \(x_{ij}^k\) such they they have a mean
-of zero and a standard deviation of one by cluster-mean centering, as
-recommended by \cite{Enders2007}, with clusters being an individual subject.
-The clusters are all data from an individual subject because we are only
-interested in the association between the state of the balance-assist system
-and the outcome of the perturbation. We expected there to be a variation
-between participants in how well they are able to resist the perturbation.
-However, this was not true. Cluster-mean centering shows there to be no
-variation between participants. This allowed us to stick with a simple
-single-level logistic regression model, instead of a multilevel model. This
-left us with angular impulse, perturbation order, balance assist state, and
-roll \& steer angles at the time of perturbation as independent variables. We
-also include interaction effects between the balance assist state and the other
-four variables.
-
-We divide the analysis into two separate model evaluations, one for the
-6~\si{\kph} \(g=10\) trials and one for the
-10~\si{\kph} \(g=8\) trials and we evaluate our hypothesis for
-each set of data.
+Before fitting the model, we scale each independent variable \(x_{ij}^k\) such
+that they have a mean of zero and a standard deviation of one by cluster-mean
+centering, as recommended by \cite{Enders2007}, with clusters being an
+individual subject. The clusters are chosend as all data from an individual
+subject because we are only interested in the association between the state of
+the balance-assist system and the outcome of the perturbation. We expected
+there to be a variation between participants in how well they are able to
+resist the perturbation. However, this was not true. Cluster-mean centering
+shows there to be no variation between participants. This fact allows us to
+utilize a simple single-level logistic regression model, instead of a
+multilevel model. This left us with angular impulse, perturbation order,
+balance assist state, and roll \& steer angles at the time of perturbation as
+independent variables. We also include interaction effects between the balance
+assist state and the other four variables. We divide the analysis into two
+separate model evaluations, one for the 6~\si{\kph}, \(g=10\) trials and one
+for the 10~\si{\kph}, \(g=8\) trials and we evaluate our hypothesis for each
+set of data.
 
 \section{Results}
 %
@@ -487,11 +486,11 @@ Table~\ref{tab:freq-coefs-6}.
     Variable & \(\alpha_k\) & SE & \(p\)-value & $e^{\alpha_k}$ & 2.5\% & 97.5\% \\
     \midrule
     Intercept & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
-    Angular impulse & 1.69 & 0.27 & 0.00 & 5.40 & 3.18 & 9.16 \\
-    Perturbation order & -0.77 & 0.22 & 0.00 & 0.46 & 0.30 & 0.72 \\
-    Balance assist state & -0.64 & 0.27 & 0.02 & 0.53 & 0.31 & 0.89 \\
-    Roll angle & -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
-    Steer angle & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
+    Angular impulse \(L\) & 1.69 & 0.27 & 0.00 & 5.40 & 3.18 & 9.16 \\
+    Perturbation order \(j\)  & -0.77 & 0.22 & 0.00 & 0.46 & 0.30 & 0.72 \\
+    Balance assist state \(c\) & -0.64 & 0.27 & 0.02 & 0.53 & 0.31 & 0.89 \\
+    Roll angle \(\phi_0\)& -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
+    Steer angle \(\delta_0\) & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
     Balance-assist on $\times$ roll angle & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
     Balance-assist on $\times$ steer angle & -0.41 & 0.34 & 0.22 & 0.66 & 0.34 & 1.28 \\
     Balance-assist on $\times$ angular impulse & 0.41 & 0.41 & 0.32 & 1.51 & 0.67 & 3.38 \\
@@ -509,22 +508,21 @@ to fall.
 
 \begin{table}
   \centering
-  \caption{Logistic regression coefficient estimates at
-    10~\unit{\kilo\meter\per\hour} and gain $g=8$.  Multiplicative change in
-    odds of predictor variables at 10 \unit{\kilo\meter\per\hour} based on
+  \caption{Logistic regression coefficient estimates at 10~\kph and gain $g=8$.
+    Multiplicative change in odds of predictor variables at 10~\kph based on
     frequentist single-level logistic regression. and 5\% confidence intervals
-  of MCiO.}
+    of MCiO.}
   \label{tab:freq-coefs-10}
   \begin{tabular}{lrrrrrr}
     \toprule
     Variable & \(\alpha_k\) & SE & \(p\)-value & $e^{\alpha_k}$ & 2.5\% & 97.5\% \\
     \midrule
     Intercept                                     & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
-    Angular impulse                               & 2.39  & 0.29 & 0.00 & 10.92 & 6.23 & 19.13 \\
-    Perturbation order                            & -1.16 & 0.21 & 0.00 & 0.31 & 0.21 & 0.48 \\
-    Balance-assist on                             & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
-    Roll angle                                    & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
-    Steer angle                                   & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
+    Angular impulse \(L\)                         & 2.39  & 0.29 & 0.00 & 10.92 & 6.23 & 19.13 \\
+    Perturbation order \(j\)                      & -1.16 & 0.21 & 0.00 & 0.31 & 0.21 & 0.48 \\
+    Balance-assist on \(c\)                       & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
+    Roll angle \(\phi_0\)                         & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
+    Steer angle \(\delta_0\)                      & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
     Balance-assist on $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
     Balance-assist on $\times$ steer angle        & 0.56  & 0.35 & 0.11 & 1.76 & 0.88 & 3.50 \\
     Balance-assist on $\times$ angular impulse    & 0.46  & 0.44 & 0.29 & 1.59 & 0.68 & 3.74 \\
