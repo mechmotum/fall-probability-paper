@@ -9,11 +9,12 @@
 \usepackage{subcaption}  % for subfigures
 \usepackage{todonotes}
 
+% NOTE : Use as \si{\kph} or \si{\mps}
 \def\kph{\kilo\meter\per\hour}
 \def\mps{\meter\per\second}
 
-\title{Bicycle Balance Assistance Reduces Probability of Falling at Low Speeds
-When Subjected to Mechanical Perturbations}
+\title{Robotic Bicycle Balance Assistance Reduces Probability of Falling at Low
+Speeds When Subjected to Mechanical Perturbations}
 
 \author{Marten T. Haitjema \and Leila Alizadehsaravi \and Jason K. Moore}
 
@@ -378,7 +379,7 @@ width of the treadmill belt. We record this as a binary variable \(f\) for
   \centering
   \caption{Raw measurements taken during each trial. ``Fall outcome'' and
     ``Perturbation order number'' are recorded per perturbation instance. The
-    remaining measures are time varying.}
+    remaining measures are time varying during each trial.}
   \begin{tabular}{llll}
     \toprule
     Measure & Variable & Units & Sensor \\
@@ -414,12 +415,12 @@ statistical model variables.
     \toprule
     Variable & Causality & Units & Description \\
     \midrule
-    \(L\) & ind. & \si{\newton\meter\second} & angular impulse of perturbation torque \\
-    \(\delta_0\) & ind. & \si{\degree} & steer angle at start of perturbation \\
-    \(\phi_0\) & ind. & \si{\degree} & roll angle at start of perturbation \\
-    \(f\) & dep. & boolean & outcome: did not fall 0 or did fall 1 \\
-    \(c\) & ind. & boolean & balance assist: off 0 or on 1 \\
-    \(j\) & ind. & integer & order number of perturbation \\
+    \(L\)        & independent & \si{\newton\meter\second} & angular impulse of perturbation torque \\
+    \(\delta_0\) & independent & \si{\degree} & steer angle at start of perturbation \\
+    \(\phi_0\)   & independent & \si{\degree} & roll angle at start of perturbation \\
+    \(f\)        & dependent   & boolean & outcome: did not fall 0 or did fall 1 \\
+    \(c\)        & independent & boolean & balance assist: off 0 or on 1 \\
+    \(j\)        & independent & integer & order number of perturbation \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -465,106 +466,112 @@ set of data.
 
 \section{Results}
 %
-The coefficient estimates for a single-level logistic regression at
-6~\unit{\kph} with gain $g=10$ are shown in
+The coefficient estimates for a single-level logistic regression for the data
+from the 6~\si{\kph}, gain $g=10$ trials are shown in
 Table~\ref{tab:freq-coefs-6}. The angular impulse, perturbation order, and
-balance assist state are all statistically significant predictors. Larger
-angular impulse increases the probability to fall and enduring more
-perturbations or having the balance assist on, decrease the probability to
-fall.  The associated multiplicative change in odds are shown in
-Table~\ref{tab:freq-coefs-6}.
+balance assist state are all statistically significant predictors with angular
+impulse having a dominant effect. Larger angular impulse increases the
+probability to fall and enduring more perturbations or having the balance
+assist on, decrease the probability to fall. The associated multiplicative
+change in odds are shown in Table~\ref{tab:freq-coefs-6}.
 %
 \begin{table}
   \centering
-  \caption{Logistic regression coefficient estimates at
-    6~\unit{\kilo\meter\per\hour} and gain $g=10$. Multiplicative change in
-    odds of predictor variables at 6 \unit{\kilo\meter\per\hour} and gain
-    $g=10$ based on frequentist single-level logistic regression.}
+  \caption{Logistic regression coefficient estimates \(\alpha_k\) at
+    6~\si{\kph} and gain $g=10$ along with the standard error SE, p-value
+    \(p\), multiplicative change in odds \(e^{\alpha_k}\), and the 5\%
+    confidence interval bounds.}
   \label{tab:freq-coefs-6}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & \(\alpha_k\) & SE & \(p\)-value & $e^{\alpha_k}$ & 2.5\% & 97.5\% \\
+    Variable & \(\alpha_k\) & SE & \(p\) & \(e^{\alpha_k}\) & 2.5\% & 97.5\% \\
     \midrule
-    Intercept & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
-    Angular impulse \(L\) & 1.69 & 0.27 & 0.00 & 5.40 & 3.18 & 9.16 \\
-    Perturbation order \(j\)  & -0.77 & 0.22 & 0.00 & 0.46 & 0.30 & 0.72 \\
-    Balance assist state \(c\) & -0.64 & 0.27 & 0.02 & 0.53 & 0.31 & 0.89 \\
-    Roll angle \(\phi_0\)& -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
-    Steer angle \(\delta_0\) & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
-    Balance-assist on $\times$ roll angle & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
-    Balance-assist on $\times$ steer angle & -0.41 & 0.34 & 0.22 & 0.66 & 0.34 & 1.28 \\
-    Balance-assist on $\times$ angular impulse & 0.41 & 0.41 & 0.32 & 1.51 & 0.67 & 3.38 \\
-    Balance-assist on $\times$ perturbation order & -0.53 & 0.34 & 0.12 & 0.59 & 0.30 & 1.15 \\
+    Intercept \(\beta\)                           & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
+    Angular impulse \(L\)                         & 1.69 & 0.27 & 0.00\(^*\) & 5.40 & 3.18 & 9.16 \\
+    Perturbation order \(j\)                      & -0.77 & 0.22 & 0.00\(^*\) & 0.46 & 0.30 & 0.72 \\
+    Balance assist state \(c\)                    & -0.64 & 0.27 & 0.02\(^*\) & 0.53 & 0.31 & 0.89 \\
+    Roll angle \(\phi_0\)                         & -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
+    Steer angle \(\delta_0\)                      & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
+    Balance assist state $\times$ roll angle         & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
+    Balance assist state $\times$ steer angle        & -0.41 & 0.34 & 0.22 & 0.66 & 0.34 & 1.28 \\
+    Balance assist state $\times$ angular impulse    & 0.41 & 0.41 & 0.32 & 1.51 & 0.67 & 3.38 \\
+    Balance assist state $\times$ perturbation order & -0.53 & 0.34 & 0.12 & 0.59 & 0.30 & 1.15 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 The coefficient estimates for a single-level logistic regression at
-10~\si{\kilo\meter\per\hour} with gain $g=8$ are shown in Table
-\ref{tab:freq-coefs-10}. The angular impulse and perturbation order are
-statistically significant predictors. Larger angular impulse increases the
-probability to fall and enduring more perturbations decreases the probability
-to fall.
-
+10~\si{\kph} with gain $g=8$ are shown in Table \ref{tab:freq-coefs-10}. The
+angular impulse and perturbation order are statistically significant predictors
+with angular impulse being the dominant effect. Larger angular impulse
+increases the probability to fall and enduring more perturbations decreases the
+probability to fall. Unlike the 6~\si{\kph} trials, the balance assist state is
+not a significant predictor. At both speeds the angular impulse has about twice
+the effect as the perturbation order.
+%
 \begin{table}
   \centering
-  \caption{Logistic regression coefficient estimates at 10~\kph and gain $g=8$.
-    Multiplicative change in odds of predictor variables at 10~\kph based on
-    frequentist single-level logistic regression. and 5\% confidence intervals
-    of MCiO.}
+  \caption{Logistic regression coefficient estimates \(\alpha_k\) at
+    10~\si{\kph} and gain $g=8$ along with the standard error SE, p-value
+    \(p\), multiplicative change in odds \(e^{\alpha_k}\), and the 5\%
+    confidence interval bounds.}
   \label{tab:freq-coefs-10}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & \(\alpha_k\) & SE & \(p\)-value & $e^{\alpha_k}$ & 2.5\% & 97.5\% \\
+    Variable & \(\alpha_k\) & SE & \(p\) & \(e^{\alpha_k}\) & 2.5\% & 97.5\% \\
     \midrule
-    Intercept                                     & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
-    Angular impulse \(L\)                         & 2.39  & 0.29 & 0.00 & 10.92 & 6.23 & 19.13 \\
-    Perturbation order \(j\)                      & -1.16 & 0.21 & 0.00 & 0.31 & 0.21 & 0.48 \\
-    Balance-assist on \(c\)                       & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
-    Roll angle \(\phi_0\)                         & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
-    Steer angle \(\delta_0\)                      & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
-    Balance-assist on $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
-    Balance-assist on $\times$ steer angle        & 0.56  & 0.35 & 0.11 & 1.76 & 0.88 & 3.50 \\
-    Balance-assist on $\times$ angular impulse    & 0.46  & 0.44 & 0.29 & 1.59 & 0.68 & 3.74 \\
-    Balance-assist on $\times$ perturbation order & -0.37 & 0.32 & 0.25 & 0.69 & 0.37 & 1.30 \\
+    Intercept                & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
+    Angular impulse \(L\)    & 2.39  & 0.29 & 0.00\(^*\) & 10.92 & 6.23 & 19.13 \\
+    Perturbation order \(j\) & -1.16 & 0.21 & 0.00\(^*\)  & 0.31 & 0.21 & 0.48 \\
+    Balance-assist on \(c\)  & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
+    Roll angle \(\phi_0\)    & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
+    Steer angle \(\delta_0\) & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
+    Balance assist state $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
+    Balance assist state $\times$ steer angle        & 0.56  & 0.35 & 0.11 & 1.76 & 0.88 & 3.50 \\
+    Balance assist state $\times$ angular impulse    & 0.46  & 0.44 & 0.29 & 1.59 & 0.68 & 3.74 \\
+    Balance assist state $\times$ perturbation order & -0.37 & 0.32 & 0.25 & 0.69 & 0.37 & 1.30 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 Turning the balance-assist system on significantly \((p<0.05)\) reduces the
-odds that a pertubation results in a fall occurs while cycling at a speed of
-6~\si{\kph}.  Figure~\ref{fig:probability-6kph} visualizes the probability of
+odds that a pertubation results in a fall while cycling at a speed of
+6~\si{\kph}. Figure~\ref{fig:probability-6kph} visualizes the probability of
 falling as a function of the mean and centered angular impulse per participant
-while keeping all other explantory factors at their centered mean values. This
-figure is derived by setting all explanatory variables to there mean and
-calculating the probality from Eq~\ref{eq:log-regress} for only change in
-angular impulse given the estimates in Table~\ref{tab:freq-coefs-6} which
-indicate that the balance-assist system halves (0.53) the odds that a
-perturbation results in a fall. This figure shows that for relatively large
-impulses the probability to fall is unity for both states of balance assist on
-and off. And for relatively small impulses the probability to fall is zero for
-both states. But for impulses in the magnitude region (-1 to 0.5 STD) around
-the mean-centered fall threshold, the probability of falling is significantly
-lowered. The skewedness of the probaility curves arrives from the interaction
-effects\todo[inline]{check this and think about it}.
-
-\todo{Discuss the 10 kph finding}
-
-but at 10~\si{\kph} that is not the case \((p=0.07)\).
-
+for the balance assist state on and off while keeping all other explanatory
+factors at their centered mean values. This figure is created by setting all
+explanatory variables to there mean and calculating the probality from
+Eq~\ref{eq:log-regress} for only change in angular impulse given the estimates
+in Table~\ref{tab:freq-coefs-6}. The table indicates that the balance-assist
+system halves (0.53) the odds that a perturbation results in a fall. This
+figure shows that for relatively large impulses the probability to fall is
+unity for both states of balance assist on and off. And for relatively small
+impulses the probability to fall is null for both states. But for impulses in
+the magnitude region (-1 to 0.5 STD), i.e. around the mean-centered fall
+threshold, the probability of falling is significantly lowered with the balance
+assist system on. The skewedness of the probaility curves arrives from the
+interaction effects.\todo{check this statement about skewedness this and think
+about it} Figure~\ref{fig:probablity-10kph} shows the same result for the
+10~\kph trials which has a similar trend of reducing the probability to fall
+with the balance assist system turned on, but the effect is not significant.
+%
 \begin{figure}
   \centering
-  \subcaptionbox{6~\si{\kph}\label{fig:probability-6kph}}{
-    \includegraphics[width=120mm]{figures/predicted_fall_probability_6kmh.png}
+  % NOTE : We could uncomment the longer subcaption if titles removed from
+  % figures. It is currently redundant.
+  \subcaptionbox{%Fall probability for the 6~\si{\kph} trials.
+    \label{fig:probability-6kph}}{
+    \includegraphics[width=80mm]{figures/predicted_fall_probability_6kmh.png}
   }
-  \subcaptionbox{2.8~\si{\mps}}{
-    \includegraphics[width=120mm]{figures/predicted_fall_probability_10kmh.png}
+  \subcaptionbox{%Fall probability for the 10~\si{\kph} trials.
+    \label{fig:probability-10kph}}{
+    \includegraphics[width=80mm]{figures/predicted_fall_probability_10kmh.png}
   }
-  \caption{Comparison of predicted fall probability for balance-assist on or
-    off All other predictor variables are fixed at zero, except for the
-    interaction effect between the balance-assist and the angular impulse. The
-    x axis is standard deviation around the mean (all perturbations), centered
-    per participant.}
+  \caption{Comparison of predicted fall probability for balance-assist on
+    (blue) or off (red) when all other predictor variables are fixed at zero,
+    except for the interaction effect between the balance-assist and the
+    angular impulse. The ordinate axis is standard deviation around the mean
+    (all perturbations), centered per participant.}
   \label{fig:probability}
 \end{figure}
 
