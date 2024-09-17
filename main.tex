@@ -184,11 +184,12 @@ The Netherlands) with a custom motor in the steering assembly capable of
 applying up to 7~\si{\newton\meter} of torque between the head tube and steer
 tube, see Figure~\ref{fig:balance-assist-bicycle}. A custom motor controller
 converts the commanded torque to applied torque. We measure the speed of the
-rear wheel with an encoder (Magura XXX) and measure the body fixed roll rate of
-the bicycle with a MEMs rate gyroscope (BN0086, Sparkfun, Niwot, USA). The
-balance assist control algorithm is implemented on a microprocessor (Teensy,
-PJRC, USA) and data from all sensors is logged with a CAN bus (CanEdge2, CSS
-Electronics, Denmark) at at least 100 Hz.
+rear wheel with an encoder (ABS Speed Sensor, Magura GmbH, Bad Urach, Germany)
+and measure the body fixed roll rate of the bicycle with a MEMs rate gyroscope
+(VR IMU BN0086, Sparkfun, Niwot, USA). The balance assist control algorithm is
+implemented on a microprocessor (Teensy, PJRC, USA) and data from all sensors
+is logged with a CAN bus (CanEdge2, CSS Electronics, Aabyhoej, Denmark) at at
+least 100 Hz.
 
 \subsection{Balance Assist Control}
 %
@@ -234,18 +235,18 @@ motors are programmed to apply a light force at all times to keep the ropes
 taught and to track a commanded force profile using a PID controller running on
 a microprocessor (Arduino Mega 2560, Arduino, Italy). We measure the force
 applied by each motor at the handlebar via four inline 250~\si{\newton} S-style
-load cells except the left rear load cell that has a max load of
-500~\si{\newton}. The commanded force profiles are designed to apply an
-external pulsive torque to the front assembly (handlebars, forks, wheel) at
-magnitudes varying from \SIrange{16}{160}{\newton\meter}. The four motors
-(EC-90 Flat, Maxon Group, Switzerland) are arranged at the four corners of a
-1~\si{\meter} wide treadmill that can reach speeds of
-18~\si{\kilo\meter\per\hour}. The general base design of this system is
-described in detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and
-the physical arrangement is shown in Figure~\ref{fig:participant-in-set-up}.
-Our modifications relative to Van De Velde include simplifying the controller
-with a inexpensive microcontroller and the use of a simpler non-active safety
-harness.
+load cells (Bosche GmbH, Damme, Germany) except the left rear load cell that
+has a max load of 500~\si{\newton}. The commanded force profiles are designed
+to apply an external pulsive torque to the front assembly (handlebars, forks,
+wheel) at magnitudes varying from \SIrange{16}{160}{\newton\meter}. The four
+motors (EC-90 Flat, Maxon Group, Switzerland) are arranged at the four corners
+of a 1~\si{\meter} wide treadmill (Bonte Technology B.V., Zwolle, The
+Netherlands) that can reach speeds of 18~\si{\kilo\meter\per\hour}. The general
+design of this system is described in detail in Van De Velde's MSc
+thesis~\citep{vandeVelde2022a} and the physical arrangement is shown in
+Figure~\ref{fig:participant-in-set-up}. Our modifications relative to Van De
+Velde include simplifying the Bump'Em motor controller with an inexpensive
+microcontroller and the use of a simpler non-active safety harness.
 %
 % NOTE : I get a compile error without the \protect calls here, not sure why.
 \begin{figure}
