@@ -10,9 +10,10 @@ https://github.com/mechmotum/fall-probability-paper/blob/gh-pages/main.pdf
 
 # License
 
-The paper content (text, figures, etc.) is licensed under the Creative Commons
-BY-4.0 license. The computer source code is licensed under the MIT license. The
-data is available as public domain with no copyright restrictions.
+The paper content (text, figures, etc.) and the generated paper itself are
+licensed under the Creative Commons BY-4.0 license. The computer source code is
+licensed under the MIT license. The data is available as public domain with no
+copyright restrictions.
 
 # Author Guide
 
