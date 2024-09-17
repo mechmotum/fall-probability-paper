@@ -182,6 +182,7 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             axs[4].axhline(1.7, color='black', linestyle='--')
             avg_speed = df['speed'].mean()
             std_speed = df['speed'].std()
+            axs[4].axhline(avg_speed, color='black')
             df.plot(
                 x="seconds_since_start",
                 y="speed",
