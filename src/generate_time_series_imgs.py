@@ -166,32 +166,45 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 color='black',
             )
             if "motor_current" in df.columns.values:
-                com_torque = -30.35*np.deg2rad(df['roll_rate'])
-                axs[3].plot(df['seconds_since_start'], com_torque,
-                            color='black', alpha=0.25)
-                axs[3].axhline(7.0, color='grey', linestyle='--')
-                axs[3].axhline(-7.0, color='grey', linestyle='--')
+                #com_torque = -30.35*np.deg2rad(df['roll_rate'])
+                #axs[3].plot(df['seconds_since_start'], com_torque,
+                            #color='black', alpha=0.25)
+                axs[3].axhline(7.0, color='grey', linestyle='--',
+                               label='Maximum Torque')
+                axs[3].axhline(-7.0, color='grey', linestyle='--',
+                               label='__none__')
                 df.plot(
                     x="seconds_since_start",
                     y="motor_torque",
                     ax=axs[3],
                     ylabel="Commanded\nMotor Torque\n[Nm]",
+                    label='__none__',
                     legend=False,
                     color='black',
                 )
-            axs[4].axhline(1.7, color='black', linestyle='--')
+                axs[3].legend(fontsize="x-small")
+            # 1.7 m/s is 6 km/h
+            #axs[4].axhline(1.7, color='black', linestyle='--')
             avg_speed = df['speed'].mean()
             std_speed = df['speed'].std()
-            axs[4].axhline(avg_speed, color='black')
+            axs[4].axhline(avg_speed, color='black', linestyle='--',
+                           label='Mean Speed')
+            axs[4].axhspan(
+                avg_speed - std_speed,
+                avg_speed + std_speed,
+                color='black',
+                alpha=0.2, label='Standard Deviation')
             df.plot(
                 x="seconds_since_start",
                 y="speed",
                 ax=axs[4],
                 xlabel="Time since start of perturbation [s]",
                 ylabel="Speed\n[m/s]",
+                label='__none__',
                 legend=False,
                 color='black',
             )
+            axs[4].legend(fontsize="x-small")
 
             for ax in axs:
                 ax.grid()
