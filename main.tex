@@ -9,7 +9,7 @@
 \addbibresource{references.bib}
 \usepackage{siunitx}  % use for all units
 \usepackage{subcaption}  % for subfigures
-\usepackage[disable]{todonotes}
+\usepackage[]{todonotes}  % use [disable] to hide notes
 
 % NOTE : Use as \si{\kph} or \si{\mps}
 \def\kph{\kilo\meter\per\hour}
@@ -210,9 +210,6 @@ normally unstable weave mode of the bicycle down to
 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
 4.6~\si{\kilo\meter\per\hour} for the ridden bicycle  as shown in
 Figure~\ref{fig:eigenvalues}.
-\todo[inline]{Could add the experimental weave mode identification to this
-figure and consider lowering the gain on the model to make the model match the
-experimental values.}
 %
 \begin{figure}
   \centering
@@ -268,16 +265,16 @@ harness.
 \subsection{Protocol}
 %
 We recruited 26 able-bodied young adults (20-36 years old) to participate in
-the experiments. The subjects were all confident in their cycling skills and
-had cycled at least once in the last month. Eleven subjects performed the
-experiments at 6~\si{\kilo\meter\per\hour} (1.7~\si{\meter\per\second}) and
-fifteen subjects performed the experiments at 10~\si{\kilo\meter\per\hour}
+the experiments.
+\todo[]{Include the average age, mass, height and standard deviation if we
+recorded those.}
+The subjects were all confident in their cycling skills and had cycled at least
+once in the last month. Eleven subjects performed the experiments at
+6~\si{\kilo\meter\per\hour} (1.7~\si{\meter\per\second}) and fifteen subjects
+performed the experiments at 10~\si{\kilo\meter\per\hour}
 (2.8~\si{\meter\per\second}). All subjects consented to the experiment and
 could decline to continue at any time. The study was approved by Delft
 University of Technology's Human Research Ethics Council (\#3897).
-
-\todo[inline]{Include the average age, mass, height and standard deviation if
-we recorded those.}
 
 The subjects were divided into two groups. The first group performed the
 protocol at a belt speed of 10~\si{\kilo\meter\per\hour} with the controller
@@ -714,9 +711,6 @@ lateral deviations. We believe our results are very much dependent on the two
 modes of falling with use: exit the treadmill width or foot is placed on the
 belt. Cycle paths are a similar width as the treadmill, so rider's are often
 limited in width when recovering from a fall.
-
-\todo[inline]{Could show an impulse response in lateral deviation for different
-speeds.}
 
 \subsection{Learning Effect}
 %
