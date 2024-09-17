@@ -46,11 +46,12 @@ reduced if the bicycle was self-stable at these speeds by relieving the rider
 of some of the necessary control activity. Bicycles can be mechanically
 modified to lower the speeds at which they are self-stable~\citep{Astrom2005}
 and since the 1980s it has been known that applying a motor actuated steering
-torque proportional to the vehicle's roll rate can stabilize a single-track
-vehicle at lower speeds. If automatic control of steering can stabilize a
-bicycle, it may reduce the control required from the rider to successfully
-manage balancing tasks much like the high speed self-stability already does. We
-have developed a balance assisting bicycle,
+torque proportional to the vehicle's roll rate~\footnote{Roll angular rate is
+defined herein as per the SAE J670 vehicle standards.} can stabilize a
+single-track vehicle at lower speeds. If automatic control of steering can
+stabilize a bicycle, it may reduce the control required from the rider to
+successfully manage balancing tasks much like the high speed self-stability
+already does. We have developed a balance assisting bicycle,
 Figure~\ref{fig:balance-assist-bicycle}, based on these principles and
 hypothesize that it helps the rider in situations in which they are likely to
 fall.
@@ -99,13 +100,14 @@ Ruijs and Pacjecka followed this by demonstrating an automatically balanced
 motorcycle~\citep{Ruijs1986} and they did so solely with a steering motor. Ruijs and
 Pacejka clearly showed that steer torque driven by roll angle feedback
 stabilizes the capsize mode, roll angular rate feedback stabilizes the weave
-mode, and steer angular rate feedback stabilizes the wobble mode. They also
-proposed how the gains must change with respect to vehicle speed for favorable
-control at all speeds. This roll motion feedback enables the simplest controller
-that can stabilize a single-track vehicle above a minimum speed when one is not
-concerned with wobble instabilities. Ruijs and Pacejka's work was not
-particularly concerned with low speed stability and their vehicle was fully
-automatic, i.e no human rider was involved.
+mode, and steer angular rate feedback stabilizes the wobble mode~\footnote{The
+motorcycle (and bicycle) eigenmodes are defined in \citep{Sharp1971}.}. They
+also proposed how the gains must change with respect to vehicle speed for
+favorable control at all speeds.  This roll motion feedback enables the
+simplest controller that can stabilize a single-track vehicle above a minimum
+speed when one is not concerned with wobble instabilities. Ruijs and Pacejka's
+work was not particularly concerned with low speed stability and their vehicle
+was fully automatic, i.e no human rider was involved.
 
 Many more automatically balanced single track vehicles have been demonstrated
 over the last 40 years, but none have demonstrated that increasing low speed
@@ -124,9 +126,10 @@ stabilization~\cite{Hanakam2023}.
 The linear Carvallo-Whipple bicycle model~\citep{Carvallo1899,Whipple1899} is
 the simplest bicycle model that exhibits non-minimum phase behavior and
 self-stability. The bicycle model is suitable for showing the effect of a roll
-motion feedback driven steer motor on the dynamics. The linear version of this
-model~\citep{Meijaard2007} can be described by the fourth order state space
-equations:
+motion feedback driven steer motor on the dynamics. This model is equivalently
+valid for on-road or treadmill motion~\citep{Kooijman2009a}, which have the
+same dynamics. The linear version of this model~\citep{Meijaard2007} can be
+described by the fourth order state space equations:
 %
 \begin{align}
   \dot{\vec{x}} = \mathbf{A} \vec{x} +
@@ -254,10 +257,10 @@ microcontroller and the use of a simpler non-active safety harness.
   \subcaptionbox{A participant on the bicycle in the safety harness with the
     Bump'Em motor lines attached to the ends of the
     handlebars.\protect\label{fig:participant-in-set-up}}
-    {\includegraphics[width=75mm]{figures/participant-in-set-up.png}}
+    {\includegraphics[height=65mm]{figures/participant-in-set-up.png}}
   \subcaptionbox{Top view diagram of bicycle handlebar perturbation
     system.\protect\label{fig:setup-diagram}}
-    {\includegraphics[width=65mm]{figures/setup-diagram.png}}
+    {\includegraphics[height=65mm]{figures/setup-diagram.png}}
   \caption{Diagrams showing the Bump'Em system arranged to apply handlebar
     perturbations.}
   \label{fig:experimental-setup}
@@ -374,7 +377,7 @@ angles to characterize the configuration of the bicycle when perturbed. The
 gain setting on the balance assist controller indicates if the assistance is
 off \(g=0\) or on at two different levels: low \(g=8\) or high \(g=10\). A
 recovery from the perturbation is successful if the person neither places their
-foot down onto the treadmill surface or their wheel of the bicycle exits the
+foot down onto the treadmill surface nor their wheel of the bicycle exits the
 width of the treadmill belt. We record this as a binary variable \(f\) for
 "fall". All measured variables are reported in Table~\ref{tab:raw}.
 %
