@@ -75,8 +75,8 @@ def plot_eig(ax, model, kphidots=0.0):
     print(msg.format(weave_speed, weave_speed*MPS2KPH))
     msg = 'Capsize speed: {:1.2f} [m/s], {:1.1f} [km/h]'
     print(msg.format(capsize_speed, capsize_speed*MPS2KPH))
-    ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0)
-    ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0)
+    ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0, color='black', linestyle=':')
+    ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0, color='black', linestyle='-.')
     model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                 hide_zeros=True, colors=['k']*4)
     ax.set_ylim((-10, 10))
@@ -84,15 +84,21 @@ def plot_eig(ax, model, kphidots=0.0):
 
 
 ax = plot_eig(axes[0, 0], model_without)
+sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
+                                           lambda x: x*KPH2MPS))
+sax.set_xlabel('Speed [km/h]')
 ax.set_title('Without Rigid Rider')
-ax.set_ylabel('Balance Assist Off\nEigenvalue Components [1/s]')
+ax.set_ylabel('Balance Assist Off\nEigenvalue Components\n[1/s]')
 ax.set_xlabel('')
 
 ax = plot_eig(axes[1, 0], model_without, kphidots=kphidots)
-ax.set_ylabel('Balance Assist On\nEigenvalue Components [1/s]')
+ax.set_ylabel('Balance Assist On\nEigenvalue Components\n[1/s]')
 ax.set_xlabel('Speed [m/s]')
 
 ax = plot_eig(axes[0, 1], model_with)
+sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
+                                           lambda x: x*KPH2MPS))
+sax.set_xlabel('Speed [km/h]')
 ax.set_title('With Rigid Rider')
 ax.set_ylabel('')
 ax.set_xlabel('')
