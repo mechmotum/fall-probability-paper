@@ -49,10 +49,12 @@ for (i in 1:2) {
   )
 
   if (i == 1) {
-    fig_title <- "Predicted fall probability at 6 km/h with gain g=-10"
+    #fig_title <- "Predicted fall probability at 6 km/h with gain g=-10"
+    fig_title <- ""
     file_name <- "./figures/predicted_fall_probability_6kmh.png"
   } else {
-    fig_title <- "Predicted fall probability at 10 km/h with gain g=-8"
+    #fig_title <- "Predicted fall probability at 10 km/h with gain g=-8"
+    fig_title <- ""
     file_name <- "./figures/predicted_fall_probability_10kmh.png"
   }
 
@@ -66,5 +68,5 @@ for (i in 1:2) {
       theme_bw() +
       labs(title = fig_title, x = "Centred and scaled angular impulse", y = "Fall probability") +
       theme(plot.title = element_text(hjust = 0.5))
-  ggsave(file = file_name, width = 8, height = 5, dpi = 300)
+  ggsave(file = file_name, width = 100/25.4, height = 75/25.4, dpi = 300)
 }
