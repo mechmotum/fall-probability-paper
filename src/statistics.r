@@ -49,24 +49,43 @@ for (i in 1:2) {
   )
 
   if (i == 1) {
-    #fig_title <- "Predicted fall probability at 6 km/h with gain g=-10"
-    fig_title <- ""
     file_name <- "./figures/predicted_fall_probability_6kmh.png"
   } else {
-    #fig_title <- "Predicted fall probability at 10 km/h with gain g=-8"
-    fig_title <- ""
     file_name <- "./figures/predicted_fall_probability_10kmh.png"
   }
 
   plot <- ggplot() +
-      geom_smooth(data = dummy_data_on, aes(x = angular_impulse, y = prediction, colour = "Balance-assist on"), method = "glm", method.args = list(family = binomial), fill = "cornflowerblue") +
-      geom_smooth(data = dummy_data_off, aes(x = angular_impulse, y = prediction, colour = "Balance-assist off"), method = "glm", method.args = list(family = binomial), fill = "coral") +
+      geom_smooth(
+          data = dummy_data_on,
+          linetype = 'twodash',
+          aes(x = angular_impulse, y = prediction, colour = "Balance-assist on"),
+          method = "glm",
+          method.args = list(family = binomial),
+          fill = "grey"
+      ) +
+      geom_smooth(
+          data = dummy_data_off,
+          aes(x = angular_impulse, y = prediction, colour = "Balance-assist off"),
+          method = "glm",
+          method.args = list(family = binomial),
+          fill = "grey"
+      ) +
       scale_colour_manual("",
           breaks = c("Balance-assist on", "Balance-assist off"),
-          values = c("Balance-assist on" = "blue", "Balance-assist off" = "red")
-      ) +
+          values = c("Balance-assist on" = "black",
+                     "Balance-assist off" = "black")) +
+      # TODO : Legend shows a solid line for each line, instead of dashed for
+      # one.
+      scale_linetype_manual(
+          breaks = c("Balance-assist on", "Balance-assist off"),
+          values = c("Balance-assist on" = "twodash",
+                     "Balance-assist off" = "solid")) +
       theme_bw() +
-      labs(title = fig_title, x = "Centred and scaled angular impulse", y = "Fall probability") +
-      theme(plot.title = element_text(hjust = 0.5))
-  ggsave(file = file_name, width = 100/25.4, height = 75/25.4, dpi = 300)
+      theme(legend.position = "bottom") +
+      labs(x = "Centered and scaled angular impulse",
+           y = "Fall Probability")
+  ggsave(file = file_name,
+         width = 80/24.5 ,
+         height = 60/25.4,
+         dpi = 300)
 }
