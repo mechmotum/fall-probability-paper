@@ -470,7 +470,8 @@ independent variables. We also include interaction effects between the balance
 assist state and the other four variables. We divide the analysis into two
 separate model evaluations, one for the 6~\si{\kph}, \(g=10\) trials and one
 for the 10~\si{\kph}, \(g=8\) trials and we evaluate our hypothesis for each
-set of data.
+set of data. Statistics were computed with the lme4 version
+1.1~\citep{Bates2015} package in R version 4.1.3~\citep{RCoreTeam2021}.
 
 \section{Results}
 %
@@ -568,19 +569,19 @@ significant.
   \centering
   % NOTE : We could uncomment the longer subcaption if titles removed from
   % figures. It is currently redundant.
-  \subcaptionbox{%Fall probability for the 6~\si{\kph} trials.
+  \subcaptionbox{Fall probability for the 6~\si{\kph} trials.
     \label{fig:probability-6kph}}{
     \includegraphics[width=80mm]{figures/predicted_fall_probability_6kmh.png}
   }
-  \subcaptionbox{%Fall probability for the 10~\si{\kph} trials.
+  \subcaptionbox{Fall probability for the 10~\si{\kph} trials.
     \label{fig:probability-10kph}}{
     \includegraphics[width=80mm]{figures/predicted_fall_probability_10kmh.png}
   }
   \caption{Comparison of predicted fall probability for balance-assist on
-    (blue) or off (red) when all other predictor variables are fixed at zero,
+    (solid) or off (dashed) when all other predictor variables are fixed at zero,
     except for the interaction effect between the balance-assist and the
-    angular impulse. The ordinate axis is standard deviation around the mean
-    (all perturbations), centered per participant.}
+    angular impulse. The abscissa is standard deviation around the mean (all
+    perturbations), centered per participant.}
   \label{fig:probability}
 \end{figure}
 
