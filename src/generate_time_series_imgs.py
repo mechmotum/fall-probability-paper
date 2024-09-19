@@ -15,6 +15,8 @@ DURATION_AFTER = 2.0
 DIRECTORY = "figures"
 HANLDEBAR_LENGTH = 0.82
 BALANCE_ASSIST_MOTOR_CONSTANT = 5
+KPH2MPS = 1000.0/3600.0
+MPS2KPH = 1.0/KPH2MPS
 
 
 def main():
@@ -204,6 +206,11 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 legend=False,
                 color='black',
             )
+            sax = axs[4].secondary_yaxis('right',
+                                         functions=(
+                                             lambda x: x*MPS2KPH,
+                                             lambda x: x*KPH2MPS))
+            sax.set_ylabel('Speed\n[km/h]')
             axs[4].legend(fontsize="x-small")
 
             for ax in axs:
