@@ -346,9 +346,11 @@ compared to our Bump'Em controller command.
 \begin{figure}
   \centering
   \includegraphics[width=140mm]{figures/torque_angle_perturbation_10.png}
-  \caption{Perturbation torque alongside the resulting motion and steer motor
-    torque based on a 110~\si{\newton} counterclockwise applied force at a a
-    6~\si{\kph} travel speed.}
+  \caption{Externally applied perturbation torque alongside the resulting
+    measured motion and steer motor induced torque based on a 110~\si{\newton}
+    counterclockwise applied force at a 6~\si{\kph} travel speed. The circles
+    on the roll and steer angle plot show the angles \(\phi_0\) and
+    \(\delta_0\) at the perturbation start.}
   \label{fig:perturbation_0}
 \end{figure}
 
@@ -374,14 +376,17 @@ handlebar ends, respectively which are the sum of the rear and front load cell
 readings \(F_{rr}\) and \(F_{rf}\), for example. The handlebar length is given
 as \(l\) in Equation \ref{eq:angular-impulse}.
 
-At the initiation of each perturbation we log the instantaneous steer and roll
-angles to characterize the configuration of the bicycle when perturbed. The
-gain setting on the balance assist controller indicates if the assistance is
-off \(g=0\) or on at two different levels: low \(g=8\) or high \(g=10\). A
-recovery from the perturbation is successful if the person neither places their
-foot down onto the treadmill surface nor their wheel of the bicycle exits the
-width of the treadmill belt. We record this as a binary variable \(f\) for
-"fall". All measured variables are reported in Table~\ref{tab:raw}.
+We record the order number of each perturbation, i.e. first, second, third,
+\ldots, to measure how many perturbations a rider is subjected to before the
+current pertubration. At the initiation of each perturbation we log the
+instantaneous steer and roll angles to characterize the configuration of the
+bicycle when perturbed. The gain setting on the balance assist controller
+indicates if the assistance is off \(g=0\) or on at two different levels: low
+\(g=8\) or high \(g=10\). A recovery from the perturbation is successful if the
+person neither places their foot down onto the treadmill surface nor their
+wheel of the bicycle exits the width of the treadmill belt. We record this as a
+binary variable \(f\) for "fall". All measured variables are reported in
+Table~\ref{tab:raw}.
 %
 \begin{table}
   \centering
@@ -433,20 +438,20 @@ statistical model variables.
   \end{tabular}
 \end{table}
 
-We evaluate this hypothesis using a multivariate logistic regression model that
-takes the general form
-%
-\begin{align}
-  f_{ij} | p_{ij} \sim \textrm{Bern}(p_{ij}) \textrm{.}
-\end{align}
-%
 Fall outcome \(f_{ij}\) is the binary outcome of perturbation \(j\) on
 participant \(i\) which follows a Bernoulli distribution given the probability
-\(p_{ij}\) that a fall occurs. The log-odds of the probability is then a linear
-function of our independent variables with \(\beta\) being the intercept and
-\(\alpha_k\) the linear coefficients to the \(K\) independent variables
-\(x_{ij}^k\), i.e. all variables in Table~\ref{tab:stat-model-variables} except
-\(f\).
+\(p_{ij}\) that a fall occurs:
+%
+\begin{align}
+  f_{ij} | p_{ij} \sim \textrm{Bernoulli}(p_{ij}) \textrm{.}
+\end{align}
+%
+We evaluate our hypothesis using a multivariate logistic regression model that
+represents the probability of this binary outcome. The log-odds of the
+probability is then a linear function of our independent variables with
+\(\beta\) being the intercept and \(\alpha_k\) the linear coefficients to the
+\(K\) independent variables \(x_{ij}^k\), i.e. all variables in
+Table~\ref{tab:stat-model-variables} except \(f\).
 %
 \begin{align}
   \log \left(\frac{p_{ij}}{1-p_{ij}} \right) =
@@ -697,7 +702,6 @@ balance assist system is used. Estimates of the predictor variables extracted
 from the limited data collected from natural cycling would be needed to
 populate the model.
 
-
 \subsection{Treadmill Width}
 %
 Angular impulse magnitude has the largest significant effect for predicting
@@ -779,7 +783,8 @@ developed in unpublished research by Marco Reijne. The authors acknowledge
 Felix Dauer, David Gabriel, Sierd Heida, Oliver Maier, Maarten Pelgrim, Marco
 Reijne, and Arend Schwab for contributions to the development of the balance
 assist bicycle. We thank all of the assistants that helped run the experiments
-and the subjects for their time an enthusiasm.
+and the subjects for their time an enthusiasm. We thank Peter Stahlecker for
+valuable feedback in early revisions.
 
 \section*{Funding}
 %
