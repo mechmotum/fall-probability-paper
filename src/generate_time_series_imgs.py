@@ -141,14 +141,20 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             axs[0].set_ylabel("Bump'Em\nHandlebar\nTorque\n[Nm]")
             axs[0].legend(fontsize="x-small")
 
+            df['roll_angle_times_10'] = df['roll_angle']*10.0
             df.plot(
                 x="seconds_since_start",
-                y="roll_angle",
+                y="roll_angle_times_10",
                 ax=axs[1],
                 ylabel="Angle\n[deg]",
-                label="Roll",
+                label="Roll X 10",
                 color='black',
             )
+            axs[1].plot(0.0, df['roll_angle_times_10'].iloc[0],
+                        'o',
+                        fillstyle='none',
+                        markeredgecolor='black',
+                        label="__none__")
             df.plot(
                 x="seconds_since_start",
                 y="steer_angle",
@@ -157,6 +163,11 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 color='black',
                 linestyle='--',
             )
+            axs[1].plot(0.0, df['steer_angle'].iloc[0],
+                        'o',
+                        fillstyle='none',
+                        markeredgecolor='black',
+                        label="__none__")
             axs[1].legend(fontsize="x-small")
 
             df.plot(
@@ -176,8 +187,7 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 axs[3].axhline(-7.0, color='grey', linestyle='--',
                                label='__none__')
                 df.plot(
-                    x="seconds_since_start",
-                    y="motor_torque",
+                    x="seconds_since_start", y="motor_torque",
                     ax=axs[3],
                     ylabel="Commanded\nMotor Torque\n[Nm]",
                     label='__none__',
