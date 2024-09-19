@@ -25,11 +25,11 @@ for (i in 1:2) {
   )
   print(summary(model_simple))
   print(summ(model_simple, exp = TRUE))
-  
-  # Create dummy dataset with all variables set to zero, except for angular impulse
-  # and state of balance-assist. The model created above uses this dataset to predict
-  # fall probabilities and show the difference between balance-assist off and 
-  # balance-assist on.
+
+  # Create dummy dataset with all variables set to zero, except for angular
+  # impulse and state of balance-assist. The model created above uses this
+  # dataset to predict fall probabilities and show the difference between
+  # balance-assist off and balance-assist on.
   dummy_data_on <- data.frame(
     angular_impulse = seq(from = -2.5, to = 2.5, by = 0.01)
   )
