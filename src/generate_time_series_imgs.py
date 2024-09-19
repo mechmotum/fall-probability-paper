@@ -114,12 +114,12 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
             if "motor_current" in df.columns.values:
                 fig, axs = plt.subplots(5, 1, sharex=True,
                                         layout="constrained",
-                                        figsize=(140.0/25.4, 140/25.4))
+                                        figsize=(140.0/25.4, 120/25.4))
                 df["motor_torque"] = df["motor_current"] / BALANCE_ASSIST_MOTOR_CONSTANT
             else:
                 fig, axs = plt.subplots(5, 1, sharex=True,
                                         layout="constrained",
-                                        figsize=(140.0/25.4, 140/25.4))
+                                        figsize=(140.0/25.4, 120/25.4))
 
             actual_torque, desired_torque = calculate_torque_on_handlebars(df)
             axs[0].plot(
