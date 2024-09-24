@@ -29,10 +29,10 @@ Low Speeds When Subjected to Handlebar Perturbations\\Version 2.dev}
   controlled steering motor to a consumer electric bicycle that stabilizes it
   at low speeds. To test the motor's assistance during falls, we apply varying
   magnitude external handlebar perturbations to the bicycle while ridden on a
-  treadmill with the balance-assist system activated and deactivated. The
+  treadmill with the balance assist system activated and deactivated. The
   probability of not recovering from a handlebar perturbation decreases when
-  the balance-assist is activated at a travel speed of 6~\si{\kph}. Use of a
-  balance-assist system in real world bicycling will reduce the number of falls
+  the balance assist is activated at a travel speed of 6~\si{\kph}. Use of a
+  balance assist system in real world bicycling will reduce the number of falls
   that occur near riders' control authority limits.
 }
 
@@ -51,7 +51,7 @@ defined herein as per the SAE J670 vehicle standards.} can stabilize a
 single-track vehicle at lower speeds. If automatic control of steering can
 stabilize a bicycle, it may reduce the control required from the rider to
 successfully manage balancing tasks much like the high speed self-stability
-already does. We have developed a balance-assisting bicycle,
+already does. We have developed a balance assisting bicycle,
 Figure~\ref{fig:balance-assist-bicycle}, based on these principles and
 hypothesize that it helps the rider in situations in which they are likely to
 fall.
@@ -59,7 +59,7 @@ fall.
 \begin{figure}
   \centering
   \includegraphics[width=80mm]{figures/balance-assist-bicycle.jpg}
-  \caption{Balance-assist bicycle prototype with electric motor in the steering
+  \caption{Balance assist bicycle prototype with electric motor in the steering
     column and data acquisition and control electronics mounted in the rear
     rack.}
   \label{fig:balance-assist-bicycle}
@@ -70,7 +70,7 @@ vehicle state. There are many real world scenarios that can put the vehicle
 into an uncontrollable state. External forces applied to the vehicle or rider
 are one such scenario type and natural examples include wind gusts, handlebars
 colliding with a neighbor's, a bag swinging from the handlebar, or simply
-hitting a bump in the road. To assess our balance-assisting bicycle, we subject
+hitting a bump in the road. To assess our balance assisting bicycle, we subject
 the rider to perturbations at the handlebar, which can relatively easily cause
 a rider to fall.
 
@@ -78,7 +78,7 @@ In this paper, we test whether a steer motor controlled bicycle, that is stable
 in a large low speed range, is beneficial in helping to prevent the rider from
 falling. We test this by applying varying magnitude mechanical perturbations to
 the handlebars while the rider is cycling on a treadmill. We assess the
-difference in the rider's probability of falling with the balance-assist system
+difference in the rider's probability of falling with the balance assist system
 on and off.
 
 \subsection{Technical Background}
@@ -119,7 +119,7 @@ steer torque and the rider applied steer torque act on the steer in parallel.
 The effect of this automatic control gives the ability to effectively change
 the dynamics, up to some limits, of the human-controlled plant. In our prior
 study~\citep{Alizadehsaravi2023}, we demonstrate reduced motion during
-distractions due to the balance-assist system but contrarily researchers with a
+distractions due to the balance assist system but contrarily researchers with a
 similar vehicle recently showed rider dissatisfaction with the
 stabilization~\cite{Hanakam2023}.
 
@@ -176,7 +176,7 @@ within any physical actuator magnitude and bandwidth limits.
 \citet{Schwab2008} elaborates on some of the possibilities in scheduling the
 gains for such a controller and shows that a linear scheduling with respect to
 speed can give satisfactory stability for a low speed range. We use this simple
-feedback principle as the basis for our balance-assist controller.
+feedback principle as the basis for our balance assist controller.
 
 \section{Methods}
 %
@@ -189,7 +189,7 @@ tube, see Figure~\ref{fig:balance-assist-bicycle}. A custom motor controller
 converts the commanded torque to applied torque. We measure the speed of the
 rear wheel with an encoder (ABS Speed Sensor, Magura GmbH, Bad Urach, Germany)
 and measure the body fixed roll rate of the bicycle with a MEMs rate gyroscope
-(VR IMU BN0086, Sparkfun, Niwot, USA). The balance-assist control algorithm is
+(VR IMU BN0086, Sparkfun, Niwot, USA). The balance assist control algorithm is
 implemented on a microprocessor (Teensy, PJRC, USA) and data from all sensors
 is logged with a CAN bus (CanEdge2, CSS Electronics, Aabyhoej, Denmark) at at
 least 100 Hz.
@@ -334,7 +334,7 @@ perturbation is selected at random. This process iterates until twenty
 perturbations are applied. The goal of this adaptive staircase procedure is to
 have participants fall for approximately 50\% of the time. After the first set
 of 20 perturbations, we let the cyclist rest and then perform another 20
-perturbations. We randomize whether the balance-assist system is on or off
+perturbations. We randomize whether the balance assist system is on or off
 during the first or second set of perturbations for each participant.
 
 \subsection{Measurements}
@@ -381,7 +381,7 @@ We record the order number of each perturbation, i.e. first, second, third,
 \ldots, to measure how many perturbations a rider is subjected to before the
 current pertubration. At the initiation of each perturbation we log the
 instantaneous steer and roll angles to characterize the configuration of the
-bicycle when perturbed. The gain setting on the balance-assist controller
+bicycle when perturbed. The gain setting on the balance assist controller
 indicates if the assistance is off \(g=0\) or on at two different levels: low
 \(g=8\) or high \(g=10\). A recovery from the perturbation is successful if the
 person neither places their foot down onto the treadmill surface nor their
@@ -414,7 +414,7 @@ Table~\ref{tab:raw}.
 
 \subsection{Statistics}
 %
-We test our hypothesis that the balance-assistance controller will reduce the
+We test our hypothesis that the balance assistance controller will reduce the
 probability of falling when perturbed externally at the handlebar. We have a
 single binary fall outcome variable \(f\) that is dependent on several possible
 explanatory independent variables, one of which is the binary balance
@@ -433,7 +433,7 @@ statistical model variables.
     \(\delta_0\) & independent & \si{\degree} & steer angle at start of perturbation \\
     \(\phi_0\)   & independent & \si{\degree} & roll angle at start of perturbation \\
     \(f\)        & dependent   & boolean & outcome: did not fall 0 or did fall 1 \\
-    \(c\)        & independent & boolean & balance-assist: off 0 or on 1 \\
+    \(c\)        & independent & boolean & balance assist: off 0 or on 1 \\
     \(j\)        & independent & integer & order number of perturbation \\
     \bottomrule
   \end{tabular}
@@ -465,13 +465,13 @@ that they have a mean of zero and a standard deviation of one by cluster-mean
 centering, as recommended by \cite{Enders2007}, with clusters being an
 individual subject. The clusters are chosen as all data from an individual
 subject because we are only interested in the association between the state of
-the balance-assist system and the outcome of the perturbation. We expected
+the balance assist system and the outcome of the perturbation. We expected
 there to be a variation between participants in how well they are able to
 resist the perturbation. However, this was not true. Cluster-mean centering
 shows there to be no variation between participants. This fact allows us to
 utilize a simple single-level logistic regression model, instead of a
 multilevel model. This left us with angular impulse, perturbation order,
-balance-assist state, and roll \& steer angles at the time of perturbation as
+balance assist state, and roll \& steer angles at the time of perturbation as
 independent variables. We also include interaction effects between the balance
 assist state and the other four variables. We divide the analysis into two
 separate model evaluations, one for the 6~\si{\kph}, \(g=10\) trials and one
@@ -484,7 +484,7 @@ set of data. Statistics were computed with the lme4 version
 The coefficient estimates for a single-level logistic regression for the data
 from the 6~\si{\kph}, gain $g=10$ trials are shown in
 Table~\ref{tab:freq-coefs-6}. The angular impulse, perturbation order, and
-balance-assist state are all statistically significant predictors with angular
+balance assist state are all statistically significant predictors with angular
 impulse having a dominant effect. Larger angular impulse increases the
 probability to fall and enduring more perturbations or having the balance
 assist on, decrease the probability to fall. The associated multiplicative
@@ -504,13 +504,13 @@ change in odds are shown in Table~\ref{tab:freq-coefs-6}.
     Intercept \(\beta\)                           & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
     Angular impulse \(L\)                         & 1.69 & 0.27 & 0.00\(^*\) & 5.40 & 3.18 & 9.16 \\
     Perturbation order \(j\)                      & -0.77 & 0.22 & 0.00\(^*\) & 0.46 & 0.30 & 0.72 \\
-    Balance-assist state \(c\)                    & -0.64 & 0.27 & 0.02\(^*\) & 0.53 & 0.31 & 0.89 \\
+    Balance assist state \(c\)                    & -0.64 & 0.27 & 0.02\(^*\) & 0.53 & 0.31 & 0.89 \\
     Roll angle \(\phi_0\)                         & -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
     Steer angle \(\delta_0\)                      & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
-    Balance-assist state $\times$ roll angle         & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
-    Balance-assist state $\times$ steer angle        & -0.41 & 0.34 & 0.22 & 0.66 & 0.34 & 1.28 \\
-    Balance-assist state $\times$ angular impulse    & 0.41 & 0.41 & 0.32 & 1.51 & 0.67 & 3.38 \\
-    Balance-assist state $\times$ perturbation order & -0.53 & 0.34 & 0.12 & 0.59 & 0.30 & 1.15 \\
+    Balance assist state $\times$ roll angle         & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
+    Balance assist state $\times$ steer angle        & -0.41 & 0.34 & 0.22 & 0.66 & 0.34 & 1.28 \\
+    Balance assist state $\times$ angular impulse    & 0.41 & 0.41 & 0.32 & 1.51 & 0.67 & 3.38 \\
+    Balance assist state $\times$ perturbation order & -0.53 & 0.34 & 0.12 & 0.59 & 0.30 & 1.15 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -520,7 +520,7 @@ The coefficient estimates for a single-level logistic regression at
 angular impulse and perturbation order are statistically significant predictors
 with angular impulse being the dominant effect. Larger angular impulse
 increases the probability to fall and enduring more perturbations decreases the
-probability to fall. Unlike the 6~\si{\kph} trials, the balance-assist state is
+probability to fall. Unlike the 6~\si{\kph} trials, the balance assist state is
 not a significant predictor. At both speeds the angular impulse has about twice
 the effect as the perturbation order.
 %
@@ -538,29 +538,29 @@ the effect as the perturbation order.
     Intercept                & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
     Angular impulse \(L\)    & 2.39  & 0.29 & 0.00\(^*\) & 10.92 & 6.23 & 19.13 \\
     Perturbation order \(j\) & -1.16 & 0.21 & 0.00\(^*\)  & 0.31 & 0.21 & 0.48 \\
-    Balance-assist on \(c\)  & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
+    Balance assist on \(c\)  & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
     Roll angle \(\phi_0\)    & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
     Steer angle \(\delta_0\) & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
-    Balance-assist state $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
-    Balance-assist state $\times$ steer angle        & 0.56  & 0.35 & 0.11 & 1.76 & 0.88 & 3.50 \\
-    Balance-assist state $\times$ angular impulse    & 0.46  & 0.44 & 0.29 & 1.59 & 0.68 & 3.74 \\
-    Balance-assist state $\times$ perturbation order & -0.37 & 0.32 & 0.25 & 0.69 & 0.37 & 1.30 \\
+    Balance assist state $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
+    Balance assist state $\times$ steer angle        & 0.56  & 0.35 & 0.11 & 1.76 & 0.88 & 3.50 \\
+    Balance assist state $\times$ angular impulse    & 0.46  & 0.44 & 0.29 & 1.59 & 0.68 & 3.74 \\
+    Balance assist state $\times$ perturbation order & -0.37 & 0.32 & 0.25 & 0.69 & 0.37 & 1.30 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Turning the balance-assist system on significantly \((p<0.05)\) reduces the
+Turning the balance assist system on significantly \((p<0.05)\) reduces the
 odds that a perturbation results in a fall while cycling at a speed of
 6~\si{\kph}. Figure~\ref{fig:probability-6kph} visualizes the probability of
 falling as a function of the mean and centered angular impulse per participant
-for the balance-assist state on and off while keeping all other explanatory
+for the balance assist state on and off while keeping all other explanatory
 factors at their centered mean values. This figure is created by setting all
 explanatory variables to there mean and calculating the probability from
 Eq~\ref{eq:log-regress} for only change in angular impulse given the estimates
-in Table~\ref{tab:freq-coefs-6}. The table indicates that the balance-assist
+in Table~\ref{tab:freq-coefs-6}. The table indicates that the balance assist
 system halves (0.53) the odds that a perturbation results in a fall. This
 figure shows that for relatively large impulses the probability to fall is
-unity for both states of balance-assist on and off. And for relatively small
+unity for both states of balance assist on and off. And for relatively small
 impulses the probability to fall is null for both states. But for impulses in
 the magnitude region (-1 to 0.5 STD), i.e. around the mean-centered fall
 threshold, the probability of falling is significantly lowered with the balance
@@ -568,7 +568,7 @@ assist system on. The skewness of the probability curves arrives from the
 interaction effects.\todo{check this statement about skewedness this and think
 about it} Figure~\ref{fig:probability-10kph} shows the same result for the
 10~\si{\kph} trials which has a similar trend of reducing the probability to
-fall with the balance-assist system turned on, but the effect is not
+fall with the balance assist system turned on, but the effect is not
 significant.
 %
 \begin{figure}
@@ -583,9 +583,9 @@ significant.
     \label{fig:probability-10kph}}{
     \includegraphics[width=80mm]{figures/predicted_fall_probability_10kmh.png}
   }
-  \caption{Comparison of predicted fall probability for balance-assist on
+  \caption{Comparison of predicted fall probability for balance assist on
     (solid) or off (dashed) when all other predictor variables are fixed at zero,
-    except for the interaction effect between the balance-assist and the
+    except for the interaction effect between the balance assist and the
     angular impulse. The abscissa is standard deviation around the mean (all
     perturbations), centered per participant.}
   \label{fig:probability}
@@ -593,7 +593,7 @@ significant.
 
 \section{Discussion}
 %
-We have shown that at a 6~\si{\kph} riding speed the addition of balance-assist
+We have shown that at a 6~\si{\kph} riding speed the addition of balance assist
 control reduces the chance that a rider will fall when perturbed around the
 limits of their control authority. But this effect diminishes just below
 significance at the higher speed scenario of 10~\si{\kph}. We were only able to
@@ -602,7 +602,7 @@ within the resources of this research project, but additional experimental work
 could help understand more completely the range and limits of the positive
 effect of the balance system. For example, it is possible that simply
 increasing the controller gain at 10~\si{\kph} also results in a significant
-positive effect. A longitudinal study of normal use of the balance-assist
+positive effect. A longitudinal study of normal use of the balance assist
 bicycle compared to a control group could provide the strongest evidence of any
 benefit we have seen in this more narrow scenario.
 
@@ -636,10 +636,10 @@ insight.
 But to interpret the results in Tables~\ref{tab:freq-coefs-6} and
 \ref{tab:freq-coefs-10} it is important to understand the relationship between
 probability and odds.
-The estimate in Table~\ref{tab:freq-coefs-6} shows that the balance-assist
+The estimate in Table~\ref{tab:freq-coefs-6} shows that the balance assist
 system halves the odds that a perturbation results in a fall:
 \(e^{\alpha_k}=0.53\).
-This means if the odds are a 1000:1, turning on the balance-assist system
+This means if the odds are a 1000:1, turning on the balance assist system
 reduces the odds to 500:1.
 However, that case the probability that a fall occurs is only reduced from
 $0.999$ to $0.998$.
@@ -650,14 +650,14 @@ the probability from $0.66$ to $0.50$.
 This can be seen in Figure~\ref{fig:probability} which shows the fall
 probability as a function of the magnitude of the normalized angular impulse
 for both speeds.
-The difference in probability between the balance-assist on/off case becomes
+The difference in probability between the balance assist on/off case becomes
 insignificant outside of approximately \(\pm1\) standard deviation of the
 average angular impulse the rider was subjected to.
-This means that the balance-assist is most effective for perturbations close to
+This means that the balance assist is most effective for perturbations close to
 the subject's personal threshold between falling or recovery and that large
-perturbations will make you fall regardless of the balance-assist's help.
+perturbations will make you fall regardless of the balance assist's help.
 
-To illustrate the effect of the balance-assist system on fall probability, we
+To illustrate the effect of the balance assist system on fall probability, we
 will give an example of how the data collected during the experiments is used
 to predict fall probability. We use Equation~\ref{eq:log-regress} and the coefficients
 in \ref{tab:freq-coefs-6}. For simplicity's sake, the interaction effects are
@@ -684,8 +684,8 @@ can be calculated as follows.
   \end{split}
 \end{equation}
 %
-The state of the balance-assist \(s\) is a binary variable. If the
-balance-assist is turned on, the log-odds that a fall occurs are decreased by
+The state of the balance assist \(s\) is a binary variable. If the
+balance assist is turned on, the log-odds that a fall occurs are decreased by
 0.64. The odds and probability can be calculated:
 %
 \begin{align}
@@ -694,12 +694,12 @@ balance-assist is turned on, the log-odds that a fall occurs are decreased by
   p_{ij}|_{c=1} & = \frac{4.14\cdot0.53}{1 + 4.14\cdot{0.53}} = 0.69
 \end{align}
 %
-Turning on the balance-assist system reduces the probability that the
+Turning on the balance assist system reduces the probability that the
 perturbation results in a fall from 81\% to 69\%.
 
 This illustration alludes to the difficulty needed to apply the model in way
 that could predict how many falls may be averted in a natural setting if the
-balance-assist system is used. Estimates of the predictor variables extracted
+balance assist system is used. Estimates of the predictor variables extracted
 from the limited data collected from natural cycling would be needed to
 populate the model.
 
@@ -712,7 +712,7 @@ probability both at 6 and 10~\si{\kph}. At 10~\si{\kph}, the multiplicative
 change in odds is approximately twice as big as at 6~\si{\kph}. Thus, angular
 impulse is a more important predictor at higher speeds compared to lower
 speeds. We posit that this likely has to do with the width of the treadmill and
-that this could also be why the balance-assist system did not have a statistically
+that this could also be why the balance assist system did not have a statistically
 significant effect at 10~\si{\kph}. As a bicycle travels at higher speeds, the
 same perturbation magnitude causes larger lateral deviations. At 10~\si{\kph}
 almost all falls were due to the bicycle exiting the maximum width of the
@@ -744,20 +744,20 @@ you from the equilibrium should have some additive or multiplicative effect on
 the resulting motion trajectory.
 
 None of the interaction effects are statistically significant. That means that
-whether the balance-assist system is on or off does not significantly change
+whether the balance assist system is on or off does not significantly change
 the effect that the roll angle, steer angle, angular impulse, and perturbation
 order have on the probability that a fall will occur.
 
 \subsection{Extrapolation to Natural Falls}
 %
-The positive effect of the balance-assist system is coupled to the assumptions
+The positive effect of the balance assist system is coupled to the assumptions
 and experimental scenarios we implemented and there is unfortunately no simple
 way to extrapolate our results to reductions of single-actor crashes we may see
 if such a system were deployed widely to bicyclists. Although, our results do
 indicate that we would see such a reduction, even if only in a class of
 single-actor crashes that most resemble our experimental design. If there were
 more comprehensive and detailed natural data of how people fall we could make
-estimates on the number of falls reduced if everyone road a balance-assist
+estimates on the number of falls reduced if everyone road a balance assist
 bicycle.
 
 \section{Conclusion}
@@ -769,12 +769,12 @@ which is easier for a rider to balance. Perturbation forces applied to the
 handlebar can cause a rider to fall and every rider has a threshold force at
 which they are more likely to fall than not. The probability of falling when
 mechanically perturbed is significantly reduced when traveling at 6~\si{\kph}
-when the balance-assisting control is activated. This effect is present when
+when the balance assisting control is activated. This effect is present when
 traveling at 10~\si{\kph} but more investigation is needed to determine if the
 effect can be significant. The positive effect to balance is rider independent
 and most effective in the regime of perturbations near the rider's control
 authority threshold. Given that similar effects cause falls during bicycling,
-use of the balance-assist system in real world use cases will reduce the number
+use of the balance assist system in real world use cases will reduce the number
 of falls at low bicycling speeds.
 
 \section*{Acknowledgements}
@@ -783,7 +783,7 @@ This study follows and draws from experimental and analysis methods originally
 developed in unpublished research by Marco Reijne. The authors acknowledge
 Felix Dauer, David Gabriel, Sierd Heida, Oliver Maier, Maarten Pelgrim, Marco
 Reijne, and Arend Schwab for contributions to the development of the
-balance-assist bicycle. We thank all of the assistants that helped run the
+balance assist bicycle. We thank all of the assistants that helped run the
 experiments and the subjects for their time an enthusiasm. We thank Peter
 Stahlecker for valuable feedback in early revisions.
 
@@ -802,7 +802,7 @@ no role in the data collection and analysis or preparation of the manuscript.
 \label{sec:physical-parameters}
 %
 Physical parameters and estimated uncertainties (standard deviation) for the
-balance-assist bicycle with and without a rider. These are found using the
+balance assist bicycle with and without a rider. These are found using the
 measurement approach for geometric and inertial parameters for a bicycle
 explained in \citet{Moore2012}. The rider inertial parameters are derived from
 the 83.5~\si{\kilogram} rider ``Jason'' available in BicycleParameters
@@ -814,7 +814,7 @@ aren't so meaningful.}
 %
 \begin{table}[h]  % have to use "h" so that it stays within the appendix
   \centering
-  \caption{Physical parameters of the balance-assist bicycle with and without
+  \caption{Physical parameters of the balance assist bicycle with and without
     the inertia effects of a rigid rider.}
   \begin{tabular}{llrrrr}
     \toprule
