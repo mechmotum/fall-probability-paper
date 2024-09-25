@@ -424,16 +424,17 @@ Table~\ref{tab:raw}.
 
 \subsection{Statistics}
 %
-We test our hypothesis that the balance assistance controller will reduce the
+We test our hypothesis that the balance assist controller will reduce the
 probability of falling when perturbed externally at the handlebar. We have a
 single binary fall outcome variable \(f\) that is dependent on several possible
-explanatory independent variables, one of which is the binary balance
-assistance (on or off). See Table~\ref{tab:stat-model-variables} for the
-statistical model variables.
+explanatory independent variables, one of which is the binary balance assist
+state (on or off). See Table~\ref{tab:stat-model-variables} for the statistical
+model variables.
 %
 \begin{table}
   \centering
-  \caption{Independent and dependent variables used in the statistical model.}
+  \caption{Independent and dependent variables used in the statistical
+    regression model.}
   \label{tab:stat-model-variables}
   \begin{tabular}{llll}
     \toprule
@@ -472,10 +473,10 @@ Table~\ref{tab:stat-model-variables} except \(f\).
 
 Before fitting the model, we scale each independent variable \(x_{ij}^k\) such
 that they have a mean of zero and a standard deviation of one by cluster-mean
-centering, as recommended by \cite{Enders2007}, with clusters being an
+centering, as recommended by \citet{Enders2007}, with clusters being an
 individual participant. The clusters are chosen as all data from an individual
-participant because we are only interested in the association between the state of
-the balance assist system and the outcome of the perturbation. We expected
+participant because we are only interested in the association between the state
+of the balance assist system and the outcome of the perturbation. We expected
 there to be a variation between participants in how well they are able to
 resist the perturbation. However, this was not true. Cluster-mean centering
 showed there to be no variation between participants. This fact allows us to
