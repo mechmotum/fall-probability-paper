@@ -32,7 +32,7 @@ Low Speeds When Subjected to Handlebar Perturbations\\Version 2.dev}
   motor's possible assistance during falls, we apply varying magnitude external
   handlebar perturbations to twenty-six participants who rode on a treadmill
   with the balance assist system activated and deactivated. The probability of
-  not recovering from a handlebar perturbation significantly decreases when the
+  recovering from a handlebar perturbation significantly increases when the
   balance assist is activated at a travel speed of 6~\si{\kph}. This positive
   effect is most prominent at and around the individual riders' perturbation
   resistance threshold. We conclude that use of a balance assist system in real
@@ -44,18 +44,18 @@ Low Speeds When Subjected to Handlebar Perturbations\\Version 2.dev}
 %
 Single-actor bicycle crashes are associated with a surprisingly large
 percentage of reported serious injuries~\citep{Wegman2024}. At low speeds, from
-start up to typical cruising speeds, bicycles themselves are not self-stable
-and can be challenging for the rider to balance. Low speed crashes may be
-reduced if the bicycle was self-stable at these speeds by relieving the rider
-of some of their necessary control activity. Bicycles can be mechanically
-modified to lower the speeds at which they are self-stable~\citep{Astrom2005}
-and since the 1980s it has been known that applying a motor actuated steering
-torque proportional to the vehicle's roll angular rate~\footnote{Roll angular
-rate is defined herein as per the SAE J670 vehicle standards.} can stabilize a
-single-track vehicle down to very low speeds. If automatic control of steering
-can stabilize a bicycle, it may reduce the control required from the rider to
-successfully manage balancing tasks much like the natural high speed
-self-stability already does. We have developed a balance-assisting bicycle,
+start up to typical cruising speeds, bicycles are not self-stable and can be
+challenging for the rider to balance. Low speed crashes may be reduced if the
+bicycle was self-stable at these speeds by relieving the rider of some of their
+necessary control activity. Bicycles can be mechanically modified to lower the
+speeds at which they are self-stable~\citep{Astrom2005} and since the 1980s it
+has been known that applying a motor actuated steering torque proportional to
+the vehicle's roll angular rate~\footnote{Roll angular rate is defined herein
+as per the SAE J670 vehicle standards.} can stabilize a single-track vehicle
+down to very low speeds. If automatic control of steering can stabilize a
+bicycle, it may reduce the control required from the rider to successfully
+manage balancing tasks much like the natural high speed self-stability already
+does. We have developed a balance-assisting bicycle,
 Figure~\ref{fig:balance-assist-bicycle}, based on these principles and
 hypothesize that it helps the rider in situations in which they are likely to
 fall.
@@ -217,9 +217,9 @@ control law
 %
 where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
 average stable speed predicted from the open loop bicycle rigid-rider dynamics.
-We use \(g=8\) and \(g=10\) to tune the gain magnitude during the experiments.
-Scaling the proportional feedback gain linearly with respect to speed
-stabilizes the normally unstable weave mode of the bicycle down to
+We use \(g=8\) (low) and \(g=10\) (high) to tune the gain magnitude during the
+experiments.  Scaling the proportional feedback gain linearly with respect to
+speed stabilizes the normally unstable weave mode of the bicycle down to
 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
 4.6~\si{\kilo\meter\per\hour} for the ridden bicycle as shown in
 Figure~\ref{fig:eigenvalues}.
