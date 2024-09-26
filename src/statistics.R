@@ -58,29 +58,30 @@ for (i in 1:2) {
       geom_smooth(
           data = dummy_data_on,
           linetype = 'twodash',
-          aes(x = angular_impulse, y = prediction, colour = "Balance-assist on"),
+          aes(x = angular_impulse, y = prediction, color = "Balance assist on"),
           method = "glm",
           method.args = list(family = binomial),
-          fill = "grey"
+          fill = "gray41"
       ) +
       geom_smooth(
           data = dummy_data_off,
-          aes(x = angular_impulse, y = prediction, colour = "Balance-assist off"),
+          linetype = 'solid',
+          aes(x = angular_impulse, y = prediction, color = "Balance assist off"),
           method = "glm",
           method.args = list(family = binomial),
-          fill = "grey"
+          fill = "gray41"
       ) +
-      scale_colour_manual("",
-          breaks = c("Balance-assist on", "Balance-assist off"),
-          values = c("Balance-assist on" = "black",
-                     "Balance-assist off" = "black")) +
+      scale_colour_manual(name = "",  # don't display the word "colour"
+          breaks = c("Balance assist on", "Balance assist off"),
+          values = c("Balance assist on" = "black",
+                     "Balance assist off" = "black")) +
       # TODO : Legend shows a solid line for each line, instead of dashed for
       # one.
       scale_linetype_manual(
-          breaks = c("Balance-assist on", "Balance-assist off"),
-          values = c("Balance-assist on" = "twodash",
-                     "Balance-assist off" = "solid")) +
-      theme_bw() +
+          breaks = c("Balance assist on", "Balance assist off"),
+          values = c("Balance assist on" = "twodash",
+                     "Balance assist off" = "solid")) +
+      theme_bw() +  # makes a white background instead of grey
       theme(legend.position = "bottom") +
       labs(x = "Centered and scaled angular impulse",
            y = "Fall Probability")
