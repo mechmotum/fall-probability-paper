@@ -13,7 +13,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
-          python-version: "3.12"
+          python-version: "3.11"
           activate-environment: fall-prob-paper
           environment-file: fall-prob-paper-env.yml
           miniforge-version: latest
