@@ -48,6 +48,8 @@ for (i in 1:2) {
     model_simple, dummy_data_off, type = "response"
   )
 
+  all_data <- rbind(dummy_data_on, dummy_data_off)
+
   if (i == 1) {
     file_name <- "./figures/predicted_fall_probability_6kmh.png"
   } else {
@@ -56,31 +58,14 @@ for (i in 1:2) {
 
   plot <- ggplot() +
       geom_smooth(
-          data = dummy_data_on,
-          linetype = 'twodash',
-          aes(x = angular_impulse, y = prediction, color = "Balance assist on"),
+          data = all_data,
+          colour = 'black',
+          aes(x = angular_impulse, y = prediction, linetype = balance_assist),
           method = "glm",
           method.args = list(family = binomial),
           fill = "gray41"
       ) +
-      geom_smooth(
-          data = dummy_data_off,
-          linetype = 'solid',
-          aes(x = angular_impulse, y = prediction, color = "Balance assist off"),
-          method = "glm",
-          method.args = list(family = binomial),
-          fill = "gray41"
-      ) +
-      scale_colour_manual(name = "",  # don't display the word "colour"
-          breaks = c("Balance assist on", "Balance assist off"),
-          values = c("Balance assist on" = "black",
-                     "Balance assist off" = "black")) +
-      # TODO : Legend shows a solid line for each line, instead of dashed for
-      # one.
-      scale_linetype_manual(
-          breaks = c("Balance assist on", "Balance assist off"),
-          values = c("Balance assist on" = "twodash",
-                     "Balance assist off" = "solid")) +
+      scale_linetype_discrete(name = "Balance Assist:", labels = c("On", "Off")) +
       theme_bw() +  # makes a white background instead of grey
       theme(legend.position = "bottom") +
       labs(x = "Centered and scaled angular impulse",
