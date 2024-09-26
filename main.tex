@@ -613,7 +613,7 @@ effect of the balance system. For example, it is possible that simply
 increasing the controller gain at 10~\si{\kph} also results in a significant
 positive effect. A longitudinal study of normal use of the balance assist
 bicycle compared to a control group could provide the strongest evidence of any
-benefit we have seen in this more narrow scenario.
+benefit we have seen in this specific scenario.
 
 \subsection{Stability and Human Controlled Plant Dynamics}
 %
@@ -626,23 +626,22 @@ the various un-modeled effects. Our system may not result in a definitely
 stable system, i.e. cannot fall, but having plant eigenvalues with very small
 unstable eigenvalue real parts correlates to ease of control~\citep{Hess2012}.
 
-The controller design we utilize,
-Equation~\ref{eq:implemented-controller}, also increases the weave mode
-frequency by a factor of about three up to about 1~\si{\hertz}. This bandwidth
-is still controllable by the human's neuromuscular system, but may feel
-unnatural as it is more akin to what the steering would feel like at in the
-\SIrange{30}{40}{\kph} speed range. \Citet{Hanakam2023} reported
-dissatisfaction in subjective rider feeling on their similar bicycle to ours
-and this effect to the human-controlled plant dynamics could be connected to
-this.
+The controller design we utilize, Equation~\ref{eq:implemented-controller},
+also increases the weave mode frequency by a factor of about three up in a
+bandwidth of about 1~\si{\hertz}. This bandwidth is still controllable by the
+human's neuromuscular system, but may feel unusual as it is more akin to what
+the steering would feel like at in the \SIrange{30}{40}{\kph} speed range.
+\Citet{Hanakam2023} reported dissatisfaction in subjective rider feeling on
+their similar bicycle to ours and this effect to the human-controlled plant
+dynamics could be an explanation to their findings.
 
-\subsection{Application of the Logistic Model}
+\subsection{Utility of the Logistic Model and Extrapolation to Natural Falls}
 %
 The probability that a fall occurs depends on the values of all the independent
 variables in Table~\ref{tab:stat-model-variables}, but we can visualize the
 effect of one or two variables (e.g. Figure~\ref{fig:probability}) to gain some
 insight.
-But to interpret the results in Tables~\ref{tab:freq-coefs-6} and
+To interpret the results in Tables~\ref{tab:freq-coefs-6} and
 \ref{tab:freq-coefs-10} it is important to understand the relationship between
 probability and odds.
 The estimate in Table~\ref{tab:freq-coefs-6} shows that the balance assist
@@ -650,9 +649,9 @@ system halves the odds that a perturbation results in a fall:
 \(e^{\alpha_k}=0.53\).
 This means if the odds are a 1000:1, turning on the balance assist system
 reduces the odds to 500:1.
-However, that case the probability that a fall occurs is only reduced from
+However, in that case the probability that a fall occurs is only reduced from
 $0.999$ to $0.998$.
-If the odds that a fall will occur are smaller, halving the odds has a larger
+If the odds that a fall occurs are smaller, halving the odds has a larger
 influence on the fall probability.
 For example, if the odds that a fall occurs is two, halving it to one reduces
 the probability from $0.66$ to $0.50$.
@@ -663,27 +662,28 @@ The difference in probability between the balance assist on/off case becomes
 insignificant outside of approximately \(\pm1\) standard deviation of the
 average angular impulse the rider was subjected to.
 This means that the balance assist is most effective for perturbations close to
-the participant's personal threshold between falling or recovery and that large
+the participant's perturbation resistance threshold and that large
 perturbations will make you fall regardless of the balance assist's help.
 
 To illustrate the effect of the balance assist system on fall probability, we
 will give an example of how the data collected during the experiments is used
-to predict fall probability. We use Equation~\ref{eq:log-regress} and the coefficients
-in \ref{tab:freq-coefs-6}. For simplicity's sake, the interaction effects are
-not included. For example, assuming that the mean angular impulse $\bar{L}$ of all the
-perturbations applied to a participant is 100~\si{\newton}, and the standard
-deviation $\sigma^{L}=15$. The centered and scaled angular impulse can be
-calculated by subtracting $\bar{L}$ from the applied angular impulse $L$, and
-dividing this by $\sigma^{L}$. The same applies for the perturbation order $j$,
-initial roll angle $\phi_0$, and initial steer angle $\delta_0$.  If we take
-the coefficients estimated for cycling at 6~\si{\kph}, the log-odds of falling
-can be calculated as follows.
+to predict fall probability. We use Equation~\ref{eq:log-regress} and the
+coefficients in Table~\ref{tab:freq-coefs-6}. For simplicity's sake, the
+interaction effects are not included. For example, assuming that the mean
+angular impulse $\bar{L}$ of all the perturbations applied to a participant is
+100~\si{\newton} and the standard deviation $\sigma_{L}=15$. The centered and
+scaled angular impulse can be calculated by subtracting $\bar{L}$ from the
+applied angular impulse $L$, and dividing this by $\sigma_{L}$. The same
+applies for the perturbation order $j$, initial roll angle $\phi_0$, and
+initial steer angle $\delta_0$. If we take the coefficients estimated for
+cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows.
+\todo{Check this equation, where is \(\bar{L}\) 100N in the equation?}
 %
 \begin{equation}
   \begin{split}
     \log \left( \frac{p_{ij}}{1-p_{ij}} \right)
     = & \quad
-    \beta + \sum_{k}^{k=0}\alpha_k \frac{x_{ij}^{k}-\bar{x_{ij}^{k}}}{\sigma^{x^{k}}} \\
+    \beta + \sum_{k=1}^{k=5}\alpha_k \frac{x_{ij}^{k}-\bar{x}_{ij}^{k}}{\sigma^{x^{k}}} \\
     = &
    -0.29 + 1.69\cdot\frac{110~\si{\newton} - 115\si{\newton}}{15\si{\newton}} -0.77\cdot\frac{10-20}{11.54}  \\
     & -0.25\cdot\frac{-6\si{\degree}-2\si{\degree}}{10\si{\degree}}
@@ -693,7 +693,7 @@ can be calculated as follows.
   \end{split}
 \end{equation}
 %
-The state of the balance assist \(s\) is a binary variable. If the
+The state of the balance assist \(c\) is a binary variable. If the
 balance assist is turned on, the log-odds that a fall occurs are decreased by
 0.64. The odds and probability can be calculated:
 %
@@ -704,7 +704,7 @@ balance assist is turned on, the log-odds that a fall occurs are decreased by
 \end{align}
 %
 Turning on the balance assist system reduces the probability that the
-perturbation results in a fall from 81\% to 69\%.
+perturbation results in a fall from 81\% to 69\% in this case.
 
 This illustration alludes to the difficulty needed to apply the model in way
 that could predict how many falls may be averted in a natural setting if the
@@ -712,53 +712,6 @@ balance assist system is used. Estimates of the predictor variables extracted
 from the limited data collected from natural cycling would be needed to
 populate the model.
 
-\subsection{Treadmill Width}
-%
-Angular impulse magnitude has the largest significant effect for predicting
-fall probability as seen in both Tables~\ref{tab:freq-coefs-6} and
-\ref{tab:freq-coefs-10}. An increase in angular impulse increases the fall
-probability both at 6 and 10~\si{\kph}. At 10~\si{\kph}, the multiplicative
-change in odds is approximately twice as big as at 6~\si{\kph}. Thus, angular
-impulse is a more important predictor at higher speeds compared to lower
-speeds. We posit that this likely has to do with the width of the treadmill and
-that this could also be why the balance assist system did not have a statistically
-significant effect at 10~\si{\kph}. As a bicycle travels at higher speeds, the
-same perturbation magnitude causes larger lateral deviations. At 10~\si{\kph}
-almost all falls were due to the bicycle exiting the maximum width of the
-treadmill. If the same experiment was performed on an infinitely wide plane,
-the riders may have recovered from more perturbations. At 6~\si{\kph} the
-riders could often recover in the allotted treadmill width due to the smaller
-lateral deviations. We believe our results are very much dependent on the two
-modes of falling with use: exit the treadmill width or foot is placed on the
-belt. Cycle paths are a similar width as the treadmill, so rider's are often
-limited in width when recovering from a fall.
-
-\subsection{Learning Effect}
-%
-An increase in the number of perturbation that a participant already
-experienced, decreases the probability that a fall occurs. This is likely due
-to the participants learning how to better recover from the perturbation over
-the duration of the experiment. This effect is significant at both 6 and
-10~\si{\kph}, and in the same order of magnitude. This suggests that the
-learning effect that occurs during the experiment is not strongly dependent on
-the speed.
-
-\subsection{Non-significant Predictors}
-
-Roll and steer angle are not a significant predictor of fall probability at 6
-or at 10~\si{\kph}. We expected these variables to have a significant effect
-based on the following reasoning. If you are in a rolled and steered state that
-is far from the upright equilibrium, then a perturbation that further pushes
-you from the equilibrium should have some additive or multiplicative effect on
-the resulting motion trajectory.
-
-None of the interaction effects are statistically significant. That means that
-whether the balance assist system is on or off does not significantly change
-the effect that the roll angle, steer angle, angular impulse, and perturbation
-order have on the probability that a fall will occur.
-
-\subsection{Extrapolation to Natural Falls}
-%
 The positive effect of the balance assist system is coupled to the assumptions
 and experimental scenarios we implemented and there is unfortunately no simple
 way to extrapolate our results to reductions of single-actor crashes we may see
@@ -769,22 +722,70 @@ more comprehensive and detailed natural data of how people fall we could make
 estimates on the number of falls reduced if everyone road a balance assist
 bicycle.
 
+\subsection{Treadmill Width}
+%
+Angular impulse magnitude has the largest significant effect for predicting
+fall probability as seen in both Tables~\ref{tab:freq-coefs-6} and
+\ref{tab:freq-coefs-10}. An increase in angular impulse increases the fall
+probability both at 6 and 10~\si{\kph}. At 10~\si{\kph}, the multiplicative
+change in odds is approximately twice as big as at 6~\si{\kph}. Thus, angular
+impulse is a more important predictor at higher speeds compared to lower
+speeds. We posit that this likely has to do with the width of the treadmill and
+that this could also be why the balance assist system did not have a
+statistically significant effect at 10~\si{\kph}. As a bicycle travels at
+higher speeds, the same perturbation magnitude causes larger lateral
+deviations. At 10~\si{\kph} almost all falls were due to the bicycle exiting
+the maximum width of the treadmill. If the same experiment was performed on an
+infinitely wide plane, the riders may have recovered from more perturbations.
+At 6~\si{\kph} the riders could often recover in the allotted treadmill width
+due to the smaller lateral deviations. We believe our results are very much
+dependent on the two modes of falling, i.e. exit the treadmill width or foot is
+placed on the belt. On the other hand, Cycle paths are a similar width as the
+treadmill, so rider's are often limited in width when recovering from a fall
+thus exiting the treadmill width may be an appropriate measure for indicating a
+fall.
+
+\subsection{Learning Effect}
+%
+An increase in the number of perturbations that a participant already
+experienced, decreases the probability that a fall occurs. This is likely due
+to the participants learning how to better recover from the perturbation over
+the duration of the experiment. This effect is significant at both 6 and
+10~\si{\kph}, and in the same order of magnitude. This suggests that the
+learning effect that occurs during the experiment is not strongly dependent on
+the speed.
+
+\subsection{Non-significant Predictors}
+
+Roll and steer angle at the initiation of a perturbation are not a significant
+predictor of fall probability at 6 or at 10~\si{\kph}. We expected these
+variables to have a significant effect based on the following reasoning. If you
+are in a rolled and steered state that is far from the upright equilibrium,
+then a perturbation that further pushes you from the equilibrium should have
+some additive or multiplicative effect on the resulting motion trajectory and
+make it harder to recover from a fall.
+
+None of the interaction effects are statistically significant. That means that
+whether the balance assist system is on or off does not significantly change
+the effect that the roll angle, steer angle, angular impulse, and perturbation
+order have on the probability that a fall will occur.
+
 \section{Conclusion}
 %
 Automatically controlling a steering motor in a bicycle using roll rate
 feedback lowers the speed at which the bicycle is stable. This makes the
 bicycle's low speed dynamics more akin to its uncontrolled high speed dynamics,
-which is easier for a rider to balance. Perturbation forces applied to the
-handlebar can cause a rider to fall and every rider has a threshold force at
-which they are more likely to fall than not. The probability of falling when
-mechanically perturbed is significantly reduced when traveling at 6~\si{\kph}
-when the balance assisting control is activated. This effect is present when
-traveling at 10~\si{\kph} but more investigation is needed to determine if the
-effect can be significant. The positive effect to balance is rider independent
-and most effective in the regime of perturbations near the rider's control
-authority threshold. Given that similar effects cause falls during bicycling,
-use of the balance assist system in real world use cases will reduce the number
-of falls at low bicycling speeds.
+which is easier for a rider to control in balance. Perturbation forces applied
+to the handlebar can cause a rider to fall and every rider has a perturbation
+magnitude threshold at which they are more likely to fall than not. The
+probability of falling when mechanically perturbed is significantly reduced
+when traveling at 6~\si{\kph} when the balance assisting control is activated.
+This effect is present when traveling at 10~\si{\kph} but more investigation is
+needed to determine if the effect can be significant. The positive effect to
+balance is rider independent and most effective in the regime of perturbations
+near the limits of the rider's control authority. Given that similar effects
+cause falls during bicycling, use of the balance assist system in real world
+use cases will reduce the number of falls at low bicycling speeds.
 
 \section*{Acknowledgements}
 %
@@ -792,10 +793,10 @@ This study follows and draws from experimental and analysis methods originally
 developed in unpublished research by Marco Reijne. The authors acknowledge
 Felix Dauer, David Gabriel, Sierd Heida, Oliver Maier, Maarten Pelgrim, Marco
 Reijne, and Arend Schwab for contributions to the development of the balance
-assist bicycle. We acknowledge Shannon van de Velde's and Marco Reijne's
+assist bicycle. We acknowledge Shannon van de Velde and Marco Reijne's
 development of the bicycle perturbation system. We thank all of the assistants
-that helped run the experiments and the participants for their time an enthusiasm.
-We thank Peter Stahlecker for valuable feedback in early revisions.
+that helped run the experiments and the participants for their time an
+enthusiasm. We thank Peter Stahlecker for valuable feedback in early revisions.
 
 \section*{Funding}
 %
