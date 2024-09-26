@@ -83,6 +83,9 @@ def plot_eig(ax, model, kphidots=0.0):
     return ax
 
 
+msg = 'Without rigid rider and balance assist off:'
+print(msg)
+print("-"*len(msg))
 ax = plot_eig(axes[0, 0], model_without)
 sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
                                            lambda x: x*KPH2MPS))
@@ -91,10 +94,16 @@ ax.set_title('Without Rigid Rider')
 ax.set_ylabel('Balance Assist Off\nEigenvalue Components\n[1/s]')
 ax.set_xlabel('')
 
+msg = '\nWithout rigid rider and balance assist on:'
+print(msg)
+print("-"*len(msg))
 ax = plot_eig(axes[1, 0], model_without, kphidots=kphidots)
 ax.set_ylabel('Balance Assist On\nEigenvalue Components\n[1/s]')
 ax.set_xlabel('Speed [m/s]')
 
+msg = '\nWith rigid rider and balance assist off:'
+print(msg)
+print("-"*len(msg))
 ax = plot_eig(axes[0, 1], model_with)
 sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
                                            lambda x: x*KPH2MPS))
@@ -103,6 +112,9 @@ ax.set_title('With Rigid Rider')
 ax.set_ylabel('')
 ax.set_xlabel('')
 
+msg = '\nWith rigid rider and balance assist on:'
+print(msg)
+print("-"*len(msg))
 ax = plot_eig(axes[1, 1], model_with, kphidots=kphidots)
 ax.set_ylabel('')
 ax.set_xlabel('Speed [m/s]')
