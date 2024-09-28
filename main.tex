@@ -214,17 +214,17 @@ controller.
 %
 \subsection{Bicycle}
 %
-We modified an electric bicycle (Grenoble C8 HMB, Royal Dutch Gazelle, Dieren,
+We modified a Grenoble C8 HMB electric bicycle (Royal Dutch Gazelle, Dieren,
 The Netherlands) with a custom motor in the steering assembly capable of
 applying up to 7~\si{\newton\meter} of torque between the head tube and steer
 tube, see Figure~\ref{fig:balance-assist-bicycle}. A custom motor controller
 converts the commanded torque to applied torque. We measure the speed of the
-rear wheel with an encoder (ABS Speed Sensor, Magura GmbH, Bad Urach, Germany)
-and measure the body fixed roll rate of the bicycle with a MEMs rate gyroscope
-(VR IMU BN0086, Sparkfun, Niwot, USA). The balance assist control algorithm is
-implemented on a microprocessor (Teensy, PJRC, USA) and data from all sensors
-is logged with a CAN bus (CanEdge2, CSS Electronics, Aabyhoej, Denmark) at
-least 100 Hz.
+rear wheel with a DF30 Speed Sensor (Bosch eBike Systems, Reutlingen, Germany)
+and measure the body fixed roll rate of the bicycle with a VR IMU BN0086 MEMs
+rate gyroscope (Sparkfun, Niwot, USA). The balance assist control algorithm is
+implemented on a Teensy microprocessor (PJRC, USA) and data from all sensors is
+logged with a CanEdge2 CAN bus (CSS Electronics, Aabyhoej, Denmark) at least
+100 Hz.
 
 \subsection{Balance Assist Control}
 %
@@ -267,11 +267,11 @@ Figure~\ref{fig:eigenvalues}.
 %
 We apply longitudinal forces to the ends of each handlebar from earth-fixed
 posts using an adapted Bump'Em system~\citep{Tan2020} which we arrange with
-four motors (EC-90 Flat, Maxon Group, Switzerland) working in cooperation,
+four EC-90 Flat motors (Maxon Group, Switzerland) working in cooperation,
 Figure~\ref{fig:setup-diagram}. The four motors are programmed to apply a light
 force at all times to keep the ropes taught and to track a commanded force
-profile using a PID controller running on a microprocessor (Arduino Mega 2560,
-Arduino, Italy). We measure the force applied by each motor at the handlebar
+profile using a PID controller running on an Arduino Mega 2560 microprocessor
+(Arduino, Italy). We measure the force applied by each motor at the handlebar
 via four inline S-style load cells (Bosche GmbH, Damme, Germany). All were
 rated for 250~\si{\newton} except the left rear load cell which was rated for
 500~\si{\newton}. The commanded force profiles are designed to apply an
@@ -430,7 +430,7 @@ Table~\ref{tab:raw}.
     \toprule
     Measure & Variable & Units & Sensor \\
     \midrule
-    Balance Assist Gain & \(g\) & \si{\newton\second\squared} & NA \\
+    Balance Assist Gain Factor & \(g\) & \si{\newton\second\squared} & NA \\
     Bicycle Speed & \(v\) & \si{\meter\per\second} & wheel encoder \\
     Fall Outcome & \(f\) & boolean & NA \\
     Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear &
