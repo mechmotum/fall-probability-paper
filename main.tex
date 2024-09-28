@@ -708,11 +708,11 @@ cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows:
     = & \quad
     \beta + \sum_{k=1}^{k=5}\alpha_k \frac{x_{ij}^{k}-\bar{x}_{ij}^{k}}{\sigma^{x^{k}}} \\
     = &
-   -0.29 + 1.69\cdot\frac{110~\si{\newton} - 115\si{\newton}}{15\si{\newton}} -0.77\cdot\frac{10-20}{11.54}  \\
+   -0.29 + 1.69\cdot\frac{110~\si{\newton} - 100\si{\newton}}{15\si{\newton}} -0.77\cdot\frac{10-20}{11.54}  \\
     & -0.25\cdot\frac{-6\si{\degree}-2\si{\degree}}{10\si{\degree}}
     -0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}} -0.64\cdot s \\
     = &
-    1.42 -0.64 \cdot s
+    1.59 -0.64 \cdot s
   \end{split}
   \textrm{.}
 \end{equation}
@@ -722,14 +722,14 @@ balance assist is turned on, the log-odds that a fall occurs are decreased by
 0.64. The odds and probability can be calculated:
 %
 \begin{align}
-  \frac{p_{ij}}{1-p_{ij}} & = e^{1.42-0.64s} =
-  e^{1.42}\cdot e^{-0.64s} = 4.14 \cdot 0.53s \\
-  p_{ij}|_{c=0} & = \frac{4.14}{1 + 4.14} = 0.81 \\
-  p_{ij}|_{c=1} & = \frac{4.14\cdot0.53}{1 + 4.14\cdot{0.53}} = 0.69
+  \frac{p_{ij}}{1-p_{ij}} & = e^{1.59-0.64c} =
+  e^{1.59}\cdot e^{-0.64s} = 4.90 \cdot 0.53c \\
+  p_{ij}|_{c=0} & = \frac{4.90}{1 + 4.90} = 0.83 \\
+  p_{ij}|_{c=1} & = \frac{4.90\cdot0.53}{1 + 4.90\cdot{0.53}} = 0.72
 \end{align}
 %
 Turning on the balance assist system reduces the probability that the
-perturbation results in a fall from 81\% to 69\% in this case.
+perturbation results in a fall from 83\% to 72\% in this case.
 
 This illustration alludes to the difficulty needed to apply the model in way
 that could predict how many falls may be averted in a natural setting if the
