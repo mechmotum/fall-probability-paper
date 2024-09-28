@@ -1,4 +1,5 @@
 main.pdf: main.tex references.bib figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
+	sed -i 's/Lme4/{lme4}/g' references.bib
 	pdflatex main.tex
 	biber main
 	pdflatex main.tex
