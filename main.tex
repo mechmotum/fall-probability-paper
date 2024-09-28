@@ -234,23 +234,23 @@ commanded steer torque \(T^\textrm{m}_\delta\) from the steer motor follows the
 control law
 %
 \begin{align}
-  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = g(v_{stable} - v)\dot{\phi}
+  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = \eta(v_{stable} - v)\dot{\phi}
   \label{eq:implemented-controller}
 \end{align}
 %
 where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
 average stable speed predicted from the open loop bicycle rigid-rider dynamics.
-We use the factor \(g=8\) (low) and \(g=10\) (high) to tune the gain magnitude
-during the experiments. Scaling the proportional feedback gain linearly with
-respect to speed stabilizes the normally unstable weave mode of the bicycle
-down to 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
+We use the gain factor \(\eta=8\) (low) and \(\eta=10\) (high) to tune the gain
+magnitude during the experiments. Scaling the proportional feedback gain
+linearly with respect to speed stabilizes the normally unstable weave mode of
+the bicycle down to 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
 4.6~\si{\kilo\meter\per\hour} for the ridden bicycle as shown in
 Figure~\ref{fig:eigenvalues}.
 %
 \begin{figure}
   \centering
   \includegraphics[width=160mm]{figures/balance-assist-eig-vs-speeds.png}
-  \caption{Uncontrolled (upper row) and controlled with \(g=10\) (lower row)
+  \caption{Uncontrolled (upper row) and controlled with \(\eta=10\) (lower row)
     root locus of eigenvalue components (real: solid, imaginary: dashed)
     plotted versus speed for the bicycle without the inertial effect of a rigid
     rider (left) and with a rigid rider (right). Vertical dotted and
@@ -414,8 +414,8 @@ third, \ldots, to measure how many perturbations a rider is subjected to before
 the current perturbation. At the initiation of each perturbation we log the
 instantaneous steer and roll angles to characterize the configuration of the
 bicycle when perturbed. The gain factor setting on the balance assist controller
-indicates if the assistance is off \(g=0\) or on at two different levels: low
-\(g=8\) or high \(g=10\). A recovery from the perturbation is successful if the
+indicates if the assistance is off \(\eta=0\) or on at two different levels: low
+\(\eta=8\) or high \(\eta=10\). A recovery from the perturbation is successful if the
 person neither places their foot down onto the treadmill surface nor their
 wheel of the bicycle exits the width of the treadmill belt. We record this as a
 binary variable \(f\) for ``fall''. All measured variables are reported in
@@ -430,7 +430,7 @@ Table~\ref{tab:raw}.
     \toprule
     Measure & Variable & Units & Sensor \\
     \midrule
-    Balance Assist Gain Factor & \(g\) & \si{\newton\second\squared} & NA \\
+    Balance Assist Gain Factor & \(\eta\) & \si{\newton\second\squared} & NA \\
     Bicycle Speed & \(v\) & \si{\meter\per\second} & wheel encoder \\
     Fall Outcome & \(f\) & boolean & NA \\
     Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear &
@@ -466,7 +466,7 @@ model variables.
     \(\delta_0\) & independent & \si{\degree} & steer angle at start of perturbation \\
     \(\phi_0\)   & independent & \si{\degree} & roll angle at start of perturbation \\
     \(f\)        & dependent   & boolean & outcome: did not fall 0 or did fall 1 \\
-    \(c\)        & independent & boolean & balance assist: off 0 or on 1 \\
+    \(s\)        & independent & boolean & balance assist: off 0 or on 1 \\
     \(j\)        & independent & integer & order number of perturbation \\
     \bottomrule
   \end{tabular}
@@ -507,8 +507,8 @@ multilevel model. This left us with angular impulse, perturbation order,
 balance assist state, and roll \& steer angles at the time of perturbation as
 independent variables. We also include interaction effects between the balance
 assist state and the other four variables. We divide the analysis into two
-separate model evaluations, one for the 6~\si{\kph}, \(g=10\) trials and one
-for the 10~\si{\kph}, \(g=8\) trials and we evaluate our hypothesis for each
+separate model evaluations, one for the 6~\si{\kph}, \(\eta=10\) trials and one
+for the 10~\si{\kph}, \(\eta=8\) trials and we evaluate our hypothesis for each
 set of data. Statistics were computed with the lme4 version
 1.1~\citep{Bates2015} package in R version 4.1.3~\citep{RCoreTeam2021}.
 
@@ -537,7 +537,7 @@ change in odds are shown in Table~\ref{tab:freq-coefs-6}.
     Intercept \(\beta\)                           & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
     Angular impulse \(L\)                         & 1.69 & 0.27 & 0.00\(^*\) & 5.40 & 3.18 & 9.16 \\
     Perturbation order \(j\)                      & -0.77 & 0.22 & 0.00\(^*\) & 0.46 & 0.30 & 0.72 \\
-    Balance assist state \(c\)                    & -0.64 & 0.27 & 0.02\(^*\) & 0.53 & 0.31 & 0.89 \\
+    Balance assist state \(s\)                    & -0.64 & 0.27 & 0.02\(^*\) & 0.53 & 0.31 & 0.89 \\
     Roll angle \(\phi_0\)                         & -0.25 & 0.21 & 0.24 & 0.78 & 0.51 & 1.18 \\
     Steer angle \(\delta_0\)                      & -0.14 & 0.21 & 0.51 & 0.87 & 0.58 & 1.32 \\
     Balance assist state $\times$ roll angle         & 0.52 & 0.34 & 0.12 & 1.68 & 0.86 & 3.29 \\
@@ -572,7 +572,7 @@ twice the magnitude in effect as the perturbation order.
     Intercept                & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
     Angular impulse \(L\)    & 2.39  & 0.29 & 0.00\(^*\) & 10.92 & 6.23 & 19.13 \\
     Perturbation order \(j\) & -1.16 & 0.21 & 0.00\(^*\)  & 0.31 & 0.21 & 0.48 \\
-    Balance assist on \(c\)  & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
+    Balance assist on \(s\)  & -0.44 & 0.24 & 0.07 & 0.64 & 0.40 & 1.03 \\
     Roll angle \(\phi_0\)    & 0.27  & 0.22 & 0.22 & 1.31 & 0.85 & 2.04 \\
     Steer angle \(\delta_0\) & -0.37 & 0.24 & 0.12 & 0.69 & 0.43 & 1.10 \\
     Balance assist state $\times$ roll angle         & -0.61 & 0.34 & 0.08 & 0.54 & 0.28 & 1.07 \\
@@ -699,7 +699,7 @@ scaled angular impulse can be calculated by subtracting $\bar{L}$ from the
 applied angular impulse $L$, and dividing this by $\sigma_{L}$. The same
 applies for the perturbation order $j$, initial roll angle $\phi_0$, and
 initial steer angle $\delta_0$. If we take the coefficients estimated for
-cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows.
+cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows:
 \todo{Check this equation, where is \(\bar{L}\) 100N in the equation?}
 %
 \begin{equation}
@@ -710,18 +710,20 @@ cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows.
     = &
    -0.29 + 1.69\cdot\frac{110~\si{\newton} - 115\si{\newton}}{15\si{\newton}} -0.77\cdot\frac{10-20}{11.54}  \\
     & -0.25\cdot\frac{-6\si{\degree}-2\si{\degree}}{10\si{\degree}}
-    -0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}} -0.64\cdot c \\
+    -0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}} -0.64\cdot s \\
     = &
-    1.42 -0.64 \cdot c
+    1.42 -0.64 \cdot s
   \end{split}
+  \textrm{.}
 \end{equation}
 %
-The state of the balance assist \(c\) is a binary variable. If the
+The state of the balance assist \(s\) is a binary variable. If the
 balance assist is turned on, the log-odds that a fall occurs are decreased by
 0.64. The odds and probability can be calculated:
 %
 \begin{align}
-  \frac{p_{ij}}{1-p_{ij}} & = e^{1.42-0.64c} = e^{1.42}\cdot e^{-0.64s} = 4.14 \cdot 0.53c \\
+  \frac{p_{ij}}{1-p_{ij}} & = e^{1.42-0.64s} =
+  e^{1.42}\cdot e^{-0.64s} = 4.14 \cdot 0.53s \\
   p_{ij}|_{c=0} & = \frac{4.14}{1 + 4.14} = 0.81 \\
   p_{ij}|_{c=1} & = \frac{4.14\cdot0.53}{1 + 4.14\cdot{0.53}} = 0.69
 \end{align}
