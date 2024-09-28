@@ -1,9 +1,10 @@
-main.pdf: main.tex references.bib figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
-	sed -i 's/Lme4/{lme4}/g' references.bib
+main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
 	pdflatex main.tex
 	biber main
 	pdflatex main.tex
 	pdflatex main.tex
+fixlme4: references.bib
+	sed -i 's/Lme4/{lme4}/g' references.bib
 figures/balance-assist-eig-vs-speeds.png: src/control.py
 	python src/control.py
 figures/torque_angle_perturbation_10.png: src/generate_time_series_imgs.py
