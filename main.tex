@@ -27,7 +27,7 @@ Low Speeds When Subjected to Handlebar Perturbations\\Version 2.dev}
 \abstract{
   Uncontrolled bicycles are generally unstable at low speeds. We add an
   automatically controlled steering motor to a consumer electric bicycle that
-  has a stabilizing effect down to about 3~\si{\kph}. We hypothesize that a
+  has a stabilizing effect down to about 4~\si{\kph}. We hypothesize that a
   stabilized bicycle will reduce the probability of falling. To test the
   motor's possible assistance during falls, we apply varying magnitude external
   handlebar perturbations to twenty-six participants who rode on a treadmill
@@ -87,7 +87,7 @@ fall.
   \includegraphics[width=80mm]{figures/balance-assist-bicycle.jpg}
   \caption{Balance assist bicycle prototype with electric motor in the steering
     column and data acquisition and control electronics mounted in the rear
-    rack.}
+    rack first introduced in \citet{Alizadehsaravi2023}.}
   \label{fig:balance-assist-bicycle}
 \end{figure}
 
@@ -100,12 +100,12 @@ hitting a bump in the road. To assess our balance assisting bicycle, we subject
 the rider to perturbations at the handlebar, which can relatively easily cause
 a rider to fall.
 
-In this paper, we test whether a steer motor controlled bicycle, that is stable
-in a large low speed range, is beneficial in helping to prevent the rider from
-falling. We test this by applying varying magnitude mechanical perturbations to
-the handlebars while the rider is cycling on a treadmill. We assess the
-difference in the rider's probability of falling with the balance assist system
-on and off.
+In this paper, we investigate whether an automatically controlled bicycle, that
+is stable in a large low speed range for balance assist, is beneficial in
+helping to prevent the rider from falling. We test this possible benefit by
+applying varying magnitude mechanical perturbations to the handlebars while the
+rider is cycling on a treadmill. We assess the difference in the rider's
+probability of falling with the balance assist system on and off.
 
 \subsection{Technical Background}
 %
@@ -192,6 +192,7 @@ plant takes the form:
   \left[0 \quad k_{\dot{\phi}} \quad 0 \quad 0\right]
 \right)
   \vec{x} + \mathbf{B} \begin{bmatrix} T_{\phi} \\ T_\delta^\textrm{h} \end{bmatrix}
+  \textrm{.}
 \end{align}
 
 The state matrix \(\mathbf{A}\) being a function of the equilibrium speed \(v\)
@@ -222,7 +223,7 @@ rear wheel with an encoder (ABS Speed Sensor, Magura GmbH, Bad Urach, Germany)
 and measure the body fixed roll rate of the bicycle with a MEMs rate gyroscope
 (VR IMU BN0086, Sparkfun, Niwot, USA). The balance assist control algorithm is
 implemented on a microprocessor (Teensy, PJRC, USA) and data from all sensors
-is logged with a CAN bus (CanEdge2, CSS Electronics, Aabyhoej, Denmark) at at
+is logged with a CAN bus (CanEdge2, CSS Electronics, Aabyhoej, Denmark) at
 least 100 Hz.
 
 \subsection{Balance Assist Control}
@@ -239,10 +240,10 @@ control law
 %
 where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
 average stable speed predicted from the open loop bicycle rigid-rider dynamics.
-We use \(g=8\) (low) and \(g=10\) (high) to tune the gain magnitude during the
-experiments.  Scaling the proportional feedback gain linearly with respect to
-speed stabilizes the normally unstable weave mode of the bicycle down to
-2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
+We use the factor \(g=8\) (low) and \(g=10\) (high) to tune the gain magnitude
+during the experiments. Scaling the proportional feedback gain linearly with
+respect to speed stabilizes the normally unstable weave mode of the bicycle
+down to 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
 4.6~\si{\kilo\meter\per\hour} for the ridden bicycle as shown in
 Figure~\ref{fig:eigenvalues}.
 %
@@ -264,7 +265,7 @@ Figure~\ref{fig:eigenvalues}.
 
 \subsection{Perturbations}
 %
-We apply longitudinal forces to the ends of each handlebar from Earth fixed
+We apply longitudinal forces to the ends of each handlebar from earth-fixed
 posts using an adapted Bump'Em system~\citep{Tan2020} which we arrange with
 four motors (EC-90 Flat, Maxon Group, Switzerland) working in cooperation,
 Figure~\ref{fig:setup-diagram}. The four motors are programmed to apply a light
@@ -274,16 +275,16 @@ Arduino, Italy). We measure the force applied by each motor at the handlebar
 via four inline S-style load cells (Bosche GmbH, Damme, Germany). All were
 rated for 250~\si{\newton} except the left rear load cell which was rated for
 500~\si{\newton}. The commanded force profiles are designed to apply an
-external pulsive torque to the front assembly (handlebars, forks, wheel) at
-magnitudes varying from \SIrange{16}{160}{\newton\meter}. The four motors are
-arranged at the four corners of a 1~\si{\meter} wide by 2~\si{\meter} long
-treadmill (Bonte Technology B.V., Zwolle, The Netherlands) that can reach
-speeds up to 18~\si{\kilo\meter\per\hour}. The general design of this
-perturbation system is described in detail in Van De Velde's MSc
-thesis~\citep{vandeVelde2022a} and the physical arrangement is shown in
-Figure~\ref{fig:participant-in-set-up}. Our modifications relative to Van De
-Velde's design include simplifying the Bump'Em motor controller with an
-inexpensive microcontroller and the use of a simpler non-active safety harness.
+external pulsive torque to the front frame at magnitudes varying from
+\SIrange{16}{160}{\newton\meter}. The four motors are arranged at the four
+corners of a 1~\si{\meter} wide by 2~\si{\meter} long treadmill (Bonte
+Technology B.V., Zwolle, The Netherlands) that can reach speeds up to
+18~\si{\kilo\meter\per\hour}. The general design of this perturbation system is
+described in detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and
+the physical arrangement is shown in Figure~\ref{fig:participant-in-set-up}.
+Our modifications relative to Van De Velde's design include simplifying the
+Bump'Em motor controller with an inexpensive microcontroller and the use of a
+simpler non-active safety harness.
 %
 % NOTE : I get a compile error without the \protect calls here, not sure why.
 \begin{figure}
@@ -311,11 +312,10 @@ approved by Delft University of Technology's Human Research Ethics Council
 
 The participants were divided into two groups. The first group of fifteen
 participants performed the protocol at a belt speed of
-10~\si{\kph}(2.8~\si{\mps}) with the controller gain value set to $g=8$ and the
-second group of eleven particpants performed the protocol at a belt speed of
-6~\si{\kph} (1.7~\si{\mps}) with the controller gain set to $g=10$. The
-10~\si{\kph} group's experiments occurred two weeks before the 6~\si{\kph}
-group.
+10~\si{\kph}(2.8~\si{\mps}) with the controller factor set to $g=8$ and two
+weeks later the second group of eleven particpants performed the protocol at a
+belt speed of 6~\si{\kph} (1.7~\si{\mps}) with the controller factor set to
+$g=10$.
 
 Participants wore a helmet and they were attached to the ceiling via a fall
 safety harness, Figure~\ref{fig:participant-in-set-up}. The harness allowed
@@ -365,7 +365,8 @@ perturbations are applied. The goal of this adaptive staircase procedure is to
 have participants fall for approximately 50\% of the time. After the first set
 of 20 perturbations, we let the cyclist rest and then perform another 20
 perturbations. We randomize whether the balance assist system is on or off
-during the first or second set of 20 perturbations for each participant.
+during the first or second set of 20 perturbations for each participant and the
+participants were not told the order.
 
 \subsection{Measurements}
 %
@@ -399,10 +400,9 @@ duration of the commanded force and is calculated as follows:
   =
   \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}\left[(F_{rf} - F_{rr}) + (F_{lf}
   - F_{lr})\right] dt
-  \textrm{.}
   \label{eq:angular-impulse}
 \end{align}
-
+%
 where \(F_r\) and \(F_l\)  is the total force applied on the right and left
 handlebar ends, respectively which are the sum of the rear and front load cell
 readings \(F_{rr}\) and \(F_{rf}\), for example. The handlebar length is given
@@ -413,12 +413,12 @@ We record the order number of each perturbation \(j\), i.e. first, second,
 third, \ldots, to measure how many perturbations a rider is subjected to before
 the current perturbation. At the initiation of each perturbation we log the
 instantaneous steer and roll angles to characterize the configuration of the
-bicycle when perturbed. The gain setting on the balance assist controller
+bicycle when perturbed. The gain factor setting on the balance assist controller
 indicates if the assistance is off \(g=0\) or on at two different levels: low
 \(g=8\) or high \(g=10\). A recovery from the perturbation is successful if the
 person neither places their foot down onto the treadmill surface nor their
 wheel of the bicycle exits the width of the treadmill belt. We record this as a
-binary variable \(f\) for "fall". All measured variables are reported in
+binary variable \(f\) for ``fall''. All measured variables are reported in
 Table~\ref{tab:raw}.
 %
 \begin{table}
@@ -500,7 +500,7 @@ individual participant. The clusters are chosen as all data from an individual
 participant because we are only interested in the association between the state
 of the balance assist system and the outcome of the perturbation. We expected
 there to be a variation between participants in how well they are able to
-resist the perturbation. However, this was not true. Cluster-mean centering
+resist the perturbation; however, this was not true. Cluster-mean centering
 showed there to be no variation between participants. This fact allows us to
 utilize a simple single-level logistic regression model, instead of a
 multilevel model. This left us with angular impulse, perturbation order,
@@ -515,7 +515,7 @@ set of data. Statistics were computed with the lme4 version
 \section{Results}
 %
 The coefficient estimates for a single-level logistic regression for the data
-from the 6~\si{\kph}, gain $g=10$ trials are shown in
+from the 6~\si{\kph}, gain factor $g=10$ trials are shown in
 Table~\ref{tab:freq-coefs-6}. The angular impulse, perturbation order, and
 balance assist state are all statistically significant predictors with angular
 impulse having a dominant effect. Larger angular impulse increases the
@@ -526,7 +526,7 @@ change in odds are shown in Table~\ref{tab:freq-coefs-6}.
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates \(\alpha_k\) at
-    6~\si{\kph} and gain $g=10$ along with the standard error SE, p-value
+    6~\si{\kph} and gain factor $g=10$ along with the standard error SE, p-value
     \(p\), multiplicative change in odds \(e^{\alpha_k}\), and the 5\%
     confidence interval bounds.}
   \label{tab:freq-coefs-6}
@@ -549,7 +549,7 @@ change in odds are shown in Table~\ref{tab:freq-coefs-6}.
 \end{table}
 
 The coefficient estimates for a single-level logistic regression at
-10~\si{\kph} with gain $g=8$ are shown in Table \ref{tab:freq-coefs-10}. The
+10~\si{\kph} with gain factor $g=8$ are shown in Table \ref{tab:freq-coefs-10}. The
 angular impulse and perturbation order are statistically significant predictors
 with angular impulse being the dominant effect. Larger angular impulse
 increases the probability to fall and enduring more perturbations decreases the
@@ -561,7 +561,7 @@ twice the magnitude in effect as the perturbation order.
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates \(\alpha_k\) at
-    10~\si{\kph} and gain $g=8$ along with the standard error SE, p-value
+    10~\si{\kph} and gain factor $g=8$ along with the standard error SE, p-value
     \(p\), multiplicative change in odds \(e^{\alpha_k}\), and the 5\%
     confidence interval bounds.}
   \label{tab:freq-coefs-10}
@@ -651,11 +651,12 @@ unstable eigenvalue real parts correlates to ease of control~\citep{Hess2012}.
 The controller design we utilize, Equation~\ref{eq:implemented-controller},
 also increases the weave mode frequency by a factor of about three up in a
 bandwidth of about 1~\si{\hertz}. This bandwidth is still controllable by the
-human's neuromuscular system, but may feel unusual as it is more akin to what
-the steering would feel like at in the \SIrange{30}{40}{\kph} speed range.
-\Citet{Hanakam2023} reported dissatisfaction in subjective rider feeling on
-their similar bicycle to ours and this effect to the human-controlled plant
-dynamics could be an explanation to their findings.
+human's neuromuscular system~\citep{Magdaleno1971}, but may feel unusual as it
+is more akin to what the steering would feel like at in the
+\SIrange{30}{40}{\kph} speed range.  \Citet{Hanakam2023} reported
+dissatisfaction in subjective rider feeling on their similar bicycle to ours
+and this effect to the human-controlled plant dynamics could be an explanation
+to their findings.
 
 \subsection{Utility of the Logistic Model and Extrapolation to Natural Falls}
 %
@@ -819,7 +820,8 @@ assist bicycle. We acknowledge Shannon van de Velde and Marco Reijne's
 development of the bicycle perturbation system. Allen Downey provided useful
 insight in the statistical condsiderations. We thank all of the assistants that
 helped run the experiments and the participants for their time an enthusiasm.
-We thank Peter Stahlecker for valuable feedback in early revisions.
+We thank Peter Stahlecker and Benjamin Gonzalez for valuable feedback in early
+revisions.
 
 \section*{Funding}
 %
