@@ -16,8 +16,8 @@ class SteerControlModel(Meijaard2007Model):
          roll rate,
          steer rate]
 
-        The inputs are [roll torque,
-                        steer torque]
+    The inputs are [roll torque,
+                    steer torque]
 
     """
 
