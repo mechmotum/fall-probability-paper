@@ -234,13 +234,13 @@ commanded steer torque \(T^\textrm{m}_\delta\) from the steer motor follows the
 control law
 %
 \begin{align}
-  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = \eta(v_{stable} - v)\dot{\phi}
+  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = \kappa(v_{stable} - v)\dot{\phi}
   \label{eq:implemented-controller}
 \end{align}
 %
 where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
 average stable speed predicted from the open loop bicycle rigid-rider dynamics.
-We use the gain factor \(\eta=8\) (low) and \(\eta=10\) (high) to tune the gain
+We use the gain factor \(\kappa=8\) (low) and \(\kappa=10\) (high) to tune the gain
 magnitude during the experiments. Scaling the proportional feedback gain
 linearly with respect to speed stabilizes the normally unstable weave mode of
 the bicycle down to 2.9~\si{\kilo\meter\per\hour} for the riderless bicycle and
@@ -250,16 +250,17 @@ Figure~\ref{fig:eigenvalues}.
 \begin{figure}
   \centering
   \includegraphics[width=160mm]{figures/balance-assist-eig-vs-speeds.png}
-  \caption{Uncontrolled (upper row) and controlled with \(\eta=10\) (lower row)
+  \caption{Uncontrolled (upper row) and controlled with \(\kappa=10\) (lower row)
     root locus of eigenvalue components (real: solid, imaginary: dashed)
     plotted versus speed for the bicycle without the inertial effect of a rigid
     rider (left) and with a rigid rider (right). Vertical dotted and
     dotted-dashed lines indicate the two speeds we perform experiments at. Grey
     shaded region is the linear stable speed range. Geometric and inertial
     parameters for these plots were estimated with the methods presented in
-    \citet{Moore2012} and software packages BicycleParameters
-    1.1.1~\citep{Moore2024} and Yeadon 1.5.0~\citep{Dembia2015} and are shown
-    in Appendix~\ref{sec:physical-parameters}.}
+    \citet{Moore2012} and software packages
+    BicycleParameters~1.1.1~\citep{Moore2024} and
+    Yeadon~1.5.0~\citep{Dembia2015} and are shown in
+    Appendix~\ref{sec:physical-parameters}.}
   \label{fig:eigenvalues}
 \end{figure}
 
@@ -312,10 +313,10 @@ approved by Delft University of Technology's Human Research Ethics Council
 
 The participants were divided into two groups. The first group of fifteen
 participants performed the protocol at a belt speed of
-10~\si{\kph}(2.8~\si{\mps}) with the controller factor set to $g=8$ and two
+10~\si{\kph}(2.8~\si{\mps}) with the controller factor set to \(\kappa=8\) and two
 weeks later the second group of eleven particpants performed the protocol at a
 belt speed of 6~\si{\kph} (1.7~\si{\mps}) with the controller factor set to
-$g=10$.
+\(\kappa=10\).
 
 Participants wore a helmet and they were attached to the ceiling via a fall
 safety harness, Figure~\ref{fig:participant-in-set-up}. The harness allowed
@@ -414,8 +415,8 @@ third, \ldots, to measure how many perturbations a rider is subjected to before
 the current perturbation. At the initiation of each perturbation we log the
 instantaneous steer and roll angles to characterize the configuration of the
 bicycle when perturbed. The gain factor setting on the balance assist controller
-indicates if the assistance is off \(\eta=0\) or on at two different levels: low
-\(\eta=8\) or high \(\eta=10\). A recovery from the perturbation is successful if the
+indicates if the assistance is off \(\kappa=0\) or on at two different levels: low
+\(\kappa=8\) or high \(\kappa=10\). A recovery from the perturbation is successful if the
 person neither places their foot down onto the treadmill surface nor their
 wheel of the bicycle exits the width of the treadmill belt. We record this as a
 binary variable \(f\) for ``fall''. All measured variables are reported in
@@ -430,7 +431,7 @@ Table~\ref{tab:raw}.
     \toprule
     Measure & Variable & Units & Sensor \\
     \midrule
-    Balance Assist Gain Factor & \(\eta\) & \si{\newton\second\squared} & NA \\
+    Balance Assist Gain Factor & \(\kappa\) & \si{\newton\second\squared} & NA \\
     Bicycle Speed & \(v\) & \si{\meter\per\second} & wheel encoder \\
     Fall Outcome & \(f\) & boolean & NA \\
     Force \(l\)eft/\(r\)ight,\(f\)ront/\(r\)ear &
@@ -507,15 +508,15 @@ multilevel model. This left us with angular impulse, perturbation order,
 balance assist state, and roll \& steer angles at the time of perturbation as
 independent variables. We also include interaction effects between the balance
 assist state and the other four variables. We divide the analysis into two
-separate model evaluations, one for the 6~\si{\kph}, \(\eta=10\) trials and one
-for the 10~\si{\kph}, \(\eta=8\) trials and we evaluate our hypothesis for each
+separate model evaluations, one for the 6~\si{\kph}, \(\kappa=10\) trials and one
+for the 10~\si{\kph}, \(\kappa=8\) trials and we evaluate our hypothesis for each
 set of data. Statistics were computed with the lme4 version
 1.1~\citep{Bates2015} package in R version 4.1.3~\citep{RCoreTeam2021}.
 
 \section{Results}
 %
 The coefficient estimates for a single-level logistic regression for the data
-from the 6~\si{\kph}, gain factor $g=10$ trials are shown in
+from the 6~\si{\kph}, gain factor \(\kappa=10\) trials are shown in
 Table~\ref{tab:freq-coefs-6}. The angular impulse, perturbation order, and
 balance assist state are all statistically significant predictors with angular
 impulse having a dominant effect. Larger angular impulse increases the
@@ -526,7 +527,7 @@ change in odds are shown in Table~\ref{tab:freq-coefs-6}.
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates \(\alpha_k\) at
-    6~\si{\kph} and gain factor $g=10$ along with the standard error SE, p-value
+    6~\si{\kph} and gain factor \(\kappa=10\) along with the standard error SE, p-value
     \(p\), multiplicative change in odds \(e^{\alpha_k}\), and the 5\%
     confidence interval bounds.}
   \label{tab:freq-coefs-6}
@@ -549,7 +550,7 @@ change in odds are shown in Table~\ref{tab:freq-coefs-6}.
 \end{table}
 
 The coefficient estimates for a single-level logistic regression at
-10~\si{\kph} with gain factor $g=8$ are shown in Table \ref{tab:freq-coefs-10}. The
+10~\si{\kph} with gain factor \(\kappa=8\) are shown in Table \ref{tab:freq-coefs-10}. The
 angular impulse and perturbation order are statistically significant predictors
 with angular impulse being the dominant effect. Larger angular impulse
 increases the probability to fall and enduring more perturbations decreases the
@@ -561,7 +562,7 @@ twice the magnitude in effect as the perturbation order.
 \begin{table}
   \centering
   \caption{Logistic regression coefficient estimates \(\alpha_k\) at
-    10~\si{\kph} and gain factor $g=8$ along with the standard error SE, p-value
+    10~\si{\kph} and gain factor \(\kappa=8\) along with the standard error SE, p-value
     \(p\), multiplicative change in odds \(e^{\alpha_k}\), and the 5\%
     confidence interval bounds.}
   \label{tab:freq-coefs-10}
@@ -881,7 +882,7 @@ Physical parameters for the balance assist bicycle with and without a rider.
 These are found using the measurement approach for geometric and inertial
 parameters for a bicycle explained in \citet{Moore2012}. The rider inertial
 parameters are derived from the 83.5~\si{\kilogram} rider ``Jason'' available
-in BicycleParameters 1.1.1~\citep{Moore2024}. The variable names match the
+in BicycleParameters~1.1.1~\citep{Moore2024}. The variable names match the
 notation and definitions from the benchmark bicycle model presented in
 \citet{Meijaard2007}.
 %
