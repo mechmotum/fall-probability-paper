@@ -700,8 +700,8 @@ scaled angular impulse can be calculated by subtracting $\bar{L}$ from the
 applied angular impulse $L$, and dividing this by $\sigma_{L}$. The same
 applies for the perturbation order $j$, initial roll angle $\phi_0$, and
 initial steer angle $\delta_0$. If we take the coefficients estimated for
-cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows:
-\todo{Check this equation, where is \(\bar{L}\) 100N in the equation?}
+cycling at 6~\si{\kph} and example means, the log-odds of falling can be
+calculated as follows:
 %
 \begin{equation}
   \begin{split}
@@ -711,11 +711,11 @@ cycling at 6~\si{\kph}, the log-odds of falling can be calculated as follows:
     = &
    -0.29 + 1.69\cdot\frac{110~\si{\newton} - 100\si{\newton}}{15\si{\newton}} -0.77\cdot\frac{10-20}{11.54}  \\
     & -0.25\cdot\frac{-6\si{\degree}-2\si{\degree}}{10\si{\degree}}
-    -0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}} -0.64\cdot s \\
+    -0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}} -0.64 s \\
     = &
-    1.59 -0.64 \cdot s
-  \end{split}
+    1.59 -0.64 s
   \textrm{.}
+  \end{split}
 \end{equation}
 %
 The state of the balance assist \(s\) is a binary variable. If the
@@ -723,10 +723,10 @@ balance assist is turned on, the log-odds that a fall occurs are decreased by
 0.64. The odds and probability can be calculated:
 %
 \begin{align}
-  \frac{p_{ij}}{1-p_{ij}} & = e^{1.59-0.64c} =
-  e^{1.59}\cdot e^{-0.64s} = 4.90 \cdot 0.53c \\
-  p_{ij}|_{c=0} & = \frac{4.90}{1 + 4.90} = 0.83 \\
-  p_{ij}|_{c=1} & = \frac{4.90\cdot0.53}{1 + 4.90\cdot{0.53}} = 0.72
+  \frac{p_{ij}}{1-p_{ij}} & = e^{1.59-0.64s} =
+  e^{1.59}\cdot e^{-0.64s} = 4.90 \cdot e^{-0.64s} \\
+  p_{ij}|_{s=0} & = \frac{4.90}{1 + 4.90} = 0.83 \\
+  p_{ij}|_{s=1} & = \frac{4.90\cdot0.53}{1 + 4.90\cdot{0.53}} = 0.72
 \end{align}
 %
 Turning on the balance assist system reduces the probability that the
@@ -858,9 +858,10 @@ feedback in early revisions.
 \section*{Funding}
 %
 This study is funded by Dutch Research Council, Nederlandse Organisatie voor
-Wetenschappelijk Onderzoek (NWO), under the Citius Altius Sanius program and in
-collaboration with Bosch eBike Systems and Royal Dutch Gazelle. The funders had
-no role in the data collection and analysis or preparation of the manuscript.
+Wetenschappelijk Onderzoek (NWO), under the Citius Altius Sanius Perspectief
+program and in collaboration with Bosch eBike Systems and Royal Dutch Gazelle.
+The funders had no role in the data collection and analysis or preparation of
+the manuscript.
 
 \section*{Code and Data Availability}
 %
