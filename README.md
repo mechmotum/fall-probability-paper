@@ -1,8 +1,10 @@
+# Description
+
 Source repository for the paper:
 
 "Automatic Bicycle Balance Assistance Reduces Probability of Falling at Low
 Speeds When Subjected to Handlebar Perturbations" by Marten T. Haitjema, Leila
-Alizadehsaravi, Jason K. Moore
+Alizadehsaravi, and Jason K. Moore
 
 View the latest PDF versions here:
 
@@ -18,13 +20,13 @@ citation to the paper to acknowledge the use and list the relevant license(s).
 
 # Author Guide
 
-- Avoid committing binary objects (like pngs). The preference is to generate
+- Minimize committing binary objects (like pngs). The preference is to generate
   them with a reproducible script.
-- Use booktabs for the table formatting
-- Use BibLatex with the natbib option and apa settings for variations on
-  citations.
+- Use booktabs for the table formatting.
+- Use BibLatex with the natbib option and numbered citation settings for
+  variations on citations.
 - subcaption is available for subfigures
-- Use siunitx for units (note the `\kph` custom definition)
+- Use siunitx for units (note the `\kph` and `\mps` custom definitions)
 
 ## Generating the bib file
 
