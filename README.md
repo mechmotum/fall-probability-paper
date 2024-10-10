@@ -6,7 +6,9 @@ Source repository for the paper:
 Speeds When Subjected to Handlebar Perturbations" by Marten T. Haitjema, Leila
 Alizadehsaravi, and Jason K. Moore
 
-View the latest PDF versions here:
+View the preprint on engrXiv: https://doi.org/10.31224/4003
+
+View the latest draft PDF versions here:
 
 https://github.com/mechmotum/fall-probability-paper/blob/gh-pages/main.pdf
 
