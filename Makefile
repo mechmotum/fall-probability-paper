@@ -5,6 +5,19 @@ main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.p
 	pdflatex main.tex
 fixlme4: references.bib
 	sed -i 's/Lme4/{lme4}/g' references.bib
+iatss:
+	mkdir -p iatss/
+	cp figures/*.png iatss/
+	cp figures/*.jpg iatss/
+	cp main.tex iatss/
+	cp references.bib iatss/
+	sed -i 's/figures\///g' iatss/main.tex
+	sed -i 's/citep/cite/g' iatss/main.tex
+	sed -i 's/citet/cite/g' iatss/main.tex
+	sed -i 's/Citet/cite/g' iatss/main.tex
+	sed -i 's/\\printbibliography/\\bibliographystyle{unsrt}\n\\bibliography{references}/g' iatss/main.tex
+	sed -i '/biblatex/d' iatss/main.tex
+	sed -i '/addbibresource/d' iatss/main.tex
 figures/balance-assist-eig-vs-speeds.png: src/control.py
 	python src/control.py
 figures/torque_angle_perturbation_10.png: src/generate_time_series_imgs.py
