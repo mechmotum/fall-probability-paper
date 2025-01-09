@@ -479,10 +479,10 @@ model variables.
 
 Fall outcome \(f_{ij}\) is the binary outcome of perturbation \(j\) on
 participant \(i\) which follows a Bernoulli distribution given the probability
-\(p_{ij}\) that a fall occurs:
+\(P_{ij}\) that a fall occurs:
 %
 \begin{align}
-  f_{ij} | p_{ij} \sim \textrm{Bernoulli}(p_{ij}) \textrm{.}
+  f_{ij} | P_{ij} \sim \textrm{Bernoulli}(P_{ij}) \textrm{.}
 \end{align}
 %
 We evaluate our hypothesis using a multivariate logistic regression model that
@@ -493,7 +493,7 @@ probability is then a linear function of our independent variables with
 Table~\ref{tab:stat-model-variables} except \(f\).
 %
 \begin{align}
-  \log \left(\frac{p_{ij}}{1-p_{ij}} \right) =
+  \log \left(\frac{P_{ij}}{1-P_{ij}} \right) =
   \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
   \label{eq:log-regress}
 \end{align}
@@ -713,7 +713,7 @@ calculated as follows:
 %
 \begin{equation}
   \begin{split}
-    \log \left( \frac{p_{ij}}{1-p_{ij}} \right)
+    \log \left( \frac{P_{ij}}{1-P_{ij}} \right)
     = & \quad
     \beta + \sum_{k=1}^{k=5}\alpha_k \frac{x_{ij}^{k}-\bar{x}_{ij}^{k}}{\sigma^{x^{k}}} \\
     = &
@@ -731,10 +731,10 @@ balance assist is turned on, the log-odds that a fall occurs are decreased by
 0.64. The odds and probability can be calculated:
 %
 \begin{align}
-  \frac{p_{ij}}{1-p_{ij}} & = e^{1.59-0.64s} =
+  \frac{P_{ij}}{1-P_{ij}} & = e^{1.59-0.64s} =
   e^{1.59}\cdot e^{-0.64s} = 4.90 \cdot e^{-0.64s} \\
-  p_{ij}|_{s=0} & = \frac{4.90}{1 + 4.90} = 0.83 \\
-  p_{ij}|_{s=1} & = \frac{4.90\cdot0.53}{1 + 4.90\cdot{0.53}} = 0.72
+  P_{ij}|_{s=0} & = \frac{4.90}{1 + 4.90} = 0.83 \\
+  P_{ij}|_{s=1} & = \frac{4.90\cdot0.53}{1 + 4.90\cdot{0.53}} = 0.72
 \end{align}
 %
 Turning on the balance assist system reduces the probability that the
