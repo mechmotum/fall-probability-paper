@@ -10,7 +10,7 @@ iatss:
 	cp figures/*.png iatss/
 	cp figures/*.jpg iatss/
 	cp main.tex iatss/
-	cp references.bib iatss/
+	cp references-iatss-bibtex.bib iatss/references.bib
 	sed -i 's/figures\///g' iatss/main.tex
 	sed -i 's/citep/cite/g' iatss/main.tex
 	sed -i 's/citet/cite/g' iatss/main.tex
