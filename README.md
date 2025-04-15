@@ -54,3 +54,12 @@ make
 
 A Github workflow builds the PDF on each commit to master using this action:
 https://github.com/marketplace/actions/github-action-for-latex.
+
+# IATSS Submission Generation
+
+IATSS uses Editorial Manager which does not play nicely (or at all) with
+BibLaTeX, so we have to convert to a plain bibtex submission for it to work.
+
+First, a second bib fill called `references-iatss-bibtex.bib` is generated with
+the Zotero export as "Better BibTex" (not biblatex). Then run `make iatss` to
+create a new flat folder with the files ready for the submission to IATSS.
