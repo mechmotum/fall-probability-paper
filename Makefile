@@ -11,6 +11,8 @@ iatss:
 	cp figures/*.jpg iatss/
 	cp main.tex iatss/
 	cp references-iatss-bibtex.bib iatss/references.bib
+	sed -i 's/doi = {\(.*\)},/note = {doi:~{\1}},/g' iatss/references.bib
+	sed -i 's/_/\\_/g' iatss/references.bib
 	sed -i 's/figures\///g' iatss/main.tex
 	sed -i 's/citep/cite/g' iatss/main.tex
 	sed -i 's/citet/cite/g' iatss/main.tex
