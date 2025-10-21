@@ -18,7 +18,7 @@ KPH2MPS = 1000.0/3600.0
 MPS2KPH = 1.0/KPH2MPS
 # NOTE : The theorectical gains (values) are manually chosen for a eye-balled
 # best fit of the weave mode for the Teensy set gain (keys).
-GAIN_MAP = {8: 3.9, 10: 5.4}
+GAIN_MAP = {8: 3.9, 10: 5.2}
 
 if not os.path.exists(FIG_DIR):
     os.mkdir(FIG_DIR)
