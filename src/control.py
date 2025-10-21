@@ -1,10 +1,10 @@
 import os
 
-from bicycleparameters.parameter_sets import Meijaard2007ParameterSet
-from bicycleparameters.bicycle import sort_eigenmodes
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy.constants import golden_ratio
+import matplotlib.pyplot as plt
+from bicycleparameters.parameter_sets import Meijaard2007ParameterSet
+from bicycleparameters.bicycle import sort_eigenmodes
 
 from data import bike_with_rider, bike_without_rider
 from model import SteerControlModel
@@ -16,6 +16,9 @@ DAT_DIR = os.path.join(ROOT_DIR, 'data')
 FIG_DIR = os.path.join(ROOT_DIR, 'figures')
 KPH2MPS = 1000.0/3600.0
 MPS2KPH = 1.0/KPH2MPS
+# NOTE : The theorectical gains (values) are manually chosen for a eye-balled
+# best fit of the weave mode for the Teensy set gain (keys).
+GAIN_MAP = {8: 3.9, 10: 5.4}
 
 if not os.path.exists(FIG_DIR):
     os.mkdir(FIG_DIR)
@@ -38,6 +41,10 @@ speeds = np.linspace(0.0, 10.0, num=2001)
 
 # control law
 def generate_gains(static_gain):
+    """
+    static_gain : float
+        Gain value for use in the controller model.
+    """
     vmin, vmin_idx = 1.5, np.argmin(np.abs(speeds - 1.5))
     vmax, vmax_idx = 4.7, np.argmin(np.abs(speeds - 4.7))
     kphidots = -static_gain*(vmax - speeds)
@@ -46,15 +53,20 @@ def generate_gains(static_gain):
     return kphidots
 
 
-static_gain = 3.8
-kphidots = generate_gains(static_gain)
-
 # FIGURE : Plot the roll rate gains versus speed.
-fig, ax = plt.subplots(layout='constrained')
-fig.set_size_inches((80/25.4, 80/25.4/golden_ratio))
-ax.plot(speeds, kphidots)
-ax.set_ylabel(r'$k_\dot{\phi}$')
-fig.savefig(os.path.join(FIG_DIR, 'gains-vs-speed.png'), dpi=300)
+def plot_gains_vs_speed():
+    fig, ax = plt.subplots(layout='constrained')
+    fig.set_size_inches((80/25.4, 80/25.4/golden_ratio))
+    ax.plot(speeds, generate_gains(GAIN_MAP[8]),
+            label=f"Gain {GAIN_MAP[8]}")
+    ax.plot(speeds, generate_gains(GAIN_MAP[10]),
+            label=f"Gain {GAIN_MAP[10]}")
+    ax.set_ylabel(r'$k_\dot{\phi}$')
+    ax.legend()
+    fig.savefig(os.path.join(FIG_DIR, 'gains-vs-speed.png'), dpi=300)
+
+
+plot_gains_vs_speed()
 
 
 # FIGURE : Compare eigenvalues vs speed for uncontrolled.
@@ -67,12 +79,7 @@ def stable_ranges(evals):
     return start_stop_idxs.reshape(-1, 2)
 
 
-fig_four, axes = plt.subplots(2, 2, sharex=True, sharey=True,
-                              layout='constrained')
-fig.set_size_inches((160/25.4, 160/25.4/golden_ratio))
-
-
-def plot_eig(ax, model, kphidots=0.0):
+def plot_eig(ax, model, teensy_gain, kphidots=0.0):
     evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds,
                                                        kphidot=kphidots))
     weave_idx, capsize_idx = stable_ranges(evals_)[0]
@@ -81,63 +88,95 @@ def plot_eig(ax, model, kphidots=0.0):
     print(msg.format(weave_speed, weave_speed*MPS2KPH))
     msg = 'Capsize speed: {:1.2f} [m/s], {:1.1f} [km/h]'
     print(msg.format(capsize_speed, capsize_speed*MPS2KPH))
-    ax.axvline(6.0*KPH2MPS, ymin=-6.0, ymax=14.0, color='black', linestyle=':')
-    ax.axvline(10.0*KPH2MPS, ymin=-6.0, ymax=14.0, color='black', linestyle='-.')
+    if teensy_gain == 10:
+        ymin, ymax = -6.0, 12.0
+        ax.axvline(6.0*KPH2MPS, ymin=ymin, ymax=ymax, color='black',
+                   linestyle=':')
+    elif teensy_gain == 8:
+        ymin, ymax = -5, 11.0
+        ax.axvline(10.0*KPH2MPS, ymin=ymin, ymax=ymax, color='black',
+                   linestyle='-.')
     model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                 hide_zeros=True, colors=['k']*4)
-    ax.set_ylim((-6, 14))
+    ax.set_ylim((ymin, ymax))
     return ax
 
 
-msg = 'Without rigid rider and balance assist off:'
-print(msg)
-print("-"*len(msg))
-ax = plot_eig(axes[0, 0], model_without)
-sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
-                                           lambda x: x*KPH2MPS))
-sax.set_xlabel('Speed [km/h]')
-ax.set_title('Without Rigid Rider')
-ax.set_ylabel('Balance Assist Off\nEigenvalue Components\n[1/s]')
-ax.set_xlabel('')
+def create_four_panel(teensy_gain):
+    """
+    teensy_gain : integer
+        8 or 10
+    """
+    msg = f"For Teensy Gain of {teensy_gain}"
+    print("="*len(msg))
+    print(msg)
+    print("="*len(msg))
 
-msg = '\nWithout rigid rider and balance assist on:'
-print(msg)
-print("-"*len(msg))
-ax = plot_eig(axes[1, 0], model_without, kphidots=kphidots)
-weave_eig = np.loadtxt(os.path.join(DAT_DIR,
-                                    'weave_eigenvalues_from_experiment_gain_8.csv'),
-                       delimiter=',', skiprows=1)
-ax.plot(weave_eig[:, 0], weave_eig[:, 1], color='black', marker='*',
-        linestyle='')
-ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
-        linestyle='')
-ax.set_ylabel('Balance Assist On\nEigenvalue Components\n[1/s]')
-ax.set_xlabel('Speed [m/s]')
+    data_fname = f'weave_eigenvalues_from_experiment_gain_{teensy_gain}.csv'
+    plot_fname = f'balance-assist-gain-{teensy_gain}-eig-vs-speeds.png'
 
-msg = '\nWith rigid rider and balance assist off:'
-print(msg)
-print("-"*len(msg))
-ax = plot_eig(axes[0, 1], model_with)
-sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
-                                           lambda x: x*KPH2MPS))
-sax.set_xlabel('Speed [km/h]')
-ax.set_title('With Rigid Rider')
-ax.set_ylabel('')
-ax.set_xlabel('')
+    try:
+        static_gain = GAIN_MAP[teensy_gain]
+    except KeyError:
+        raise ValueError(f'Gains can only be {GAIN_MAP.keys()}')
 
-msg = '\nWith rigid rider and balance assist on:'
-print(msg)
-print("-"*len(msg))
-ax = plot_eig(axes[1, 1], model_with, kphidots=kphidots)
-ax.set_ylabel('')
-ax.set_xlabel('Speed [m/s]')
+    kphidots = generate_gains(static_gain)
 
-fig_four.savefig(os.path.join(FIG_DIR, 'balance-assist-eig-vs-speeds.png'),
-                 dpi=300)
+    fig_four, axes = plt.subplots(2, 2, sharex=True, sharey=True,
+                                  layout='constrained')
+    fig.set_size_inches((160/25.4, 160/25.4/golden_ratio))
 
+    msg = 'Without rigid rider and balance assist off:'
+    print(msg)
+    print("-"*len(msg))
+    ax = plot_eig(axes[0, 0], model_without, teensy_gain)
+    sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
+                                               lambda x: x*KPH2MPS))
+    sax.set_xlabel('Speed [km/h]')
+    ax.set_title('Without Rigid Rider')
+    ax.set_ylabel('Balance Assist Off\nEigenvalue Components\n[1/s]')
+    ax.set_xlabel('')
+
+    msg = '\nWithout rigid rider and balance assist on:'
+    print(msg)
+    print("-"*len(msg))
+    ax = plot_eig(axes[1, 0], model_without, teensy_gain, kphidots=kphidots)
+    weave_eig = np.loadtxt(os.path.join(DAT_DIR, data_fname), delimiter=',',
+                           skiprows=1)
+    ax.plot(weave_eig[:, 0], weave_eig[:, 1], color='black', marker='*',
+            linestyle='')
+    ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
+            linestyle='')
+    ax.set_ylabel('Balance Assist On\nEigenvalue Components\n[1/s]')
+    ax.set_xlabel('Speed [m/s]')
+
+    msg = '\nWith rigid rider and balance assist off:'
+    print(msg)
+    print("-"*len(msg))
+    ax = plot_eig(axes[0, 1], model_with, teensy_gain)
+    sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
+                                               lambda x: x*KPH2MPS))
+    sax.set_xlabel('Speed [km/h]')
+    ax.set_title('With Rigid Rider')
+    ax.set_ylabel('')
+    ax.set_xlabel('')
+
+    msg = '\nWith rigid rider and balance assist on:'
+    print(msg)
+    print("-"*len(msg))
+    ax = plot_eig(axes[1, 1], model_with, teensy_gain, kphidots=kphidots)
+    ax.set_ylabel('')
+    ax.set_xlabel('Speed [m/s]')
+
+    fig_four.savefig(os.path.join(FIG_DIR, plot_fname), dpi=300)
+
+
+create_four_panel(8)
+create_four_panel(10)
 
 # FIGURE : Simulate an initial value problem at a low speed under control.
 idx = np.argmin(np.abs(speeds - 6.0*KPH2MPS))  # 6 km/h
+kphidots = generate_gains(10)
 print('kphidot @ 6 km/h:', kphidots[idx])
 
 
