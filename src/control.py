@@ -12,6 +12,7 @@ from model import SteerControlModel
 SCRIPT_PATH = os.path.realpath(__file__)
 SRC_DIR = os.path.dirname(SCRIPT_PATH)
 ROOT_DIR = os.path.realpath(os.path.join(SRC_DIR, '..'))
+DAT_DIR = os.path.join(ROOT_DIR, 'data')
 FIG_DIR = os.path.join(ROOT_DIR, 'figures')
 KPH2MPS = 1000.0/3600.0
 MPS2KPH = 1.0/KPH2MPS
@@ -34,13 +35,19 @@ fig.savefig(os.path.join(FIG_DIR, 'bicycle-with-geometry-mass.png'), dpi=300)
 
 speeds = np.linspace(0.0, 10.0, num=2001)
 
+
 # control law
-vmin, vmin_idx = 1.5, np.argmin(np.abs(speeds - 1.5))
-vmax, vmax_idx = 4.7, np.argmin(np.abs(speeds - 4.7))
-static_gain = 10.0
-kphidots = -static_gain*(vmax - speeds)
-kphidots[:vmin_idx] = -static_gain*(vmax - vmin)/vmin*speeds[:vmin_idx]
-kphidots[vmax_idx:] = 0.0
+def generate_gains(static_gain):
+    vmin, vmin_idx = 1.5, np.argmin(np.abs(speeds - 1.5))
+    vmax, vmax_idx = 4.7, np.argmin(np.abs(speeds - 4.7))
+    kphidots = -static_gain*(vmax - speeds)
+    kphidots[:vmin_idx] = -static_gain*(vmax - vmin)/vmin*speeds[:vmin_idx]
+    kphidots[vmax_idx:] = 0.0
+    return kphidots
+
+
+static_gain = 3.8
+kphidots = generate_gains(static_gain)
 
 # FIGURE : Plot the roll rate gains versus speed.
 fig, ax = plt.subplots(layout='constrained')
@@ -49,9 +56,8 @@ ax.plot(speeds, kphidots)
 ax.set_ylabel(r'$k_\dot{\phi}$')
 fig.savefig(os.path.join(FIG_DIR, 'gains-vs-speed.png'), dpi=300)
 
+
 # FIGURE : Compare eigenvalues vs speed for uncontrolled.
-
-
 def stable_ranges(evals):
     # TODO : This should return the indice after a rise and before a fall. It
     # now always returns the indices after a rise or fall.
@@ -75,11 +81,11 @@ def plot_eig(ax, model, kphidots=0.0):
     print(msg.format(weave_speed, weave_speed*MPS2KPH))
     msg = 'Capsize speed: {:1.2f} [m/s], {:1.1f} [km/h]'
     print(msg.format(capsize_speed, capsize_speed*MPS2KPH))
-    ax.axvline(6.0*KPH2MPS, ymin=-10.0, ymax=10.0, color='black', linestyle=':')
-    ax.axvline(10.0*KPH2MPS, ymin=-10.0, ymax=10.0, color='black', linestyle='-.')
+    ax.axvline(6.0*KPH2MPS, ymin=-6.0, ymax=14.0, color='black', linestyle=':')
+    ax.axvline(10.0*KPH2MPS, ymin=-6.0, ymax=14.0, color='black', linestyle='-.')
     model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                 hide_zeros=True, colors=['k']*4)
-    ax.set_ylim((-10, 10))
+    ax.set_ylim((-6, 14))
     return ax
 
 
@@ -98,6 +104,13 @@ msg = '\nWithout rigid rider and balance assist on:'
 print(msg)
 print("-"*len(msg))
 ax = plot_eig(axes[1, 0], model_without, kphidots=kphidots)
+weave_eig = np.loadtxt(os.path.join(DAT_DIR,
+                                    'weave_eigenvalues_from_experiment_gain_8.csv'),
+                       delimiter=',', skiprows=1)
+ax.plot(weave_eig[:, 0], weave_eig[:, 1], color='black', marker='*',
+        linestyle='')
+ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
+        linestyle='')
 ax.set_ylabel('Balance Assist On\nEigenvalue Components\n[1/s]')
 ax.set_xlabel('Speed [m/s]')
 
