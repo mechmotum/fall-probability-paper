@@ -134,7 +134,7 @@ def create_four_panel():
             linestyle='')
     ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
             linestyle='')
-    ax.set_ylabel(f'Assist On $\kappa={GAIN_MAP[8]}$\nEig. Comp. [1/s]')
+    ax.set_ylabel(f'Assist On, $\kappa={GAIN_MAP[8]}$\nEig. Comp. [1/s]')
     ax.set_xlabel('')
 
     msg = '\nWithout rigid rider and balance assist on:'
@@ -148,7 +148,7 @@ def create_four_panel():
             linestyle='')
     ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
             linestyle='')
-    ax.set_ylabel(f'Assist On $\kappa={GAIN_MAP[10]}$\nEig. Comp. [1/s]')
+    ax.set_ylabel(f'Assist On, $\kappa={GAIN_MAP[10]}$\nEig. Comp. [1/s]')
     ax.set_xlabel('Speed [m/s]')
 
     msg = '\nWith rigid rider and balance assist off:'
