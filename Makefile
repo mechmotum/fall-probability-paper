@@ -1,4 +1,4 @@
-main.pdf: main.tex references.bib fixlme4 figures/balance-assist-gain-8-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
+main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
 	pdflatex main.tex
 	biber main
 	pdflatex main.tex
@@ -20,7 +20,7 @@ iatss:
 	sed -i 's/\\printbibliography/\\bibliographystyle{unsrt}\n\\bibliography{references}/g' iatss/main.tex
 	sed -i '/biblatex/d' iatss/main.tex
 	sed -i '/addbibresource/d' iatss/main.tex
-figures/balance-assist-gain-8-eig-vs-speeds.png: src/control.py
+figures/balance-assist-eig-vs-speeds.png: src/control.py
 	python src/control.py
 figures/torque_angle_perturbation_10.png: src/generate_time_series_imgs.py
 	python src/generate_time_series_imgs.py
