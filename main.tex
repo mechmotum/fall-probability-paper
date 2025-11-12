@@ -438,7 +438,13 @@ We record the order number of each perturbation \(j\), i.e. first, second,
 third, \ldots, to measure how many perturbations a rider is subjected to before
 the current perturbation. At the initiation of each perturbation we log the
 instantaneous steer and roll angles, \(\delta_0\) and \(\phi_0\), to
-characterize the configuration of the bicycle when perturbed. The gain factor
+characterize the configuration of the bicycle when perturbed. The sense of
+these variables relative to the sense of the perturbation matters. For example,
+if there is already a large steer angle in the same direction as the
+perturbation, this will have a different effect on the probability that a fall
+will occur than if the steer angle is in the opposite direction of the
+perturbation. To account for this, the roll and steer variables at the instance
+of perturbation are normalized for perturbation direction. The gain factor
 setting on the balance assist controller indicates if the assistance is off
 \(\kappa=0\) or on at two different levels: low \(\kappa=3.9\) or high
 \(\kappa=5.2\). As mentioned earlier, a recovery from the perturbation is
