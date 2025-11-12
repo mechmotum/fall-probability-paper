@@ -27,9 +27,9 @@ Low Speeds When Subjected to Handlebar Perturbations\\Version 4.dev}
 \abstract{
   Uncontrolled bicycles are generally unstable at low speeds. We add an
   automatically controlled steering motor to a consumer electric bicycle that
-  stabilizes the riderless bicycle down to about 3~\si{\kph} to assist a rider
-  in balancing the vehicle. We hypothesize that a such a stabilized bicycle
-  will reduce the probability of falling. To test the system's possible
+  stabilizes the riderless bicycle down to just below 4~\si{\kph} to assist a
+  rider in balancing the vehicle. We hypothesize that a such a stabilized
+  bicycle will reduce the probability of falling. To test the system's possible
   assistance during falls, we applied varying magnitude external handlebar
   perturbations to twenty-six participants who rode on a treadmill with the
   balance assist system both activated and deactivated. We show that the
@@ -66,20 +66,20 @@ bicycle, fall prevention, automatic control, stability
 \section{Introduction}
 %
 Single-actor bicycle crashes are associated with a surprisingly large
-percentage of reported serious injuries~\citep{Wegman2024}. At low speeds,
-from start up to typical cruising speeds, bicycles are not self-stable and can
-be challenging for the rider to balance. Low speed crashes may be reduced if
-the bicycle was self-stable at these speeds by relieving the rider of some of
-their necessary control activity. Bicycles can be mechanically modified to
-lower the speeds at which they are self-stable~\citep{Astrom2005} and since the
-1980s it has been known that applying a motor actuated steering torque
-proportional to the vehicle's roll angular rate~\footnote{Roll angular rate is
-defined herein as per the SAE J670 vehicle standards.} can stabilize a
-single-track vehicle down to very low speeds~\citep{Ruijs1986}. If automatic
-control of steering can stabilize a bicycle, it may reduce the control required
-from the rider to successfully manage balancing tasks much like natural high
-speed self-stability already does. We have developed a balance-assisting
-bicycle, Figure~\ref{fig:balance-assist-bicycle}, based on these principles and
+percentage of reported serious injuries~\citep{Wegman2024}. At low speeds, from
+start up to typical cruising speeds, bicycles are not self-stable and can be
+challenging for the rider to balance. Low speed crashes may be reduced if the
+bicycle was self-stable at these speeds by relieving the rider of some of their
+necessary control activity. Bicycles can be mechanically modified to lower the
+speeds at which they are self-stable~\citep{Astrom2005} and since the 1980s it
+has been known that applying a motor actuated steering torque proportional to
+the vehicle's roll angular rate~\footnote{``Roll'' is defined herein as per the
+SAE J670 vehicle standards.} can stabilize a single-track vehicle down to very
+low speeds~\citep{Ruijs1986}. If automatic control of steering can stabilize a
+bicycle, it may reduce the control required from the rider to successfully
+manage balancing tasks much like natural high speed self-stability already
+does. We have developed a balance-assisting bicycle,
+Figure~\ref{fig:balance-assist-bicycle}, based on these principles and
 hypothesize that it helps the rider in situations in which they are likely to
 fall.
 %
@@ -150,8 +150,8 @@ effectively change the human-controlled plant dynamics, up to some limits. In
 our prior study~\citep{Alizadehsaravi2023}, we demonstrate reduced motion
 during distractions and light perturbations due to the balance assist system
 but \citet{Hanakam2023} recently showed rider dissatisfaction with the
-stabilization of a similar vehicle so the overall possible benefits are not
-yet definitively established.
+stabilization of a similar vehicle so the overall possible benefits are not yet
+definitively established.
 
 The design of our balance assist system relies on the linear Carvallo-Whipple
 bicycle model~\citep{Carvallo1899,Whipple1899} which is the simplest bicycle
@@ -207,10 +207,9 @@ uncontrolled bicycle's capsize mode goes unstable. By gain scheduling with
 respect to \(v\), the speed range where the bicycle is stable can be maximized
 within any physical actuator magnitude and bandwidth limits.
 \citet{Schwab2008} elaborate on some of the possibilities in scheduling the
-gains for such a controller for a bicycle and shows that a linear scheduling
-with respect to speed can give satisfactory stability for a low speed range. We
-use this simple feedback principle as the basis for our balance assist
-controller.
+gains for such a controller for a bicycle and show that linear scheduling with
+respect to speed can give satisfactory stability for a low speed range. We use
+this simple feedback principle as the basis for our balance assist controller.
 
 \section{Methods}
 %
@@ -241,33 +240,40 @@ control law
 \end{align}
 %
 where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
-average stable speed predicted from the open loop bicycle rigid-rider dynamics.
+average stable speed predicted from the open-loop bicycle rigid-rider dynamics.
 We use the gain factor \(\kappa=3.9\) (low) and \(\kappa=5.2\) (high) to tune
-the gain magnitude during the experiments. For the 6~\si{\kilo\meter\per\hour}
-experiment, scaling the proportional feedback gain linearly with respect to
-speed stabilizes the normally unstable weave mode of the bicycle down to
-3.4~\si{\kilo\meter\per\hour} for the riderless bicycle and
-9.7~\si{\kilo\meter\per\hour} for the ridden bicycle as shown in
-Figure~\ref{fig:eigenvalues}. Geometric and inertial parameters for these plots
-were estimated with the methods presented in \citet{Moore2012} and software
-packages BicycleParameters~1.1.1~\citep{Moore2024} and
-Yeadon~1.5.0~\citep{Dembia2015} and are shown in
-Appendix~\ref{sec:physical-parameters}. The identified weave mode uses the
-methods of Kooijman et. al~\citep{Kooijman2009a} and gives an indication of the
-performance of the system.
+the gain magnitude during the experiments. Figure~\ref{fig:eigenvalues} shows
+the stabilization effect of the controller via the eigenmodes of the linear
+system. Geometric and inertial parameters for these plots were estimated with
+the methods presented in \citet{Moore2012} and software packages
+BicycleParameters~1.1.1~\citep{Moore2024} and Yeadon~1.5.0~\citep{Dembia2015}
+and are shown in Appendix~\ref{sec:physical-parameters}.
+
+For the 6~\si{\kph} experiment, scaling the proportional feedback gain linearly
+with respect to speed stabilizes the normally unstable weave mode of the
+bicycle down to 3.4~\si{\kph} for the riderless bicycle and 8.0~\si{\kph} for
+the ridden bicycle. For the 10~\si{\kph} experiment, it stabilizes the normally
+unstable weave mode of the bicycle down to 3.8~\si{\kph} for the riderless
+bicycle and 9.7~\si{\kph} for the ridden bicycle as shown in
+Figure~\ref{fig:eigenvalues}.  Notably, the bicycle is not stable at
+6~\si{\kph} and just stable at 10~\si{\kph}. Figure~\ref{fig:eigenvalues} also
+shows the identified weave mode captured using the methods of
+Kooijman~et~al.~\citep{Kooijman2009a} and gives an indication of the
+performance of the system, with the model predicting the weave mode well the
+region of the tested speeds.
 %
 \begin{figure}
   \centering
   \includegraphics[width=160mm]{figures/balance-assist-eig-vs-speeds.png}
   \caption{Uncontrolled (upper row), controlled with \(\kappa=3.9\) (middle
-    row), and controleld with \(\kappa=5.2\) (lower row) root locus of the
+    row), and controlled with \(\kappa=5.2\) (lower row) root locus of the
     eigenvalue components (real: solid, imaginary: dashed) plotted versus speed
     for the linear Carvallo-Whipple bicycle model without the inertial effect
     of a rigid rider (left) and with a rigid rider (right). Vertical dotted and
     dotted-dashed lines indicate the two speeds we perform experiments at:
     6~\si{\kph} and 10~\si{\kph}. The grey shaded region is the linear stable
     speed range. Black stars are experimentally identified weave mode decay and
-  frequency.}
+    frequency.}
   \label{fig:eigenvalues}
 \end{figure}
 
@@ -316,14 +322,12 @@ years) to participate in the experiments. The participants were all confident
 in their cycling skills and had cycled at least once in the last month. All
 participants consented to the experiment and could decline to continue at any
 time. The study was approved by Delft University of Technology's Human Research
-Ethics Council (record \#3897).
-
-The participants were divided into two groups. The first group of fifteen
-participants performed the protocol at a belt speed of
-10~\si{\kph}(2.8~\si{\mps}) with the gain factor set to \(\kappa=8\) and two
-weeks later the second group of eleven participants performed the protocol at a
-belt speed of 6~\si{\kph} (1.7~\si{\mps}) with the gain factor set to
-\(\kappa=10\).
+Ethics Council (record \#3897). The participants were divided into two groups.
+The first group of fifteen participants performed the protocol at a belt speed
+of 10~\si{\kph}(2.8~\si{\mps}) with the gain factor set to \(\kappa=3.9\) and
+two weeks later the second group of eleven participants performed the protocol
+at a belt speed of 6~\si{\kph} (1.7~\si{\mps}) with the gain factor set to
+\(\kappa=5.2\).
 
 Participants wore a helmet and they were attached to the ceiling via a fall
 safety harness, Figure~\ref{fig:participant-in-set-up}. The harness allowed
@@ -424,8 +428,8 @@ the current perturbation. At the initiation of each perturbation we log the
 instantaneous steer and roll angles, \(\delta_0\) and \(\phi_0\), to
 characterize the configuration of the bicycle when perturbed. The gain factor
 setting on the balance assist controller indicates if the assistance is off
-\(\kappa=0\) or on at two different levels: low \(\kappa=8\) or high
-\(\kappa=10\). As mentioned earlier, a recovery from the perturbation is
+\(\kappa=0\) or on at two different levels: low \(\kappa=3.9\) or high
+\(\kappa=5.2\). As mentioned earlier, a recovery from the perturbation is
 successful if the person neither places their foot down onto the treadmill
 surface nor their wheel of the bicycle exits the width of the treadmill belt.
 We record this as a binary variable \(f\) for ``fall''.  All measured variables
@@ -517,15 +521,15 @@ multilevel model. This left us with angular impulse, perturbation order,
 balance assist state, and roll \& steer angles at the time of perturbation as
 independent variables. We also include interaction effects between the balance
 assist state and the other four variables. We divide the analysis into two
-separate model evaluations, one for the 6~\si{\kph}, \(\kappa=10\) trials and one
-for the 10~\si{\kph}, \(\kappa=8\) trials and we evaluate our hypothesis for each
+separate model evaluations, one for the 6~\si{\kph}, \(\kappa=5.2\) trials and one
+for the 10~\si{\kph}, \(\kappa=3.9\) trials and we evaluate our hypothesis for each
 set of data. Statistics were computed with the lme4 version
 1.1~\citep{Bates2015} package in R version 4.1.3~\citep{RCoreTeam2021}.
 
 \section{Results}
 %
 The coefficient estimates for a single-level logistic regression for the data
-from the 6~\si{\kph}, gain factor \(\kappa=10\) trials are shown in
+from the 6~\si{\kph}, gain factor \(\kappa=5.2\) trials are shown in
 Table~\ref{tab:freq-coefs-6}. The angular impulse, perturbation order, and
 balance assist state are all statistically significant predictors with angular
 impulse having a dominant effect. Larger angular impulse increases the
@@ -537,7 +541,7 @@ to calculate the probability of falling.
 \begin{table}
   \centering
   \caption{Logistic regression intercept \(\beta\) and coefficient estimates
-    \(\alpha_k\) at 6~\si{\kph} and gain factor \(\kappa=10\) along with the
+    \(\alpha_k\) at 6~\si{\kph} and gain factor \(\kappa=5.2\) along with the
     standard error SE, p-value \(p\), multiplicative change in odds
     \(e^{\beta}\) or \(e^{\alpha_k}\), and the 5\% confidence interval bounds.}
   \label{tab:freq-coefs-6}
@@ -560,7 +564,7 @@ to calculate the probability of falling.
 \end{table}
 
 The coefficient estimates for a single-level logistic regression at
-10~\si{\kph} with gain factor \(\kappa=8\) are shown in Table
+10~\si{\kph} with gain factor \(\kappa=3.9\) are shown in Table
 \ref{tab:freq-coefs-10}. The angular impulse and perturbation order are
 statistically significant predictors with angular impulse being the dominant
 effect. Larger angular impulse increases the probability to fall and enduring
@@ -573,7 +577,7 @@ perturbation order.
 \begin{table}
   \centering
   \caption{Logistic regression intercept \(\beta\) and coefficient estimates
-    \(\alpha_k\) at 10~\si{\kph} and gain factor \(\kappa=8\) along with the
+    \(\alpha_k\) at 10~\si{\kph} and gain factor \(\kappa=3.9\) along with the
     standard error SE, p-value \(p\), multiplicative change in odds
     \(e^{\beta}\) or \(e^{\alpha_k}\), and the 5\% confidence interval bounds.}
   \label{tab:freq-coefs-10}

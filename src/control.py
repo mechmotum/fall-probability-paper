@@ -126,6 +126,7 @@ def create_four_panel():
     msg = '\nWithout rigid rider and balance assist on:'
     print(msg)
     print("-"*len(msg))
+    print('Model gain: {}'.format(GAIN_MAP[8]))
     kphidots = generate_gains(GAIN_MAP[8])
     ax = plot_eig(axes[1, 0], model_without, 8, kphidots=kphidots)
     weave_eig = np.loadtxt(os.path.join(DAT_DIR, data8_fname), delimiter=',',
@@ -140,6 +141,7 @@ def create_four_panel():
     msg = '\nWithout rigid rider and balance assist on:'
     print(msg)
     print("-"*len(msg))
+    print('Model gain: {}'.format(GAIN_MAP[10]))
     kphidots = generate_gains(GAIN_MAP[10])
     ax = plot_eig(axes[2, 0], model_without, 10, kphidots=kphidots)
     weave_eig = np.loadtxt(os.path.join(DAT_DIR, data10_fname), delimiter=',',
@@ -165,6 +167,7 @@ def create_four_panel():
     msg = '\nWith rigid rider and balance assist on:'
     print(msg)
     print("-"*len(msg))
+    print('Model gain: {}'.format(GAIN_MAP[8]))
     kphidots = generate_gains(GAIN_MAP[8])
     ax = plot_eig(axes[1, 1], model_with, 8, kphidots=kphidots)
     ax.set_ylabel('')
@@ -173,6 +176,7 @@ def create_four_panel():
     msg = '\nWith rigid rider and balance assist on:'
     print(msg)
     print("-"*len(msg))
+    print('Model gain: {}'.format(GAIN_MAP[10]))
     kphidots = generate_gains(GAIN_MAP[10])
     ax = plot_eig(axes[2, 1], model_with, 10, kphidots=kphidots)
     ax.set_ylabel('')
