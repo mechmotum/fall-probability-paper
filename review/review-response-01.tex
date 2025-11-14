@@ -1,0 +1,223 @@
+\documentclass[en]{tuletter}
+\usepackage{csquotes}
+\signname{Jason K. Moore, PhD\\Assistant Professor, BioMechanical
+Engineering\\Delft University of Technology}
+\signimage{jkm-signature}
+
+% Reference top left
+\date{17 november 2025}
+\ourref{NA}
+\yourref{NA}
+\contact{Jason K. Moore}
+\phone{+31 010-844 6853}
+\email{j.k.moore@tudelft.nl}
+\subject{IATSS Review Response}
+
+% Recipient left under reference
+\toname{IATSS Editor}
+\toaddress{}
+
+% Sender right under logo
+\fromname{Faculty of Mechanical Engineering\\BioMechanical Engineering}
+\fromaddress{Mekelweg 2\\2628 CD Delft\\The Netherlands}
+\frompobox{NA}
+
+\begin{document}
+\makeheader
+\opening{To Whom It May Concern,}
+
+Thank you for the careful review of our work. We have revised the paper to
+address your comments both for clarification of various methods and details and
+providing background and support for some of our choices. The revision is an
+improved version based on your feedback.
+
+\begin{displayquote}
+  Editor:Thank you once more for your submission to IATSS Research. The
+  reviewers have now completed their assessment of your manuscript and have
+  recommended major revisions before the manuscript is being considered for
+  publication. I recommend you read carefully the reviewers' suggestions and
+  prepare a detailed response to be submitted along your revised manuscript. To
+  facilitate the reviewer's work, I also recommend to highlight the lines in
+  the new version of the manuscript where changes you introduce address the
+  each reviewer's specific concerns.
+\end{displayquote}
+
+\begin{displayquote}
+  Reviewer \#1: This paper describe attempt to reduce probability of falls by
+  providing electro-mechanical assistance to bicycles, which generally become
+  unstable at very low speeds. Using an electric bicycle with an assist motor
+  attached to the steering axis as the test vehicle, we first conducted
+  theoretical studies and confirmed that it can reach speeds of 2.9 km/h
+  without a rider and 4.6 km/h with rigid rider. Furthermore, 26 young people
+  participated in an experiment in which an external force was applied to the
+  handlebars while the test vehicle was running on a treadmill, and it was
+  confirmed that assistance reduced the fall probability.
+
+  Indoor experiments under controlled conditions are extremely useful for
+  studying vehicle steering stability. In particular, since it is difficult to
+  conduct full-scale experiments on single-track vehicles, which lack static
+  upright stability, the results of indoor experiments using a treadmill are
+  extremely useful. By controlling the conditions, the analysis of variables
+  has been precise, and interesting findings have been obtained.
+
+  Please add some explanation on the following points:
+
+  One of the main themes of this research is evaluating the effectiveness of
+  automatic assist systems. For this evaluation, it is extremely important to
+  understand the operating characteristics of the automatic assist system. The
+  paper provides detailed descriptions of control models and theories (e.g.,
+  root locus), but says very little about actual performance or operating
+  characteristics. While the paper states that the maximum torque is 7 Nm as a
+  specific performance feature, I believe that showing transient performance
+  such as instantaneous maximum torque is also important in understanding
+  response characteristics. Therefore, while theoretical explanations are
+  important, there should also be data on things like the responsiveness of
+  actual bicycles. While the paper provides a very detailed description of
+  perturbations, it says very little about the specific performance of the
+  assist system, which is the subject of the paper's evaluation. I would like
+  the paper to provide more information on the assist system.
+\end{displayquote}
+
+The steer motor system was developed by Bosch eBike systems and is a
+proprietary, thus we are not privy to the fine details of its operation. We
+have not performed our own motor testing, as that is not generally our
+expertise or concern. But we have now included extra vehicle performance tests
+in the form of weave mode identification of the rider-less bicycle. Figure 2
+has been reworked to show the transient behavior of the steer motor controlled
+bicycle compared to the theoretical model's predictions. For the two testing
+speeds we set the controller gain factor to different values. We now show the
+gain factors needed in the ideal bicycle dynamics model to cause matching
+motion of the actual system. Note that these gain factors 3.9 and 5.2 are
+different than the prior paper version of 8 and 10, respecitively. The reason
+for this is that the model does not include the motor dynamics (motor constant
+or winding resistance), nor does it include the scrub torque effect of the tire
+on the ground. The approximate factor of 2 difference in the gain factor
+accounts for these unmodeled effects. The gain factor of 8 and 10 are the
+values we employ in the microcontroller of the real system. We hope that this
+proves 1) that our model can predict the steer controlled bicycle's motion and
+2) gives an idea of the performance of the controlled vehicle. We have adapted
+the text in section 2.2 to explain this.
+
+\begin{displayquote}
+  In this study, a fall is defined as both "putting one's foot on the ground"
+  and "exceeds the width of treadmill", but there is insufficient explanation
+  for this. In 4.2, the relationship between "exceeds the width of treadmill"
+  and actual falls is discussed, but the explanation for "putting one's foot on
+  the ground" is insufficient. "Putting one's foot on the ground" seem to occur
+  with a much milder degree of instability than "exceeds the width of
+  treadmill". In the actual experimental situation, "putting one's foot on the
+  ground" may have been extremely dangerous, equivalent to "exceeds the width
+  of treadmill", but this is not clear from the manuscript. I would like this
+  point to be described in the Methods or Discussion section. Furthermore, the
+  occurrence of such dangerous situations is strongly related to the
+  instructions given to subjects beforehand. I would like the Methods section
+  to provide additional explanation about the content of the instructions, such
+  as whether any explanation about risk avoidance was given or not.
+\end{displayquote}
+
+\begin{displayquote}
+  According to the explanation of the experimental procedures, I understand
+  that in this experiment, each force was tested only once, and the subjects
+  were not allowed to fully familiarize themselves with the force. I believe
+  that the interpretation of the results would be completely different if the
+  number of trials with each force were small or large enough. The fact that
+  the number of trials was analyzed as a significant variable in the regression
+  also reflects this assumption. I would like you to add an explanation about
+  this point in the experimental procedures or discussion section.
+\end{displayquote}
+
+\begin{displayquote}
+  The direction of the perturbation is said to be random from left to right,
+  but I cannot decide whether it is appropriate to assume that it is truly
+  random when analyzing the results. I believe that when the number of trials
+  is small, the factors that affect the results are not only the magnitude of
+  the force, but also the direction, which has a significant impact.
+  Consideration and explanation is needed as to whether the results when a
+  perturbation is in the opposite direction to the previous perturbation can be
+  considered the same as the results when the perturbation is in the same
+  direction. Furthermore, I presume that the results will be affected if the
+  bicycle's posture at the time the perturbation is applied is leaning in the
+  same direction as the perturbation, or if it is leaning in the opposite
+  direction. If such conditions are taken into account in the analysis, please
+  explain.
+\end{displayquote}
+
+\begin{displayquote}
+  The age range of the subjects is listed in 2.4 Protocol, but I would like the
+  average age to be included as well.
+\end{displayquote}
+
+\begin{displayquote}
+  Reviewer \#2: This paper investigates the effectiveness of an automatic
+  balance-assist system designed to reduce falls at low speeds. The core
+  hypothesis is that a bicycle stabilized by an automatically controlled
+  steering motor will reduce the probability of a fall. To verify this
+  hypothesis, a well-considered experiment was conducted, and the analysis of
+  its results is clearly explained. However, there are some unclear points that
+  require the authors' response. Please refer to the following comments and
+  make the necessary revisions.
+
+  Section 1: Introduction on page 3
+
+  Regarding low-speed accidents, the authors state that "single-vehicle
+  accidents are associated with a surprisingly high proportion of reported
+  serious injuries," citing examples that can cause loss of control, such as
+  gusts of wind, collisions between handlebars, bags hanging from handlebars,
+  or simply contact with road surface irregularities. However, this qualitative
+  description alone does not fully explain how the mechanical perturbations
+  applied to the handlebars in the laboratory, specifically vertical forces,
+  quantitatively reproduce these events. Particularly, bicycles are thought to
+  weave more at low speeds, meaning the handlebars are shaking. Therefore,
+  additional literature review or supplemental explanation is required to
+  demonstrate that this experiment is an effective and representative method
+  for studying real-world low-speed accident scenarios.
+\end{displayquote}
+
+\begin{displayquote}
+  Section 2.4: Protocol on page 7
+
+  Regarding the definition of a fall, additional explanation is needed for the
+  authors' reasoning for treating the rider removing their foot from the pedal
+  and placing it on the ground and the bicycle wheel exceeding the width of the
+  treadmill belt as the same category in the analysis. Please explain whether
+  the fall scenarios differ or are the same depending on bicycle speed or the
+  method of applying disturbances. In other words, can scenarios where the
+  rider places their foot on the ground and falls, and scenarios where the
+  bicycle's wheel exceeds the treadmill width and falls, be considered the same
+  fall process, though differing in degree?
+\end{displayquote}
+
+\begin{displayquote}
+  Section 2.6: Statistics on page 11
+
+  The authors state that "cluster-mean centering showed there to be no
+  variation between participants," which allowed authors to use a simple
+  single-level logistic regression model rather than a multilevel model. This
+  assertion is a foundational premise for the authors' entire analysis.
+  Therefore, the authors are required to present the statistical testing
+  process for cluster mean centering.
+\end{displayquote}
+
+\begin{displayquote}
+  Section 4.4: Rider Skill and Experience on page 14
+
+  This relates to the above point. While the authors state that "Each
+  individual participant had their own perturbation resistance threshold"
+  regarding individual differences in the experiment, it is difficult for
+  readers to understand how individual differences were accounted for in the
+  regression analysis, beyond the evidence regarding resistance values in the
+  experiment. It is necessary to present the basic statistics of the
+  experimental results and provide a detailed explanation of how individual
+  differences were considered in the analysis.
+\end{displayquote}
+
+\begin{displayquote}
+  Figure 2 on page 6
+
+  It is preferable to shorten the figure caption, move the legend into the
+  figure itself, and move the detailed figure explanation into the main body
+  text.
+\end{displayquote}
+
+\closing{Sincerely,}
+\end{document}
