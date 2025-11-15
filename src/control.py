@@ -79,7 +79,7 @@ def stable_ranges(evals):
     return start_stop_idxs.reshape(-1, 2)
 
 
-def plot_eig(ax, model, teensy_gain, kphidots=0.0):
+def plot_eig(ax, model, teensy_gain, kphidots=0.0, legend=False):
     evals_, evecs_ = sort_eigenmodes(*model.calc_eigen(v=speeds,
                                                        kphidot=kphidots))
     weave_idx, capsize_idx = stable_ranges(evals_)[0]
@@ -96,21 +96,38 @@ def plot_eig(ax, model, teensy_gain, kphidots=0.0):
         ymin, ymax = -5, 11.0
         ax.axvline(10.0*KPH2MPS, ymin=ymin, ymax=ymax, color='black',
                    linestyle='-.')
+    if legend:
+        # NOTE : Fake line to make legend work.
+        ax.axvline(40.0*KPH2MPS, ymin=ymin, ymax=ymax, color='black',
+                   linestyle=':')
     model.plot_eigenvalue_parts(ax=ax, v=speeds, kphidot=kphidots,
                                 hide_zeros=True, colors=['k']*4)
     ax.set_ylim((ymin, ymax))
+    if legend:
+        # NOTE : Fake points to make legend work.
+        ax.plot([40.0, 41.0], [40.0, 41.], color='black', marker='*',
+                linestyle='')
+        ax.legend(['10 km/h', '6 km/h', 'Stable', 'Imaginary', '_none',
+                   '_none', '_none', 'Real', '_none', '_none', '_none',
+                   'Identified'],
+                  fontsize=8,
+                  bbox_to_anchor=(1.6, 0.25),
+                  bbox_transform=fig.transFigure,
+                  loc='upper center',
+                  ncol=6, labelspacing=0.0)
     return ax
 
 
-def create_four_panel():
+def create_six_panel():
 
     data8_fname = 'weave_eigenvalues_from_experiment_gain_8.csv'
     data10_fname = 'weave_eigenvalues_from_experiment_gain_10.csv'
     plot_fname = 'balance-assist-eig-vs-speeds.png'
 
-    fig_four, axes = plt.subplots(3, 2, sharex=True, sharey=True,
-                                  layout='constrained')
-    fig.set_size_inches((160/25.4, 160/25.4/golden_ratio))
+    fig_six, axes = plt.subplots(3, 2, sharex=True, sharey=True)
+    fig_six.subplots_adjust(top=0.85, bottom=0.16, right=0.95, wspace=0.1,
+                            hspace=0.1)
+    fig_six.set_size_inches((160/25.4, 160/25.4*3/4))
 
     msg = 'Without rigid rider and balance assist off:'
     print(msg)
@@ -119,8 +136,8 @@ def create_four_panel():
     sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
                                                lambda x: x*KPH2MPS))
     sax.set_xlabel('Speed [km/h]')
-    ax.set_title('Without Rigid Rider')
-    ax.set_ylabel('Assist Off\nEig. Comp. [1/s]')
+    ax.set_title('Without Rigid Rider', fontsize=10)
+    ax.set_ylabel('Assist Off\nEig. Comp. [1/s]', fontsize=8)
     ax.set_xlabel('')
 
     msg = '\nWithout rigid rider and balance assist on:'
@@ -128,14 +145,15 @@ def create_four_panel():
     print("-"*len(msg))
     print('Model gain: {}'.format(GAIN_MAP[8]))
     kphidots = generate_gains(GAIN_MAP[8])
-    ax = plot_eig(axes[1, 0], model_without, 8, kphidots=kphidots)
+    ax = plot_eig(axes[1, 0], model_without, 8, kphidots=kphidots, legend=True)
     weave_eig = np.loadtxt(os.path.join(DAT_DIR, data8_fname), delimiter=',',
                            skiprows=1)
     ax.plot(weave_eig[:, 0], weave_eig[:, 1], color='black', marker='*',
             linestyle='')
     ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
             linestyle='')
-    ax.set_ylabel(f'Assist On, $\kappa={GAIN_MAP[8]}$\nEig. Comp. [1/s]')
+    ax.set_ylabel(f'Assist On, $\kappa={GAIN_MAP[8]}$\nEig. Comp. [1/s]',
+                  fontsize=8)
     ax.set_xlabel('')
 
     msg = '\nWithout rigid rider and balance assist on:'
@@ -150,7 +168,8 @@ def create_four_panel():
             linestyle='')
     ax.plot(weave_eig[:, 0], weave_eig[:, 2], color='black', marker='*',
             linestyle='')
-    ax.set_ylabel(f'Assist On, $\kappa={GAIN_MAP[10]}$\nEig. Comp. [1/s]')
+    ax.set_ylabel(f'Assist On, $\kappa={GAIN_MAP[10]}$\nEig. Comp. [1/s]',
+                  fontsize=8)
     ax.set_xlabel('Speed [m/s]')
 
     msg = '\nWith rigid rider and balance assist off:'
@@ -160,7 +179,7 @@ def create_four_panel():
     sax = ax.secondary_xaxis('top', functions=(lambda x: x*MPS2KPH,
                                                lambda x: x*KPH2MPS))
     sax.set_xlabel('Speed [km/h]')
-    ax.set_title('With Rigid Rider')
+    ax.set_title('With Rigid Rider', fontsize=10)
     ax.set_ylabel('')
     ax.set_xlabel('')
 
@@ -182,10 +201,10 @@ def create_four_panel():
     ax.set_ylabel('')
     ax.set_xlabel('Speed [m/s]')
 
-    fig_four.savefig(os.path.join(FIG_DIR, plot_fname), dpi=300)
+    fig_six.savefig(os.path.join(FIG_DIR, plot_fname), dpi=300)
 
 
-create_four_panel()
+create_six_panel()
 
 # FIGURE : Simulate an initial value problem at a low speed under control.
 idx = np.argmin(np.abs(speeds - 6.0*KPH2MPS))  # 6 km/h
