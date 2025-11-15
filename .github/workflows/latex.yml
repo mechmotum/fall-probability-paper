@@ -37,7 +37,7 @@ jobs:
           mkdir -p ghpages/figures
           mv index.html ghpages/index.html
           cp figures/* ghpages/figures/
-          mv main.pdf ghpages/HaitjemaAlizadehSaraviMoore2024.pdf
+          mv main.pdf ghpages/HaitjemaAlizadehsaraviMoore2024.pdf
       - name: Push Files to ghpages
         uses: JamesIves/github-pages-deploy-action@v4
         with:

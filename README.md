@@ -14,7 +14,7 @@ https://mechmotum.github.io/fall-probability-paper
 
 View the latest draft PDF versions here:
 
-https://mechmotum.github.io/fall-probability-paper/HaitjemaAlizadehSaraviMoore2024.pdf
+https://mechmotum.github.io/fall-probability-paper/HaitjemaAlizadehsaraviMoore2024.pdf
 
 # License
 
