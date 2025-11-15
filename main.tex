@@ -67,7 +67,7 @@ bicycle, fall prevention, automatic control, stability
 %
 Single-actor bicycle crashes are associated with a surprisingly large
 percentage (\textgreater80\%) of reported serious injuries in The Netherlands
-and values range betwen 50\% and 95\% in other surveyed
+and values range between 50\% and 95\% in other surveyed
 countries~\citep{Wegman2024}. \citet{Utriainen2023} report that slippery
 surfaces, simple loss of control, and engagement with a curb, pothole, or
 bollard are most the common fall types in the seven reported countries. Most of
@@ -355,19 +355,16 @@ counter-clockwise), starting at 20~\si{\newton} and increasing the magnitude by
 30~\si{\newton} until the participants fell. We defined a ``fall'' on the
 treadmill by two criteria: 1) the rider removes their foot from the pedal and
 places it on the ground or 2) the bicycle wheel exceeds the width of the
-treadmill belt.
-These two fall criteria are not strictly the same and the latter is more likely
-to happen at higher speeds.
-We informed the participants beforehand that we would stop the treadmill in
-these situations.
-These were the two actions which necessitated stopping the treadmill belt and
-the simulate real fall modes.
-Placing a foot down on the fall side of the bicycle is a natural reaction when
-steering or other body movements are not sufficient to keep the bicycle
-upright, as shown in \citep{Gildea2024}.
-Exiting the width of the treadmill is akin to exiting the width of a curb-less
-bicycle path and arises when the rider's control actions are not sufficient to
-correct the heading of the vehicle in sufficient time.
+treadmill belt. These two fall criteria are not strictly the same and the
+latter is more likely to happen at higher speeds. We informed the participants
+beforehand that we would stop the treadmill in these situations. These were
+the two actions which necessitated stopping the treadmill belt and the simulate
+real fall modes. Placing a foot down on the fall side of the bicycle is a
+natural reaction when steering or other body movements are not sufficient to
+keep the bicycle upright, as shown in \citep{Gildea2024}. Exiting the width of
+the treadmill is akin to exiting the width of a curb-less bicycle path and
+arises when the rider's control actions are not sufficient to correct the
+heading of the vehicle in sufficient time.
 Figure~\ref{fig:perturbation-sequence} shows an example resulting motion from a
 perturbation. We logged the force magnitude that caused the first fall to
 characterize that participant's \emph{perturbation resistance threshold}.
@@ -384,11 +381,11 @@ characterize that participant's \emph{perturbation resistance threshold}.
 \end{figure}
 
 Following the initial threshold determination where the participant experienced
-a full range of pertubation magnitudes, we then choose perturbation forces
+a full range of perturbation magnitudes, we then choose perturbation forces
 according to a random and adaptive staircase procedure applying perturbations
 above and below the initial perturbation threshold, while allowing small
 progression of the perturbation threshold to accommodate learning effects. We
-did not try to elimate learning effects due to the time per participant that
+did not try to eliminate learning effects due to the time per participant that
 would be required, but factored this into the later analysis as an alternative.
 Five possible perturbation forces are determined based on the initial
 perturbation threshold estimate: the initial estimate itself, two perturbations
@@ -554,14 +551,16 @@ the perturbation; however, this was not true. If a random effect is included in
 the model for each participant, the intraclass correlation (ICC) is less that
 3\% for both the 6~\si{\kph} and 10~\si{\kph} datasets, so we utilize a simple
 single-level logistic regression model without the random effect instead of a
-multilevel model. This left us with angular impulse, perturbation order,
-balance assist state, and roll \& steer angles at the time of perturbation as
-independent variables. We also include interaction effects between the balance
-assist state and the other four variables. We divide the analysis into two
-separate model evaluations, one for the 6~\si{\kph}, \(\kappa=5.2\) trials and
-one for the 10~\si{\kph}, \(\kappa=3.9\) trials and we evaluate our hypothesis
-for each set of data. Statistics were computed with the lme4 version
-1.1~\citep{Bates2015} package in R version 4.1.3~\citep{RCoreTeam2021}.
+multilevel model. This tracks with the independent data collected in
+\citet{Haitjema2023a} which also had negligible participant variation. This
+left us with angular impulse, perturbation order, balance assist state, and
+roll \& steer angles at the time of perturbation as independent variables. We
+also include interaction effects between the balance assist state and the other
+four variables. We divide the analysis into two separate model evaluations, one
+for the 6~\si{\kph}, \(\kappa=5.2\) trials and one for the 10~\si{\kph},
+\(\kappa=3.9\) trials and we evaluate our hypothesis for each set of data.
+Statistics were computed with R version 4.1.3~\citep{RCoreTeam2021} the lme4
+version 1.1~\citep{Bates2015} package.
 
 \section{Results}
 %
@@ -636,8 +635,8 @@ perturbation order.
   \end{tabular}
 \end{table}
 
-Turning the balance assist system on significantly \((p=0.02<0.05)\) reduces the
-odds that a perturbation results in a fall while cycling at a speed of
+Turning the balance assist system on significantly \((p=0.02<0.05)\) reduces
+the odds that a perturbation results in a fall while cycling at a speed of
 6~\si{\kph}. Figure~\ref{fig:probability-6kph} visualizes the probability of
 falling as a function of the mean and centered angular impulse per participant
 for the balance assist state on and off. This figure is created by setting all
