@@ -30,11 +30,6 @@ jobs:
         uses: xu-cheng/latex-action@v4
         with:
           root_file: main.tex
-      - name: Upload PDF File as Github Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: PDF
-          path: main.pdf
       - name: Generate HTML Version
         run: pandoc -o index.html -s --mathjax main.tex
       - name: Setup Deploy Folder
