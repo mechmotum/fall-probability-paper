@@ -1,7 +1,10 @@
 \documentclass[en]{tuletter}
 \usepackage{csquotes}
-\signname{Jason K. Moore, PhD\\Assistant Professor, BioMechanical
-Engineering\\Delft University of Technology}
+\signname{
+  Jason K. Moore, PhD\\
+  Assistant Professor, BioMechanical Engineering\\
+  Delft University of Technology
+}
 \signimage{jkm-signature}
 
 % Reference top left
@@ -24,7 +27,7 @@ Engineering\\Delft University of Technology}
 
 \begin{document}
 \makeheader
-\opening{To Whom It May Concern,}
+\opening{Dear Reviewers,}
 
 Thank you for the careful review of our work. We have revised the paper to
 address your comments both for clarification of various methods and details and
@@ -42,11 +45,14 @@ improved version based on your feedback.
   each reviewer's specific concerns.
 \end{displayquote}
 
+We address each concern below and have included a copy of the updated
+manuscript with the changes highlighted for your convenience.
+
 \begin{displayquote}
-  Reviewer \#1: This paper describe attempt to reduce probability of falls by
-  providing electro-mechanical assistance to bicycles, which generally become
-  unstable at very low speeds. Using an electric bicycle with an assist motor
-  attached to the steering axis as the test vehicle, we first conducted
+  \textbf{Reviewer \#1}: This paper describe attempt to reduce probability of
+  falls by providing electro-mechanical assistance to bicycles, which generally
+  become unstable at very low speeds. Using an electric bicycle with an assist
+  motor attached to the steering axis as the test vehicle, we first conducted
   theoretical studies and confirmed that it can reach speeds of 2.9 km/h
   without a rider and 4.6 km/h with rigid rider. Furthermore, 26 young people
   participated in an experiment in which an external force was applied to the
@@ -124,7 +130,8 @@ pedal and place it on the ground to lessen or prevent a complete fall to the
 ground, so using that as an indicator for defining a fall seems justified. But
 we have a limited width treadmill, so as speed increases a perturbation will
 cause greater lateral deviations. If the wheel of the bicycle exits the width
-we had to stop the treadmill because it is not possible to recover
+we had to stop the treadmill for safety reasons. Neither of the fall modes on
+the treadmill are "extremely dangerous" or "dangerous".
 
 \begin{displayquote}
   According to the explanation of the experimental procedures, I understand
@@ -136,6 +143,15 @@ we had to stop the treadmill because it is not possible to recover
   also reflects this assumption. I would like you to add an explanation about
   this point in the experimental procedures or discussion section.
 \end{displayquote}
+
+The participants experienced 40 random force magnitudes after they experienced
+all force magnitudes in the threshold determiniation stage. So some forces were
+experienced more than once. We would have liked to remove the learning effect
+by letting the participants train for a long duration, but this was not
+practical. We choose to include a measure of learning in the statistics as an
+alternative.
+
+TODO : Did I change anything in the paper about this?
 
 \begin{displayquote}
   The direction of the perturbation is said to be random from left to right,
@@ -153,15 +169,23 @@ we had to stop the treadmill because it is not possible to recover
   explain.
 \end{displayquote}
 
+We did consider this and normalized the time series measurements to the sign of
+the perturbation as well as included the configuration at the time of
+perturbation as independent variables. We added text to clarify these things in
+Section 2.5.
+
 \begin{displayquote}
   The age range of the subjects is listed in 2.4 Protocol, but I would like the
   average age to be included as well.
 \end{displayquote}
 
+We have included the average age, albiet that four participants' ages were
+misplaced in the two years since we did this study.
+
 \begin{displayquote}
-  Reviewer \#2: This paper investigates the effectiveness of an automatic
-  balance-assist system designed to reduce falls at low speeds. The core
-  hypothesis is that a bicycle stabilized by an automatically controlled
+  \textbf{Reviewer \#2}: This paper investigates the effectiveness of an
+  automatic balance-assist system designed to reduce falls at low speeds. The
+  core hypothesis is that a bicycle stabilized by an automatically controlled
   steering motor will reduce the probability of a fall. To verify this
   hypothesis, a well-considered experiment was conducted, and the analysis of
   its results is clearly explained. However, there are some unclear points that
@@ -184,6 +208,12 @@ we had to stop the treadmill because it is not possible to recover
   for studying real-world low-speed accident scenarios.
 \end{displayquote}
 
+We have included citations to papers that discuss the types and nature of
+bicycle falls and expanded the text in Section 1 to better connect our study to
+real life falls. We also explain the force superposition principle of dynamics
+to argue that it matters little how the perturbation is delivered as long as we
+force the system into an unrecoverable state.
+
 \begin{displayquote}
   Section 2.4: Protocol on page 7
 
@@ -198,6 +228,13 @@ we had to stop the treadmill because it is not possible to recover
   fall process, though differing in degree?
 \end{displayquote}
 
+First, see the answer above to review \#1 as a partial response to your
+question. The two fall modes are not technically the same and do not simply
+differ in degree, but were necessary given the nature of the experimental
+design. We did not record the category of the fall mode, so it is not possible
+for us to investigate whether having a tenary factor instead of a binary one
+would reveal any more insight. We added text in Section 2.4 to make this clear.
+
 \begin{displayquote}
   Section 2.6: Statistics on page 11
 
@@ -208,6 +245,16 @@ we had to stop the treadmill because it is not possible to recover
   Therefore, the authors are required to present the statistical testing
   process for cluster mean centering.
 \end{displayquote}
+
+In Section 2.6, we have included the maximum intraclass correlation (ICC) of
+the models that include the participant as a random effect, which is 3\%.
+Including this random effect does lower the p-values by a small amount, since a
+bit more variation is accounted for, but we decided to use the more
+consertative approach and not include this random effect. The participants do
+not have appreciable variation in how they respond to the perturbations after
+the data is normalized per participant.
+
+TODO : Cite that this is the similar to other data in Marten's thesis.
 
 \begin{displayquote}
   Section 4.4: Rider Skill and Experience on page 14
@@ -222,6 +269,13 @@ we had to stop the treadmill because it is not possible to recover
   differences were considered in the analysis.
 \end{displayquote}
 
+We report the ICC of the multilevel model, as noted in the prior answer, to
+show that the variation in participants was not an important factor. We also
+were not interested in the differences among participants, we are only
+interested in whether the system reduces the probability of anyone to fall.
+The cluster mean centering removes the relative differences in the particpants
+perturbation resistance threshold.
+
 \begin{displayquote}
   Figure 2 on page 6
 
@@ -229,6 +283,10 @@ we had to stop the treadmill because it is not possible to recover
   figure itself, and move the detailed figure explanation into the main body
   text.
 \end{displayquote}
+
+We have shortened the figure caption but prefer that the figure is entirely
+understandable from itself and the caption. We hope this difference in style is
+not a major concern.
 
 \closing{Sincerely,}
 \end{document}
