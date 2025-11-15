@@ -8,9 +8,13 @@ Alizadehsaravi, and Jason K. Moore
 
 View the preprint on engrXiv: https://doi.org/10.31224/4003
 
+View the latest HTML version of the paper here:
+
+https://mechmotum.github.io/fall-probability-paper
+
 View the latest draft PDF versions here:
 
-https://github.com/mechmotum/fall-probability-paper/blob/gh-pages/main.pdf
+https://mechmotum.github.io/fall-probability-paper/HaitjemaAlizadehSaraviMoore2024.pdf
 
 # License
 
