@@ -138,7 +138,7 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 color='black',
                 linestyle='--',
             )
-            axs[0].set_ylabel("Bump'Em\nHandlebar\nTorque\n[Nm]")
+            axs[0].set_ylabel("Bump'Em\nHandlebar\nTorque\n[Nm]", fontsize=8)
             axs[0].legend(fontsize="x-small")
 
             df['roll_angle_times_10'] = df['roll_angle']*10.0
@@ -146,10 +146,10 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 x="seconds_since_start",
                 y="roll_angle_times_10",
                 ax=axs[1],
-                ylabel="Angle\n[deg]",
                 label="Roll X 10",
                 color='black',
             )
+            axs[1].set_ylabel("Angle\n[deg]", fontsize=8)
             axs[1].plot(0.0, df['roll_angle_times_10'].iloc[0],
                         'o',
                         fillstyle='none',
@@ -174,10 +174,10 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 x="seconds_since_start",
                 y="roll_rate",
                 ax=axs[2],
-                ylabel="Roll Rate\n[deg/s]",
                 legend=False,
                 color='black',
             )
+            axs[2].set_ylabel("Roll Rate\n[deg/s]", fontsize=8)
             if "motor_current" in df.columns.values:
                 #com_torque = -30.35*np.deg2rad(df['roll_rate'])
                 #axs[3].plot(df['seconds_since_start'], com_torque,
@@ -189,11 +189,11 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 df.plot(
                     x="seconds_since_start", y="motor_torque",
                     ax=axs[3],
-                    ylabel="Commanded\nMotor Torque\n[Nm]",
                     label='__none__',
                     legend=False,
                     color='black',
                 )
+                axs[3].set_ylabel("Commanded\nMotor Torque\n[Nm]", fontsize=8)
                 axs[3].legend(fontsize="x-small")
             # 1.7 m/s is 6 km/h
             #axs[4].axhline(1.7, color='black', linestyle='--')
@@ -211,16 +211,16 @@ def generate_torque_angle_plots(perturbations_dfs, directory):
                 y="speed",
                 ax=axs[4],
                 xlabel="Time since start of perturbation [s]",
-                ylabel="Speed\n[m/s]",
                 label='__none__',
                 legend=False,
                 color='black',
             )
+            axs[4].set_ylabel("Speed\n[m/s]", fontsize=8)
             sax = axs[4].secondary_yaxis('right',
                                          functions=(
                                              lambda x: x*MPS2KPH,
                                              lambda x: x*KPH2MPS))
-            sax.set_ylabel('Speed\n[km/h]')
+            sax.set_ylabel('Speed\n[km/h]', fontsize=8)
             axs[4].legend(fontsize="x-small")
 
             for ax in axs:
