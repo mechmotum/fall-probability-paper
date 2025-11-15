@@ -250,13 +250,13 @@ control law
   \label{eq:implemented-controller}
 \end{align}
 %
-where \(v_{\textrm{stable}} = 4.7~\si{\meter\per\second}\) is approximately the
-average stable speed predicted from the open-loop bicycle rigid-rider dynamics.
-We use the gain factor \(\kappa=3.9\) (low) and \(\kappa=5.2\) (high) to tune
-the gain magnitude during the experiments. Figure~\ref{fig:eigenvalues} shows
-the stabilization effect of the controller via the eigenmodes of the linear
-system. Geometric and inertial parameters for these plots were estimated with
-the methods presented in \citet{Moore2012} and software packages
+where \(v_{\textrm{stable}} = 4.7~\si{\mps}\) is approximately the average
+stable speed predicted from the open-loop bicycle rigid-rider dynamics.  We use
+the gain factor \(\kappa=3.9\) (low) and \(\kappa=5.2\) (high) to tune the gain
+magnitude during the experiments. Figure~\ref{fig:eigenvalues} shows the
+stabilization effect of the controller via the eigenmodes of the linear system.
+Geometric and inertial parameters for these plots were estimated with the
+methods presented in \citet{Moore2012} and software packages
 BicycleParameters~1.1.1~\citep{Moore2024} and Yeadon~1.5.0~\citep{Dembia2015}
 and are shown in Appendix~\ref{sec:physical-parameters}.
 
@@ -305,12 +305,12 @@ external pulsive torque to the front frame at magnitudes varying from
 \SIrange{16}{160}{\newton\meter}. The four motors are arranged at the four
 corners of a 1~\si{\meter} wide by 2~\si{\meter} long treadmill (Bonte
 Technology B.V., Zwolle, The Netherlands) that can reach speeds up to
-18~\si{\kilo\meter\per\hour}. The general design of this perturbation system is
-described in detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and
-the physical arrangement is shown in Figure~\ref{fig:participant-in-set-up}.
-Our modifications relative to Van De Velde's design include simplifying the
-Bump'Em motor controller with an inexpensive microcontroller and the use of a
-simpler non-active safety harness.
+18~\si{\kph}. The general design of this perturbation system is described in
+detail in Van De Velde's MSc thesis~\citep{vandeVelde2022a} and the physical
+arrangement is shown in Figure~\ref{fig:participant-in-set-up}.  Our
+modifications relative to Van De Velde's design include simplifying the Bump'Em
+motor controller with an inexpensive microcontroller and the use of a simpler
+non-active safety harness.
 %
 % NOTE : I get a compile error without the \protect calls here, not sure why.
 \begin{figure}
