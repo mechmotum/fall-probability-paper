@@ -11,7 +11,6 @@ iatss:
 	cp figures/*.jpg iatss/
 	cp main.tex iatss/
 	cp references.bib iatss/references.bib
-	sed -i 's/doi = {\(.*\)},/note = {doi:~{\1}},/g' iatss/references.bib
 	sed -i 's/_/\\_/g' iatss/references.bib
 	sed -i 's/figures\///g' iatss/main.tex
 figures/balance-assist-eig-vs-speeds.png: src/control.py
