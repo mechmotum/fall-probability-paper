@@ -30,8 +30,6 @@ license(s).
 - Minimize committing binary objects (like pngs). The preference is to generate
   them with a reproducible script.
 - Use booktabs for the table formatting.
-- Use BibLatex with the natbib option and numbered citation settings for
-  variations on citations.
 - subcaption is available for subfigures
 - Use siunitx for units (note the `\kph` and `\mps` custom definitions)
 
@@ -39,8 +37,8 @@ license(s).
 
 There is a shared Zotero collection that is used to generate the bib file using
 the Zotero betterbibtex extension. Export the collection with the "Better
-BibLaTex" option to get a valid bib file and overwrite the `references.bib`
-file with the export to update the bib file.
+BibTex" option to get a valid bib file and overwrite the `references.bib` file
+with the export to update the bib file.
 
 Link to the collection (need to be in the mechmotum group):
 
@@ -58,12 +56,3 @@ make
 
 A Github workflow builds the PDF on each commit to master using this action:
 https://github.com/marketplace/actions/github-action-for-latex.
-
-# IATSS Submission Generation
-
-IATSS uses Editorial Manager which does not play nicely (or at all) with
-BibLaTeX, so we have to convert to a plain bibtex submission for it to work.
-
-First, a second bib fill called `references-iatss-bibtex.bib` is generated with
-the Zotero export as "Better BibTex" (not biblatex). Then run `make iatss` to
-create a new flat folder with the files ready for the submission to IATSS.
