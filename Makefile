@@ -1,6 +1,6 @@
 main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
 	pdflatex main.tex
-	biber main
+	bibtex main
 	pdflatex main.tex
 	pdflatex main.tex
 fixlme4: references.bib
@@ -30,7 +30,7 @@ clearpdf:
 	rm paper.pdf
 clean:
 	(rm -rf *.bcf *.fdb_latexmk *synctex.gz *.run.xml *.fls *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *.out)
-	rm figures/balance-assist-gain-8-eig-vs-speeds.png
+	rm figures/balance-assist-eig-vs-speeds.png
 	rm figures/bicycle-with-geometry-mass.png
 	rm figures/gains-vs-speed.png
 	rm figures/pd-simulation.png
