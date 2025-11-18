@@ -381,20 +381,20 @@ characterize that participant's \emph{perturbation resistance threshold}.
 \end{figure}
 
 Following the initial threshold determination where the participant experienced
-a full range of perturbation magnitudes, we then choose perturbation forces
+a range of perturbation magnitudes, we then choose perturbation forces
 according to a random and adaptive staircase procedure applying perturbations
 above and below the initial perturbation threshold, while allowing small
 progression of the perturbation threshold to accommodate learning effects. We
 did not try to eliminate learning effects due to the time per participant that
-would be required, but factored this into the later analysis as an alternative.
-Five possible perturbation forces are determined based on the initial
-perturbation threshold estimate: the initial estimate itself, two perturbations
-lower than the initial estimate, and two perturbations higher than the initial
-estimate.  The five possible perturbations are separated by 10~\si{\newton}
-steps. For example, if the initial estimate of the perturbation threshold of a
-participant is 80~\si{\newton}, the five possible perturbations are 60, 70, 80,
-90 and 100~\si{\newton}. Which one of these five perturbations is chosen first
-is determined at random. If the perturbation results in a fall, the estimate of
+would be required, but factored this into the later statistical analysis.  Five
+possible perturbation forces are determined based on the initial perturbation
+threshold estimate: the initial estimate itself, two perturbations lower than
+the initial estimate, and two perturbations higher than the initial estimate.
+The five possible perturbations are separated by 10~\si{\newton} steps. For
+example, if the initial estimate of the perturbation threshold of a participant
+is 80~\si{\newton}, the five possible perturbations are 60, 70, 80, 90 and
+100~\si{\newton}. Which one of these five perturbations is chosen first is
+determined at random. If the perturbation results in a fall, the estimate of
 the perturbation threshold is decreased by 10~\si{\newton}, and vice versa if
 the perturbation did not result in a fall. Five new possible perturbation
 forces are determined around the updated perturbation threshold, and a new
@@ -539,28 +539,31 @@ Table~\ref{tab:stat-model-variables} except \(f\).
   \label{eq:log-regress}
 \end{align}
 
-Before fitting the model, we scale each independent variable \(x_{ij}^k\) such
-that they have a mean of zero and a standard deviation of one by cluster-mean
-centering with clusters being an individual participant, as recommended by
-\cite{Enders2007}. The clusters are chosen as all data from an individual
-participant because we are only interested in the association between the state
-of the balance assist system and the outcome of the perturbation for that
-participant, not how participants perform relative to each other. We expected
-there to be variation between participants in how well they are able to resist
-the perturbation; however, this was not true. If a random effect is included in
-the model for each participant, the intraclass correlation (ICC) is less that
-3\% for both the 6~\si{\kph} and 10~\si{\kph} datasets, so we utilize a simple
-single-level logistic regression model without the random effect instead of a
-multilevel model. This tracks with the independent data collected in
-\cite{Haitjema2023a} which also had negligible participant variation. This left
-us with angular impulse, perturbation order, balance assist state, and roll \&
-steer angles at the time of perturbation as independent variables. We also
-include interaction effects between the balance assist state and the other four
-variables. We divide the analysis into two separate model evaluations, one for
-the 6~\si{\kph}, \(\kappa=5.2\) trials and one for the 10~\si{\kph},
-\(\kappa=3.9\) trials and we evaluate our hypothesis for each set of data.
-Statistics were computed with R version 4.1.3~\cite{RCoreTeam2021} the lme4
-version 1.1~\cite{Bates2015} package.
+Due to data quality issues that prevented time synchronization of the
+measurements, we excluded one participant from the 6~\si{\kps} dataset and one
+from the 10~\si{\kps} dataset, leaving 10 and 14 included participants with 40
+perturbations each. Before fitting the model, we scale each independent
+variable \(x_{ij}^k\) such that they have a mean of zero and a standard
+deviation of one by cluster-mean centering with clusters being an individual
+participant, as recommended by \cite{Enders2007}. The clusters are chosen as
+all data from an individual participant because we are only interested in the
+association between the state of the balance assist system and the outcome of
+the perturbation for that participant, not how participants perform relative to
+each other. We expected there to be variation between participants in how well
+they are able to resist the perturbation; however, this was not true. If a
+random effect is included in the model for each participant, the intraclass
+correlation (ICC) is less that 3\% for both the 6~\si{\kph} and 10~\si{\kph}
+datasets, so we utilize a simple single-level logistic regression model without
+the random effect instead of a multilevel model. This tracks with the
+independent data collected in \cite{Haitjema2023a} which also had negligible
+participant variation. This left us with angular impulse, perturbation order,
+balance assist state, and roll \& steer angles at the time of perturbation as
+independent variables. We also include interaction effects between the balance
+assist state and the other four variables. We divide the analysis into two
+separate model evaluations, one for the 6~\si{\kph}, \(\kappa=5.2\) trials and
+one for the 10~\si{\kph}, \(\kappa=3.9\) trials and we evaluate our hypothesis
+for each set of data.  Statistics were computed with R version
+4.1.3~\cite{RCoreTeam2021} the lme4 version 1.1~\cite{Bates2015} package.
 
 \section{Results}
 %
