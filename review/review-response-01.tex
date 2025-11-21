@@ -30,9 +30,9 @@
 \opening{Dear Reviewers,}
 
 Thank you for the careful review of our work. We have revised the paper to
-address your comments both for clarification of various methods and details and
-providing background and support for some of our choices. The revision is an
-improved version based on your feedback.
+address your comments both for clarification of various methods and details as
+well as providing background and support for some of our choices. The revision
+is an improved version based on your feedback.
 
 \begin{displayquote}
   Editor:Thank you once more for your submission to IATSS Research. The
@@ -87,18 +87,18 @@ manuscript with the changes highlighted for your convenience.
 The steer motor system was developed by Bosch eBike systems and is a
 proprietary, thus we are not privy to the fine details of its operation. We
 have not performed our own motor testing, as that is not generally our
-expertise or concern. But we have now included extra vehicle performance tests
+expertise or interest. But we have now included extra vehicle performance tests
 in the form of weave mode identification of the rider-less bicycle. Figure 2
 has been reworked to show the transient behavior of the steer motor controlled
 bicycle compared to the theoretical model's predictions. For the two testing
 speeds we set the controller gain factor to different values. We now show the
 gain factors needed in the ideal bicycle dynamics model to cause matching
 motion of the actual system. Note that these gain factors 3.9 and 5.2 are
-different than the prior paper version of 8 and 10, respecitively. The reason
+different than the prior paper version of 8 and 10, respectively. The reason
 for this is that the model does not include the motor dynamics (motor constant
 or winding resistance), nor does it include the scrub torque effect of the tire
 on the ground. The approximate factor of 2 difference in the gain factor
-accounts for these unmodeled effects. The gain factor of 8 and 10 are the
+accounts for these un-modeled effects. The gain factor of 8 and 10 are the
 values we employ in the microcontroller of the real system. We hope that this
 proves 1) that our model can predict the steer controlled bicycle's motion and
 2) gives an idea of the performance of the controlled vehicle. We have adapted
@@ -122,16 +122,17 @@ the text in section 2.2 to explain this.
 \end{displayquote}
 
 The two modes of falling are different. We have added more information in
-section 2.4 to explain these two modes. If the particpants were cycling on an
+section 2.4 to explain these two modes. If the participants were cycling on an
 infinite plane and we perturb them to fall, then we would strictly use body
-contact with the ground as the criteria to define a fall. We have cited
+contact with the ground as the criteria to define a fall. We have now cited
 research that indicates riders often attempt to remove their foot from the
 pedal and place it on the ground to lessen or prevent a complete fall to the
 ground, so using that as an indicator for defining a fall seems justified. But
 we have a limited width treadmill, so as speed increases a perturbation will
 cause greater lateral deviations. If the wheel of the bicycle exits the width
 we had to stop the treadmill for safety reasons. Neither of the fall modes on
-the treadmill are "extremely dangerous" or "dangerous".
+the treadmill are "extremely dangerous" or "dangerous", based on our
+experience, so we did not consider this aspect.
 
 \begin{displayquote}
   According to the explanation of the experimental procedures, I understand
@@ -145,13 +146,11 @@ the treadmill are "extremely dangerous" or "dangerous".
 \end{displayquote}
 
 The participants experienced 40 random force magnitudes after they experienced
-all force magnitudes in the threshold determiniation stage. So some forces were
+all force magnitudes in the threshold determination stage. So some forces were
 experienced more than once. We would have liked to remove the learning effect
 by letting the participants train for a long duration, but this was not
 practical. We choose to include a measure of learning in the statistics as an
-alternative.
-
-TODO : Did I change anything in the paper about this?
+alternative. We have now noted this in Section 2.4.
 
 \begin{displayquote}
   The direction of the perturbation is said to be random from left to right,
@@ -179,8 +178,9 @@ Section 2.5.
   average age to be included as well.
 \end{displayquote}
 
-We have included the average age, albiet that four participants' ages were
-misplaced in the two years since we did this study.
+We have included the average age, albeit that four participants' ages were
+misplaced in the two years since we did this study, which is declared in a
+footnote.
 
 \begin{displayquote}
   \textbf{Reviewer \#2}: This paper investigates the effectiveness of an
@@ -208,7 +208,7 @@ misplaced in the two years since we did this study.
   for studying real-world low-speed accident scenarios.
 \end{displayquote}
 
-We have included citations to papers that discuss the types and nature of
+We have now included citations to papers that discuss the types and nature of
 bicycle falls and expanded the text in Section 1 to better connect our study to
 real life falls. We also explain the force superposition principle of dynamics
 to argue that it matters little how the perturbation is delivered as long as we
@@ -228,12 +228,13 @@ force the system into an unrecoverable state.
   fall process, though differing in degree?
 \end{displayquote}
 
-First, see the answer above to review \#1 as a partial response to your
-question. The two fall modes are not technically the same and do not simply
-differ in degree, but were necessary given the nature of the experimental
-design. We did not record the category of the fall mode, so it is not possible
-for us to investigate whether having a tenary factor instead of a binary one
-would reveal any more insight. We added text in Section 2.4 to make this clear.
+First, see the answer above to reviewer \#1's similar question as a partial
+response to this question. The two fall modes are not technically the same and
+do not simply differ in degree, but were necessary given the nature of the
+experimental design. We did not record the category of the fall mode, so it is
+not possible for us to investigate whether having a ternary factor instead of a
+binary one would reveal any more insight. We added text in Section 2.4 to make
+this clear.
 
 \begin{displayquote}
   Section 2.6: Statistics on page 11
@@ -250,7 +251,7 @@ In Section 2.6, we have included the maximum intraclass correlation (ICC) of
 the models that include the participant as a random effect, which is 3\%.
 Including this random effect does lower the p-values by a small amount, since a
 bit more variation is accounted for, but we decided to use the more
-consertative approach and not include this random effect. The participants do
+conservative approach and not include this random effect. The participants do
 not have appreciable variation in how they respond to the perturbations after
 the data is normalized per participant. This lack of variation was also
 observed in the independent dataset collected in Marten Haitjema's MSc thesis.
@@ -272,8 +273,8 @@ We report the ICC of the multilevel model, as noted in the prior answer, to
 show that the variation in participants was not an important factor. We also
 were not interested in the differences among participants, we are only
 interested in whether the system reduces the probability of anyone to fall.
-The cluster mean centering removes the relative differences in the particpants
-perturbation resistance threshold.
+The cluster mean centering removes the relative differences in the
+participants' perturbation resistance threshold.
 
 \begin{displayquote}
   Figure 2 on page 6
@@ -284,6 +285,9 @@ perturbation resistance threshold.
 \end{displayquote}
 
 We have shortened the figure caption and added a legend.
+
+We hope that these changes satisfy your concerns and look forward to your
+further feedback.
 
 \closing{Sincerely,}
 \end{document}
