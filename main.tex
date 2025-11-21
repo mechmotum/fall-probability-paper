@@ -65,9 +65,9 @@ bicycle, fall prevention, automatic control, stability
 Single-actor bicycle crashes are associated with a surprisingly large
 percentage (\textgreater80\%) of reported serious injuries in The Netherlands
 and values range between 50\% and 95\% in other surveyed
-countries~\cite{Wegman2024}. Utriainen, O’Hern, and
+countries~\cite{Wegman2024}. Utriainen, O'Hern, and
 Pöllänen~\cite{Utriainen2023} report that slippery surfaces, simple loss of
-control, and engagement with a curb, pothole, or bollard are most the common
+control, and engagement with a curb, pothole, or bollard are the most common
 fall types in the seven reported countries. Most of these types involve
 perturbations that result in loss of balance. At low speeds, from start up to
 typical cruising speeds, bicycles are not self-stable and can be challenging
@@ -91,11 +91,11 @@ fall.
   \includegraphics[width=80mm]{figures/balance-assist-bicycle.jpg}
   \caption{Balance assist bicycle prototype with electric motor in the steering
     column and data acquisition and control electronics mounted in the rear
-    rack first introduced in \cite{Alizadehsaravi2023}.}
+    rack; first introduced in \cite{Alizadehsaravi2023}.}
   \label{fig:balance-assist-bicycle}
 \end{figure}
 
-Riders fall when their control authority is not able to maintain a stable
+Riders fall when their control authority is not sufficient to maintain a stable
 vehicle state. There are many real world scenarios that can put the vehicle
 into an uncontrollable state. External forces applied to the vehicle or rider
 are one such scenario type and natural examples include wind gusts, handlebars
@@ -107,8 +107,8 @@ where the perturbation is applied but that it results in forcing the
 bicycle-rider system into an unrecoverable state, as all forces acting on a
 dynamical system can be resolved into an equivalent force and torque of a
 couple at any location in the system~\cite{Kane1985}. We chose to perturb the
-handlebar because of this superposition principle and that it was both
-practical and required a low force to cause a fall.
+handlebar because of this superposition principle, it was practical, and it
+required a low force to cause a fall.
 
 In this paper~\footnote{Also available as a preprint \cite{Haitjema2025}.}, we
 investigate whether an automatically controlled bicycle, that is stable in a
@@ -122,7 +122,7 @@ with the balance assist system on and off.
 %
 During the early years of developments in automatic control,
 Whipple~\cite{Whipple1899} not only derived the correct equations of motion of
-the bicycle \cite{Meijaard2007} but realized and showed that roll motion
+the bicycle~\cite{Meijaard2007} but realized and showed that roll motion
 feedback can stabilize a bicycle. Much later, attempts at automatic roll
 stabilization of single-track vehicles began in earnest after predictive
 motorcycle models were developed and refined throughout the 1970s. Van
@@ -266,13 +266,13 @@ bicycle down to 3.4~\si{\kph} for the riderless bicycle and 8.0~\si{\kph} for
 the ridden bicycle. For the 10~\si{\kph} experiment, it stabilizes the normally
 unstable weave mode of the bicycle down to 3.8~\si{\kph} for the riderless
 bicycle and 9.7~\si{\kph} for the ridden bicycle as shown in
-Figure~\ref{fig:eigenvalues}. Notably, the bicycle is not stable at 6~\si{\kph}
-but the time constant of the unstable eigenvalue is increased by a factor of 8
-and at 10~\si{\kph} the system is just stable. Figure~\ref{fig:eigenvalues}
-also shows the identified weave mode captured using the methods of
-Kooijman~et~al.~\cite{Kooijman2009a} and gives an indication of the performance
-of the system, with the model predicting the weave mode well the region of the
-tested speeds.
+Figure~\ref{fig:eigenvalues}. Notably, the controlled bicycle is not stable at
+6~\si{\kph} but the time constant of the unstable eigenvalue is increased by a
+factor of eight and at 10~\si{\kph} the system is just stable.
+Figure~\ref{fig:eigenvalues} also shows the identified weave mode captured
+using the methods of Kooijman~et~al.~\cite{Kooijman2009a} and gives an
+indication of the performance of the system, with the model predicting the
+weave mode well the region of the tested speeds.
 %
 \begin{figure}
   \centering
@@ -358,7 +358,7 @@ places it on the ground or 2) the bicycle wheel exceeds the width of the
 treadmill belt. These two fall criteria are not strictly the same and the
 latter is more likely to happen at higher speeds. We informed the participants
 beforehand that we would stop the treadmill in these situations. These were the
-two actions which necessitated stopping the treadmill belt and the simulate
+two actions which necessitated stopping the treadmill belt and they simulate
 real fall modes. Placing a foot down on the fall side of the bicycle is a
 natural reaction when steering or other body movements are not sufficient to
 keep the bicycle upright, as shown in \cite{Gildea2024}. Exiting the width of
@@ -463,8 +463,8 @@ setting on the balance assist controller indicates if the assistance is off
 \(\kappa=0\) or on at two different levels: low \(\kappa=3.9\) or high
 \(\kappa=5.2\). As mentioned earlier, a recovery from the perturbation is
 successful if the person neither places their foot down onto the treadmill
-surface nor their wheel of the bicycle exits the width of the treadmill belt.
-We record this as a binary variable \(f\) for ``fall''.  All measured variables
+surface nor the wheel of the bicycle exits the width of the treadmill belt.  We
+record this as a binary variable \(f\) for ``fall''.  All measured variables
 are reported in Table~\ref{tab:raw}.
 %
 \begin{table}
@@ -540,8 +540,8 @@ Table~\ref{tab:stat-model-variables} except \(f\).
 \end{align}
 
 Due to data quality issues that prevented time synchronization of the
-measurements, we excluded one participant from the 6~\si{\kps} dataset and one
-from the 10~\si{\kps} dataset, leaving 10 and 14 included participants with 40
+measurements, we excluded one participant from the 6~\si{\kph} dataset and one
+from the 10~\si{\kph} dataset, leaving 10 and 14 included participants with 40
 perturbations each. Before fitting the model, we scale each independent
 variable \(x_{ij}^k\) such that they have a mean of zero and a standard
 deviation of one by cluster-mean centering with clusters being an individual
@@ -586,7 +586,7 @@ to calculate the probability of falling.
   \label{tab:freq-coefs-6}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & \(\beta\) / \(\alpha_k\) & SE & \(p\) & \(e^{\beta}\) / \(e^{\alpha_k}\) & 2.5\% & 97.5\% \\
+    Variable & \(\beta\) or \(\alpha_k\) & SE & \(p\) & \(e^{\beta}\) or \(e^{\alpha_k}\) & 2.5\% & 97.5\% \\
     \midrule
     Intercept \(\beta\)                           & -0.29 & 0.17 & 0.09 & 0.75 & 0.53 & 1.05 \\
     Angular impulse \(L\)                         & 1.69 & 0.27 & 0.00\(^*\) & 5.40 & 3.18 & 9.16 \\
@@ -609,9 +609,9 @@ statistically significant predictors with angular impulse being the dominant
 effect. Larger angular impulse increases the probability to fall and enduring
 more perturbations decreases the probability to fall. Unlike the 6~\si{\kph}
 trials, the balance assist state is not a significant predictor (\(p=0.07\))
-but the effect would be a reduction in the probability to fall if it were. At
-both speeds, the angular impulse has about twice the magnitude in effect as the
-perturbation order.
+for our \(p\)-value threshold but the effect would be a reduction in the
+probability to fall if it were. At both speeds, the angular impulse has about
+twice the magnitude in effect as the perturbation order.
 %
 \begin{table}
   \centering
@@ -622,7 +622,7 @@ perturbation order.
   \label{tab:freq-coefs-10}
   \begin{tabular}{lrrrrrr}
     \toprule
-    Variable & \(\beta\) / \(\alpha_k\) & SE & \(p\) & \(e^{\beta}\) / \(e^{\alpha_k}\) & 2.5\% & 97.5\% \\
+    Variable & \(\beta\) or \(\alpha_k\) & SE & \(p\) & \(e^{\beta}\) or \(e^{\alpha_k}\) & 2.5\% & 97.5\% \\
     \midrule
     Intercept                & -0.24 & 0.16 & 0.13 & 0.78 & 0.57 & 1.07 \\
     Angular impulse \(L\)    & 2.39  & 0.29 & 0.00\(^*\) & 10.92 & 6.23 & 19.13 \\
@@ -657,7 +657,7 @@ on. The skewness of the probability curves arrives from the interaction
 effects. Figure~\ref{fig:probability-10kph} shows the same result for the
 10~\si{\kph} trials which has a similar trend of reducing the probability to
 fall with the balance assist system turned on, but the effect is not
-significant.
+significant \((p=0.07 > 0.05)\).
 %
 \begin{figure}
   \centering
@@ -705,14 +705,14 @@ unstable eigenvalue real parts correlates to ease of control~\cite{Hess2012}
 which can be beneficial for avoiding falls.
 
 The controller design we utilize, Equation~\ref{eq:implemented-controller},
-also increases the weave mode frequency by a factor of about three in a
-bandwidth of about 1~\si{\hertz}. This bandwidth is still controllable by the
-human's neuromuscular system~\cite{Magdaleno1971}, but may feel unusual as it
-is more akin to what the steering would feel like at in the
-\SIrange{30}{40}{\kph} speed range for a normal bicycle. Hanakam, Wehner, and
-Wrede~\cite{Hanakam2023} reported dissatisfaction in subjective rider feeling
-on their similar bicycle to ours and this high frequency effect to the
-human-controlled plant dynamics could be an explanation to their findings.
+also increases the weave mode frequency by a factor of about three to almost
+1~\si{\hertz}. This bandwidth is still controllable by the human's
+neuromuscular system~\cite{Magdaleno1971}, but may feel unusual as it is more
+akin to what the steering would feel like at 25~\si{\kph} for a normal bicycle.
+Hanakam, Wehner, and Wrede~\cite{Hanakam2023} reported dissatisfaction in
+subjective rider feeling on their similar bicycle to ours and this high
+frequency effect to the human-controlled plant dynamics could be an explanation
+to their findings.
 
 \subsection{Utility of the Logistic Model and Extrapolation to Natural Falls}
 %
@@ -948,8 +948,8 @@ These are found using the measurement approach for geometric and inertial
 parameters for a bicycle explained in \cite{Moore2012}. The rider inertial
 parameters are derived from the 83.5~\si{\kilogram} rider ``Jason'' available
 in BicycleParameters~1.1.1~\cite{Moore2024}. The variable names match the
-notation and definitions from the benchmark bicycle model presented in
-\cite{Meijaard2007}.
+notation and definitions from the benchmark bicycle model presented
+in~\cite{Meijaard2007}.
 %
 \begin{table}[ht]  % have to use "h" so that it stays within the appendix
   \centering
