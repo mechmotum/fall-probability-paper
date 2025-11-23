@@ -8,7 +8,7 @@
 \signimage{jkm-signature}
 
 % Reference top left
-\date{17 november 2025}
+\date{23 november 2025}
 \ourref{NA}
 \yourref{NA}
 \contact{Jason K. Moore}
@@ -17,13 +17,13 @@
 \subject{IATSS Review Response}
 
 % Recipient left under reference
-\toname{IATSS Editor}
-\toaddress{}
+\toname{Editor}
+\toaddress{International Association of\\Traffic and Safety Sciences}
 
 % Sender right under logo
 \fromname{Faculty of Mechanical Engineering\\BioMechanical Engineering}
 \fromaddress{Mekelweg 2\\2628 CD Delft\\The Netherlands}
-\frompobox{NA}
+%\frompobox{}
 
 \begin{document}
 \makeheader
@@ -35,8 +35,8 @@ well as providing background and support for some of our choices. The revision
 is an improved version based on your feedback.
 
 \begin{displayquote}
-  Editor:Thank you once more for your submission to IATSS Research. The
-  reviewers have now completed their assessment of your manuscript and have
+  \textbf{Editor}: Thank you once more for your submission to IATSS Research.
+  The reviewers have now completed their assessment of your manuscript and have
   recommended major revisions before the manuscript is being considered for
   publication. I recommend you read carefully the reviewers' suggestions and
   prepare a detailed response to be submitted along your revised manuscript. To
@@ -84,36 +84,36 @@ manuscript with the changes highlighted for your convenience.
   the paper to provide more information on the assist system.
 \end{displayquote}
 
-The steer motor system was developed by Bosch eBike systems and is a
-proprietary, thus we are not privy to the fine details of its operation. We
-have not performed our own motor testing, as that is not generally our
-expertise or interest. But we have now included extra vehicle performance tests
-in the form of weave mode identification of the rider-less bicycle. Figure 2
-has been reworked to show the transient behavior of the steer motor controlled
-bicycle compared to the theoretical model's predictions. For the two testing
-speeds we set the controller gain factor to different values. We now show the
-gain factors needed in the ideal bicycle dynamics model to cause matching
-motion of the actual system. Note that these gain factors 3.9 and 5.2 are
-different than the prior paper version of 8 and 10, respectively. The reason
-for this is that the model does not include the motor dynamics (motor constant
-or winding resistance), nor does it include the scrub torque effect of the tire
-on the ground. The approximate factor of 2 difference in the gain factor
-accounts for these un-modeled effects. The gain factor of 8 and 10 are the
-values we employ in the microcontroller of the real system. We hope that this
-proves 1) that our model can predict the steer controlled bicycle's motion and
-2) gives an idea of the performance of the controlled vehicle. We have adapted
-the text in section 2.2 to explain this.
+The steer motor was developed by Bosch eBike Systems and is a proprietary, thus
+we are not privy to the fine details of its operation. We have not performed
+our own motor testing, as that is not generally our expertise or interest. But
+we have now included extra vehicle performance tests in the form of weave mode
+identification of the rider-less bicycle. Figure 2 has been reworked to show
+the transient behavior of the steer motor controlled bicycle compared to the
+theoretical model's predictions. For the two testing speeds we set the
+controller gain factor to different values. We now show the gain factors needed
+in the ideal bicycle dynamics model to cause matching motion of the actual
+system. Note that these gain factors 3.9 and 5.2 are different than the prior
+paper version of 8 and 10, respectively. The reason for this is that the model
+does not include the motor dynamics (motor constant or winding resistance), nor
+does it include the scrub torque effect of the tire on the ground. The
+approximate factor of 2 difference in the gain factor accounts for these
+un-modeled effects. The gain factor of 8 and 10 are the values we employ in the
+microcontroller of the real system. We hope that this proves 1) that our model
+can predict the steer controlled bicycle's motion and 2) gives an idea of the
+performance of the controlled vehicle. We have adapted the text in section 2.2
+to explain this.
 
 \begin{displayquote}
-  In this study, a fall is defined as both "putting one's foot on the ground"
-  and "exceeds the width of treadmill", but there is insufficient explanation
-  for this. In 4.2, the relationship between "exceeds the width of treadmill"
-  and actual falls is discussed, but the explanation for "putting one's foot on
-  the ground" is insufficient. "Putting one's foot on the ground" seem to occur
-  with a much milder degree of instability than "exceeds the width of
-  treadmill". In the actual experimental situation, "putting one's foot on the
-  ground" may have been extremely dangerous, equivalent to "exceeds the width
-  of treadmill", but this is not clear from the manuscript. I would like this
+  In this study, a fall is defined as both ``putting one's foot on the ground''
+  and ``exceeds the width of treadmill'', but there is insufficient explanation
+  for this. In 4.2, the relationship between ``exceeds the width of treadmill''
+  and actual falls is discussed, but the explanation for ``putting one's foot
+  on the ground'' is insufficient. ``Putting one's foot on the ground'' seem to
+  occur with a much milder degree of instability than ``exceeds the width of
+  treadmill''. In the actual experimental situation,``putting one's foot on the
+  ground'' may have been extremely dangerous, equivalent to ``exceeds the width
+  of treadmill'', but this is not clear from the manuscript. I would like this
   point to be described in the Methods or Discussion section. Furthermore, the
   occurrence of such dangerous situations is strongly related to the
   instructions given to subjects beforehand. I would like the Methods section
@@ -127,11 +127,11 @@ infinite plane and we perturb them to fall, then we would strictly use body
 contact with the ground as the criteria to define a fall. We have now cited
 research that indicates riders often attempt to remove their foot from the
 pedal and place it on the ground to lessen or prevent a complete fall to the
-ground, so using that as an indicator for defining a fall seems justified. But
-we have a limited width treadmill, so as speed increases a perturbation will
-cause greater lateral deviations. If the wheel of the bicycle exits the width
-we had to stop the treadmill for safety reasons. Neither of the fall modes on
-the treadmill are "extremely dangerous" or "dangerous", based on our
+ground, so using that as an indicator for defining a fall is justified. But we
+have a limited width treadmill, so as speed increases a perturbation will cause
+greater lateral deviations. If the wheel of the bicycle exits the width we had
+to stop the treadmill for safety reasons. Neither of the fall modes on the
+treadmill are ``extremely dangerous'' or ``dangerous'', based on our
 experience, so we did not consider this aspect.
 
 \begin{displayquote}
@@ -170,8 +170,10 @@ alternative. We have now noted this in Section 2.4.
 
 We did consider this and normalized the time series measurements to the sign of
 the perturbation as well as included the configuration at the time of
-perturbation as independent variables. We added text to clarify these things in
-Section 2.5.
+perturbation as independent variables. A variable could be included to indicate
+if a perturbation was preceded by the same sign perturbation or not, but we
+have chosen not to include this, as it was not in our original hypothesis. We
+added text to clarify these things in Section 2.5.
 
 \begin{displayquote}
   The age range of the subjects is listed in 2.4 Protocol, but I would like the
@@ -194,9 +196,9 @@ footnote.
 
   Section 1: Introduction on page 3
 
-  Regarding low-speed accidents, the authors state that "single-vehicle
+  Regarding low-speed accidents, the authors state that ``single-vehicle
   accidents are associated with a surprisingly high proportion of reported
-  serious injuries," citing examples that can cause loss of control, such as
+  serious injuries,'' citing examples that can cause loss of control, such as
   gusts of wind, collisions between handlebars, bags hanging from handlebars,
   or simply contact with road surface irregularities. However, this qualitative
   description alone does not fully explain how the mechanical perturbations
@@ -212,7 +214,9 @@ We have now included citations to papers that discuss the types and nature of
 bicycle falls and expanded the text in Section 1 to better connect our study to
 real life falls. We also explain the force superposition principle of dynamics
 to argue that it matters little how the perturbation is delivered as long as we
-force the system into an unrecoverable state.
+force the system into an unrecoverable state. We did not apply vertical forces
+to the handlebars, only forces in the longitudinal direction, maybe this was a
+misunderstanding as it is stated in the paper and shown in Figure 3a.
 
 \begin{displayquote}
   Section 2.4: Protocol on page 7
@@ -234,13 +238,13 @@ do not simply differ in degree, but were necessary given the nature of the
 experimental design. We did not record the category of the fall mode, so it is
 not possible for us to investigate whether having a ternary factor instead of a
 binary one would reveal any more insight. We added text in Section 2.4 to make
-this clear.
+this clear. We recommend attention be paid to this in future similar studies.
 
 \begin{displayquote}
   Section 2.6: Statistics on page 11
 
-  The authors state that "cluster-mean centering showed there to be no
-  variation between participants," which allowed authors to use a simple
+  The authors state that ``cluster-mean centering showed there to be no
+  variation between participants,'' which allowed authors to use a simple
   single-level logistic regression model rather than a multilevel model. This
   assertion is a foundational premise for the authors' entire analysis.
   Therefore, the authors are required to present the statistical testing
@@ -259,8 +263,8 @@ observed in the independent dataset collected in Marten Haitjema's MSc thesis.
 \begin{displayquote}
   Section 4.4: Rider Skill and Experience on page 14
 
-  This relates to the above point. While the authors state that "Each
-  individual participant had their own perturbation resistance threshold"
+  This relates to the above point. While the authors state that ``Each
+  individual participant had their own perturbation resistance threshold''
   regarding individual differences in the experiment, it is difficult for
   readers to understand how individual differences were accounted for in the
   regression analysis, beyond the evidence regarding resistance values in the
@@ -274,7 +278,8 @@ show that the variation in participants was not an important factor. We also
 were not interested in the differences among participants, we are only
 interested in whether the system reduces the probability of anyone to fall.
 The cluster mean centering removes the relative differences in the
-participants' perturbation resistance threshold.
+participants' perturbation resistance threshold. We have clarified this in
+Section 2.6.
 
 \begin{displayquote}
   Figure 2 on page 6
