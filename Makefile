@@ -1,3 +1,5 @@
+FIRST_DIFF_TAG = v3
+
 main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
 	pdflatex main.tex
 	bibtex main
@@ -19,6 +21,16 @@ figures/torque_angle_perturbation_10.png: src/generate_time_series_imgs.py
 	python src/generate_time_series_imgs.py
 figures/predicted_fall_probability_6kmh.png: src/statistics.R
 	Rscript src/statistics.R
+trackchanges:
+	git checkout $(FIRST_DIFF_TAG)
+	cp main.tex $(FIRST_DIFF_TAG).tex
+	git checkout master
+	latexdiff $(FIRST_DIFF_TAG).tex main.tex > diff-master_$(FIRST_DIFF_TAG).tex
+	rm $(FIRST_DIFF_TAG).tex
+	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
+	bibtex diff-master_$(FIRST_DIFF_TAG).aux
+	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
+	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
 clearpdf:
 	rm paper.pdf
 clean:
