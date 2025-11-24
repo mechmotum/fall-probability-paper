@@ -56,8 +56,8 @@ bicycle, fall prevention, automatic control, stability
     when subjected to mechanical handlebar perturbations.
   \item Automatic balance assistance reduces the probability of falling while
     riding at 6~\si{\kph} when mechanically perturbed.
-  \item Balance assist technology can reduce natural single-actor falls around
-    the limits of the rider's control authority.
+  \item Balance assist technology could reduce natural single-actor falls
+    around the limits of the rider's control authority.
 \end{itemize}
 
 \section{Introduction}
@@ -155,12 +155,12 @@ single-actor falls. Most of these robotic bicycle and motorcycle designers did
 not intend for a human rider to also control the stabilized vehicle.
 Nevertheless, an automatically stabilized bicycle can be controlled by a human
 rider if the motor controlled steer torque and the rider applied steer torque
-act in parallel. The effect of this automatic control gives the ability to
-effectively change the human-controlled plant dynamics, up to some limits. In
-our prior study~\cite{Alizadehsaravi2023}, we demonstrate reduced motion during
+act in parallel. This automatic control provides the ability to effectively
+change the human-controlled plant dynamics, up to some limits. In our prior
+study~\cite{Alizadehsaravi2023}, we demonstrated reduced motion during
 distractions and light perturbations due to the balance assist system but
 Hanakam, Wehner, and Wrede~\cite{Hanakam2023} recently showed rider
-dissatisfaction with the stabilization of a similar vehicle so the overall
+dissatisfaction with the stabilization of a similar vehicle. So, the overall
 possible benefits are not yet definitively established.
 
 The design of our balance assist system relies on the linear Carvallo-Whipple
@@ -185,11 +185,12 @@ described by the fourth order state space equations:
 %
 The states \(\vec{x}\) are the roll angle \(\phi\) and steer angle \(\delta\)
 along with their time derivatives and the inputs \(\vec{u}\) are roll torque
-\(T_\phi\) and steer torque \(T_\delta\). The state matrix \(\mathbf{A}\) is a
-function of the equilibrium forward speed \(v\). It and the input matrix
-\(\mathbf{B}\) are otherwise populated with expressions that are functions of
-the geometric and inertial parameters of the nonholonomic multibody system made
-up of four rigid bodies: two wheels, front frame, and rear frame.
+\(T_\phi\) and steer torque \(T_\delta\) as defined in ~\cite{Meijaard2007}.
+The state matrix \(\mathbf{A}\) is a function of the equilibrium forward speed
+\(v\). It and the input matrix \(\mathbf{B}\) are otherwise populated with
+expressions that are functions of the geometric and inertial parameters of the
+nonholonomic multibody system made up of four rigid bodies: two wheels, front
+frame, and rear frame.
 
 If the steer torque is the sum of the (h)uman applied torque and the (m)otor
 applied torque \(T_\delta = T_\delta^\textrm{h} + T_\delta^\textrm{m}\),
@@ -425,9 +426,9 @@ command.
   \label{fig:perturbation_0}
 \end{figure}
 
-Based on findings from measuring riders without balance assist in
-\cite{Haitjema2023a}, we calculate several variables that we hypothesize may
-influence fall probability. We use the angular impulse \(L\) of the
+Based on our prior findings from measuring riders without balance
+assist~\cite{Haitjema2023a}, we calculate several variables that we hypothesize
+may influence fall probability. We use the angular impulse \(L\) of the
 perturbation forces over a 0.3~\si{\second} duration to characterize the
 magnitude of delivered perturbation. The duration is selected based on the
 duration of the commanded perturbation force and is calculated as follows:
@@ -458,14 +459,14 @@ if there is already a large steer angle in the same direction as the
 perturbation, this will have a different effect on the probability that a fall
 will occur than if the steer angle is in the opposite direction of the
 perturbation. To account for this, the roll and steer variables at the instance
-of perturbation are normalized for perturbation direction. The gain factor
-setting on the balance assist controller indicates if the assistance is off
-\(\kappa=0\) or on at two different levels: low \(\kappa=3.9\) or high
-\(\kappa=5.2\). As mentioned earlier, a recovery from the perturbation is
-successful if the person neither places their foot down onto the treadmill
-surface nor the wheel of the bicycle exits the width of the treadmill belt.  We
-record this as a binary variable \(f\) for ``fall''.  All measured variables
-are reported in Table~\ref{tab:raw}.
+of perturbation are normalized for perturbation direction as was done in
+\cite{Haitjema2023a}. The gain factor setting on the balance assist controller
+indicates if the assistance is off \(\kappa=0\) or on at two different levels:
+low \(\kappa=3.9\) or high \(\kappa=5.2\). As mentioned earlier, a recovery
+from the perturbation is successful if the person neither places their foot
+down onto the treadmill surface nor the wheel of the bicycle exits the width of
+the treadmill belt.  We record this as a binary variable \(f\) for ``fall''.
+All measured variables are reported in Table~\ref{tab:raw}.
 %
 \begin{table}
   \centering
@@ -526,12 +527,12 @@ participant \(i\) which follows a Bernoulli distribution given the probability
   f_{ij} | P_{ij} \sim \textrm{Bernoulli}(P_{ij}) \textrm{.}
 \end{align}
 %
-We evaluate our hypothesis using a multivariate logistic regression model that
-represents the probability of this binary outcome. The log-odds of the
-probability is then a linear function of our independent variables with
-\(\beta\) being the intercept and \(\alpha_k\) the linear coefficients to the
-\(K\) independent variables \(x_{ij}^k\), i.e. all variables in
-Table~\ref{tab:stat-model-variables} except \(f\).
+We evaluate our hypothesis using a multivariate logistic regression model,
+Equation~\ref{eq:log-regress}, that represents the probability of this binary
+outcome. The log-odds of the probability is then a linear function of our
+independent variables with \(\beta\) being the intercept and \(\alpha_k\) the
+linear coefficients to the \(K\) independent variables \(x_{ij}^k\), i.e. all
+variables in Table~\ref{tab:stat-model-variables} except \(f\).
 %
 \begin{align}
   \log \left(\frac{P_{ij}}{1-P_{ij}} \right) =
@@ -714,7 +715,7 @@ subjective rider feeling on their similar bicycle to ours and this high
 frequency effect to the human-controlled plant dynamics could be an explanation
 to their findings.
 
-\subsection{Utility of the Logistic Model and Extrapolation to Natural Falls}
+\subsection{Utility of the Logistic Model to Natural Falls}
 %
 The probability that a fall occurs depends on the values of all the independent
 variables in Table~\ref{tab:stat-model-variables}, but we can visualize the
@@ -792,17 +793,15 @@ This illustration alludes to the difficulty needed to apply the model in way
 that could predict how many falls may be averted in a natural setting if the
 balance assist system is used. Estimates of the predictor variables extracted
 from the limited data collected from natural cycling would be needed to
-populate the model.
-
-The positive effect of the balance assist system is coupled to the assumptions
-and experimental scenarios we implemented and there is unfortunately no simple
-way to extrapolate our results to reductions of single-actor crashes we may see
-if such a system were deployed widely to bicyclists. Although, our results do
-indicate that we would see such a reduction, even if only in a class of
-single-actor crashes that most resemble our experimental design. If there were
-more comprehensive and detailed natural data of how people fall we could make
-estimates on the number of falls reduced if everyone rode a balance assist
-bicycle.
+populate the model. The positive effect of the balance assist system is coupled
+to the assumptions and experimental scenarios we implemented and there is
+unfortunately no simple way to extrapolate our results to reductions of
+single-actor crashes we may see if such a system were deployed widely to
+bicyclists. Although, our results do indicate that we would see such a
+reduction, even if only in a class of single-actor crashes that most resemble
+our experimental design. If there were more comprehensive and detailed natural
+data of how people fall we could make estimates on the number of falls reduced
+if everyone rode a balance assist bicycle.
 
 \subsection{Treadmill Width}
 %
@@ -816,21 +815,22 @@ speeds. We posit that this likely has to do with the width of the treadmill and
 that this could also be why the balance assist system did not have a
 statistically significant effect at 10~\si{\kph}. As a bicycle travels at
 higher speeds, the same perturbation magnitude causes larger lateral
-deviations. At 10~\si{\kph} almost all falls were due to the bicycle exiting
+deviations. At 10~\si{\kph}, almost all falls were due to the bicycle exiting
 the maximum width of the treadmill. If the same experiment was performed on an
 infinitely wide plane, the riders may have recovered from more perturbations.
-At 6~\si{\kph} the riders could often recover in the allotted treadmill width
+At 6~\si{\kph}, the riders could often recover in the allotted treadmill width
 due to the smaller lateral deviations. We believe our results are very much
 dependent on the two modes of falling, i.e. exiting the treadmill width or
-placing a foot on the belt. On the other hand, cycle paths are a similar width
-as the treadmill, so riders are often limited in width when recovering from a
-fall thus exiting the treadmill width may be an appropriate measure for
-indicating a fall. While the treadmill simulates narrow cycle paths, real-world
-paths may offer more lateral recovery space, providing riders with additional
-opportunities to regain balance after a perturbation. However, testing in such
-narrow conditions is still highly relevant, as system design and validation
-should focus on extreme conditions like narrow paths, because even in wider
-paths, obstacles such as parked cars or barriers can limit lateral space.
+placing a foot on the belt. Future studies should consider coding fall mode by
+type. On the other hand, cycle paths are a similar width as the treadmill, so
+riders are often limited in width when recovering from a fall thus exiting the
+treadmill width may be an appropriate measure for indicating a fall. While the
+treadmill simulates narrow cycle paths, real-world paths may offer more lateral
+recovery space, providing riders with additional opportunities to regain
+balance after a perturbation. However, testing in such narrow conditions is
+still highly relevant, as system design and validation should focus on extreme
+conditions like narrow paths, because even in wider paths, obstacles such as
+parked cars or barriers can limit lateral space.
 
 \subsection{Rider Skill and Experience}
 %
@@ -849,7 +849,7 @@ On average, the balance assist system pushes the perturbation resistance
 threshold up for all participants.
 The vast majority of perturbations experienced in natural bicycling are below
 an individual's perturbation resistance threshold, otherwise we would observe
-bicyclists falling much more but low skilled riders may experience more
+bicyclists falling much more, but low skilled riders may experience more
 perturbations that exceed their threshold.
 Determining how often certain perturbation types and magnitudes are experienced
 in natural bicycling is an open research need and would help understand whether
@@ -863,7 +863,9 @@ to the participants learning how to better recover from the perturbation over
 the duration of the experiment. This effect is significant at both 6 and
 10~\si{\kph}, and in the same order of magnitude. This suggests that the
 learning effect that occurs during the experiment is not strongly dependent on
-the speed but that similar experiments should consider the learning effect.
+the speed but that similar experiments should consider the learning effect. An
+experiment that tests professional cyclists or one that trains each participant
+to their maximum performance could be insightful.
 
 \subsection{Non-significant Predictors}
 
@@ -896,8 +898,8 @@ is very close to significance (\(p=0.07\)) but more investigation is needed to
 determine if the effect can be significant. The positive effect to balance is
 rider independent and most effective in the regime of perturbations near the
 limits of the rider's control authority. Given that similar effects cause falls
-during bicycling, use of the balance assist system in real world use cases will
-reduce the number of falls at low bicycling speeds.
+during bicycling, use of the balance assist system in real world use cases
+should reduce the number of falls at low bicycling speeds.
 
 \section*{Acknowledgements}
 %
@@ -910,11 +912,11 @@ development of the bicycle perturbation system. Allen Downey provided useful
 insight in the statistical condsiderations. We thank all of the assistants that
 helped run the experiments and the participants for their time and enthusiasm.
 Thanks to Wouter Gregoor, Hans van der Does, and Cor Meijneke for reviving the
-bicycles at a critical moment. Thanks to Christoph Schmidt for motivation to
-do yet another round of trials. We thank Peter Stahlecker, Benjamin Gonzalez,
-and Riender Happee for valuable feedback in early revisions. Lastly, we thank
-Frans van der Helm for the consistent encouragement to execute this experiment
-and his early vision for obtaining the funding.
+bicycles at a critical moment. Thanks to Christoph Schmidt for motivation to do
+yet another round of trials. We thank Peter Stahlecker, Benjamin Gonzalez, and
+Riender Happee for valuable feedback in early revisions. Lastly, we thank Frans
+van der Helm for the consistent encouragement to execute this experiment and
+his early vision for obtaining the funding.
 
 \section*{Funding}
 %
