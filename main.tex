@@ -216,7 +216,7 @@ v_\textrm{capsize}\) where \(v_{min}\) is the lowest stable speed given
 \(k_{\dot{\phi}}\) and \(v_\textrm{capsize}\) is the speed at which the
 uncontrolled bicycle's capsize mode goes unstable. By gain scheduling with
 respect to \(v\), the speed range where the bicycle is stable can be maximized
-within any physical actuator magnitude and bandwidth limits.  Schwab, Kooijman,
+within any physical actuator magnitude and bandwidth limits. Schwab, Kooijman,
 and Meijaard~\cite{Schwab2008} elaborate on some of the possibilities in
 scheduling the gains for such a controller for a bicycle and show that linear
 scheduling with respect to speed can give satisfactory stability for a low
@@ -955,42 +955,43 @@ parameters for a bicycle explained in \cite{Moore2012}. The rider inertial
 parameters are derived from the 83.5~\si{\kilogram} rider ``Jason'' available
 in BicycleParameters~1.1.1~\cite{Moore2024}. The variable names match the
 notation and definitions from the benchmark bicycle model presented
-in~\cite{Meijaard2007}.
+in~\cite{Meijaard2007} with the \(xyz\) axes following the SAE J670 standard
+with positive \(z\) directed down into the ground.
 %
 \begin{table}[ht]  % have to use "h" so that it stays within the appendix
   \centering
   \caption{Physical parameters of the balance assist bicycle with and without
     the inertia effects of a rigid rider.}
-  \begin{tabular}{llrr}
+  \begin{tabular}{lllrr}
     \toprule
-    Variable & Unit & Without Rider & With Rider \\
+    Description & Variable & Unit & Without Rider & With Rider \\
     \midrule
-    \(c\) & \si{\meter} & 0.04 & 0.04 \\
-    \(g\) & \si{\meter\per\second\squared} & 9.80665 & 9.80665 \\
-    \(I_{Bxx}\) & \si{\kilogram\meter\squared} & 1.12 & 19.7 \\
-    \(I_{Bxz}\) & \si{\kilogram\meter\squared} & 0.05 & -3.5 \\
-    \(I_{Byy}\) & \si{\kilogram\meter\squared} & 3.16 & 22.7 \\
-    \(I_{Bzz}\) & \si{\kilogram\meter\squared} & 2.12 & 5.0 \\
-    \(I_{Fxx}\) & \si{\kilogram\meter\squared} & 0.0995 & 0.0995 \\
-    \(I_{Fyy}\) & \si{\kilogram\meter\squared} & 0.1902 & 0.1902 \\
-    \(I_{Hxx}\) & \si{\kilogram\meter\squared} & 0.298 & 0.298 \\
-    \(I_{Hxz}\) & \si{\kilogram\meter\squared} & -0.038 & -0.038 \\
-    \(I_{Hyy}\) & \si{\kilogram\meter\squared} & 0.257 & 0.257 \\
-    \(I_{Hzz}\) & \si{\kilogram\meter\squared} & 0.057 & 0.057 \\
-    \(I_{Rxx}\) & \si{\kilogram\meter\squared} & 0.1023 & 0.1023 \\
-    \(I_{Ryy}\) & \si{\kilogram\meter\squared}& 0.1887 & 0.1887 \\
-    \(\lambda\) & \si{\radian} & 0.25 & 0.25 \\
-    \(m_B\) & \si{\kilogram} & 22.50 & 106.00 \\
-    \(m_F\) & \si{\kilogram} & 2.23 & 2.23 \\
-    \(m_H\) & \si{\kilogram} & 4.30 & 4.30 \\
-    \(m_R\) & \si{\kilogram} & 4.08 & 4.08 \\
-    \(r_F\) & \si{\meter} & 0.3523 & 0.3523 \\
-    \(r_R\) & \si{\meter} & 0.3489 & 0.3489 \\
-    \(w\) & \si{\meter} & 1.113 & 1.113 \\
-    \(x_B\) & \si{\meter} & 0.52 & 0.374 \\
-    \(x_H\) & \si{\meter} & 0.92 & 0.92 \\
-    \(z_B\) & \si{\meter} & -0.52 & -1.009 \\
-    \(z_H\) & \si{\meter} & -0.860 & -0.860 \\
+    trail & \(c\) & \si{\meter} & 0.04 & 0.04 \\
+    acceleration due to gravity & \(g\) & \si{\meter\per\second\squared} & 9.80665 & 9.80665 \\
+    rear frame moment of inertia & \(I_{Bxx}\) & \si{\kilogram\meter\squared} & 1.12 & 19.7 \\
+    rear frame product of inertia & \(I_{Bxz}\) & \si{\kilogram\meter\squared} & 0.05 & -3.5 \\
+    rear frame moment of inertia & \(I_{Byy}\) & \si{\kilogram\meter\squared} & 3.16 & 22.7 \\
+    rear frame product of inertia & \(I_{Bzz}\) & \si{\kilogram\meter\squared} & 2.12 & 5.0 \\
+    front wheel moment of inertia & \(I_{Fxx}\) & \si{\kilogram\meter\squared} & 0.0995 & 0.0995 \\
+    front wheel moment of inertia & \(I_{Fyy}\) & \si{\kilogram\meter\squared} & 0.1902 & 0.1902 \\
+    front frame moment of inertia & \(I_{Hxx}\) & \si{\kilogram\meter\squared} & 0.298 & 0.298 \\
+    front frame product of inertia & \(I_{Hxz}\) & \si{\kilogram\meter\squared} & -0.038 & -0.038 \\
+    front frame moment of inertia & \(I_{Hyy}\) & \si{\kilogram\meter\squared} & 0.257 & 0.257 \\
+    front frame moment of inertia & \(I_{Hzz}\) & \si{\kilogram\meter\squared} & 0.057 & 0.057 \\
+    rear wheel moment of inertia & \(I_{Rxx}\) & \si{\kilogram\meter\squared} & 0.1023 & 0.1023 \\
+    rear wheel moment of inertia & \(I_{Ryy}\) & \si{\kilogram\meter\squared}& 0.1887 & 0.1887 \\
+    steer axis tilt & \(\lambda\) & \si{\radian} & 0.25 & 0.25 \\
+    rear frame mass & \(m_B\) & \si{\kilogram} & 22.50 & 106.00 \\
+    front wheel mass & \(m_F\) & \si{\kilogram} & 2.23 & 2.23 \\
+    front frame mass & \(m_H\) & \si{\kilogram} & 4.30 & 4.30 \\
+    rear wheel mass & \(m_R\) & \si{\kilogram} & 4.08 & 4.08 \\
+    front wheel radius & \(r_F\) & \si{\meter} & 0.3523 & 0.3523 \\
+    rear wheel radius & \(r_R\) & \si{\meter} & 0.3489 & 0.3489 \\
+    wheelbase & \(w\) & \si{\meter} & 1.113 & 1.113 \\
+    rear frame mass center coordinate & \(x_B\) & \si{\meter} & 0.52 & 0.374 \\
+    front frame mass center coordinate & \(x_H\) & \si{\meter} & 0.92 & 0.92 \\
+    rear frame mass center coordinate & \(z_B\) & \si{\meter} & -0.52 & -1.009 \\
+    front frame mass center coordinate & \(z_H\) & \si{\meter} & -0.860 & -0.860 \\
     \bottomrule
   \end{tabular}
 \end{table}
