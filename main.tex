@@ -369,12 +369,20 @@ Figure~\ref{fig:perturbation-sequence} shows an example resulting motion from a
 perturbation. We logged the force magnitude that caused the first fall to
 characterize that participant's \emph{perturbation resistance threshold}.
 %
+% NOTE : The html conversion with pandoc fails to include these subcaption
+% figures if the includegraphics line is on the same line as the subcaptionbox
+% line (or maybe simply if the curly braces containing the includegraphics call
+% is on the same line as the subcaptionbox.
 \begin{figure}
   \centering
-  \subcaptionbox{Before perturbation}{\includegraphics[width=60mm]{figures/start.png}}
-  \subcaptionbox{During perturbation}{\includegraphics[width=60mm]{figures/during.png}}
-  \subcaptionbox{After perturbation}{\includegraphics[width=60mm]{figures/after.png}}
-  \subcaptionbox{Recovery from perturbation}{\includegraphics[width=60mm]{figures/recovery.png}}
+  \subcaptionbox{Before perturbation}
+    {\includegraphics[width=60mm]{figures/start.png}}
+  \subcaptionbox{During perturbation}
+    {\includegraphics[width=60mm]{figures/during.png}}
+  \subcaptionbox{After perturbation}
+    {\includegraphics[width=60mm]{figures/after.png}}
+  \subcaptionbox{Recovery from perturbation}
+    {\includegraphics[width=60mm]{figures/recovery.png}}
   \caption{Video frames depicting the application of a perturbation and the
   rider's response and recovery.}
   \label{fig:perturbation-sequence}
@@ -662,14 +670,10 @@ significant \((p=0.07 > 0.05)\).
 %
 \begin{figure}
   \centering
-  \subcaptionbox{Fall probability for the 6~\si{\kph} trials.
-    \label{fig:probability-6kph}}{
-    \includegraphics[width=80mm]{figures/predicted_fall_probability_6kmh.png}
-  }
-  \subcaptionbox{Fall probability for the 10~\si{\kph} trials.
-    \label{fig:probability-10kph}}{
-    \includegraphics[width=80mm]{figures/predicted_fall_probability_10kmh.png}
-  }
+  \subcaptionbox{Fall probability for the 6~\si{\kph} trials.\label{fig:probability-6kph}}
+    {\includegraphics[width=80mm]{figures/predicted_fall_probability_6kmh.png}}
+  \subcaptionbox{Fall probability for the 10~\si{\kph} trials.\label{fig:probability-10kph}}
+    {\includegraphics[width=80mm]{figures/predicted_fall_probability_10kmh.png}}
   \caption{Comparison of predicted fall probability for balance assist on
     (solid) or off (dashed) when all other predictor variables are set to zero,
     except for the interaction effect between the balance assist and the

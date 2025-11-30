@@ -31,6 +31,8 @@ trackchanges:
 	bibtex diff-master_$(FIRST_DIFF_TAG).aux
 	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
 	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
+html: main.tex references.bib
+	pandoc -o index.html -s --mathjax="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" --bibliography=references.bib --citeproc main.tex
 clearpdf:
 	rm paper.pdf
 clean:
