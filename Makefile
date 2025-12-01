@@ -1,4 +1,4 @@
-FIRST_DIFF_TAG = v3
+FIRST_DIFF_TAG = v4
 
 main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
 	pdflatex main.tex
