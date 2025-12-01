@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Set Up Git Repository
         uses: actions/checkout@v4
-      - name: Install Dependencies with APT
-        run: sudo apt install pandoc
       - name: Install and Set Up Conda
         uses: conda-incubator/setup-miniconda@v3
         with:
