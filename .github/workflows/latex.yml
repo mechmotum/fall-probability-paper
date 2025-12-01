@@ -30,7 +30,7 @@ jobs:
           root_file: main.tex
       - name: Generate HTML Version
         shell: bash -el {0}
-        run: pandoc -o index.html -s --mathjax="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" --bibliography=references.bib --citeproc main.tex
+        run: pandoc -o index.html -s --toc --mathjax="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" --bibliography=references.bib --citeproc main.tex
       - name: Setup Deploy Folder
         run: |
           mkdir -p ghpages/figures
