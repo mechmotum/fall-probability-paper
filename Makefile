@@ -33,8 +33,17 @@ trackchanges:
 	git checkout $(FIRST_DIFF_TAG)
 	cp main.tex $(FIRST_DIFF_TAG).tex
 	sed -i '/^\\author/d' $(FIRST_DIFF_TAG).tex
+	sed -i 's/^\\section\*{Affli.*//g' $(FIRST_DIFF_TAG).tex
+	sed -i '/^Department of/d' $(FIRST_DIFF_TAG).tex
+	sed -i '/^Delft Univers.*/d' $(FIRST_DIFF_TAG).tex
+	sed -i '/^Delft, The Neth.*/d' $(FIRST_DIFF_TAG).tex
+	sed -i '/^Correspondenc.*/d' $(FIRST_DIFF_TAG).tex
 	git checkout master
 	sed -i '/^\\author/d' main.tex
+	sed -i '/^Department of/d' main.tex
+	sed -i '/^Delft Univers.*/d' main.tex
+	sed -i '/^Delft, The Neth.*/d' main.tex
+	sed -i '/^Correspondenc.*/d' main.tex
 	latexdiff $(FIRST_DIFF_TAG).tex main.tex > diff-master_$(FIRST_DIFF_TAG).tex
 	rm $(FIRST_DIFF_TAG).tex
 	git checkout -- main.tex
