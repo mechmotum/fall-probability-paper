@@ -1,4 +1,4 @@
-FIRST_DIFF_TAG = v4
+FIRST_DIFF_TAG = v3
 
 main.pdf: main.tex references.bib fixlme4 figures/balance-assist-eig-vs-speeds.png figures/torque_angle_perturbation_10.png figures/predicted_fall_probability_6kmh.png
 	pdflatex main.tex
@@ -12,9 +12,17 @@ iatss:
 	cp figures/*.png iatss/
 	cp figures/*.jpg iatss/
 	cp main.tex iatss/
+	sed -i '/^\\author/d' iatss/main.tex
+	sed -i 's/^\\section\*{Affli.*//g' iatss/main.tex
+	sed -i '/^Department of/d' iatss/main.tex
+	sed -i '/^Delft Univers.*/d' iatss/main.tex
+	sed -i '/^Delft, The Neth.*/d' iatss/main.tex
+	sed -i '/^Correspondenc.*/d' iatss/main.tex
 	cp references.bib iatss/references.bib
 	sed -i 's/_/\\_/g' iatss/references.bib
 	sed -i 's/figures\///g' iatss/main.tex
+iatssfirstpage: main.pdf
+	pdftk main.pdf cat 1 output main-first-page.pdf
 figures/balance-assist-eig-vs-speeds.png: src/control.py
 	python src/control.py
 figures/torque_angle_perturbation_10.png: src/generate_time_series_imgs.py
@@ -44,3 +52,6 @@ clean:
 	rm figures/predicted_fall_probability_6kmh.png
 	rm figures/predicted_fall_probability_10kmh.png
 	rm figures/torque_angle*.png
+	rm -rf iatss/
+	rm -f index.html
+	rm -f diff-master_$(FIRST_DIFF_TAG).*
