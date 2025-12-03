@@ -32,9 +32,12 @@ figures/predicted_fall_probability_6kmh.png: src/statistics.R
 trackchanges:
 	git checkout $(FIRST_DIFF_TAG)
 	cp main.tex $(FIRST_DIFF_TAG).tex
+	sed -i '/^\\author/d' $(FIRST_DIFF_TAG).tex
 	git checkout master
+	sed -i '/^\\author/d' main.tex
 	latexdiff $(FIRST_DIFF_TAG).tex main.tex > diff-master_$(FIRST_DIFF_TAG).tex
 	rm $(FIRST_DIFF_TAG).tex
+	git checkout -- main.tex
 	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
 	bibtex diff-master_$(FIRST_DIFF_TAG).aux
 	pdflatex -interaction nonstopmode diff-master_$(FIRST_DIFF_TAG).tex
