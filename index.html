@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Marten T. Haitjema" />
+  <meta name="author" content="Leila Alizadehsaravi" />
+  <meta name="author" content="Jason K. Moore" />
+  <title>Automatic Bicycle Balance Assistance Reduces Probability of Falling at Low Speeds When Subjected to Handlebar Perturbations Version 6</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Automatic Bicycle Balance Assistance Reduces
+Probability of Falling at Low Speeds When Subjected to Handlebar
+Perturbations<br />
+Version 6</h1>
+<p class="author">Marten T. Haitjema</p>
+<p class="author">Leila Alizadehsaravi</p>
+<p class="author">Jason K. Moore</p>
+</header>
+<h1 class="unnumbered" id="affliation">Affliation</h1>
+<p>Department of BioMechanical Engineering<br />
+Delft University of Technology<br />
+Delft, The Netherlands<br />
+Correspondence: j.k.moore@tudelft.nl</p>
+<h1 class="unnumbered" id="keywords">Keywords</h1>
+<p>bicycle, fall prevention, automatic control, stability</p>
+<h1 class="unnumbered" id="highlights">Highlights</h1>
+<ul>
+<li><p>A steering motor with roll rate feedback can stabilize the
+bicycle-rider system.</p></li>
+<li><p>Every bicycle rider has their own perturbation resistance
+threshold.</p></li>
+<li><p>Automatic balance assistance reduces probability of falling while
+riding at 6 km h<sup>−1</sup>.</p></li>
+<li><p>Balance assistance could reduce single-actor falls at the limits
+of control authority.</p></li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>Single-actor bicycle crashes are associated with a surprisingly large
+percentage of reported serious injuries in The Netherlands (&gt;80%) and
+values range between 50% and 95% in other surveyed countries <span
+class="citation" data-cites="Wegman2024">(Wegman and Schepers
+2024)</span>. Utriainen, O’Hern, and Pöllänen <span class="citation"
+data-cites="Utriainen2023">(Utriainen, O’Hern, and Pöllänen 2023)</span>
+report that slippery surfaces, simple loss of control, and engagement
+with a curb, pothole, or bollard are the most common fall types in the
+seven reported countries. Most of these types involve perturbations that
+result in loss of balance. At low speeds, from start up to typical
+cruising speeds, bicycles are not self-stable and can be challenging for
+the rider to balance. Low speed crashes may be reduced if the bicycle
+was self-stable at these speeds by relieving the rider of some of their
+necessary control activity. Bicycles can be mechanically modified to
+lower the speeds at which they are self-stable <span class="citation"
+data-cites="Astrom2005">(Åström, Klein, and Lennartsson 2005)</span> and
+since the 1980s it has been known that applying a motor actuated
+steering torque proportional to the vehicle’s roll angular rate <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> can stabilize a single-track vehicle
+down to very low speeds <span class="citation"
+data-cites="Ruijs1986">(Ruijs and Pacejka 1986)</span>. If automatic
+control of steering can stabilize a bicycle, it may reduce the control
+required from the rider to successfully manage balancing tasks much like
+natural high speed self-stability already does. We have developed a
+balance-assisting bicycle, Figure <a href="#fig:balance-assist-bicycle"
+data-reference-type="ref"
+data-reference="fig:balance-assist-bicycle">1</a>, based on these
+principles and hypothesize that it helps the rider in situations in
+which they are likely to fall.</p>
+<figure>
+<img src="figures/balance-assist-bicycle.jpg"
+id="fig:balance-assist-bicycle" style="width:80mm"
+alt="Balance assist bicycle prototype with electric motor in the steering column and data acquisition and control electronics mounted in the rear rack; first introduced in (Alizadehsaravi and Moore 2023)." />
+<figcaption aria-hidden="true">Balance assist bicycle prototype with
+electric motor in the steering column and data acquisition and control
+electronics mounted in the rear rack; first introduced in <span
+class="citation" data-cites="Alizadehsaravi2023">(Alizadehsaravi and
+Moore 2023)</span>.</figcaption>
+</figure>
+<p>Riders fall when their control authority is not sufficient to
+maintain a stable vehicle state. There are many real world scenarios
+that can put the vehicle into an uncontrollable state. External forces
+applied to the vehicle or rider are one such scenario type and natural
+examples include wind gusts, handlebars colliding with a neighbor’s, a
+bag swinging from the handlebar, or simply hitting a bump in the road.
+To assess our balance assisting bicycle, we subject the rider to
+perturbations at the handlebar, which can easily cause a rider to fall.
+From a mechanics perspective, it is not particularly important how or
+where the perturbation is applied but that it results in forcing the
+bicycle-rider system into an unrecoverable state, as all forces acting
+on a dynamical system can be resolved into an equivalent force and
+torque of a couple at any location in the system <span class="citation"
+data-cites="Kane1985">(Kane and David A. Levinson 1985)</span>. We chose
+to perturb the handlebar because of this superposition principle,
+because it was practical, and because it required a low force to cause a
+fall.</p>
+<p>In this paper <a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>, we investigate whether an
+automatically controlled bicycle, that is stable in a large low speed
+range for balance assist, is beneficial in helping to prevent the rider
+from falling. We test this possible benefit by applying varying
+magnitude mechanical perturbations to the handlebars while the rider is
+cycling on a treadmill. We assess the difference in the rider’s
+probability of falling with the balance assist system on and off.</p>
+<h2 id="technical-background">Technical Background</h2>
+<p>During the early years of developments in automatic control,
+Whipple <span class="citation" data-cites="Whipple1899">(Whipple
+1899)</span> not only derived the correct equations of motion of the
+bicycle <span class="citation" data-cites="Meijaard2007">(Meijaard et
+al. 2007)</span> but realized and showed that roll motion feedback can
+stabilize a bicycle. Much later, attempts at automatic roll
+stabilization of single-track vehicles began in earnest after predictive
+motorcycle models were developed and refined throughout the 1970s. Van
+Zytveld <span class="citation" data-cites="vanZytveld1975">(van Zytveld
+1975)</span> was influenced by Whipple’s work and seems to be the first
+to attempt to robotically stabilize a small motorbike with a controlled
+inverted pendulum that mimicked rider lean, but he was not successful in
+demonstrating what his theoretic control model correctly predicted. In
+his model, he recognized that feedback of the vehicle roll angle and
+angular rate was essential to stabilize the vehicle. It was not until
+the early 1980s that Nagai <span class="citation"
+data-cites="Nagai1983">(Nagai 1983)</span> successfully demonstrated
+balancing a robotic bicycle on a treadmill with both steering control
+and a laterally moving mass. Ruijs and Pacejka <span class="citation"
+data-cites="Ruijs1986">(Ruijs and Pacejka 1986)</span> followed this
+breakthrough by demonstrating an automatically balanced motorcycle and
+they did so solely with a steering motor. Ruijs and Pacejka showed that
+steer torque driven by roll angle feedback stabilizes the capsize mode,
+by roll angular rate feedback stabilizes the weave mode, and by steer
+angular rate feedback stabilizes the wobble mode. <a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+They also showed how the control gains must change with respect to
+vehicle speed for favorable control across all speeds. Thus roll motion
+feedback enables the simplest controller that can stabilize a
+single-track vehicle above a minimum speed when one is not concerned
+with wobble instabilities. But Ruijs and Pacejka’s work was not
+particularly concerned with low speed stability and their vehicle was
+fully automatic, i.e no human rider was involved.</p>
+<p>Many more automatically balanced single-track vehicles have been
+demonstrated over the last 40 years, but none have demonstrated that
+increasing low speed stability can assist in human balancing and what
+effect it may have towards single-actor falls. Most of these robotic
+bicycle and motorcycle designers did not intend for a human rider to
+also control the stabilized vehicle. Nevertheless, an automatically
+stabilized bicycle can be controlled by a human rider if the motor
+controlled steer torque and the rider applied steer torque act in
+parallel. This automatic control provides the ability to effectively
+change the human-controlled plant dynamics, up to some limits. In our
+prior study <span class="citation"
+data-cites="Alizadehsaravi2023">(Alizadehsaravi and Moore 2023)</span>,
+we demonstrated reduced motion during distractions and light
+perturbations due to the balance assist system but Hanakam, Wehner, and
+Wrede <span class="citation" data-cites="Hanakam2023">(Hanakam, Wehner,
+and Wrede 2023)</span> recently showed rider dissatisfaction with the
+stabilization of a similar vehicle. So, the overall possible benefits
+are not yet definitively established.</p>
+<p>The design of our balance assist system relies on the linear
+Carvallo-Whipple bicycle model <span class="citation"
+data-cites="Carvallo1899 Whipple1899">(Carvallo 1899; Whipple
+1899)</span> which is the simplest bicycle model that exhibits both the
+non-minimum phase behavior “countersteering” and self-stability. The
+bicycle model is well suited for showing the effect of a roll motion
+feedback driven steer motor on the dynamics. This model is equivalently
+valid for on-road or treadmill riding <span class="citation"
+data-cites="Kooijman2009a">(Kooijman and Schwab 2009)</span>, which have
+the same fundamental dynamics. The linear version of this model can be
+described by the fourth order state space equations: <span
+class="math display">\[\begin{aligned}
+  \dot{\vec{x}} = \mathbf{A} \vec{x} +
+  \mathbf{B}
+  \vec{u}
+  \textrm{ where }
+  \vec{x} = \begin{bmatrix} \phi \\ \dot{\phi} \\ \delta \\ \dot{\delta}
+\end{bmatrix}
+  \textrm{ and }
+  \vec{u} = \begin{bmatrix} T_{\phi} \\ T_{\delta} \end{bmatrix}
+  \textrm{.}
+\end{aligned}\]</span> The states <span
+class="math inline">\(\vec{x}\)</span> are the roll angle <span
+class="math inline">\(\phi\)</span> and steer angle <span
+class="math inline">\(\delta\)</span> along with their time derivatives
+and the inputs <span class="math inline">\(\vec{u}\)</span> are roll
+torque <span class="math inline">\(T_\phi\)</span> and steer torque
+<span class="math inline">\(T_\delta\)</span> as defined in  <span
+class="citation" data-cites="Meijaard2007">(Meijaard et al.
+2007)</span>. The state matrix <span
+class="math inline">\(\mathbf{A}\)</span> is a function of the
+equilibrium forward speed <span class="math inline">\(v\)</span>. It and
+the input matrix <span class="math inline">\(\mathbf{B}\)</span> are
+otherwise populated with expressions that are functions of the geometric
+and inertial parameters of the nonholonomic multibody system made up of
+four rigid bodies: two wheels, front frame, and rear frame.</p>
+<p>If the steer torque is the sum of the (h)uman applied torque and the
+(m)otor applied torque <span class="math inline">\(T_\delta =
+T_\delta^\textrm{h} + T_\delta^\textrm{m}\)</span>, <span
+class="math inline">\(\mathbf{B} = \begin{bmatrix} \vec{B}_\phi \quad
+\vec{B}_\delta
+\end{bmatrix}\)</span>, and the motor torque is a proportional feedback
+controller <span class="math inline">\(T_\delta^\textrm{m} =
+-k_{\dot{\phi}} \dot{\phi}\)</span> then the human-controlled plant
+takes the form: <span class="math display">\[\begin{aligned}
+  \dot{\vec{x}} = \left(\mathbf{A} -
+  \vec{B}_\delta
+  \left[0 \quad k_{\dot{\phi}} \quad 0 \quad 0\right]
+\right)
+  \vec{x} + \mathbf{B} \begin{bmatrix} T_{\phi} \\ T_\delta^\textrm{h}
+\end{bmatrix}
+  \textrm{.}
+\end{aligned}\]</span></p>
+<p>The state matrix <span class="math inline">\(\mathbf{A}\)</span>
+being a function of the equilibrium speed <span
+class="math inline">\(v\)</span> means the control gain <span
+class="math inline">\(k_{\dot{\phi}}\)</span> can be selected such that
+the eigenvalues of <span class="math inline">\(\left(\mathbf{A} -
+\vec{B}_\delta\left[0 \quad k_{\dot{\phi}}
+\quad 0 \quad 0\right] \right)\)</span> have negative real parts for
+<span class="math inline">\(v_{min} &lt; v &lt;
+v_\textrm{capsize}\)</span> where <span
+class="math inline">\(v_{min}\)</span> is the lowest stable speed given
+<span class="math inline">\(k_{\dot{\phi}}\)</span> and <span
+class="math inline">\(v_\textrm{capsize}\)</span> is the speed at which
+the uncontrolled bicycle’s capsize mode goes unstable. By gain
+scheduling with respect to <span class="math inline">\(v\)</span>, the
+speed range where the bicycle is stable can be maximized within any
+physical actuator magnitude and bandwidth limits. Schwab, Kooijman, and
+Meijaard <span class="citation" data-cites="Schwab2008">(Schwab,
+Kooijman, and Meijaard 2008)</span> elaborate on some of the
+possibilities in scheduling the gains for such a controller for a
+bicycle and show that linear scheduling with respect to speed can give
+satisfactory stability for a low speed range. We use this simple
+feedback principle as the basis for our balance assist controller.</p>
+<h1 id="methods">Methods</h1>
+<h2 id="bicycle">Bicycle</h2>
+<p>We modified a Grenoble C8 HMB electric bicycle (Royal Dutch Gazelle,
+Dieren, The Netherlands) with a custom motor in the steering assembly
+capable of applying up to 7 N m of torque between the head tube and
+steer tube, see Figure <a href="#fig:balance-assist-bicycle"
+data-reference-type="ref"
+data-reference="fig:balance-assist-bicycle">1</a>. A custom motor
+controller converts the commanded torque to applied torque. We measure
+the speed of the rear wheel with a DF30 Speed Sensor (Bosch eBike
+Systems, Reutlingen, Germany) and measure the body fixed roll rate of
+the bicycle with a VR IMU BN0086 MEMs rate gyroscope (Sparkfun, Niwot,
+USA). The balance assist control algorithm is implemented on a Teensy
+microprocessor (PJRC, Sherwood, USA) and data from all sensors is logged
+with a CanEdge2 CAN bus (CSS Electronics, Aabyhøj, Denmark) at at least
+100 Hz.</p>
+<h2 id="balance-assist-control">Balance Assist Control</h2>
+<p>We use a forward speed <span class="math inline">\(v\)</span> gain
+scheduled proportional roll angular rate feedback controller to
+stabilize the bicycle. In the speed range tested, the commanded steer
+torque <span class="math inline">\(T^\textrm{m}_\delta\)</span> from the
+steer motor follows the control law <span
+class="math display">\[\begin{aligned}
+  T^\textrm{m}_\delta = -k_{\dot{\phi}}\dot{\phi} = \kappa(v_{stable} -
+v)\dot{\phi}
+  \label{eq:implemented-controller}
+\end{aligned}\]</span> where <span
+class="math inline">\(v_{\textrm{stable}} =
+4.7~\si{\meter\per\second}\)</span> is approximately the average stable
+speed predicted from the open-loop bicycle rigid-rider dynamics. We use
+the gain factor <span class="math inline">\(\kappa=3.9\)</span> (low)
+and <span class="math inline">\(\kappa=5.2\)</span> (high) to tune the
+gain magnitude during the experiments. Figure <a href="#fig:eigenvalues"
+data-reference-type="ref" data-reference="fig:eigenvalues">2</a> shows
+the stabilization effect of the controller via the eigenmodes of the
+linear system. Geometric and inertial parameters for these plots were
+estimated with the methods presented in <span class="citation"
+data-cites="Moore2012">(Moore 2012)</span> and software packages
+BicycleParameters 1.1.1 <span class="citation"
+data-cites="Moore2024">(Moore et al. 2011)</span> and Yeadon 1.5.0 <span
+class="citation" data-cites="Dembia2015">(Dembia, Moore, and Hubbard
+2015)</span> and are shown in Appendix <a
+href="#sec:physical-parameters" data-reference-type="ref"
+data-reference="sec:physical-parameters">6</a>.</p>
+<p>For the 6 km h<sup>−1</sup> experiment, scaling the proportional
+feedback gain linearly with respect to speed stabilizes the normally
+unstable weave mode of the bicycle down to 3.4 km h<sup>−1</sup> for the
+riderless bicycle and 8.0 km h<sup>−1</sup> for the ridden bicycle. For
+the 10 km h<sup>−1</sup> experiment, it stabilizes the normally unstable
+weave mode of the bicycle down to 3.8 km h<sup>−1</sup> for the
+riderless bicycle and 9.7 km h<sup>−1</sup> for the ridden bicycle as
+shown in Figure <a href="#fig:eigenvalues" data-reference-type="ref"
+data-reference="fig:eigenvalues">2</a>. Notably, the controlled bicycle
+is not stable at 6 km h<sup>−1</sup> but the time constant of the
+unstable eigenvalue is increased by a factor of eight and at
+10 km h<sup>−1</sup> the system is just stable. Figure <a
+href="#fig:eigenvalues" data-reference-type="ref"
+data-reference="fig:eigenvalues">2</a> also shows the identified weave
+mode captured using the methods of Kooijman et al. <span
+class="citation" data-cites="Kooijman2009a">(Kooijman and Schwab
+2009)</span> and gives an indication of the performance of the system,
+with the model predicting the weave mode well in the region of the
+tested speeds.</p>
+<figure>
+<img src="figures/balance-assist-eig-vs-speeds.png" id="fig:eigenvalues"
+style="width:160mm"
+alt="Uncontrolled (upper row), controlled with \kappa=3.9 (middle row), and controlled with \kappa=5.2 (lower row) root locus of the eigenvalue components (real: solid, imaginary: dashed) plotted versus speed for the linear Carvallo-Whipple bicycle model without the inertial effect of a rigid rider (left) and with a rigid rider (right). Vertical dotted and dotted-dashed lines indicate the two speeds we perform experiments at: 6 km h−1 and 10 km h−1. The grey shaded region is the linear stable speed range. Black stars are experimentally identified weave mode decay and frequency." />
+<figcaption aria-hidden="true">Uncontrolled (upper row), controlled with
+<span class="math inline">\(\kappa=3.9\)</span> (middle row), and
+controlled with <span class="math inline">\(\kappa=5.2\)</span> (lower
+row) root locus of the eigenvalue components (real: solid, imaginary:
+dashed) plotted versus speed for the linear Carvallo-Whipple bicycle
+model without the inertial effect of a rigid rider (left) and with a
+rigid rider (right). Vertical dotted and dotted-dashed lines indicate
+the two speeds we perform experiments at: 6 km h<sup>−1</sup> and
+10 km h<sup>−1</sup>. The grey shaded region is the linear stable speed
+range. Black stars are experimentally identified weave mode decay and
+frequency.</figcaption>
+</figure>
+<h2 id="perturbations">Perturbations</h2>
+<p>We apply longitudinal forces to the ends of each handlebar from
+earth-fixed posts using an adapted Bump’Em system <span class="citation"
+data-cites="Tan2020">(Tan, Raitor, and Collins 2020)</span> which we
+arrange with four EC-90 Flat motors (Maxon Group, Switzerland) working
+in cooperation, Figure <a href="#fig:setup-diagram"
+data-reference-type="ref"
+data-reference="fig:setup-diagram">[fig:setup-diagram]</a>. The four
+motors are programmed to apply a light force at all times to keep the
+ropes taught and to track a commanded force profile using a PID
+controller running on an Arduino Mega 2560 microprocessor (Arduino,
+Italy). We measure the force applied by each motor at the handlebar via
+four inline S-style load cells (Bosche GmbH, Damme, Germany). All were
+rated for 250 N except the left rear load cell which was rated for
+500 N. The commanded force profiles are designed to apply an external
+pulsive torque to the front frame at magnitudes varying from
+16 N m–160 N m. The four motors are arranged at the four corners of a
+1 m wide by 2 m long treadmill (Bonte Technology B.V., Zwolle, The
+Netherlands) that can reach speeds up to 18 km h<sup>−1</sup>. The
+general design of this perturbation system is described in detail in Van
+De Velde’s MSc thesis <span class="citation"
+data-cites="vandeVelde2022a">(van de Velde 2022)</span> and the physical
+arrangement is shown in Figure <a href="#fig:participant-in-set-up"
+data-reference-type="ref"
+data-reference="fig:participant-in-set-up">[fig:participant-in-set-up]</a>.
+Our modifications relative to Van De Velde’s design include simplifying
+the Bump’Em motor controller with an inexpensive microcontroller and the
+use of a simpler non-active safety harness.</p>
+<p><span><img src="figures/setup-diagram.png" style="height:65mm"
+alt="image" /></span> <span><img src="figures/participant-in-set-up.png"
+style="height:65mm" alt="image" /></span></p>
+<h2 id="protocol">Protocol</h2>
+<p>We recruited 26 able-bodied young adults between 20 and 36 years old
+(mean of 25 years) to participate in the experiments. The participants
+were all confident in their cycling skills and had cycled at least once
+in the last month. All participants consented to the experiment and
+could decline to continue at any time. The study was approved by Delft
+University of Technology’s Human Research Ethics Council (record #3897).
+The participants were divided into two groups. The first group of
+fifteen participants performed the protocol at a belt speed of
+10 km h<sup>−1</sup>(2.8 m s<sup>−1</sup>) with the gain factor set to
+<span class="math inline">\(\kappa=3.9\)</span> and two weeks later the
+second group of eleven participants performed the protocol at a belt
+speed of 6 km h<sup>−1</sup> (1.7 m s<sup>−1</sup>) with the gain factor
+set to <span class="math inline">\(\kappa=5.2\)</span>.</p>
+<p>Participants wore a helmet and they were attached to the ceiling via
+a fall safety harness, Figure <a href="#fig:participant-in-set-up"
+data-reference-type="ref"
+data-reference="fig:participant-in-set-up">[fig:participant-in-set-up]</a>.
+The harness allowed natural free movement pre-fall. The participants
+practiced falling in the harness at least once and then practiced riding
+on the treadmill until they indicated they were comfortable enough to
+have perturbations applied. For most, this was less than a 10 min warm
+up. We then asked the rider to ride for 90 s, while attempting to
+maintain the location of their front wheel on the center line of the
+treadmill as a baseline measure before the perturbations. We then
+applied perturbations in random directions (clockwise or
+counter-clockwise), starting at 20 N and increasing the magnitude by
+30 N until the participants fell. We defined a “fall” on the treadmill
+by two criteria: 1) the rider removes their foot from the pedal and
+places it on the ground or 2) the bicycle wheel exceeds the width of the
+treadmill belt. These two fall criteria are not strictly the same and
+the latter is more likely to happen at higher speeds. We informed the
+participants beforehand that we would stop the treadmill in these
+situations. These were the two actions which necessitated stopping the
+treadmill belt and they are proxies for real fall modes. Placing a foot
+down on the fall side of the bicycle is a natural reaction when steering
+or other body movements are not sufficient to keep the bicycle upright,
+as shown in <span class="citation" data-cites="Gildea2024">(Gildea et
+al. 2024)</span>. Exiting the width of the treadmill is akin to exiting
+the width of a curb-less bicycle path and arises when the rider’s
+control actions are not sufficient to correct the heading of the vehicle
+in sufficient time. Figure <a href="#fig:perturbation-sequence"
+data-reference-type="ref"
+data-reference="fig:perturbation-sequence">[fig:perturbation-sequence]</a>
+shows an example resulting motion from a perturbation. We logged the
+force magnitude that caused the first fall to characterize that
+participant’s <em>perturbation resistance threshold</em>.</p>
+<p><span><img src="figures/start.png" style="width:60mm"
+alt="image" /></span> <span><img src="figures/during.png"
+style="width:60mm" alt="image" /></span> <span><img
+src="figures/after.png" style="width:60mm" alt="image" /></span>
+<span><img src="figures/recovery.png" style="width:60mm"
+alt="image" /></span></p>
+<p>Following the initial threshold determination where the participant
+experienced a range of perturbation magnitudes, we then choose
+perturbation forces according to a random and adaptive staircase
+procedure applying perturbations above and below the initial
+perturbation threshold, while allowing small progression of the
+perturbation threshold to accommodate learning effects. We did not try
+to eliminate learning effects due to the time per participant that would
+be required, but factored this into the later statistical analysis. Five
+possible perturbation forces are determined based on the initial
+perturbation threshold estimate: the initial estimate itself, two
+perturbations lower than the initial estimate, and two perturbations
+higher than the initial estimate. The five possible perturbations are
+separated by 10 N steps. For example, if the initial estimate of the
+perturbation threshold of a participant is 80 N, the five possible
+perturbations are 60, 70, 80, 90 and 100 N. Which one of these five
+perturbations is chosen first is determined at random. If the
+perturbation results in a fall, the estimate of the perturbation
+threshold is decreased by 10 N, and vice versa if the perturbation did
+not result in a fall. Five new possible perturbation forces are
+determined around the updated perturbation threshold, and a new
+perturbation is selected at random. This process iterates until twenty
+perturbations are applied. The sense of the perturbation was randomized
+within the 20 perturbations. The goal of this adaptive staircase
+procedure is to have participants fall for approximately 50% of the
+time. After the first set of 20 perturbations, we let the cyclist rest
+and then perform another 20 perturbations. We randomize whether the
+balance assist system is on or off during the first or second set of 20
+perturbations for each participant and the participants were not told
+the order.</p>
+<h2 id="measurements">Measurements</h2>
+<p>We measure the time histories of the Bump’Em delivered perturbation
+forces and the bicycle’s steer angle <span
+class="math inline">\(\delta\)</span>, roll angle <span
+class="math inline">\(\phi\)</span>, roll angular rate <span
+class="math inline">\(\dot{\phi}\)</span>, and forward speed <span
+class="math inline">\(v\)</span>. Figure <a href="#fig:perturbation_0"
+data-reference-type="ref" data-reference="fig:perturbation_0">3</a>
+shows an example perturbation force measurement compared to our Bump’Em
+controller command.</p>
+<figure>
+<img src="figures/torque_angle_perturbation_10.png"
+id="fig:perturbation_0" style="width:140mm"
+alt="Example of the externally applied perturbation torque alongside the resulting measured motion and steer motor induced torque based on a 110 N counterclockwise applied force at a 6 km h−1 travel speed. The circles on the roll and steer angle plot show the angles \phi_0 and \delta_0 at the perturbation start." />
+<figcaption aria-hidden="true">Example of the externally applied
+perturbation torque alongside the resulting measured motion and steer
+motor induced torque based on a 110 N counterclockwise applied force at
+a 6 km h<sup>−1</sup> travel speed. The circles on the roll and steer
+angle plot show the angles <span class="math inline">\(\phi_0\)</span>
+and <span class="math inline">\(\delta_0\)</span> at the perturbation
+start.</figcaption>
+</figure>
+<p>Based on our prior findings from measuring riders without balance
+assist <span class="citation" data-cites="Haitjema2023a">(M. T. Haitjema
+2023)</span>, we calculate several variables that we hypothesize may
+influence fall probability. We use the angular impulse <span
+class="math inline">\(L\)</span> of the perturbation forces over a 0.3 s
+duration to characterize the magnitude of delivered perturbation. The
+duration is selected based on the duration of the commanded perturbation
+force and is calculated as follows: <span
+class="math display">\[\begin{aligned}
+  L =
+  \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}\left(F_r +
+F_l\right) dt
+  =
+  \int_{0\si{\second}}^{0.3\si{\second}} \frac{l}{2}\left[\left(F_{rf} -
+    F_{rr}\right) + \left(F_{lf} - F_{lr}\right)\right] dt
+  \label{eq:angular-impulse}
+\end{aligned}\]</span> where <span class="math inline">\(F_r\)</span>
+and <span class="math inline">\(F_l\)</span> is the total force applied
+on the right and left handlebar ends, respectively which are the sum of
+the rear and front load cell readings <span
+class="math inline">\(F_{rr}\)</span> and <span
+class="math inline">\(F_{rf}\)</span>, for example. The handlebar length
+is given as <span class="math inline">\(l\)</span> in Equation <a
+href="#eq:angular-impulse" data-reference-type="ref"
+data-reference="eq:angular-impulse">[eq:angular-impulse]</a>. We use
+angular impulse instead of peak torque to normalize for the duration of
+the applied perturbation to capture the total effect of the perturbation
+pulse.</p>
+<p>We record the order number of each perturbation <span
+class="math inline">\(j\)</span>, i.e. first, second, third, …, to
+measure how many perturbations a rider is subjected to before the
+current perturbation. At the initiation of each perturbation we log the
+instantaneous steer and roll angles, <span
+class="math inline">\(\delta_0\)</span> and <span
+class="math inline">\(\phi_0\)</span>, to characterize the configuration
+of the bicycle when perturbed. The sense of these variables relative to
+the sense of the perturbation matters. For example, if there is already
+a large steer angle in the same direction as the perturbation, this will
+have a different effect on the probability that a fall will occur than
+if the steer angle is in the opposite direction of the perturbation. To
+account for this, the roll and steer variables at the instance of
+perturbation are normalized for perturbation direction as was done in
+<span class="citation" data-cites="Haitjema2023a">(M. T. Haitjema
+2023)</span>. The gain factor setting on the balance assist controller
+indicates if the assistance is off <span
+class="math inline">\(\kappa=0\)</span> or on at two different levels:
+low <span class="math inline">\(\kappa=3.9\)</span> or high <span
+class="math inline">\(\kappa=5.2\)</span>. As mentioned earlier, a
+recovery from the perturbation is successful if the person neither
+places their foot down onto the treadmill surface nor the wheel of the
+bicycle exits the width of the treadmill belt. We record this as a
+binary variable <span class="math inline">\(f\)</span> for “fall”. All
+measured variables are reported in Table <a href="#tab:raw"
+data-reference-type="ref" data-reference="tab:raw">1</a>.</p>
+<div id="tab:raw">
+<table>
+<caption>Raw measurements taken during each trial. “Fall Outcome” and
+“Perturbation Order Number” are recorded per perturbation instance. The
+remaining measures are time varying during each trial.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Measure</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">Sensor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Balance Assist Gain Factor</td>
+<td style="text-align: left;"><span
+class="math inline">\(\kappa\)</span></td>
+<td style="text-align: left;">N s<sup>2</sup></td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bicycle Speed</td>
+<td style="text-align: left;"><span
+class="math inline">\(v\)</span></td>
+<td style="text-align: left;">m s<sup>−1</sup></td>
+<td style="text-align: left;">DF30 wheel encoder</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fall Outcome</td>
+<td style="text-align: left;"><span
+class="math inline">\(f\)</span></td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Force <span
+class="math inline">\(l\)</span>eft/<span
+class="math inline">\(r\)</span>ight,<span
+class="math inline">\(f\)</span>ront/<span
+class="math inline">\(r\)</span>ear</td>
+<td style="text-align: left;"><span
+class="math inline">\(F_{lf},F_{rf},F_{lr},F_{rr}\)</span></td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">inline load cell</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Perturbation Order Number</td>
+<td style="text-align: left;"><span
+class="math inline">\(j\)</span></td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Roll Angle</td>
+<td style="text-align: left;"><span
+class="math inline">\(\phi\)</span></td>
+<td style="text-align: left;">°</td>
+<td style="text-align: left;">BN0086 Kalman estimate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Roll Angular Rate</td>
+<td style="text-align: left;"><span
+class="math inline">\(\dot{\phi}\)</span></td>
+<td style="text-align: left;">° s<sup>−1</sup></td>
+<td style="text-align: left;">BN0086 rate gyroscope</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Steer Angle</td>
+<td style="text-align: left;"><span
+class="math inline">\(\delta\)</span></td>
+<td style="text-align: left;">°</td>
+<td style="text-align: left;">steer tube encoder</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="tab:raw" label="tab:raw"></span></p>
+<h2 id="statistics">Statistics</h2>
+<p>We test our hypothesis that the balance assist control will reduce
+the probability of falling when perturbed externally at the handlebar.
+We have a single binary fall outcome variable <span
+class="math inline">\(f\)</span> that is dependent on several possible
+explanatory independent variables, one of which is the binary balance
+assist state (on or off). See Table <a href="#tab:stat-model-variables"
+data-reference-type="ref"
+data-reference="tab:stat-model-variables">2</a> for the statistical
+model variables.</p>
+<div id="tab:stat-model-variables">
+<table>
+<caption>Independent and dependent variables used in the statistical
+regression model.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Causality</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span
+class="math inline">\(L\)</span></td>
+<td style="text-align: left;">independent</td>
+<td style="text-align: left;">N m s</td>
+<td style="text-align: left;">angular impulse of perturbation
+torque</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span
+class="math inline">\(\delta_0\)</span></td>
+<td style="text-align: left;">independent</td>
+<td style="text-align: left;">°</td>
+<td style="text-align: left;">steer angle at start of perturbation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span
+class="math inline">\(\phi_0\)</span></td>
+<td style="text-align: left;">independent</td>
+<td style="text-align: left;">°</td>
+<td style="text-align: left;">roll angle at start of perturbation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span
+class="math inline">\(f\)</span></td>
+<td style="text-align: left;">dependent</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">outcome: did not fall 0 or did fall 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span
+class="math inline">\(s\)</span></td>
+<td style="text-align: left;">independent</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">balance assist: off 0 or on 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span
+class="math inline">\(j\)</span></td>
+<td style="text-align: left;">independent</td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;">order number of perturbation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Fall outcome <span class="math inline">\(f_{ij}\)</span> is the
+binary outcome of perturbation <span class="math inline">\(j\)</span> on
+participant <span class="math inline">\(i\)</span> which follows a
+Bernoulli distribution given the probability <span
+class="math inline">\(P_{ij}\)</span> that a fall occurs: <span
+class="math display">\[\begin{aligned}
+  f_{ij} | P_{ij} \sim \textrm{Bernoulli}(P_{ij}) \textrm{.}
+\end{aligned}\]</span> We evaluate our hypothesis using a multivariate
+logistic regression model, Equation <a href="#eq:log-regress"
+data-reference-type="ref"
+data-reference="eq:log-regress">[eq:log-regress]</a>, that represents
+the probability of this binary outcome. The log-odds of the probability
+is then a linear function of our independent variables with <span
+class="math inline">\(\beta\)</span> being the intercept and <span
+class="math inline">\(\alpha_k\)</span> the linear coefficients to the
+<span class="math inline">\(K\)</span> independent variables <span
+class="math inline">\(x_{ij}^k\)</span>, i.e. all variables in Table <a
+href="#tab:stat-model-variables" data-reference-type="ref"
+data-reference="tab:stat-model-variables">2</a> except <span
+class="math inline">\(f\)</span>. <span
+class="math display">\[\begin{aligned}
+  \log \left(\frac{P_{ij}}{1-P_{ij}} \right) =
+  \beta + \sum_{k=0}^{K} \alpha_k x_{ij}^{k}
+  \label{eq:log-regress}
+\end{aligned}\]</span></p>
+<p>Due to data quality issues that prevented time synchronization of the
+measurements, we excluded one participant from the 6 km h<sup>−1</sup>
+dataset and one from the 10 km h<sup>−1</sup> dataset, leaving 24
+participants for the analysis. Before fitting the model, we scale each
+independent variable <span class="math inline">\(x_{ij}^k\)</span> such
+that they have a mean of zero and a standard deviation of one by
+cluster-mean centering with clusters being an individual participant, as
+recommended by <span class="citation" data-cites="Enders2007">(Enders
+and Tofighi 2007)</span>. The clusters are chosen as all data from an
+individual participant because we are only interested in the association
+between the state of the balance assist system and the outcome of the
+perturbation for that participant, not how participants perform relative
+to each other. We expected there to be variation between participants in
+how well they are able to resist the perturbation; however, this was not
+true. If a random effect is included in the model for each participant,
+the intraclass correlation (ICC) is less than 3% for both the
+6 km h<sup>−1</sup> and 10 km h<sup>−1</sup> datasets, so we utilize a
+simple single-level logistic regression model without the random effect
+instead of a multilevel model. This tracks with the independent data
+collected in <span class="citation" data-cites="Haitjema2023a">(M. T.
+Haitjema 2023)</span> which also had negligible participant variation.
+This left us with angular impulse, perturbation order, balance assist
+state, and roll &amp; steer angles at the time of perturbation as
+independent variables. We also include interaction effects between the
+balance assist state and the other four variables. We divide the
+analysis into two separate model evaluations, one for the
+6 km h<sup>−1</sup>, <span class="math inline">\(\kappa=5.2\)</span>
+trials and one for the 10 km h<sup>−1</sup>, <span
+class="math inline">\(\kappa=3.9\)</span> trials and we evaluate our
+hypothesis for each set of data. Statistics were computed with R version
+4.1.3 <span class="citation" data-cites="RCoreTeam2021">(R Core Team
+2021)</span> and the lme4 version 1.1 <span class="citation"
+data-cites="Bates2015">(Bates et al. 2015)</span> package.</p>
+<h1 id="results">Results</h1>
+<p>The coefficient estimates for a single-level logistic regression for
+the data from the 6 km h<sup>−1</sup>, gain factor <span
+class="math inline">\(\kappa=5.2\)</span> trials are shown in Table <a
+href="#tab:freq-coefs-6" data-reference-type="ref"
+data-reference="tab:freq-coefs-6">3</a>. The angular impulse,
+perturbation order, and balance assist state are all statistically
+significant predictors with angular impulse having a dominant effect.
+Larger angular impulse increases the probability to fall and both
+enduring more perturbations or having the balance assist on, decrease
+the probability to fall. The associated multiplicative change in odds
+are also shown in Table <a href="#tab:freq-coefs-6"
+data-reference-type="ref" data-reference="tab:freq-coefs-6">3</a> and
+can be used to calculate the probability of falling.</p>
+<div id="tab:freq-coefs-6">
+<table>
+<caption>Logistic regression intercept <span
+class="math inline">\(\beta\)</span> and coefficient estimates <span
+class="math inline">\(\alpha_k\)</span> at 6 km h<sup>−1</sup> and gain
+factor <span class="math inline">\(\kappa=5.2\)</span> along with the
+standard error SE, <span class="math inline">\(p\)</span>-value <span
+class="math inline">\(p\)</span>, multiplicative change in odds <span
+class="math inline">\(e^{\beta}\)</span> or <span
+class="math inline">\(e^{\alpha_k}\)</span>, and the 5% confidence
+interval bounds.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;"><span
+class="math inline">\(\beta\)</span> or <span
+class="math inline">\(\alpha_k\)</span></th>
+<th style="text-align: right;">SE</th>
+<th style="text-align: right;"><span
+class="math inline">\(p\)</span></th>
+<th style="text-align: right;"><span
+class="math inline">\(e^{\beta}\)</span> or <span
+class="math inline">\(e^{\alpha_k}\)</span></th>
+<th style="text-align: right;">2.5%</th>
+<th style="text-align: right;">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intercept <span
+class="math inline">\(\beta\)</span></td>
+<td style="text-align: right;">-0.29</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">1.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Angular impulse <span
+class="math inline">\(L\)</span></td>
+<td style="text-align: right;">1.69</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.00<span
+class="math inline">\(^*\)</span></td>
+<td style="text-align: right;">5.40</td>
+<td style="text-align: right;">3.18</td>
+<td style="text-align: right;">9.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Perturbation order <span
+class="math inline">\(j\)</span></td>
+<td style="text-align: right;">-0.77</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.00<span
+class="math inline">\(^*\)</span></td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(s\)</span></td>
+<td style="text-align: right;">-0.64</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.02<span
+class="math inline">\(^*\)</span></td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.89</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Roll angle <span
+class="math inline">\(\phi_0\)</span></td>
+<td style="text-align: right;">-0.25</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">1.18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Steer angle <span
+class="math inline">\(\delta_0\)</span></td>
+<td style="text-align: right;">-0.14</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">1.32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> roll angle</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">1.68</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">3.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> steer angle</td>
+<td style="text-align: right;">-0.41</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">1.28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> angular impulse</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">1.51</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">3.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> perturbation order</td>
+<td style="text-align: right;">-0.53</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.59</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">1.15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The coefficient estimates for a single-level logistic regression at
+10 km h<sup>−1</sup> with gain factor <span
+class="math inline">\(\kappa=3.9\)</span> are shown in Table <a
+href="#tab:freq-coefs-10" data-reference-type="ref"
+data-reference="tab:freq-coefs-10">4</a>. The angular impulse and
+perturbation order are statistically significant predictors with angular
+impulse being the dominant effect. Larger angular impulse increases the
+probability to fall and enduring more perturbations decreases the
+probability to fall. Unlike the 6 km h<sup>−1</sup> trials, the balance
+assist state is not a significant predictor (<span
+class="math inline">\(p=0.07\)</span>) for our <span
+class="math inline">\(p\)</span>-value threshold but the effect would be
+a reduction in the probability to fall if it were. At both speeds, the
+angular impulse has about twice the magnitude in effect as the
+perturbation order.</p>
+<div id="tab:freq-coefs-10">
+<table>
+<caption>Logistic regression intercept <span
+class="math inline">\(\beta\)</span> and coefficient estimates <span
+class="math inline">\(\alpha_k\)</span> at 10 km h<sup>−1</sup> and gain
+factor <span class="math inline">\(\kappa=3.9\)</span> along with the
+standard error SE, <span class="math inline">\(p\)</span>-value <span
+class="math inline">\(p\)</span>, multiplicative change in odds <span
+class="math inline">\(e^{\beta}\)</span> or <span
+class="math inline">\(e^{\alpha_k}\)</span>, and the 5% confidence
+interval bounds.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;"><span
+class="math inline">\(\beta\)</span> or <span
+class="math inline">\(\alpha_k\)</span></th>
+<th style="text-align: right;">SE</th>
+<th style="text-align: right;"><span
+class="math inline">\(p\)</span></th>
+<th style="text-align: right;"><span
+class="math inline">\(e^{\beta}\)</span> or <span
+class="math inline">\(e^{\alpha_k}\)</span></th>
+<th style="text-align: right;">2.5%</th>
+<th style="text-align: right;">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: right;">-0.24</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">1.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Angular impulse <span
+class="math inline">\(L\)</span></td>
+<td style="text-align: right;">2.39</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">0.00<span
+class="math inline">\(^*\)</span></td>
+<td style="text-align: right;">10.92</td>
+<td style="text-align: right;">6.23</td>
+<td style="text-align: right;">19.13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Perturbation order <span
+class="math inline">\(j\)</span></td>
+<td style="text-align: right;">-1.16</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.00<span
+class="math inline">\(^*\)</span></td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.48</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balance assist on <span
+class="math inline">\(s\)</span></td>
+<td style="text-align: right;">-0.44</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">1.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Roll angle <span
+class="math inline">\(\phi_0\)</span></td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">1.31</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">2.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Steer angle <span
+class="math inline">\(\delta_0\)</span></td>
+<td style="text-align: right;">-0.37</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">1.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> roll angle</td>
+<td style="text-align: right;">-0.61</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">1.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> steer angle</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">1.76</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">3.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> angular impulse</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">1.59</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">3.74</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balance assist state <span
+class="math inline">\(\times\)</span> perturbation order</td>
+<td style="text-align: right;">-0.37</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">1.30</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Turning the balance assist system on significantly <span
+class="math inline">\((p=0.02&lt;0.05)\)</span> reduces the odds that a
+perturbation results in a fall while cycling at a speed of
+6 km h<sup>−1</sup>. Figure <a href="#fig:probability-6kph"
+data-reference-type="ref"
+data-reference="fig:probability-6kph">[fig:probability-6kph]</a>
+visualizes the probability of falling as a function of the mean and
+centered angular impulse per participant for the balance assist state on
+and off. This figure is created by setting all explanatory variables to
+their centered mean values and calculating the probability from
+Equation <a href="#eq:log-regress" data-reference-type="ref"
+data-reference="eq:log-regress">[eq:log-regress]</a> for only change in
+angular impulse given the estimates in Table <a href="#tab:freq-coefs-6"
+data-reference-type="ref" data-reference="tab:freq-coefs-6">3</a>. The
+table indicates that the balance assist system halves (0.53) the odds
+that a perturbation results in a fall. This figure shows that for
+relatively large impulses the probability to fall is unity for both
+states of balance assist on and off. And for relatively small impulses
+the probability to fall is null for both states. But for impulses in the
+magnitude region (about -1 to 0.5 STD), i.e. around the mean-centered
+perturbation resistance threshold, the probability of falling is
+significantly lowered with the balance assist system on. The skewness of
+the probability curves arrives from the interaction effects. Figure <a
+href="#fig:probability-10kph" data-reference-type="ref"
+data-reference="fig:probability-10kph">[fig:probability-10kph]</a> shows
+the same result for the 10 km h<sup>−1</sup> trials which has a similar
+trend of reducing the probability to fall with the balance assist system
+turned on, but the effect is not significant <span
+class="math inline">\((p=0.07 &gt; 0.05)\)</span>.</p>
+<p><span><img src="figures/predicted_fall_probability_6kmh.png"
+style="width:80mm" alt="image" /></span> <span><img
+src="figures/predicted_fall_probability_10kmh.png" style="width:80mm"
+alt="image" /></span></p>
+<h1 id="discussion">Discussion</h1>
+<p>We have shown that at a 6 km h<sup>−1</sup> riding speed the addition
+of balance assist control reduces the chance that a rider will fall when
+perturbed around the limits of their control authority. But this effect
+diminishes just below significance at the higher speed scenario of
+10 km h<sup>−1</sup>. We were only able to test these two speed-gain
+scenarios for mostly homogeneous sets of riders within the resources of
+this research project, but additional experimental work could help
+understand more completely the range and limits of the positive effect
+of the balance assist system. For example, it is possible that simply
+increasing the controller gain factor at 10 km h<sup>−1</sup> also
+results in a significant positive effect. A longitudinal study of normal
+use of the balance assist bicycle compared to a control group could
+provide the strongest evidence of any benefit we have seen in this
+specific scenario.</p>
+<h2 id="stability-and-human-controlled-plant-dynamics">Stability and
+Human Controlled Plant Dynamics</h2>
+<p>The linear Carvallo-Whipple model indicates that the steer controller
+stabilizes the bicycle-rider system, but this model assumes the rider’s
+hands are not connected to the handlebars and that they clamp their body
+as rigidly as possible to the rear frame. In reality, the system’s
+behavior is likely more akin to a marginally stable or an easily
+controllable unstable system due to the various un-modeled effects. Our
+system may not result in a definitely stable system, i.e. cannot fall,
+but having plant eigenvalues with very small unstable eigenvalue real
+parts correlates to ease of control <span class="citation"
+data-cites="Hess2012">(Hess, Moore, and Hubbard 2012)</span> which can
+be beneficial for avoiding falls.</p>
+<p>The controller design we utilize, Equation <a
+href="#eq:implemented-controller" data-reference-type="ref"
+data-reference="eq:implemented-controller">[eq:implemented-controller]</a>,
+also increases the weave mode frequency by a factor of about three to
+almost 1 Hz. This bandwidth is still controllable by the human’s
+neuromuscular system <span class="citation"
+data-cites="Magdaleno1971">(Magdaleno and McRuer 1971)</span>, but may
+feel unusual as it is more akin to what the steering would feel like at
+25 km h<sup>−1</sup> for a normal bicycle. Hanakam, Wehner, and
+Wrede <span class="citation" data-cites="Hanakam2023">(Hanakam, Wehner,
+and Wrede 2023)</span> reported dissatisfaction in subjective rider
+feeling on their similar bicycle to ours and this high frequency effect
+to the human-controlled plant dynamics could be an explanation to their
+findings.</p>
+<h2 id="utility-of-the-logistic-model-to-natural-falls">Utility of the
+Logistic Model to Natural Falls</h2>
+<p>The probability that a fall occurs depends on the values of all the
+independent variables in Table <a href="#tab:stat-model-variables"
+data-reference-type="ref"
+data-reference="tab:stat-model-variables">2</a>, but we can visualize
+the effect of one or two variables (e.g. Figure <a
+href="#fig:probability" data-reference-type="ref"
+data-reference="fig:probability">[fig:probability]</a>) to gain some
+insight. To interpret the results in Tables <a href="#tab:freq-coefs-6"
+data-reference-type="ref" data-reference="tab:freq-coefs-6">3</a> and <a
+href="#tab:freq-coefs-10" data-reference-type="ref"
+data-reference="tab:freq-coefs-10">4</a> it is important to understand
+the relationship between probability and odds. The estimate in Table <a
+href="#tab:freq-coefs-6" data-reference-type="ref"
+data-reference="tab:freq-coefs-6">3</a> shows that the balance assist
+system halves the odds that a perturbation results in a fall: <span
+class="math inline">\(e^{\alpha_k}=0.53\)</span>. This means if the odds
+are a 1000:1, turning on the balance assist system reduces the odds to
+500:1. However, in that case the probability that a fall occurs is only
+reduced from <span class="math inline">\(0.999\)</span> to <span
+class="math inline">\(0.998\)</span>. If the odds that a fall occurs are
+smaller, halving the odds has a larger influence on the fall
+probability. For example, if the odds that a fall occurs is two, halving
+it to one reduces the probability from <span
+class="math inline">\(0.66\)</span> to <span
+class="math inline">\(0.50\)</span>. This can be seen in Figure <a
+href="#fig:probability" data-reference-type="ref"
+data-reference="fig:probability">[fig:probability]</a> which shows the
+fall probability as a function of the magnitude of the normalized
+angular impulse for both speeds. The difference in probability between
+the balance assist on/off case becomes insignificant outside of
+approximately <span class="math inline">\(\pm1\)</span> standard
+deviation of the average angular impulse the rider was subjected to.
+This means that the balance assist is most effective for perturbations
+close to the participant’s perturbation resistance threshold and that
+large perturbations will make you fall regardless of the balance assist
+system’s help.</p>
+<p>To illustrate the effect of the balance assist system on fall
+probability, we will give an example of how the data collected during
+the experiments is used to predict fall probability. We use Equation <a
+href="#eq:log-regress" data-reference-type="ref"
+data-reference="eq:log-regress">[eq:log-regress]</a> and the
+coefficients in Table <a href="#tab:freq-coefs-6"
+data-reference-type="ref" data-reference="tab:freq-coefs-6">3</a>. For
+simplicity’s sake, the interaction effects are not included. For
+example, assuming that the mean angular impulse <span
+class="math inline">\(\bar{L}\)</span> of all the perturbations applied
+to a participant is 100 N and the standard deviation <span
+class="math inline">\(\sigma_{L}=15\)</span>. The centered and scaled
+angular impulse can be calculated by subtracting <span
+class="math inline">\(\bar{L}\)</span> from the applied angular impulse
+<span class="math inline">\(L\)</span>, and dividing this by <span
+class="math inline">\(\sigma_{L}\)</span>. The same applies for the
+perturbation order <span class="math inline">\(j\)</span>, initial roll
+angle <span class="math inline">\(\phi_0\)</span>, and initial steer
+angle <span class="math inline">\(\delta_0\)</span>. If we take the
+coefficients estimated for cycling at 6 km h<sup>−1</sup> and example
+means, the log-odds of falling can be calculated as follows: <span
+class="math display">\[\begin{split}
+    \log \left( \frac{P_{ij}}{1-P_{ij}} \right)
+    = &amp; \quad
+    \beta + \sum_{k=1}^{k=5}\alpha_k
+\frac{x_{ij}^{k}-\bar{x}_{ij}^{k}}{\sigma^{x^{k}}} \\
+    = &amp;
+   -0.29 + 1.69\cdot\frac{110~\si{\newton} -
+100\si{\newton}}{15\si{\newton}} -0.77\cdot\frac{10-20}{11.54}  \\
+    &amp; -0.25\cdot\frac{-6\si{\degree}-2\si{\degree}}{10\si{\degree}}
+    -0.14\cdot\frac{1\si{\degree}+3\si{\degree}}{5\si{\degree}} -0.64 s
+\\
+    = &amp;
+    1.59 -0.64 s
+  \textrm{.}
+  \end{split}\]</span> The state of the balance assist <span
+class="math inline">\(s\)</span> is a binary variable. If the balance
+assist is turned on, the log-odds that a fall occurs are decreased by
+0.64. The odds and probability can be calculated: <span
+class="math display">\[\begin{aligned}
+  \frac{P_{ij}}{1-P_{ij}} &amp; = e^{1.59-0.64s} =
+  e^{1.59}\cdot e^{-0.64s} = 4.90 \cdot e^{-0.64s} \\
+  P_{ij}|_{s=0} &amp; = \frac{4.90}{1 + 4.90} = 0.83 \\
+  P_{ij}|_{s=1} &amp; = \frac{4.90\cdot0.53}{1 + 4.90\cdot{0.53}} = 0.72
+\end{aligned}\]</span> Turning on the balance assist system reduces the
+probability that the perturbation results in a fall from 83% to 72% in
+this case.</p>
+<p>This illustration alludes to the difficulty needed to apply the model
+in way that could predict how many falls may be averted in a natural
+setting if the balance assist system is used. Estimates of the predictor
+variables extracted from the limited data collected from natural cycling
+would be needed to populate the model. The positive effect of the
+balance assist system is coupled to the assumptions and experimental
+scenarios we implemented and there is unfortunately no simple way to
+extrapolate our results to reductions of single-actor crashes we may see
+if such a system were deployed widely to bicyclists. Although, our
+results do indicate that we would see such a reduction, even if only in
+a class of single-actor crashes that most resemble our experimental
+design. If there were more comprehensive and detailed natural data of
+how people fall we could make estimates on the number of falls reduced
+if everyone rode a balance assist bicycle.</p>
+<h2 id="treadmill-width">Treadmill Width</h2>
+<p>Angular impulse magnitude has the largest significant effect for
+predicting fall probability as seen in both Tables <a
+href="#tab:freq-coefs-6" data-reference-type="ref"
+data-reference="tab:freq-coefs-6">3</a> and <a href="#tab:freq-coefs-10"
+data-reference-type="ref" data-reference="tab:freq-coefs-10">4</a>. An
+increase in angular impulse increases the fall probability both at 6 and
+10 km h<sup>−1</sup>. At 10 km h<sup>−1</sup>, the multiplicative change
+in odds is approximately twice as big as at 6 km h<sup>−1</sup>. Thus,
+angular impulse is a more important predictor at higher speeds compared
+to lower speeds. We posit that this likely has to do with the width of
+the treadmill and that this could also be why the balance assist system
+did not have a statistically significant effect at 10 km h<sup>−1</sup>.
+As a bicycle travels at higher speeds, the same perturbation magnitude
+causes larger lateral deviations. At 10 km h<sup>−1</sup>, almost all
+falls were due to the bicycle exiting the maximum width of the
+treadmill. If the same experiment was performed on an infinitely wide
+plane, the riders may have recovered from more perturbations. At
+6 km h<sup>−1</sup>, the riders could often recover in the allotted
+treadmill width due to the smaller lateral deviations. We believe our
+results are very much dependent on the two modes of falling, i.e.
+exiting the treadmill width or placing a foot on the belt. Future
+studies should consider coding fall mode by type. On the other hand,
+cycle paths are a similar width as the treadmill, so riders are often
+limited in width when recovering from a fall thus exiting the treadmill
+width may be an appropriate measure for indicating a fall. While the
+treadmill simulates narrow cycle paths, real-world paths may offer more
+lateral recovery space, providing riders with additional opportunities
+to regain balance after a perturbation. However, testing in such narrow
+conditions is still highly relevant, as system design and validation
+should focus on extreme conditions like narrow paths, because even in
+wider paths obstacles such as parked cars or barriers can limit lateral
+space.</p>
+<h2 id="rider-skill-and-experience">Rider Skill and Experience</h2>
+<p>Each individual participant had their own perturbation resistance
+threshold, i.e. the perturbation magnitude defining whether they would
+fall 50% of the time. The value of this threshold is likely correlated
+with the skill and experience of the participant at balancing a bicycle.
+With this study, we cannot answer whether the balance assist system
+helps low skilled participants more than highly skilled participants
+because that is simply a function of how often a perturbation in a
+natural setting exceeds an individual’s threshold. But, we did find that
+the system can help regardless of a participant’s individual balance
+performance. On average, the balance assist system pushes the
+perturbation resistance threshold up for all participants. The vast
+majority of perturbations experienced in natural bicycling are below an
+individual’s perturbation resistance threshold, otherwise we would
+observe bicyclists falling much more, but low skilled riders may
+experience more perturbations that exceed their threshold. Determining
+how often certain perturbation types and magnitudes are experienced in
+natural bicycling is an open research need and would help understand
+whether a balance assist intervention would have a strong effect when
+used in the wild.</p>
+<h2 id="learning-effect">Learning Effect</h2>
+<p>An increase in the number of perturbations that a participant already
+experienced, decreases the probability that a fall occurs. This is
+likely due to the participants learning how to better recover from the
+perturbation over the duration of the experiment. This effect is
+significant at both 6 and 10 km h<sup>−1</sup> and in the same order of
+magnitude. This suggests that the learning effect that occurs during the
+experiment is not strongly dependent on the speed but that similar
+experiments should consider the learning effect. An experiment that
+tests professional cyclists or one that trains each participant to their
+maximum performance could be insightful.</p>
+<h2 id="non-significant-predictors">Non-significant Predictors</h2>
+<p>Roll and steer angle at the initiation of a perturbation are not a
+significant predictor of fall probability at 6 or at
+10 km h<sup>−1</sup>. We expected these variables to have a significant
+effect based on the following reasoning. If you are in a rolled and
+steered state that is far from the upright equilibrium, then a
+perturbation that further pushes you from the equilibrium should have
+some additive or multiplicative effect on the resulting motion
+trajectory and make it harder to recover from a fall, but our results
+did not confirm this reasoning and we do not yet understand why.</p>
+<p>None of the interaction effects are statistically significant. That
+means that whether the balance assist system is on or off does not
+significantly change the effect that the roll angle, steer angle,
+angular impulse, and perturbation order have on the probability that a
+fall will occur.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Automatically controlling a steering motor in a bicycle using roll
+rate feedback lowers the speed at which the bicycle is stable. This
+makes the bicycle’s low speed dynamics more akin to its uncontrolled
+high speed dynamics, which is easier for a rider to control in balance.
+Perturbation forces applied to the handlebar can cause a rider to fall
+and every rider has a perturbation resistance threshold at which they
+are more likely to fall than not. The probability of falling when
+mechanically perturbed is significantly (<span
+class="math inline">\(p=0.02\)</span>) reduced when traveling at
+6 km h<sup>−1</sup> when the balance assisting control is activated.
+This effect is present when traveling at 10 km h<sup>−1</sup> and is
+very close to significance (<span class="math inline">\(p=0.07\)</span>)
+but more investigation is needed to determine if the effect can be
+significant. The positive effect to balance is rider independent and
+most effective in the regime of perturbations near the limits of the
+rider’s control authority. Given that similar effects cause falls during
+bicycling, use of the balance assist system in real world use cases
+should reduce the number of falls at low bicycling speeds.</p>
+<h1 class="unnumbered" id="acknowledgements">Acknowledgements</h1>
+<p>This study follows and draws from experimental and analysis methods
+originally developed in unpublished research by Marco Reijne. The
+authors acknowledge Felix Dauer, David Gabriel, Sierd Heida, Oliver
+Maier, Maarten Pelgrim, Marco Reijne, and Arend Schwab for contributions
+to the development of the balance assist bicycle. We acknowledge Shannon
+van de Velde and Marco Reijne’s development of the bicycle perturbation
+system. Allen Downey provided useful insight in the statistical
+considerations. We thank all of the assistants that helped run the
+experiments and the participants for their time and enthusiasm. Thanks
+to Wouter Gregoor, Hans van der Does, and Cor Meijneke for reviving the
+bicycles at a critical moment. Thanks to Christoph Schmidt for
+motivation to do yet another round of trials. We thank Peter Stahlecker,
+Benjamin Gonzalez, and Riender Happee for valuable feedback in early
+revisions. Lastly, we thank Frans van der Helm for the consistent
+encouragement to execute this experiment and his early vision for
+obtaining the funding.</p>
+<h1 class="unnumbered" id="funding">Funding</h1>
+<p>This study is funded by Dutch Research Council, Nederlandse
+Organisatie voor Wetenschappelijk Onderzoek (NWO), under the Citius
+Altius Sanius Perspectief program and in collaboration with Bosch eBike
+Systems and Royal Dutch Gazelle. The funders had no role in the data
+collection and analysis or preparation of the manuscript.</p>
+<h1 class="unnumbered" id="code-and-data-availability">Code and Data
+Availability</h1>
+<p>The data and code to reproduce the paper are available at:</p>
+<p><code>https://github.com/mechmotum/fall-probability-paper</code></p>
+<h1 id="sec:physical-parameters">Physical Parameters</h1>
+<p>Physical parameters for the balance assist bicycle with and without a
+rider. These are found using the measurement approach for geometric and
+inertial parameters for a bicycle explained in <span class="citation"
+data-cites="Moore2012">(Moore 2012)</span>. The rider inertial
+parameters are derived from the 83.5 kg rider “Jason” available in
+BicycleParameters 1.1.1 <span class="citation"
+data-cites="Moore2024">(Moore et al. 2011)</span>. The variable names
+match the notation and definitions from the benchmark bicycle model
+presented in <span class="citation" data-cites="Meijaard2007">(Meijaard
+et al. 2007)</span> with the <span class="math inline">\(xyz\)</span>
+axes following the SAE J670 standard with positive <span
+class="math inline">\(z\)</span> directed down into the ground.</p>
+<table>
+<caption>Physical parameters of the balance assist bicycle with and
+without the inertia effects of a rigid rider.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Unit</th>
+<th style="text-align: right;">Without Rider</th>
+<th style="text-align: right;">With Rider</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">trail</td>
+<td style="text-align: left;"><span
+class="math inline">\(c\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acceleration due to gravity</td>
+<td style="text-align: left;"><span
+class="math inline">\(g\)</span></td>
+<td style="text-align: left;">m s<sup>−2</sup></td>
+<td style="text-align: right;">9.80665</td>
+<td style="text-align: right;">9.80665</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear frame moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Bxx}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">19.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rear frame product of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Bxz}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">-3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear frame moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Byy}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">3.16</td>
+<td style="text-align: right;">22.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rear frame product of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Bzz}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">2.12</td>
+<td style="text-align: right;">5.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">front wheel moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Fxx}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.0995</td>
+<td style="text-align: right;">0.0995</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front wheel moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Fyy}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.1902</td>
+<td style="text-align: right;">0.1902</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">front frame moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Hxx}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.298</td>
+<td style="text-align: right;">0.298</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front frame product of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Hxz}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">-0.038</td>
+<td style="text-align: right;">-0.038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">front frame moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Hyy}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.257</td>
+<td style="text-align: right;">0.257</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front frame moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Hzz}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">0.057</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear wheel moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Rxx}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.1023</td>
+<td style="text-align: right;">0.1023</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rear wheel moment of inertia</td>
+<td style="text-align: left;"><span
+class="math inline">\(I_{Ryy}\)</span></td>
+<td style="text-align: left;">kg m<sup>2</sup></td>
+<td style="text-align: right;">0.1887</td>
+<td style="text-align: right;">0.1887</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">steer axis tilt</td>
+<td style="text-align: left;"><span
+class="math inline">\(\lambda\)</span></td>
+<td style="text-align: left;">rad</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rear frame mass</td>
+<td style="text-align: left;"><span
+class="math inline">\(m_B\)</span></td>
+<td style="text-align: left;">kg</td>
+<td style="text-align: right;">22.50</td>
+<td style="text-align: right;">106.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">front wheel mass</td>
+<td style="text-align: left;"><span
+class="math inline">\(m_F\)</span></td>
+<td style="text-align: left;">kg</td>
+<td style="text-align: right;">2.23</td>
+<td style="text-align: right;">2.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front frame mass</td>
+<td style="text-align: left;"><span
+class="math inline">\(m_H\)</span></td>
+<td style="text-align: left;">kg</td>
+<td style="text-align: right;">4.30</td>
+<td style="text-align: right;">4.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear wheel mass</td>
+<td style="text-align: left;"><span
+class="math inline">\(m_R\)</span></td>
+<td style="text-align: left;">kg</td>
+<td style="text-align: right;">4.08</td>
+<td style="text-align: right;">4.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front wheel radius</td>
+<td style="text-align: left;"><span
+class="math inline">\(r_F\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">0.3523</td>
+<td style="text-align: right;">0.3523</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear wheel radius</td>
+<td style="text-align: left;"><span
+class="math inline">\(r_R\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">0.3489</td>
+<td style="text-align: right;">0.3489</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wheelbase</td>
+<td style="text-align: left;"><span
+class="math inline">\(w\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">1.113</td>
+<td style="text-align: right;">1.113</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear frame mass center coordinate</td>
+<td style="text-align: left;"><span
+class="math inline">\(x_B\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.374</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front frame mass center coordinate</td>
+<td style="text-align: left;"><span
+class="math inline">\(x_H\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rear frame mass center coordinate</td>
+<td style="text-align: left;"><span
+class="math inline">\(z_B\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">-0.52</td>
+<td style="text-align: right;">-1.009</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front frame mass center coordinate</td>
+<td style="text-align: left;"><span
+class="math inline">\(z_H\)</span></td>
+<td style="text-align: left;">m</td>
+<td style="text-align: right;">-0.860</td>
+<td style="text-align: right;">-0.860</td>
+</tr>
+</tbody>
+</table>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-Alizadehsaravi2023" class="csl-entry"
+role="doc-biblioentry">
+Alizadehsaravi, Leila, and Jason K. Moore. 2023. <span>“Bicycle Balance
+Assist System Reduces Roll and Steering Motion for Young and Older
+Bicyclists During Real-Life Safety Challenges.”</span> <em>PeerJ</em> 11
+(October): e16206. <a
+href="https://doi.org/10.7717/peerj.16206">https://doi.org/10.7717/peerj.16206</a>.
+</div>
+<div id="ref-Astrom2005" class="csl-entry" role="doc-biblioentry">
+Åström, Karl J., Richard E. Klein, and Anders Lennartsson. 2005.
+<span>“Bicycle Dynamics and Control: Adapted Bicycles for Education and
+Research.”</span> <em>IEEE Control Systems Magazine</em> 25 (4): 26–47.
+<a
+href="https://doi.org/10.1109/MCS.2005.1499389">https://doi.org/10.1109/MCS.2005.1499389</a>.
+</div>
+<div id="ref-Bates2015" class="csl-entry" role="doc-biblioentry">
+Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015.
+<span>“Fitting <span>Linear Mixed-Effects Models Using</span> <span
+class="nocase">lme4</span>.”</span> <em>Journal of Statistical
+Software</em> 67 (October): 1–48. <a
+href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>.
+</div>
+<div id="ref-Carvallo1899" class="csl-entry" role="doc-biblioentry">
+Carvallo, E. 1899. <em>Théorie Du Mouvement Du Monocycle Et de La
+Bicyclette</em>. Paris, France: Gauthier- Villars.
+</div>
+<div id="ref-Dembia2015" class="csl-entry" role="doc-biblioentry">
+Dembia, Chris, Jason K. Moore, and Mont Hubbard. 2015. <span>“An Object
+Oriented Implementation of the <span>Yeadon</span> Human Inertia
+Model.”</span> <em>F1000Research</em> 3 (233). <a
+href="https://doi.org/10.12688/f1000research.5292.2">https://doi.org/10.12688/f1000research.5292.2</a>.
+</div>
+<div id="ref-Enders2007" class="csl-entry" role="doc-biblioentry">
+Enders, Craig K., and Davood Tofighi. 2007. <span>“Centering Predictor
+Variables in Cross-Sectional Multilevel Models: <span>A</span> New Look
+at an Old Issue.”</span> <em>Psychological Methods</em> 12 (2): 121–38.
+<a
+href="https://doi.org/10.1037/1082-989X.12.2.121">https://doi.org/10.1037/1082-989X.12.2.121</a>.
+</div>
+<div id="ref-Gildea2024" class="csl-entry" role="doc-biblioentry">
+Gildea, Kevin, Daniel Hall, Christopher R. Cherry, and Ciaran Simms.
+2024. <span>“Forward Dynamics Computational Modelling of a Cyclist Fall
+with the Inclusion of Protective Response Using Deep Learning-Based
+Human Pose Estimation.”</span> <em>Journal of Biomechanics</em> 163
+(January): 111959. <a
+href="https://doi.org/10.1016/j.jbiomech.2024.111959">https://doi.org/10.1016/j.jbiomech.2024.111959</a>.
+</div>
+<div id="ref-Haitjema2023a" class="csl-entry" role="doc-biblioentry">
+Haitjema, Marten Tjeerd. 2023. <span>“Estimating Fall Probability in
+Cycling.”</span> {{MSc thesis}}, Delft, The Netherlands: Delft
+University of Technology.
+</div>
+<div id="ref-Haitjema2025" class="csl-entry" role="doc-biblioentry">
+Haitjema, Marten, Leila Alizadehsaravi, and Jason Moore. 2025.
+<span>“Automatic <span>Bicycle Balance Assistance Reduces
+Probability</span> of <span>Falling</span> at <span>Low Speeds When
+Subjected</span> to <span>Handlebar Perturbations</span>.”</span>
+Engineering Archive. <a
+href="https://doi.org/10.31224/4003">https://doi.org/10.31224/4003</a>.
+</div>
+<div id="ref-Hanakam2023" class="csl-entry" role="doc-biblioentry">
+Hanakam, Yannick, Christa Wehner, and Jürgen Wrede. 2023. <span>“The
+Influence of an Active Steering Assistance System on the Cyclist’s
+Experience in Low-Speed Riding Tasks.”</span> Poster. Dresden, Germany:
+Technische Universität Dresden.
+</div>
+<div id="ref-Hess2012" class="csl-entry" role="doc-biblioentry">
+Hess, Ronald, Jason K. Moore, and Mont Hubbard. 2012. <span>“Modeling
+the <span>Manually Controlled Bicycle</span>.”</span> <em>IEEE
+Transactions on Systems, Man, and Cybernetics - Part A: Systems and
+Humans</em> 42 (3): 545–57. <a
+href="https://doi.org/10.1109/TSMCA.2011.2164244">https://doi.org/10.1109/TSMCA.2011.2164244</a>.
+</div>
+<div id="ref-Kane1985" class="csl-entry" role="doc-biblioentry">
+Kane, Thomas R., and David A. Levinson. 1985. <em>Dynamics,
+<span>Theory</span> and <span>Application</span></em>. McGraw Hill.
+</div>
+<div id="ref-Kooijman2009a" class="csl-entry" role="doc-biblioentry">
+Kooijman, J. D. G., and A. L. Schwab. 2009. <span>“Experimental
+Validation of the Lateral Dynamics of a Bicycle on a Treadmill.”</span>
+In <em>Proceedings of the <span>ASME</span> 2009 International Design
+Engineering Technical Conferences &amp; Computers and Information in
+Engineering Conference, <span>IDETC</span>/<span>CIE</span> 2009</em>.
+DETC2009-86965.
+</div>
+<div id="ref-Magdaleno1971" class="csl-entry" role="doc-biblioentry">
+Magdaleno, R. E., and D. T. McRuer. 1971. <span>“Experimental Validation
+and Analytical Elaboration for Models of the Pilot’s Neuromuscular
+Subsystem in Tracking Tasks.”</span> CR-1757. NASA.
+</div>
+<div id="ref-Meijaard2007" class="csl-entry" role="doc-biblioentry">
+Meijaard, J. P., Jim M. Papadopoulos, Andy Ruina, and A. L. Schwab.
+2007. <span>“Linearized Dynamics Equations for the Balance and Steer of
+a Bicycle: <span>A</span> Benchmark and Review.”</span> <em>Proceedings
+of the Royal Society A: Mathematical, Physical and Engineering
+Sciences</em> 463 (2084): 1955–82. <a
+href="https://doi.org/10.1098/rspa.2007.1857">https://doi.org/10.1098/rspa.2007.1857</a>.
+</div>
+<div id="ref-Moore2012" class="csl-entry" role="doc-biblioentry">
+Moore, Jason K. 2012. <span>“Human <span>Control</span> of a
+<span>Bicycle</span>.”</span> PhD thesis, Davis, CA, USA: University of
+California.
+</div>
+<div id="ref-Moore2024" class="csl-entry" role="doc-biblioentry">
+Moore, Jason K., Chris Dembia, Oliver Lee, Lyla Sanders, and Julie van
+Vlerken. 2011. <span>“<span>BicycleParameters</span>: <span>A
+Python</span> Library for Bicycle Parameter Estimation and
+Analysis.”</span> <a
+href="https://github.com/moorepants/BicycleParameters"
+class="uri">https://github.com/moorepants/BicycleParameters</a>.
+</div>
+<div id="ref-Nagai1983" class="csl-entry" role="doc-biblioentry">
+Nagai, M. 1983. <span>“Analysis of Rider and Single-Track-Vehicle
+System; <span>Its</span> Application to Computer-Controlled
+Bicycles.”</span> <em>Automatica</em> 19 (6): 737–40.
+</div>
+<div id="ref-RCoreTeam2021" class="csl-entry" role="doc-biblioentry">
+R Core Team. 2021. <span>“R: <span>A Language</span> and
+<span>Environment</span> for <span>Statistical Computing</span>.”</span>
+Vienna, Austria: R Foundation for Statistical Computing.
+</div>
+<div id="ref-Ruijs1986" class="csl-entry" role="doc-biblioentry">
+Ruijs, P. A. J., and H. B. Pacejka. 1986. <span>“Recent
+<span>Research</span> in <span>Lateral Dynamics</span> of
+<span>Motorcycles</span>.”</span> <em>Vehicle System Dynamics</em> 15
+(sup1): 467–80. <a
+href="https://doi.org/10.1080/00423118608969155">https://doi.org/10.1080/00423118608969155</a>.
+</div>
+<div id="ref-Schwab2008" class="csl-entry" role="doc-biblioentry">
+Schwab, A. L., J. D. G. Kooijman, and J. P. Meijaard. 2008. <span>“Some
+Recent Developments in Bicycle Dynamics and Control.”</span> In
+<em>Fourth <span>European Conference</span> on <span>Structural
+Control</span> (<span>4ECSC</span>)</em>. St. Petersburg, Russia.
+</div>
+<div id="ref-Sharp1971" class="csl-entry" role="doc-biblioentry">
+Sharp, R. S. 1971. <span>“The <span>Stability</span> and
+<span>Control</span> of <span>Motorcycles</span>.”</span> Article.
+<em>Journal of Mechanical Engineering Science</em> 13 (5): 316–29. <a
+href="https://doi.org/10.1243/JMES_JOUR_1971_013_051_02">https://doi.org/10.1243/JMES_JOUR_1971_013_051_02</a>.
+</div>
+<div id="ref-Tan2020" class="csl-entry" role="doc-biblioentry">
+Tan, Guan Rong, Michael Raitor, and Steven H. Collins. 2020.
+<span>“Bump’em: An <span>Open-Source</span>, <span>Bump-Emulation
+System</span> for <span>Studying Human Balance</span> and
+<span>Gait</span>.”</span> In <em>2020 <span>IEEE International
+Conference</span> on <span>Robotics</span> and <span>Automation</span>
+(<span>ICRA</span>)</em>, 9093–99. <a
+href="https://doi.org/10.1109/ICRA40945.2020.9197105">https://doi.org/10.1109/ICRA40945.2020.9197105</a>.
+</div>
+<div id="ref-Utriainen2023" class="csl-entry" role="doc-biblioentry">
+Utriainen, Roni, Steve O’Hern, and Markus Pöllänen. 2023. <span>“Review
+on Single-Bicycle Crashes in the Recent Scientific Literature.”</span>
+<em>Transport Reviews</em> 43 (2): 159–77. <a
+href="https://doi.org/10.1080/01441647.2022.2055674">https://doi.org/10.1080/01441647.2022.2055674</a>.
+</div>
+<div id="ref-vandeVelde2022a" class="csl-entry" role="doc-biblioentry">
+van de Velde, Shannon. 2022. <span>“Design of a Setup for Experimental
+Research on Stability of a Bicycle-Rider System Subject to Large
+Perturbations.”</span> {{MSc thesis}}, Delft, The Netherlands: Delft
+University of Technology.
+</div>
+<div id="ref-vanZytveld1975" class="csl-entry" role="doc-biblioentry">
+van Zytveld, Paul J. 1975. <span>“A Method for the Automatic
+Stabilization of an Unmanned Bicycle.”</span> PhD thesis, Stanford,
+California, USA: Stanford University.
+</div>
+<div id="ref-Wegman2024" class="csl-entry" role="doc-biblioentry">
+Wegman, Fred, and Paul Schepers. 2024. <span>“Safe <span>System</span>
+Approach for Cyclists in the <span>Netherlands</span>:
+<span>Towards</span> Zero Fatalities and Serious Injuries?”</span>
+<em>Accident Analysis &amp; Prevention</em> 195 (February): 107396. <a
+href="https://doi.org/10.1016/j.aap.2023.107396">https://doi.org/10.1016/j.aap.2023.107396</a>.
+</div>
+<div id="ref-Whipple1899" class="csl-entry" role="doc-biblioentry">
+Whipple, Francis J. W. 1899. <span>“The Stability of the Motion of a
+Bicycle.”</span> <em>Quarterly Journal of Pure and Applied
+Mathematics</em> 30: 312–48.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>“Roll” is defined herein as per the SAE J670 vehicle
+standards.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Also available as a preprint <span class="citation"
+data-cites="Haitjema2025">(M. Haitjema, Alizadehsaravi, and Moore
+2025)</span>.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>These motorcycle (and bicycle) eigenmodes are defined in
+<span class="citation" data-cites="Sharp1971">(Sharp 1971)</span>.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>
