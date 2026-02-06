@@ -2,9 +2,10 @@
 
 Source repository for the paper:
 
-"Automatic Bicycle Balance Assistance Reduces Probability of Falling at Low
-Speeds When Subjected to Handlebar Perturbations" by Marten T. Haitjema, Leila
-Alizadehsaravi, and Jason K. Moore
+Haitjema, M. T., Alizadehsaravi, L., & Moore, J. K. (2026). Automatic Bicycle
+Balance Assistance Reduces Probability of Falling at Low Speeds When Subjected
+to Handlebar Perturbations. IATSS Research, 50(1), 701–711.
+https://doi.org/10.1016/j.iatssr.2026.02.001
 
 View the preprint on engrXiv: https://doi.org/10.31224/4003
 
